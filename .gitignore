@@ -1,0 +1,23 @@
+# Code::Blocks & compilación
+bin/
+obj/
+*.depend
+*.layout
+
+# Archivos binarios/objetos
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+
+# Archivos temporales/editores
+*.log
+*.tmp
+*~
+*.swp
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
