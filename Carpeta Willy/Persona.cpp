@@ -11,7 +11,7 @@ using namespace std ;
 
 // Constructor con lista de inicialización para parametros por defecto
 
-Persona::Persona(int id, const std::string& nombre, const std::string& apellido, const std::string& telefono, const std::string& direccion, const std::string& cuit, bool estado)
+Persona::Persona(int id, const std::string &nombre, const std::string &apellido, const std::string &telefono, const std::string &direccion, const std::string &cuit, bool estado)
  : idPersona(id), nombre{}, apellido{}, telefono{}, direccion{}, cuit{}, estado(estado)      // Inicializa el estado y los arrays de char a cero para seguridad
 {
     // setters para asignar las cadenas, lo que asegura el uso de strncpy
@@ -111,16 +111,13 @@ void Persona::setEstado(bool estado) {
 }
 
 
-
-
-
 // METODO CARGAR
 
 void Persona::cargar() {
 
     int id ;
     string str ;
-    bool estado ;
+
 
     //ID
 
@@ -134,6 +131,7 @@ void Persona::cargar() {
 
     setID(id) ;
 
+    cout << endl ;
 
     // Nombre
 
@@ -175,13 +173,9 @@ void Persona::cargar() {
 
     setCuit(str) ;
 
-    //Estado
 
-    cout << "Estado (1- Activo / 0- Inactivo): " ;
 
-    cin >> estado ;
 
-    setEstado(estado) ;
 
     cout << "Registro creado con exito. " ;
 
