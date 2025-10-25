@@ -1,74 +1,82 @@
-#include "Ventas.h"
+#include "Venta.h"
 #include <iostream>
 #include <cstring>
 
 using namespace std;
 
-int Ventas::getID_Venta(){
+Venta::Venta(){
+    ID_Venta(0),ID_persona(0),FechaVenta(0),MedioDePago(0),TipoEnvio(0),SubTotal(0),MontoTotal(0),TipoFactura(0),Estado(true);
+}
+
+Venta::Venta(int id_venta,int id_persona,int fechaventa,int mediopago,int tipoenvio,float subtotal,float montototal,int tipofactura,bool estado)
+:ID_Venta(id_venta),ID_persona(id_persona),FechaVenta(fechaventa),MedioDePago(mediopago),TipoEnvio(tipoenvio),SubTotal(subtotal),MontoTotal(montototal),TipoFactura(tipofactura),Estado(estado)
+{}
+
+int Venta::getID_Venta(){
     return ID_Venta;
 }
 
-int Ventas::getID_Persona(){
+int Venta::getID_Persona(){
     return ID_persona
 }
 
-int Ventas::getFechaVenta(){
+int Venta::getFechaVenta(){
     return FechaVenta;
 }
 
-int Ventas::getMedioPago(){
+int Venta::getMedioPago(){
     return MedioDePago;
 }
 
-int Ventas::getTipoEnvio(){
+int Venta::getTipoEnvio(){
     return TipoEnvio;
 }
 
-float Ventas::getSubTotal(){
+float Venta::getSubTotal(){
     return SubTotal;
 }
 
-float Ventas::getMontoTotal(){
+float Venta::getMontoTotal(){
     return MontoTotal;
 }
 
-int Ventas::getTipoFactura(){
+int Venta::getTipoFactura(){
     return TipoFactura;
 }
 
-bool Ventas::getEstado(){
+bool Venta::getEstado(){
     return Estado;
 }
 
-void Ventas::setID_Venta(int _IDventa){
+void Venta::setID_Venta(int _IDventa){
     ID_Venta = _IDventa;
 }
-void Ventas::setID_Persona(Persona _IDPersona){
+void Venta::setID_Persona(Persona _IDPersona){
     ID_persona = _IDPersona;
 }
-void Ventas::setFechaVenta(Fecha _fechaVenta){
+void Venta::setFechaVenta(Fecha _fechaVenta){
     FechaVenta = _fechaVenta;
 }
-void Ventas::setMedioDePago(int _medioPago){
+void Venta::setMedioDePago(int _medioPago){
     MedioDePago = _medioPago;
 }
-void Ventas::setTipoEnvio(int _tipoEnvio){
+void Venta::setTipoEnvio(int _tipoEnvio){
     TipoEnvio = _tipoEnvio;
 }
-void Ventas::setSubTotal(float _subTotal){
+void Venta::setSubTotal(float _subTotal){
     SubTotal = _subTotal;
 }
-void Ventas::setMontoTotal(float _montoTotal){
+void Venta::setMontoTotal(float _montoTotal){
     MontoTotal = _montoTotal;
 }
-void Ventas::setTipoFactura(int _tipoFactura){
+void Venta::setTipoFactura(int _tipoFactura){
     TipoFactura = _tipoFactura;
 }
-void Ventas::setEstado(bool _estado){
+void Venta::setEstado(bool _estado){
     Estado = _estado;
 }
 
-void Ventas::cargarVenta(){
+void Venta::cargarVenta(){
     int num;
     cout<<"ID_Venta: ";
     cin>>num;
@@ -91,7 +99,7 @@ void Ventas::cargarVenta(){
 
 }
 
-void Ventas::mostrarVenta(){
+void Venta::mostrarVenta(){
     cout<<"ID_Venta: "<<getID_Venta()<<endl;
     cout<<"Medio de Pago: "<<getMedioPago()<<endl;
     cout<<"Tipo Envio: "<<getTipoEnvio()<<endl;

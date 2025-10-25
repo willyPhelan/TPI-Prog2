@@ -15,6 +15,8 @@ class Producto
         bool Estado;
     public:
 
+        Producto();
+        Producto(int id_Producto,int id_Proveedor,const std::string &descripcion,const std::string &marca,int tipoProducto,float precioActual,int garantia,int cantStock,bool estado);
         int getID_Producto();
         Proveedor getID_Proveedor();
         char* getDescripcion();

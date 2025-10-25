@@ -1,7 +1,7 @@
 #pragma once
 #include <cstring>
 
-class Ventas
+class Venta
 {
     private:
         int ID_Venta;
@@ -16,6 +16,9 @@ class Ventas
 
 
     public:
+
+        Venta();
+        Venta(int id_venta,int id_persona,int fechaventa,int mediopago,int tipoenvio,float subtotal,float montototal,int tipofactura,bool estado);
 
         int getID_Venta();
         Persona getID_Persona();

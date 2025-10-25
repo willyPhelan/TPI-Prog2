@@ -6,6 +6,12 @@
 using namespace std;
 
 
+Producto::Producto(){
+    ID_Producto(0),ID_Proveedor(0),TipoProducto(0),PrecioActual(0),Garantia(0),CantidadStock(0),Estado(true);
+}
+Producto::Producto(int id_Producto,int id_Proveedor,int tipoProducto,float precioActual,int garantia,int cantStock,bool estado)
+:ID_Producto(id_Producto),ID_Proveedor(id_Proveedor),TipoProducto(tipoProducto),PrecioActual(precioActual),Garantia(garantia),CantidadStock(cantStock),Estado(estado)
+{}
 
 int Producto::getID_Producto(){
     return ID_Producto;
