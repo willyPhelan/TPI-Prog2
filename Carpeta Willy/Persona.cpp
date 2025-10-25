@@ -116,14 +116,11 @@ void Persona::setEstado(bool estado) {
 void Persona::cargar() {
 
     int id ;
+
     string str ;
 
 
     //ID
-
-    cout << "CARGA DE PERSONA " << endl ;
-
-    cout << "-------------------------------------" << endl ;
 
     cout << "ACA TIENE QUE IR ID AUTOINCREMENTAL: " << endl ; // tiene que se autoincremental!!!
 
@@ -135,7 +132,7 @@ void Persona::cargar() {
 
     // Nombre
 
-    cout << "Ingrese su nombre: " ;
+    cout << "Ingrese el nombre: " ;
 
     str = cargarCadena() ; // Usa tu función para leer strings con espacios
 
@@ -174,12 +171,8 @@ void Persona::cargar() {
     setCuit(str) ;
 
 
+  //  cout << "Registro creado con exito. " ;
 
-
-
-    cout << "Registro creado con exito. " ;
-
-    cout << endl << endl ;
 }
 
 
