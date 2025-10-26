@@ -15,6 +15,14 @@ private:
 
     void subMenuPersonas() ;   // Gestiono el submenu de Personas.
 
+    void subMenuABML() ;
+
+    void subMenuABML_Clientes() ;
+
+    void subMenuABML_Empleados() ;
+
+    void subMenuABML_Proveedores() ;
+
     // Declaraciones de submenús futuros:
 
     // void subMenuProductos();

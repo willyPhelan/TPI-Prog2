@@ -1,10 +1,13 @@
 #include "Menu.h"
 #include <iostream>
 #include "Persona.h" // Necesario para usar la clase Persona
+#include "Empleado.h"
+#include "Cliente.h"
+#include "Proveedor.h"
 
 using namespace std ;
 
-// lógica para el submenu de Personas
+// MENU PERSONAS
 
 void Menu::subMenuPersonas() {
 
@@ -16,15 +19,15 @@ void Menu::subMenuPersonas() {
 
         system("cls") ;
 
+        cout << "MENU ABML PERSONAS" << endl ;
 
-        cout << "MENU PERSONAS" << endl ;
         cout << "--------------------------" << endl ;
 
-        cout << "1. Cargar Nueva Persona" << endl ;
+        cout << "1. Clientes " << endl ;
 
-        cout << "2. Mostrar Personas (Listar todos)" << endl ;
+        cout << "2. Empleados " << endl ;
 
-        cout << "3. Buscar Persona por ID" << endl ;
+        cout << "3. Proveedores " << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -33,7 +36,6 @@ void Menu::subMenuPersonas() {
         cout << "--------------------------" << endl ;
 
         cout << "Ingrese una opcion: " ;
-
 
         cin >> opcion ;
 
@@ -44,41 +46,31 @@ void Menu::subMenuPersonas() {
 
             case 1: {
 
-                 system("cls") ;
-
-
-                Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
-
-                nuevaPersona.cargar() ; // Carga los datos de la persona
-
+                subMenuABML_Clientes() ;
 
                 break ;
+
             }
-            case 2:
 
-                // Aca va la lógica para leer y listar todas las Personas desde un archivo
+            case 2: {
 
-                cout << "Funcionalidad no implementada: Listar Personas." << endl ;
+                subMenuABML_Empleados()  ;
 
-                system("pause") ;
+                break ; }
 
-                break ;
+            case 3: {
 
-            case 3:
+                system("cls") ;
 
-                // Aca va la lógica para buscar una Persona por ID
+                subMenuABML_Proveedores() ;
 
-                cout << "Funcionalidad no implementada: Buscar Persona." << endl ;
+                break ; }
 
-                system("pause") ;
-
-                break ;
-
-            case 0:
+            case 0: {
 
                 cout << "Volviendo al menu principal..." << endl ;
 
-                break ;
+                break ; }
 
             default:
 
@@ -103,11 +95,13 @@ void Menu::mostrar() {
 
         cout << "MENU PRINCIPAL DE GESTION" << endl ;
 
-        cout << "1. PERSONAS" << endl ;
+        cout << "--------------------------" << endl ;
 
-        cout << "2. PRODUCTOS" << endl ;
+        cout << "1. ABML" << endl ;
 
-        cout << "3. VENTAS" << endl ;
+        cout << "2. Reportes " << endl ;
+
+        cout << "3. Copia de seguridad " << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -126,7 +120,7 @@ void Menu::mostrar() {
 
             case 1:
 
-                subMenuPersonas() ; // Llama al submenú de Personas
+                subMenuABML() ;
 
                 break ;
 
@@ -156,7 +150,7 @@ void Menu::mostrar() {
 
             case 0:
 
-                cout << "Saliendo del sistema... ¡Chau!" << endl ;
+                cout << "Saliendo del sistema... " << endl ;
 
                 break ;
 
@@ -171,3 +165,400 @@ void Menu::mostrar() {
 
     } while (opcion != 0) ;
 }
+
+
+void Menu::subMenuABML() {
+
+    int opcion ;
+
+    do {
+
+        system("pause") ;
+
+        system("cls") ;
+
+        cout << "MENU ABML" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "1. ABML Personas " << endl ;      // Llama al submenu de Clientes/Empleados/Proveedores
+
+        cout << "2. ABML Productos " << endl ;
+
+        cout << "3. ABML Ventas " << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "0. Volver al Menu Principal" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cin >> opcion ;
+
+        cout << endl ;
+
+
+        switch (opcion) {
+
+            case 1:
+
+                subMenuPersonas() ; // menú Personas
+
+                break ;
+
+            case 2:
+
+                // Lógica de ABML Productos (Implementación Pendiente)
+
+                cout << "Funcionalidad ABML Productos no implementada." << endl ;
+
+                break ;
+
+            case 3:
+
+                // Lógica de ABML Ventas (Implementación Pendiente)
+
+                cout << "Funcionalidad ABML Ventas no implementada." << endl ;
+
+                break ;
+
+            case 0:
+
+                cout << "Volviendo al menu principal..." << endl ;
+
+                system("pause") ;
+
+                break ;
+
+            default:
+
+                cout << "Opcion Invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
+}
+
+
+
+// SUB MENUS PARA ABMLSSS
+
+// ==================================================================================
+// NUEVO: ESTRUCTURA DE MENÚ CON 4 OPCIONES
+// ==================================================================================
+
+void Menu::subMenuABML_Clientes() {
+
+    int opcion ;
+
+    do {
+
+
+        system("cls") ;
+
+        cout << "ABML Clientes" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "1. Cargar Cliente" << endl ;
+
+        cout << "2. Eliminar Cliente" << endl ;
+
+        cout << "3. Modificar Cliente" << endl ;
+
+        cout << "4. Listar Clientes" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "0. Volver al menu anterior" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cout << endl ;
+
+        cin >> opcion ;
+
+
+        switch (opcion) {
+
+            case 1: {
+
+                system("cls") ;
+
+                cout << "Carga de Cliente" << endl ;
+
+                cout << "-----------------------------------------" << endl ;
+
+                Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
+
+                nuevaPersona.cargar() ; // Carga los datos de la persona
+
+                // a partir de aca cargo los datos especificos de la clase derivada
+
+                Cliente nuevoCliente ;
+
+                nuevoCliente.cargar() ;
+
+                break ;
+            }
+
+            case 2: {
+
+                // LOGICA PARA OPCION 2
+
+                cout << "Eliminar un Cliente" << endl ;
+
+                break ;
+
+            }
+
+            case 3: {
+
+                // LOGICA PARA OPCION 3
+
+                cout << "Modificar un Cliente" << endl ;
+
+                break ;
+            }
+
+            case 4: {
+
+                cout << "Listado de Clientes" << endl ;
+
+                break ;
+            }
+
+            case 0: {
+
+                cout << endl ;
+
+                cout << "Volviendo al menu anterior..." << endl ;
+
+                break ;
+            }
+
+            default:
+
+                cout << "Opcion Invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
+
+}
+
+// SUB MENU ABML EMPLEADOS
+
+void Menu::subMenuABML_Empleados() {
+
+    int opcion ;
+
+    do {
+
+        system("cls") ;
+
+        cout << "ABML Empleados" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "1. Cargar Empleado" << endl ;
+
+        cout << "2. Eliminar Empleado" << endl ;
+
+        cout << "3. Modificar Empleado" << endl ;
+
+        cout << "4. Listar Empleados" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "0. Volver al menu anterior" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cout << endl ;
+
+        cin >> opcion ;
+
+
+        switch (opcion) {
+
+            case 1: {
+
+                system("cls") ;
+
+                cout << "Carga de Empleado" << endl ;
+
+                cout << "-----------------------------------------" << endl ;
+
+                Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
+
+                nuevaPersona.cargar() ; // Carga los datos de la persona
+
+                // a partir de aca cargo los datos especificos de la clase derivada
+
+                Empleado nuevoEmpleado ;
+
+                nuevoEmpleado.cargar() ;
+
+                break ;
+            }
+
+            case 2: {
+
+                // LOGICA PARA OPCION 2
+
+                cout << "Eliminar un Empleado" << endl ;
+
+                break ;
+
+            }
+
+            case 3: {
+
+                // LOGICA PARA OPCION 3
+
+                cout << "Modificar un Empleado" << endl ;
+
+                break ;
+            }
+
+            case 4: {
+
+
+                cout << "Listado de Empleado" << endl ;
+
+                break ;
+            }
+
+            case 0: {
+
+                cout << endl ;
+
+                cout << "Volviendo al menu anterior..." << endl ;
+
+                break ;
+            }
+
+            default:
+
+                cout << "Opcion Invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
+
+}
+
+// SUB MENU ABML PROVEEDORES
+
+void Menu::subMenuABML_Proveedores() {
+
+    int opcion ;
+
+    do {
+
+        system("cls") ;
+
+        cout << "ABML Proveedores" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "1. Cargar Proveedor" << endl ;
+
+        cout << "2. Eliminar Proveedor" << endl ;
+
+        cout << "3. Modificar Proveedor" << endl ;
+
+        cout << "4. Listar Proveedores" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "0. Volver al menu anterior" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cout << endl ;
+
+        cin >> opcion ;
+
+
+        switch (opcion) {
+
+            case 1: {
+
+                system("cls") ;
+
+                cout << "Carga de Proveedor" << endl ;
+
+                cout << "-----------------------------------------" << endl ;
+
+                Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
+
+                nuevaPersona.cargar() ; // Carga los datos de la persona
+
+                // a partir de aca cargo los datos especificos de la clase derivada
+
+                Proveedor nuevoProveedor ;
+
+                nuevoProveedor.cargar() ;
+
+                break ;
+            }
+
+            case 2: {
+
+                // LOGICA PARA OPCION 2
+
+                cout << "Eliminar un Proveedor" << endl ;
+
+                break ;
+
+            }
+
+            case 3: {
+
+                // LOGICA PARA OPCION 3
+
+                cout << "Modificar un Proveedor" << endl ;
+
+                break ;
+            }
+
+            case 4: {
+
+                cout << "Listado de Proveedores" << endl ;
+
+                break ;
+            }
+
+            case 0: {
+
+                cout << endl ;
+
+                cout << "Volviendo al menu anterior..." << endl ;
+
+                break ;
+            }
+
+            default:
+
+                cout << "Opcion Invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
+
+}
+

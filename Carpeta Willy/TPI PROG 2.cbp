@@ -32,6 +32,27 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Cliente.cpp" />
+		<Unit filename="Cliente.h" />
+		<Unit filename="Detalle_Venta.cpp" />
+		<Unit filename="Detalle_Venta.h" />
+		<Unit filename="Empleado.cpp" />
+		<Unit filename="Empleado.h" />
+		<Unit filename="Envio.cpp" />
+		<Unit filename="Envio.h" />
+		<Unit filename="Fecha.cpp" />
+		<Unit filename="Fecha.h" />
+		<Unit filename="Menu.cpp" />
+		<Unit filename="Menu.h" />
+		<Unit filename="Persona.cpp" />
+		<Unit filename="Persona.h" />
+		<Unit filename="Proveedor.cpp" />
+		<Unit filename="Proveedor.h" />
+		<Unit filename="TPI PROG 2.cbp" />
+		<Unit filename="TPI PROG 2.depend" />
+		<Unit filename="Utils.cpp" />
+		<Unit filename="Utils.h" />
+		<Unit filename="comandos.txt" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>
