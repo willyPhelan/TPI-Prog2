@@ -3,7 +3,6 @@
 #include "Producto.h"
 #include "Ventas.h"
 
-
 class Menu {
 
 public:
@@ -22,9 +21,8 @@ private:
 
     void subMenuABML_Proveedores() ;
 
-    void subMenuProductos();
+    void subMenuABML_Productos() ;
 
-    void subMenuVentas();
+    void subMenuABML_Ventas() ;
 
-
-};
+} ;
