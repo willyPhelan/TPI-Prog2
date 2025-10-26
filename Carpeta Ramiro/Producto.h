@@ -1,5 +1,6 @@
 #pragma once
 #include <cstring>
+#include "Proveedor.h"
 
 class Producto
 {
@@ -16,9 +17,9 @@ class Producto
     public:
 
         Producto();
-        Producto(int id_Producto,int id_Proveedor,const std::string &descripcion,const std::string &marca,int tipoProducto,float precioActual,int garantia,int cantStock,bool estado);
+        Producto(int id_Producto,const Proveedor& id_Proveedor,const std::string &descripcion,const std::string &marca,int tipoProducto,float precioActual,int garantia,int cantStock,bool estado);
         int getID_Producto();
-        Proveedor getID_Proveedor();
+        const Proveedor& getID_Proveedor() const;
         char* getDescripcion();
         char* getMarca();
         int getTipoProducto();
@@ -28,7 +29,7 @@ class Producto
         bool getEstado();
 
         void setID_Producto(int _idProducto);
-        void setID_Proveedor(Proveedor ID_Proveedor);
+        void setID_Proveedor(const Proveedor& _idProveedor);
         void setDescripcion(const std::string &_descripcion);
         void setMarca(const std::string &_marca);
         void setTipoProducto(int _tipoProducto);

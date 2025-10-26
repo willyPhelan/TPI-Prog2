@@ -1,0 +1,30 @@
+#pragma once
+#include "Persona.h"
+#include "Producto.h"
+#include "Ventas.h"
+
+
+class Menu {
+
+public:
+
+    void mostrar() ; // muestro opciones
+
+private:
+
+    void subMenuPersonas() ;   // Gestiono el submenu de Personas.
+
+    void subMenuABML() ;
+
+    void subMenuABML_Clientes() ;
+
+    void subMenuABML_Empleados() ;
+
+    void subMenuABML_Proveedores() ;
+
+    void subMenuProductos();
+
+    void subMenuVentas();
+
+
+};

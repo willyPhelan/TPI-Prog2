@@ -1,5 +1,8 @@
 #pragma once
 #include <cstring>
+#include "Persona.h"
+#include "Fecha.h"
+#include "Ventas.h"
 
 class Venta
 {
@@ -18,11 +21,11 @@ class Venta
     public:
 
         Venta();
-        Venta(int id_venta,int id_persona,int fechaventa,int mediopago,int tipoenvio,float subtotal,float montototal,int tipofactura,bool estado);
+        Venta(int id_venta,const Persona& id_persona,const Fecha& fechaventa,int mediopago,int tipoenvio,float subtotal,float montototal,int tipofactura,bool estado);
 
         int getID_Venta();
-        Persona getID_Persona();
-        Fecha getFechaVenta();
+        const Persona& getID_Persona();
+        const Fecha& getFechaVenta();
         int getMedioPago();
         int getTipoEnvio();
         float getSubTotal();
@@ -31,8 +34,8 @@ class Venta
         bool getEstado();
 
         void setID_Venta(int _IDventa);
-        void setID_Persona(Persona _IDPersona);
-        void setFechaVenta(Fecha _fechaVenta);
+        void setID_Persona(const Persona& _IDPersona);
+        void setFechaVenta(const Fecha& _fechaVenta);
         void setMedioDePago(int _medioPago);
         void setTipoEnvio(int _tipoEnvio);
         void setSubTotal(float _subTotal);

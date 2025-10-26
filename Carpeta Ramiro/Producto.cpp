@@ -2,14 +2,16 @@
 #include "Producto.h"
 #include <cstring>
 #include "Utils.h"
+#include "Proveedor.h"
 
 using namespace std;
 
 
-Producto::Producto(){
-    ID_Producto(0),ID_Proveedor(0),TipoProducto(0),PrecioActual(0),Garantia(0),CantidadStock(0),Estado(true);
-}
-Producto::Producto(int id_Producto,int id_Proveedor,int tipoProducto,float precioActual,int garantia,int cantStock,bool estado)
+Producto::Producto()
+: ID_Producto(0),ID_Proveedor(),TipoProducto(0),PrecioActual(0),Garantia(0),CantidadStock(0),Estado(true)
+{}
+
+Producto::Producto(int id_Producto,const Proveedor& id_Proveedor,const std::string &descripcion,const std::string &marca,int tipoProducto,float precioActual,int garantia,int cantStock,bool estado)
 :ID_Producto(id_Producto),ID_Proveedor(id_Proveedor),TipoProducto(tipoProducto),PrecioActual(precioActual),Garantia(garantia),CantidadStock(cantStock),Estado(estado)
 {}
 
@@ -17,7 +19,7 @@ int Producto::getID_Producto(){
     return ID_Producto;
 }
 
-int Producto::getID_Proveedor(){
+const Proveedor& Producto::getID_Proveedor() const{
     return ID_Proveedor;
 }
 char* Producto::getDescripcion(){
@@ -46,7 +48,7 @@ bool Producto::getEstado(){
 void Producto::setID_Producto(int _idProducto){
     ID_Producto = _idProducto;
 }
-void Producto::setID_Proveedor(Proveedor ID_Proveedor){
+void Producto::setID_Proveedor(const Proveedor& _idProveedor){
     ID_Proveedor = _idProveedor;
 }
  void Producto::setDescripcion(const std::string &_descripcion){
@@ -75,10 +77,11 @@ void Producto::setID_Proveedor(Proveedor ID_Proveedor){
 
 void Producto::cargar(){
 
+    int num;
     string str;
     cout<<"Ingrese una ID al Producto: ";
-    cin>> ID_Producto; //aca igual no se debe pedir se debe generar, lo puse para verificar si esta todo bien
-    setID_Producto(ID_Producto);
+    cin>> num;
+    setID_Producto(num);
     cout<<"Ingrese una Descripcion: ";
     str = cargarCadena();
     setDescripcion(str);
@@ -86,20 +89,20 @@ void Producto::cargar(){
     str = cargarCadena();
     setMarca(str);
     cout<<"Ingrese Tipo de Producto: ";
-    cin>> TipoProducto;
-    setTipoProducto(TipoProducto);
+    cin>> num;
+    setTipoProducto(num);
     cout<<"Ingrese el Precio del Producto: ";
-    cin>>PrecioActual;
-    setPrecioActual(PrecioActual);
+    cin>>num;
+    setPrecioActual(num);
     cout<<"Ingrese la Garantia que tiene el Producto: ";
-    cin>>Garantia;
-    setGarantia(Garantia);
+    cin>>num;
+    setGarantia(num);
     cout<<"Ingrese la Cantidad que hay del Producto: ";
-    cin>>CantidadStock;
-    setCantidadStock(CantidadStock);
+    cin>>num;
+    setCantidadStock(num);
     cout << "Estado (1- Activo / 0- Inactivo): " ;
-    cin >>Estado;
-    setEstado(Estado);
+    cin >>num;
+    setEstado(num);
 
 
     system("cls");

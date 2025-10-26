@@ -1,14 +1,16 @@
-#include "Venta.h"
 #include <iostream>
 #include <cstring>
+#include "Persona.h"
+#include "Fecha.h"
+#include "Ventas.h"
 
 using namespace std;
 
-Venta::Venta(){
-    ID_Venta(0),ID_persona(0),FechaVenta(0),MedioDePago(0),TipoEnvio(0),SubTotal(0),MontoTotal(0),TipoFactura(0),Estado(true);
-}
+Venta::Venta()
+: ID_Venta(0),ID_persona(),FechaVenta(0),MedioDePago(0),TipoEnvio(0),SubTotal(0),MontoTotal(0),TipoFactura(0),Estado(true)
+{}
 
-Venta::Venta(int id_venta,int id_persona,int fechaventa,int mediopago,int tipoenvio,float subtotal,float montototal,int tipofactura,bool estado)
+Venta::Venta(int id_venta,const Persona& id_persona,const Fecha& fechaventa,int mediopago,int tipoenvio,float subtotal,float montototal,int tipofactura,bool estado)
 :ID_Venta(id_venta),ID_persona(id_persona),FechaVenta(fechaventa),MedioDePago(mediopago),TipoEnvio(tipoenvio),SubTotal(subtotal),MontoTotal(montototal),TipoFactura(tipofactura),Estado(estado)
 {}
 
@@ -16,11 +18,11 @@ int Venta::getID_Venta(){
     return ID_Venta;
 }
 
-int Venta::getID_Persona(){
-    return ID_persona
+const Persona& Venta::getID_Persona(){
+    return ID_persona;
 }
 
-int Venta::getFechaVenta(){
+const Fecha& Venta::getFechaVenta(){
     return FechaVenta;
 }
 
@@ -51,10 +53,10 @@ bool Venta::getEstado(){
 void Venta::setID_Venta(int _IDventa){
     ID_Venta = _IDventa;
 }
-void Venta::setID_Persona(Persona _IDPersona){
+void Venta::setID_Persona(const Persona& _IDPersona){
     ID_persona = _IDPersona;
 }
-void Venta::setFechaVenta(Fecha _fechaVenta){
+void Venta::setFechaVenta(const Fecha& _fechaVenta){
     FechaVenta = _fechaVenta;
 }
 void Venta::setMedioDePago(int _medioPago){
