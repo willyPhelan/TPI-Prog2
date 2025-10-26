@@ -1,9 +1,7 @@
 #pragma once
 #include "Persona.h"
-
-//incluir Producto y Venta cuando existan
-// #include "Producto.h"
-// #include "Venta.h"
+#include "Producto.h"
+#include "Venta.h"
 
 class Menu {
 
@@ -23,8 +21,8 @@ private:
 
     void subMenuABML_Proveedores() ;
 
-    // Declaraciones de submenús futuros:
+    void subMenuABML_Productos() ;
 
-    // void subMenuProductos();
-    // void subMenuVentas();
-};
+    void subMenuABML_Ventas() ;
+
+} ;

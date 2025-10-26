@@ -210,17 +210,17 @@ void Menu::subMenuABML() {
 
             case 2:
 
-                // Lógica de ABML Productos (Implementación Pendiente)
+                // Lógica de ABML Productos
 
-                cout << "Funcionalidad ABML Productos no implementada." << endl ;
+                subMenuABML_Productos() ;
 
                 break ;
 
             case 3:
 
-                // Lógica de ABML Ventas (Implementación Pendiente)
+                // Lógica de ABML Ventas (
 
-                cout << "Funcionalidad ABML Ventas no implementada." << endl ;
+                subMenuABML_Ventas() ;
 
                 break ;
 
@@ -432,7 +432,6 @@ void Menu::subMenuABML_Empleados() {
 
             case 4: {
 
-
                 cout << "Listado de Empleado" << endl ;
 
                 break ;
@@ -562,3 +561,199 @@ void Menu::subMenuABML_Proveedores() {
 
 }
 
+// SUBMENU ABML PRODUCTOS
+
+void Menu::subMenuABML_Productos(){
+
+    int opcion  ;
+
+    Producto producto1 ; // Instancia de clase Producto
+
+    do {
+
+        system("pause") ;
+
+        system("cls") ;
+
+        cout << "MENU ABML DE PRODUCTOS" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "1. Cargar producto" << endl ;
+
+        cout << "2. Modificar producto (por ID)" << endl ;
+
+        cout << "3. Eliminar producto (Baja logica por ID)" << endl ;
+
+        cout << "4. Listar todos los Productos" << endl ;
+
+         cout << "--------------------------------------------" << endl ;
+
+        cout << "0. Volver al menu ABML" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cout << endl ;
+
+        cin >> opcion ;
+
+        switch (opcion) {
+
+            case 1: {
+
+                // Lógica Cargar Producto
+
+                system("cls") ;
+
+                cout << "Carga de producto" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                producto1.cargar(); // Usamos el método cargar que definiste en Producto.cpp
+
+                cout << endl << "Producto cargado con exito (simulado). Pendiente guardar en archivo." << endl ;
+
+                break ;
+            }
+
+            case 2: {
+
+                // Lógica Modificar Producto
+
+                cout << "Funcionalidad Modificar Producto no implementada." << endl ;
+
+                break ;
+            }
+
+            case 3: {
+
+                // Lógica Eliminar Producto (Baja Lógica)
+
+                cout << "Funcionalidad Eliminar Producto no implementada." << endl ;
+
+                break ;
+            }
+
+
+            case 4: {
+
+                // Lógica Listar TODOS los Productos
+
+                cout << "Funcionalidad Listar TODOS los Productos no implementada." << endl ;
+
+                break ;
+            }
+
+            case 0:
+
+                cout << endl << "Volviendo al menu ABML..." << endl ;
+
+                break ;
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
+}
+
+// SUB MENU VENTAS
+
+void Menu::subMenuABML_Ventas() {
+
+    int opcion ;
+
+    Venta venta1 ; // Instancia de Venta
+
+    do {
+
+        system("pause") ;
+
+        system("cls") ;
+
+        cout << "MENU ABML DE VENTAS" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "1. Cargar venta" << endl ;
+
+        cout << "2. Modificar venta (por ID)" << endl ;
+
+        cout << "3. Anular venta (Baja logica por ID)" << endl ;
+
+        cout << "4. Listar todas las ventas" << endl ;
+
+         cout << "--------------------------------------------" << endl ;
+
+        cout << "0. Volver al menu ABML" << endl ;
+
+         cout << "--------------------------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cout << endl ;
+
+        cin >> opcion ;
+
+        switch (opcion) {
+
+            case 1: {
+
+                // Lógica Cargar Venta
+
+                system("cls") ;
+
+                venta1.cargarVenta() ;
+
+                cout << endl << "Venta cargada con exito (simulada). Pendiente guardar en archivo." << endl ;
+
+                break ;
+            }
+
+            case 2: {
+
+                // Lógica Modificar Venta
+
+                cout << "Funcionalidad modificar venta no implementada." << endl ;
+
+                break ;
+            }
+
+            case 3: {
+
+                // Lógica Anular Venta (Baja Lógica)
+
+                cout << "Funcionalidad anular venta no implementada." << endl ;
+
+                break ;
+            }
+
+            case 4: {
+
+                // Lógica Listar TODAS las Ventas
+
+                cout << "Funcionalidad listar todas las ventas no implementada." << endl ;
+
+                break ;
+            }
+
+            case 0:
+
+                cout << "Volviendo al menu ABML..." << endl ;
+
+                break ;
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
+}

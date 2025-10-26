@@ -46,13 +46,14 @@
 		<Unit filename="Menu.h" />
 		<Unit filename="Persona.cpp" />
 		<Unit filename="Persona.h" />
+		<Unit filename="Producto.cpp" />
+		<Unit filename="Producto.h" />
 		<Unit filename="Proveedor.cpp" />
 		<Unit filename="Proveedor.h" />
-		<Unit filename="TPI PROG 2.cbp" />
-		<Unit filename="TPI PROG 2.depend" />
 		<Unit filename="Utils.cpp" />
 		<Unit filename="Utils.h" />
-		<Unit filename="comandos.txt" />
+		<Unit filename="Venta.cpp" />
+		<Unit filename="Venta.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>
