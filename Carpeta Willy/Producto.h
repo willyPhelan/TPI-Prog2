@@ -34,23 +34,23 @@ class Producto{
 
        // getters
 
-        int getID_Producto() ;
+        int getID_Producto() const ;
 
-        Proveedor getID_Proveedor() ;
+        Proveedor getID_Proveedor() const ;
 
-        char* getDescripcion() ;
+        const char* getDescripcion() const ;
 
-        char* getMarca() ;
+        const char* getMarca() const ;
 
-        int getTipoProducto() ;
+        int getTipoProducto() const ;
 
-        float getPrecioActual() ;
+        float getPrecioActual() const ;
 
-        int getGarantia() ;
+        int getGarantia() const ;
 
-        int getCantStock() ;
+        int getCantStock() const ;
 
-        bool getEstado() ;
+        bool getEstado() const ;
 
         // setters
 

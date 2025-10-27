@@ -2,6 +2,8 @@
 #include <cstring>
 #include "Persona.h"
 #include "Fecha.h"
+#include "Envio.h"
+#include "Detalle_Venta.h"
 
 class Venta{
 

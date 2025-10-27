@@ -30,50 +30,50 @@ Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcio
 
 // getters
 
-int Producto::getID_Producto(){
+int Producto::getID_Producto() const {
 
     return ID_Producto ;
 }
 
-Proveedor Producto::getID_Proveedor(){ // la funcion devuelve un proveedor (composicion)
+Proveedor Producto::getID_Proveedor() const { // la funcion devuelve un proveedor (composicion)
 
     return ID_Proveedor ;
 
 }
 
-char* Producto::getDescripcion(){
+const char* Producto::getDescripcion() const {
 
     return descripcion ;
 }
 
-char* Producto::getMarca(){
+const char* Producto::getMarca() const {
 
     return marca ;
 }
 
-int Producto::getTipoProducto(){
+int Producto::getTipoProducto() const {
 
     return tipoProducto ;
 }
 
-float Producto::getPrecioActual(){
+float Producto::getPrecioActual() const {
 
     return precioActual ;
 }
 
-int Producto::getGarantia(){
+int Producto::getGarantia() const {
 
     return garantia ;
 }
 
-int Producto::getCantStock(){
+int Producto::getCantStock() const {
 
     return cantidadStock ;
 }
 
-bool Producto::getEstado(){
+bool Producto::getEstado() const {
 
-    return estado;
+    return estado ;
 }
 
 // setters
@@ -146,7 +146,7 @@ void Producto::cargar(){
 
     setTipoProducto(tipoProducto) ;
 
-    cout << "Ingrese el precio del producto: " ;
+    cout << "Ingrese el precio del producto: "  ;
 
     cin >> precioActual ;
 

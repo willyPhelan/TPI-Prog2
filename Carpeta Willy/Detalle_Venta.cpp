@@ -99,9 +99,7 @@ void Detalle_Venta::cargar() {
 
     // ID Detalle
 
-    cout << endl << "DETALLE DE VENTA" << endl ;
-
-    cout << "ID Detalle: " ; // ???????? // generado por el usuario o no?
+    cout << endl << "ID Producto: " ; // ???????? // generado por el usuario o no?
 
     cin >> num ;
 
@@ -115,7 +113,7 @@ void Detalle_Venta::cargar() {
 
     setCantidad(num) ;
 
-    // Precio Unitario
+    /* Precio Unitario ----> NO SE PIDE SE CALCULA CON EL PRECIO DE PRODUCTO EN BASE A LA CANTIDAD
 
     cout << "Precio Unitario: " ;
 
@@ -124,7 +122,7 @@ void Detalle_Venta::cargar() {
     setPrecio_Unitario(precio) ;
 
     // El 'estado' (baja lógica) se mantiene en TRUE (activo) por defecto.
-    // El ID_Detalle y el ID_Venta se asignarán en el Manager.
+    // El ID_Detalle y el ID_Venta se asignarán desde el archivo. */
 }
 
 void Detalle_Venta::mostrar() const {

@@ -92,8 +92,6 @@ void Envio::cargar() {
 
     // Fecha de Entrega
 
-    cout << "CARGA DE ENVIO" << endl ;
-
     Fecha fecha ; // Creamos un objeto temporal para la carga
 
     // Asumimos que la clase Fecha tiene un método para cargarse o set/get básicos.
@@ -120,7 +118,7 @@ void Envio::cargar() {
     fecha.setAnio(anio) ;
     setFecha_Entrega(fecha) ;
 
-    // --- Estado de Entrega (1: Pendiente, 2: En curso, 3: Entregado) ---
+    // Estado de Entrega (1: Pendiente, 2: En curso, 3: Entregado)
 
     cout << "Estado de Entrega (1- Pendiente, 2- En curso, 3- Entregado): " ;
 
@@ -128,13 +126,15 @@ void Envio::cargar() {
 
     setEstado_Entrega(estadoEntrega) ;
 
-    // --- Valor del Envío ---
+    // Valor del Envío
 
-    cout << "Valor(en Pesos) del Envio: " ;
+    cout << "Valor (en pesos) del Envio: " ;
 
     cin >> valorEnvio ;
 
     setValor_Envio(valorEnvio) ;
+
+    cout << endl ;
 
     // Estado se mantiene en TRUE (Activo) por defecto
 }

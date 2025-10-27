@@ -125,7 +125,7 @@ void Venta::setEstado(bool _estado){
     estado = _estado ;
 }
 
-void Venta::cargarVenta(){
+/* void Venta::cargarVenta(){
 
     int num ;
 
@@ -165,7 +165,138 @@ void Venta::cargarVenta(){
 
     setTipoFactura(num) ;
 
+} */
+
+
+void Venta::cargarVenta(){
+
+    int num ;
+
+    int continuarDetalle = 1 ;
+
+    float subtotalAcumulado = 0.0 ; // Para calcular el subtotal
+
+    int contadorProductos = 1 ;
+
+    cout << "Carga de una venta" << endl ;
+
+    cout << "--------------------------------------------------------------" << endl ;
+
+    cout << "ID VENTA TIENE QUE SER AUTOINCRMENTAL DESDE ARCHIVO VENTA" << endl ;
+
+    // Carga de ID_Persona y Fecha
+
+    // Lógica de carga de ID_Persona aca
+    // Lógica de carga de Fecha , usando Fecha::cargar()
+
+    Fecha fechaActual ;
+
+    cout << endl << "Carga de Fecha de Venta: " << endl ;
+
+    cout << "--------------------------------------------------------------" << endl ;
+
+    fechaActual.cargar() ;
+
+    setFechaVenta(fechaActual) ;
+
+    //2. Carga de la Cabecera de la Venta
+
+    cout << "--------------------------------------------------------------" << endl ;
+
+    cout << endl << "Medio de pago (1-Efectivo, 2-Tarjeta): " ;
+
+    cin >> num ;
+
+    setMedioDePago(num) ;
+
+    cout << "Tipo de envio: (1- Domicilio, 0- Retiro en Local): " ;
+
+    cin >> num ;
+
+    setTipoEnvio(num) ;
+
+    // 3. Carga Condicional del ENVIO
+
+    if (getTipoEnvio() == 1) { // Si es "Envío a Domicilio"
+
+        Envio datosEnvio ; // Instancia de Envio
+
+        cout << endl << "Carga de datos del envio" << endl ;
+
+        cout << "--------------------------------------------------------------" << endl ;
+
+        datosEnvio.cargar(); // Carga de la fecha, estado, valor, etc.
+
+        // Aca se debería guardar 'datosEnvio' en su archivo (Envios.dat)
+
+        cout << "Detalle de ENVIO cargado. Pendiente de guardar en archivo Envios.dat." << endl ;
+    }
+
+
+    // 4. Carga del DETALLE_VENTA (Bucle)
+
+    cout << endl << "Carga de productos de (DETALLE DE VENTA)" << endl ;
+
+    cout << "--------------------------------------------------------------" << endl ;
+
+    do {
+
+        Detalle_Venta detalle ; // Instancia de Detalle_Venta
+
+        cout << "Producto #" << contadorProductos << " " ;
+
+        detalle.cargar() ; // Carga de ID_Producto, Cantidad, Precio_Unitario
+
+        // CÁLCULO DE SUBTOTAL:
+
+        subtotalAcumulado += (detalle.getCantidad() * detalle.getPrecio_Unitario()) ;
+
+        contadorProductos++ ;
+
+        // *NOTA: Aquí se debería guardar 'linea' en su archivo correspondiente (DetalleVentas.dat)*
+
+        cout << endl << "Linea de Detalle_Venta cargada. Pendiente de guardar en archivo DetalleVentas.dat." << endl ;
+
+        cout << "Desea agregar otro producto a la venta? (1 = Si, 0 = No): "  ;
+
+        cin >> continuarDetalle ;
+
+        cout << endl ;
+
+    } while (continuarDetalle == 1) ;
+
+
+    // 5. Actualización de Totales y Factura
+
+    setSubTotal(subtotalAcumulado) ;
+
+    // El monto total debe incluir impuestos y costo de envío (si aplica)
+
+    setMontoTotal(subtotalAcumulado) ;
+
+    cout << "Tipo de factura: (1- Factura A, 2- Factura B, 3- Factura C): " ;
+
+    cin >> num ;
+
+    cout << endl ;
+
+    cout << "--------------------------------------------------------------" << endl << endl ;
+
+    cout << "Subtotal: " << getSubTotal() << endl ;
+
+    cout << "TOTAL: " << getMontoTotal() << endl ;
+
+    setTipoFactura(num) ;
+
+    // El estado de la Venta es activo por defecto al cargar
+
+    setEstado(true);
+
 }
+
+
+
+
 
 void Venta::mostrarVenta(){
 
