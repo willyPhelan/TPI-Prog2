@@ -12,7 +12,7 @@ int ProductoArchivo::getCantidadRegistros() {
 
     // Abrir en modo binario de lectura ("rb")
 
-    p = fopen(NOMBRE_ARCHIVO, "rb") ;
+    p = fopen(archivo_Producto, "rb") ;
 
     if (p == nullptr) {
 
@@ -69,9 +69,13 @@ bool ProductoArchivo::guardar(const Producto &reg) {
 
     // Abrir en modo binario de adición ("ab")
 
-    p = fopen(NOMBRE_ARCHIVO, "ab") ;
+    p = fopen(archivo_Producto, "ab") ;
 
-    if (p == nullptr) { return false ; }
+    if (p == nullptr) {
+
+            cout << "NO SE PUDO CREAR EL ARCHIVO" ;
+
+            return false ; }
 
     // Escribir el registro al final del archivo
     // fwrite(&variable, tamaño_del_registro, cantidad_de_registros, puntero_archivo)
@@ -95,7 +99,7 @@ Producto ProductoArchivo::leer(int pos) {
 
     // Abrir en modo binario de lectura ("rb")
 
-    p = fopen(NOMBRE_ARCHIVO, "rb") ;
+    p = fopen(archivo_Producto, "rb") ;
 
     if (p == nullptr) {
 
@@ -134,7 +138,7 @@ bool ProductoArchivo::modificar(const Producto &reg) {
 
     // Abrir en modo binario de lectura y escritura ("rb+")
 
-    p = fopen(NOMBRE_ARCHIVO, "rb+") ;
+    p = fopen(archivo_Producto, "rb+") ;
 
     if (p == nullptr) { return false ; }
 
@@ -177,7 +181,7 @@ bool ProductoArchivo::bajaLogica(int id_producto) {
 
     FILE* p ;
 
-    p = fopen(NOMBRE_ARCHIVO, "rb+") ;
+    p = fopen(archivo_Producto, "rb+") ;
 
     if (p == nullptr) { return false ; }
 
@@ -192,4 +196,45 @@ bool ProductoArchivo::bajaLogica(int id_producto) {
     fclose(p) ;
 
     return escrito ;
+}
+
+int ProductoArchivo::obtenerID() {
+
+    FILE* p = fopen(archivo_Producto, "rb") ;
+
+    // Si el archivo no existe o no se puede abrir, es el primer registro.
+
+    if (p == nullptr) {
+
+        return 1 ;
+    }
+
+    // 1. Muevo el puntero al final del archivo
+
+    fseek(p, 0, SEEK_END) ;
+
+    // 2. obtengo la posición (cantidad de bytes)
+
+    int bytes = ftell(p) ;
+
+    // 3. Cierro el archivo inmediatamente
+
+    fclose(p) ;
+
+    // Si el archivo está vacío (0 bytes), el primer ID es 1.
+
+    if (bytes == 0) {
+
+        return 1 ;
+    }
+
+    // 4. Calculo el número de registros: (Total de bytes / Tamaño de un registro)
+
+    // El ID del último registro es igual al número total de registros (asumiendo que empiezan en 1).
+
+    int numRegistros = bytes / sizeof(Producto) ;
+
+    // 5. El nuevo ID es el número de registros existentes + 1.
+
+    return numRegistros + 1 ;
 }

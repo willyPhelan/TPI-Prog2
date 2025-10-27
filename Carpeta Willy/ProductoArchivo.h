@@ -26,6 +26,8 @@ public:
 
     bool modificar(const Producto &reg) ;
 
+    int obtenerID() ; // cuenta los registos y suma 1 para el nuevo ID
+
     //fns Auxiliares
 
     int getCantidadRegistros() ;
@@ -34,6 +36,6 @@ public:
 
 private:
 
-    const char *NOMBRE_ARCHIVO = "Productos.dat" ;
+    const char *archivo_Producto = "Productos.dat" ;
 
 };

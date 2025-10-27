@@ -24,6 +24,7 @@ Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcio
  // setters para asignar cadenas de texto
 
     setDescripcion(descripcion) ;
+
     setMarca(marca) ;
 
 }
@@ -126,13 +127,7 @@ void Producto::cargar(){
 
     string str ;
 
-    cout << endl << "Ingrese un ID al Producto: AUTO INCREMENTAL DESDE PRODUCTO ARCHIVO" << endl ;
-
-    cout << "Ingrese una Descripcion: " ;
-
-    str = cargarCadena() ;
-
-    setDescripcion(str) ;
+  //  cout << endl << "Ingrese un ID al Producto: AUTO INCREMENTAL DESDE PRODUCTO ARCHIVO" << endl ;
 
     cout << "Ingrese la Marca del Producto: " ;
 
@@ -140,19 +135,25 @@ void Producto::cargar(){
 
     setMarca(str) ;
 
-    cout << "Ingrese Tipo de Producto: " ;
+    cout << "Ingrese una Descripcion: " ;
+
+    str = cargarCadena() ;
+
+    setDescripcion(str) ;
+
+    cout << "Ingrese Tipo de Producto (1-PCS, 2-Accesorios, 3-Otros): " ;
 
     cin >> tipoProducto ;
 
     setTipoProducto(tipoProducto) ;
 
-    cout << "Ingrese el precio del producto: "  ;
+    cout << "Ingrese el precio (en pesos) del producto: $"  ;
 
     cin >> precioActual ;
 
     setPrecioActual(precioActual) ;
 
-    cout << "Ingrese la garantia que tiene el producto: " ;
+    cout << "Ingrese la garantia (en meses) que tiene el producto: " ;
 
     cin >> garantia ;
 
@@ -164,11 +165,11 @@ void Producto::cargar(){
 
     setCantidadStock(cantidadStock) ;
 
-    cout << "Estado(1- Activo, 0- Inactivo): " ;
+   /* cout << "Estado(1- Activo, 0- Inactivo): " ;
 
     cin >> estado ;
 
-    setEstado(estado) ;
+    setEstado(estado) ; */
 
 
 
@@ -186,13 +187,13 @@ void Producto::mostrar(){
 
     cout << "Tipo de producto: " << getTipoProducto() << endl ;
 
-    cout << "Precio actual: " << getPrecioActual() << endl ;
+    cout << "Precio actual: $" << getPrecioActual() << endl ;
 
-    cout << "Garantia del producto: " << getGarantia() << " Meses" << endl ;
+    cout << "Garantia del producto: " << getGarantia() << " Mes/es" << endl ;
 
     cout << "Cantidad del producto en stock: " << getCantStock() << endl ;
 
-    cout << "Estado: " << (getEstado() ? "Si" : "No") << endl << endl ;
+    cout << "Estado: " << (getEstado() ? "Activo" : "Inactivo") << endl << endl ;
 
 }
 

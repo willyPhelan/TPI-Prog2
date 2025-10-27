@@ -2,6 +2,7 @@
 #include "Persona.h"
 #include "Producto.h"
 #include "Venta.h"
+#include "ProductoArchivo.h"
 
 class Menu {
 

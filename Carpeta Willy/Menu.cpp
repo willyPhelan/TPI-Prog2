@@ -567,7 +567,7 @@ void Menu::subMenuABML_Productos(){
 
     int opcion  ;
 
-    Producto producto1 ; // Instancia de clase Producto
+    ProductoArchivo archivo1 ;
 
     do {
 
@@ -587,7 +587,7 @@ void Menu::subMenuABML_Productos(){
 
         cout << "4. Listar todos los Productos" << endl ;
 
-         cout << "--------------------------------------------" << endl ;
+        cout << "--------------------------------------------" << endl ;
 
         cout << "0. Volver al menu ABML" << endl ;
 
@@ -611,27 +611,123 @@ void Menu::subMenuABML_Productos(){
 
                 cout << "--------------------------------------------" << endl ;
 
+                Producto producto1 ; // Instancia de clase Producto
+
+                // ASIGNO ID AUTOINCREMENTAL
+
+                int nuevoID = archivo1.obtenerID() ;
+
+                producto1.setID_Producto(nuevoID) ;
+
+                cout << "ID de Producto: " << nuevoID << " (Autogenerado)" << endl;
+
                 producto1.cargar(); // Usamos el método cargar que definiste en Producto.cpp
 
-                cout << endl << "Producto cargado con exito (simulado). Pendiente guardar en archivo." << endl ;
+                // 2. Guardar en el archivo
+
+                if (archivo1.guardar(producto1)) {
+
+                        cout << endl << "Producto cargado con exito." << endl ; } else {
+
+                        cout << "ERROR: No se pudo guardar el producto en el archivo." << endl ; }
 
                 break ;
             }
 
             case 2: {
 
-                // Lógica Modificar Producto
+                // MODIFICAR PRODUCTO
 
-                cout << "Funcionalidad Modificar Producto no implementada." << endl ;
+                system("cls") ;
 
-                break ;
+                int idBuscar ;
+
+                cout << "MODIFICAR PRODUCTO" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID del producto a modificar: " ;
+
+                cin >> idBuscar ;
+
+                cout << endl ;
+
+                // Busco la posicion del registro
+
+                int pos = archivo1.buscarPosicion(idBuscar) ;
+
+                if (pos == -1) {
+
+                    cout << "ERROR: No se encontro ningun producto con ID " << idBuscar << endl ;
+
+                } else {
+
+                    // leo el registro actual
+
+                    Producto regModificar = archivo1.leer(pos) ;
+
+                    cout << "Producto Actual (ID " << idBuscar << ")" << endl ;
+
+                    regModificar.mostrar() ;
+
+                    cout << "--------------------------------------------" << endl ;
+
+                    // 3. Pedir los nuevos datos
+
+                    cout << "Ingrese los nuevos datos del producto (el ID se mantendra):" << endl ;
+
+                    regModificar.cargar() ; // Carga todos los atributos excepto el ID
+
+                    // 4. Aseguro que el ID autoincremental no se pierda al sobreescribir
+
+                    regModificar.setID_Producto(idBuscar) ;
+
+                    // Escribo el registro modificado en la misma posición
+
+                    if (archivo1.modificar(regModificar)) {
+
+                        cout << endl << "Producto (ID " << idBuscar << ") modificado con exito." << endl ;
+
+                    } else {
+
+                        cout << endl << "ERROR: No se pudo escribir la modificacion en el archivo." << endl ;
+                    }
+                }
+
+                break;
             }
+
 
             case 3: {
 
-                // Lógica Eliminar Producto (Baja Lógica)
+                // BAJA LÓGICA
 
-                cout << "Funcionalidad Eliminar Producto no implementada." << endl ;
+                system("cls") ;
+
+                int idBaja ;
+
+                cout << "DAR DE BAJA UN PRODUCTO" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID del producto a dar de baja: " ;
+
+                cin >> idBaja ;
+
+                cout << endl ;
+
+                //Llamo a la fn bajaLogica
+
+                if (archivo1.bajaLogica(idBaja)) {
+
+                    cout << "Producto (ID " << idBaja << ") dado de baja logicamente (Estado: INACTIVO)." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo completar la baja." << endl ;
+
+                    cout << "Posibles razones: El ID " << idBaja << " no existe, o el producto ya esta inactivo." << endl ;
+                }
 
                 break ;
             }
@@ -639,11 +735,37 @@ void Menu::subMenuABML_Productos(){
 
             case 4: {
 
-                // Lógica Listar TODOS los Productos
+                system("cls") ;
 
-                cout << "Funcionalidad Listar TODOS los Productos no implementada." << endl ;
+                int cantidad = archivo1.getCantidadRegistros() ;
 
-                break ;
+                if (cantidad == 0) {
+
+                    cout << "No hay productos cargados en el sistema." << endl ;
+
+                    break ;
+
+                } else {
+
+                cout << "LISTADO DE PRODUCTOS" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                cout << "Cantidad de registros: " << cantidad << endl ;
+
+                for (int i = 0; i < cantidad; i++) {
+
+                    Producto reg = archivo1.leer(i) ;
+
+                        cout << "---------------------------------------------" << endl ;
+
+                        reg.mostrar() ;
+
+                }
+
+                        cout << "---------------------------------------------" << endl ;
+
+                break ; }
             }
 
             case 0:
