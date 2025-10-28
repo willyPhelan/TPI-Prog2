@@ -1,6 +1,4 @@
 #pragma once
-#include "Producto.h"
-#include "Ventas.h"
 
 class Detalle_Venta {
 
@@ -12,15 +10,15 @@ Detalle_Venta() ;
 
 // Constructor con parámetros
 
-Detalle_Venta(int idDetalle,const Producto& idProducto,const Venta& idVenta, int cantidad, float precio, bool activo = true) ;
+Detalle_Venta(int idDetalle, int idProducto, int idVenta, int cantidad, float precio, bool activo = true) ;
 
 //GETTERS
 
     int getID_Detalle() const ;
 
-    Producto getID_Producto() const ;
+    int getID_Producto() const ;
 
-    Venta getID_Venta() const ;
+    int getID_Venta() const ;
 
     int getCantidad() const ;
 
@@ -32,9 +30,9 @@ Detalle_Venta(int idDetalle,const Producto& idProducto,const Venta& idVenta, int
 
     void setID_Detalle(int idDetalle) ;
 
-    void setID_Producto(const Producto& idProducto) ;
+    void setID_Producto(int idProducto) ;
 
-    void setID_Venta(const Venta& idVenta) ;
+    void setID_Venta(int idVenta) ;
 
     void setCantidad(int cantidad) ;
 
@@ -52,8 +50,8 @@ Detalle_Venta(int idDetalle,const Producto& idProducto,const Venta& idVenta, int
 private:
 
     int ID_Detalle ;
-    Producto ID_Producto ;
-    Venta ID_Venta ;
+    int ID_Producto ; // composcion producto
+    int ID_Venta ; // composicion venta
     int cantidad ;
     float precio_Unitario ;
     bool estado ;

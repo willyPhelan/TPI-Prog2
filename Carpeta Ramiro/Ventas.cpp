@@ -14,39 +14,39 @@ Venta::Venta(int id_venta,const Persona& id_persona,const Fecha& fechaventa,int 
 :ID_Venta(id_venta),ID_persona(id_persona),FechaVenta(fechaventa),MedioDePago(mediopago),TipoEnvio(tipoenvio),SubTotal(subtotal),MontoTotal(montototal),TipoFactura(tipofactura),Estado(estado)
 {}
 
-int Venta::getID_Venta(){
+int Venta::getID_Venta()const {
     return ID_Venta;
 }
 
-const Persona& Venta::getID_Persona(){
+Persona Venta::getID_Persona()const{
     return ID_persona;
 }
 
-const Fecha& Venta::getFechaVenta(){
+Fecha Venta::getFechaVenta()const{
     return FechaVenta;
 }
 
-int Venta::getMedioPago(){
+int Venta::getMedioPago()const{
     return MedioDePago;
 }
 
-int Venta::getTipoEnvio(){
+int Venta::getTipoEnvio()const{
     return TipoEnvio;
 }
 
-float Venta::getSubTotal(){
+float Venta::getSubTotal()const{
     return SubTotal;
 }
 
-float Venta::getMontoTotal(){
+float Venta::getMontoTotal()const{
     return MontoTotal;
 }
 
-int Venta::getTipoFactura(){
+int Venta::getTipoFactura()const{
     return TipoFactura;
 }
 
-bool Venta::getEstado(){
+bool Venta::getEstado()const{
     return Estado;
 }
 
@@ -80,19 +80,16 @@ void Venta::setEstado(bool _estado){
 
 void Venta::cargarVenta(){
     int num;
-    cout<<"ID_Venta: ";
-    cin>>num;
-    setID_Venta(num);
-    cout<<"Medio de Pago: ";
+    cout<<"Medio de Pago(1-Efectivo/2-Transferencia/3-Tarjeta Credito/4-Tarjeta Debito): ";
     cin>>num;
     setMedioDePago(num);
     cout<<"Tipo Envio(1/Domicilio o 0/Retiro en Local): ";
     cin>>num;
     setTipoEnvio(num);
-    cout<<"SubTotal: ";
+    cout<<"SubTotal: $";
     cin>>num;
     setSubTotal(num);
-    cout<<"Monto Total: ";
+    cout<<"Monto Total: $";
     cin>>num;
     setMontoTotal(num);
     cout<<"TipoFactura: ";
@@ -108,4 +105,6 @@ void Venta::mostrarVenta(){
     cout<<"Sub Total: "<<getSubTotal()<<endl;
     cout<<"Monto Total: "<<getMontoTotal()<<endl;
     cout<<"Tipo de Factura: "<<getTipoFactura()<<endl;
+    cout<<"Estado: "<<(getEstado()?"Activo":"Inactivo")<<endl<<endl;
+
 }

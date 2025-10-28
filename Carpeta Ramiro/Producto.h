@@ -2,44 +2,79 @@
 #include <cstring>
 #include "Proveedor.h"
 
-class Producto
-{
+class Producto{
+
     private:
-        int ID_Producto;
-        Proveedor ID_Proveedor;
-        char Descripcion[200];
-        char Marca[20];
-        int TipoProducto;
-        float PrecioActual;
-        int Garantia;
-        int CantidadStock;
-        bool Estado;
+
+        int ID_Producto ;
+
+        Proveedor ID_Proveedor ;
+
+        char descripcion[200] ;
+
+        char marca[20] ;
+
+        int tipoProducto ;
+
+        float precioActual ;
+
+        int garantia ;
+
+        int cantidadStock ;
+
+        bool estado ;
+
     public:
 
-        Producto();
-        Producto(int id_Producto,const Proveedor& id_Proveedor,const std::string &descripcion,const std::string &marca,int tipoProducto,float precioActual,int garantia,int cantStock,bool estado);
-        int getID_Producto();
-        const Proveedor& getID_Proveedor() const;
-        char* getDescripcion();
-        char* getMarca();
-        int getTipoProducto();
-        float getPrecioActual();
-        int getGarantia();
-        int getCantStock();
-        bool getEstado();
+        // constructores
 
-        void setID_Producto(int _idProducto);
-        void setID_Proveedor(const Proveedor& _idProveedor);
-        void setDescripcion(const std::string &_descripcion);
-        void setMarca(const std::string &_marca);
-        void setTipoProducto(int _tipoProducto);
-        void setPrecioActual(float _precioActual);
-        void setGarantia(int _garantia);
-        void setCantidadStock(int _cantStock);
-        void setEstado(bool _estado);
+        Producto() ;
 
-        void cargar();
-        void Mostrar();
+        Producto(int id_Producto, int id_Proveedor, const std::string &descripcion, const std::string &marca ,int tipoProducto, float precioActual, int garantia, int cantStock, bool estado=true) ;
+
+       // getters
+
+        int getID_Producto() const ;
+
+        Proveedor getID_Proveedor() const ;
+
+        const char* getDescripcion() const ;
+
+        const char* getMarca() const ;
+
+        int getTipoProducto() const ;
+
+        float getPrecioActual() const ;
+
+        int getGarantia() const ;
+
+        int getCantStock() const ;
+
+        bool getEstado() const ;
+
+        // setters
+
+        void setID_Producto(int _idProducto) ;
+
+        void setID_Proveedor(Proveedor ID_Proveedor) ;
+
+        void setDescripcion(const std::string &_descripcion) ;
+
+        void setMarca(const std::string &_marca) ;
+
+        void setTipoProducto(int _tipoProducto) ;
+
+        void setPrecioActual(float _precioActual) ;
+
+        void setGarantia(int _garantia) ;
+
+        void setCantidadStock(int _cantStock) ;
+
+        void setEstado(bool _estado) ;
+
+        void cargar() ;
+
+        void mostrar() ;
 
 };
 

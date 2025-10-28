@@ -2,6 +2,8 @@
 #include "Persona.h"
 #include "Producto.h"
 #include "Ventas.h"
+#include "ProductoArchivo.h"
+#include "VentaArchivo.h"
 
 class Menu {
 

@@ -2,7 +2,6 @@
 #include "Fecha.h"  // Necesario para el atributo Fecha_Entrega
 #include "Utils.h" // funciones aux
 #include <iostream>
-#include "Ventas.h"
 
 
 using namespace std ;
@@ -13,12 +12,12 @@ using namespace std ;
 // Constructor por defecto
 
 Envio::Envio()
-: ID_Venta(), estado_Entrega(0), valor_Envio(0.0f), estado(true) // Estado por defecto: Activo
+: ID_Venta(0), estado_Entrega(0), valor_Envio(0.0f), estado(true) // Estado por defecto: Activo
 {}
 
 // Constructor con parámetros
 
-Envio::Envio(const Venta& idVenta,const Fecha& fecha, int estado, float valor, bool activo)
+Envio::Envio(int idVenta, Fecha fecha, int estado, float valor, bool activo)
  : ID_Venta(idVenta), fecha_Entrega(fecha), estado_Entrega(estado), valor_Envio(valor), estado(activo)
 {}
 
@@ -26,12 +25,12 @@ Envio::Envio(const Venta& idVenta,const Fecha& fecha, int estado, float valor, b
 
 // GETTERS
 
-Venta Envio::getID_Venta()const{
+int Envio::getID_Venta() const {
 
     return ID_Venta ;
 }
 
-Fecha Envio::getFecha_Entrega()const{
+Fecha Envio::getFecha_Entrega() const {
 
     return fecha_Entrega ;
 }
@@ -54,7 +53,7 @@ bool Envio::getEstado() const {
 
 // SETTERS
 
-void Envio::setID_Venta(const Venta& idVenta) {
+void Envio::setID_Venta(int idVenta) {
 
     ID_Venta = idVenta ;
 }
@@ -93,8 +92,6 @@ void Envio::cargar() {
 
     // Fecha de Entrega
 
-    cout << "CARGA DE ENVIO" << endl ;
-
     Fecha fecha ; // Creamos un objeto temporal para la carga
 
     // Asumimos que la clase Fecha tiene un método para cargarse o set/get básicos.
@@ -121,7 +118,7 @@ void Envio::cargar() {
     fecha.setAnio(anio) ;
     setFecha_Entrega(fecha) ;
 
-    // --- Estado de Entrega (1: Pendiente, 2: En curso, 3: Entregado) ---
+    // Estado de Entrega (1: Pendiente, 2: En curso, 3: Entregado)
 
     cout << "Estado de Entrega (1- Pendiente, 2- En curso, 3- Entregado): " ;
 
@@ -129,13 +126,15 @@ void Envio::cargar() {
 
     setEstado_Entrega(estadoEntrega) ;
 
-    // --- Valor del Envío ---
+    // Valor del Envío
 
-    cout << "Valor(en Pesos) del Envio: " ;
+    cout << "Valor (en pesos) del Envio: " ;
 
     cin >> valorEnvio ;
 
     setValor_Envio(valorEnvio) ;
+
+    cout << endl ;
 
     // Estado se mantiene en TRUE (Activo) por defecto
 }
@@ -144,7 +143,7 @@ void Envio::mostrar() const {
 
     cout << endl << "DATOS DEL ENVIO" << endl ;
 
-//    cout << "ID Venta: " << getID_Venta() << endl ;
+    cout << "ID Venta: " << getID_Venta() << endl ;
 
     cout << "Fecha de Entrega: " ;
 

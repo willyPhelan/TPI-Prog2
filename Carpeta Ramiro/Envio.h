@@ -1,6 +1,5 @@
 #pragma once
 #include "Fecha.h"
-#include "Ventas.h"
 
 class Envio {
 
@@ -9,11 +8,11 @@ public:
 
     Envio() ; // constructor
 
-    Envio(const Venta& idVenta,const Fecha& fecha, int estado, float valor, bool activo) ;
+    Envio(int idVenta, Fecha fecha, int estado, float valor, bool activo) ;
 
     // getters
 
-    Venta getID_Venta() const ;
+    int getID_Venta() const ;
 
     Fecha getFecha_Entrega() const ;
 
@@ -25,7 +24,7 @@ public:
 
     // setters
 
-    void setID_Venta(const Venta& idVenta) ;
+    void setID_Venta(int idVenta) ;
 
     void setFecha_Entrega(const Fecha& fecha) ;
 
@@ -43,9 +42,9 @@ public:
 
 private:
 
-    Venta ID_Venta;
+    int ID_Venta ; // va por composicion
 
-    Fecha fecha_Entrega; // composicion Fecha
+    Fecha fecha_Entrega ; // composicion Fecha
 
     int estado_Entrega ;
 

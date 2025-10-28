@@ -1,124 +1,199 @@
-#include <iostream>
+#include "Utils.h"
 #include "Producto.h"
 #include <cstring>
-#include "Utils.h"
-#include "Proveedor.h"
-
-using namespace std;
+#include <iostream>
 
 
-Producto::Producto()
-: ID_Producto(0),ID_Proveedor(),TipoProducto(0),PrecioActual(0),Garantia(0),CantidadStock(0),Estado(true)
-{}
+using namespace std ;
 
-Producto::Producto(int id_Producto,const Proveedor& id_Proveedor,const std::string &descripcion,const std::string &marca,int tipoProducto,float precioActual,int garantia,int cantStock,bool estado)
-:ID_Producto(id_Producto),ID_Proveedor(id_Proveedor),TipoProducto(tipoProducto),PrecioActual(precioActual),Garantia(garantia),CantidadStock(cantStock),Estado(estado)
-{}
+// constructores
 
-int Producto::getID_Producto(){
-    return ID_Producto;
+Producto::Producto() // por defecto con lista de inicializacion
+
+: ID_Producto(0), ID_Proveedor(), descripcion{}, marca{}, tipoProducto(0), precioActual(0.0), garantia(0), cantidadStock(0), estado(true)
+{} // inicializo los arrays marca y descripcion vacios
+
+// consturctor con parametros
+
+Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcion, const string &marca ,int _tipoProducto, float _precioActual, int _garantia, int _cantStock, bool _estado)
+
+// Aca ID_Proveedor() llama al constructor por defecto de Proveedor
+
+: ID_Producto(_id_Producto), ID_Proveedor(), tipoProducto(_tipoProducto), precioActual(_precioActual), garantia(_garantia), cantidadStock(_cantStock), estado(_estado)
+{
+ // setters para asignar cadenas de texto
+
+    setDescripcion(descripcion) ;
+
+    setMarca(marca) ;
+
 }
 
-const Proveedor& Producto::getID_Proveedor() const{
-    return ID_Proveedor;
-}
-char* Producto::getDescripcion(){
-    return Descripcion;
+// getters
+
+int Producto::getID_Producto() const {
+
+    return ID_Producto ;
 }
 
-char* Producto::getMarca(){
-    return Marca;
+Proveedor Producto::getID_Proveedor() const { // la funcion devuelve un proveedor (composicion)
+
+    return ID_Proveedor ;
+
 }
-int Producto::getTipoProducto(){
-    return TipoProducto;
+
+const char* Producto::getDescripcion() const {
+
+    return descripcion ;
 }
-float Producto::getPrecioActual(){
-    return PrecioActual;
+
+const char* Producto::getMarca() const {
+
+    return marca ;
 }
-int Producto::getGarantia(){
-    return Garantia;
+
+int Producto::getTipoProducto() const {
+
+    return tipoProducto ;
 }
-int Producto::getCantStock(){
-    return CantidadStock;
+
+float Producto::getPrecioActual() const {
+
+    return precioActual ;
 }
-bool Producto::getEstado(){
-    return Estado;
+
+int Producto::getGarantia() const {
+
+    return garantia ;
 }
+
+int Producto::getCantStock() const {
+
+    return cantidadStock ;
+}
+
+bool Producto::getEstado() const {
+
+    return estado ;
+}
+
+// setters
 
 void Producto::setID_Producto(int _idProducto){
-    ID_Producto = _idProducto;
+
+    ID_Producto = _idProducto ;
 }
-void Producto::setID_Proveedor(const Proveedor& _idProveedor){
-    ID_Proveedor = _idProveedor;
+
+void Producto::setID_Proveedor(Proveedor ID_Proveedor){
+
+    ID_Proveedor = ID_Proveedor ;
 }
- void Producto::setDescripcion(const std::string &_descripcion){
-    strncpy(this->Descripcion,_descripcion.c_str(),19);
+
+void Producto::setDescripcion(const std::string &_descripcion){
+
+    strncpy(this->descripcion, _descripcion.c_str(), 19) ;
  }
+
   void Producto::setMarca(const std::string &_marca){
-    strncpy(this->Marca,_marca.c_str(),19);
+
+    strncpy(this->marca, _marca.c_str(), 19) ;
  }
 
  void Producto::setTipoProducto(int _tipoProducto){
-    TipoProducto = _tipoProducto;
+
+    tipoProducto = _tipoProducto ;
  }
 
  void Producto::setPrecioActual(float _precioActual){
-    PrecioActual = _precioActual;
+
+    precioActual = _precioActual;
  }
+
  void Producto::setGarantia(int _garantia){
-    Garantia = _garantia;
+    garantia = _garantia;
  }
+
  void Producto::setCantidadStock(int _cantStock){
-    CantidadStock = _cantStock;
+
+    cantidadStock = _cantStock ;
  }
+
  void Producto::setEstado(bool _estado){
-    this-> Estado = _estado;
+
+    this-> estado = _estado ;
  }
 
 void Producto::cargar(){
 
-    int num;
-    string str;
-    cout<<"Ingrese una ID al Producto: ";
-    cin>> num;
-    setID_Producto(num);
-    cout<<"Ingrese una Descripcion: ";
-    str = cargarCadena();
-    setDescripcion(str);
-    cout<<"Ingrese la Marca del Producto: ";
-    str = cargarCadena();
-    setMarca(str);
-    cout<<"Ingrese Tipo de Producto: ";
-    cin>> num;
-    setTipoProducto(num);
-    cout<<"Ingrese el Precio del Producto: ";
-    cin>>num;
-    setPrecioActual(num);
-    cout<<"Ingrese la Garantia que tiene el Producto: ";
-    cin>>num;
-    setGarantia(num);
-    cout<<"Ingrese la Cantidad que hay del Producto: ";
-    cin>>num;
-    setCantidadStock(num);
-    cout << "Estado (1- Activo / 0- Inactivo): " ;
-    cin >>num;
-    setEstado(num);
+    string str ;
+
+  //  cout << endl << "Ingrese un ID al Producto: AUTO INCREMENTAL DESDE PRODUCTO ARCHIVO" << endl ;
+
+    cout << "Ingrese la Marca del Producto: " ;
+
+    str = cargarCadena() ;
+
+    setMarca(str) ;
+
+    cout << "Ingrese una Descripcion: " ;
+
+    str = cargarCadena() ;
+
+    setDescripcion(str) ;
+
+    cout << "Ingrese Tipo de Producto (1-PCS, 2-Accesorios, 3-Otros): " ;
+
+    cin >> tipoProducto ;
+
+    setTipoProducto(tipoProducto) ;
+
+    cout << "Ingrese el precio (en pesos) del producto: $"  ;
+
+    cin >> precioActual ;
+
+    setPrecioActual(precioActual) ;
+
+    cout << "Ingrese la garantia (en meses) que tiene el producto: " ;
+
+    cin >> garantia ;
+
+    setGarantia(garantia) ;
+
+    cout << "Ingrese la cantidad que hay del producto: " ;
+
+    cin >> cantidadStock ;
+
+    setCantidadStock(cantidadStock) ;
+
+   /* cout << "Estado(1- Activo, 0- Inactivo): " ;
+
+    cin >> estado ;
+
+    setEstado(estado) ; */
 
 
-    system("cls");
 
 }
 
-void Producto::Mostrar(){
-    cout<<"ID de Producto: "<<getID_Producto()<< endl;
-    cout<<"ID de Proveedor: "<<200<< endl;
-    cout<<"Descripcon: "<<getDescripcion()<< endl;
-    cout<<"Marca: "<<getMarca()<< endl;
-    cout<<"Tipo de Producto: "<<getTipoProducto()<< endl;
-    cout<<"Precio Actual: "<<getPrecioActual()<< endl;
-    cout<<"Garantia del Producto: "<<getGarantia()<<" Meses"<< endl;
-    cout<<"Cantidad del Producto en stock: "<<getCantStock()<< endl;
-    cout<<"Estado: "<< (getEstado() ? "Si" : "No") << endl << endl ;
+void Producto::mostrar(){
+
+    cout << "ID de producto: " << getID_Producto() << endl ;
+
+    cout << "ID de proveedor: " << 200 << endl ;
+
+    cout << "Descripcon: " << getDescripcion() << endl ;
+
+    cout << "Marca: " << getMarca() << endl ;
+
+    cout << "Tipo de producto: " << getTipoProducto() << endl ;
+
+    cout << "Precio actual: $" << getPrecioActual() << endl ;
+
+    cout << "Garantia del producto: " << getGarantia() << " Mes/es" << endl ;
+
+    cout << "Cantidad del producto en stock: " << getCantStock() << endl ;
+
+    cout << "Estado: " << (getEstado() ? "Activo" : "Inactivo") << endl << endl ;
 
 }
 

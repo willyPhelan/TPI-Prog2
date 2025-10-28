@@ -1,8 +1,6 @@
 #include "Detalle_Venta.h"
 #include <iostream>
 #include "Utils.h"
-#include "Producto.h"
-#include "Ventas.h"
 
 using namespace std;
 
@@ -11,12 +9,12 @@ using namespace std;
 // Constructor por defecto
 
 Detalle_Venta::Detalle_Venta()
-: ID_Detalle(0), ID_Producto(), ID_Venta(), cantidad(0), precio_Unitario(0.0f), estado(true) // Estado Activo por defecto
+ : ID_Detalle(0), ID_Producto(0), ID_Venta(0), cantidad(0), precio_Unitario(0.0f), estado(true) // Estado Activo por defecto
 {}
 
 // Constructor con parámetros
 
-Detalle_Venta::Detalle_Venta(int idDetalle,const Producto& idProducto,const Venta& idVenta, int cantidad, float precio, bool activo)
+Detalle_Venta::Detalle_Venta(int idDetalle, int idProducto, int idVenta, int cantidad, float precio, bool activo)
  : ID_Detalle(idDetalle), ID_Producto(idProducto), ID_Venta(idVenta), cantidad(cantidad), precio_Unitario(precio), estado(activo)
 {}
 
@@ -28,12 +26,12 @@ int Detalle_Venta::getID_Detalle() const {
     return ID_Detalle ;
 }
 
-Producto Detalle_Venta::getID_Producto() const {
+int Detalle_Venta::getID_Producto() const {
 
     return ID_Producto ;
 }
 
-Venta Detalle_Venta::getID_Venta() const {
+int Detalle_Venta::getID_Venta() const {
 
     return ID_Venta ;
 }
@@ -61,12 +59,12 @@ void Detalle_Venta::setID_Detalle(int idDetalle) {
     ID_Detalle = idDetalle ;
 }
 
-void Detalle_Venta::setID_Producto(const Producto& idProducto) {
+void Detalle_Venta::setID_Producto(int idProducto) {
 
     ID_Producto = idProducto ;
 }
 
-void Detalle_Venta::setID_Venta(const Venta& idVenta) {
+void Detalle_Venta::setID_Venta(int idVenta) {
 
     ID_Venta = idVenta ;
 }
@@ -101,13 +99,11 @@ void Detalle_Venta::cargar() {
 
     // ID Detalle
 
-    cout << endl << "DETALLE DE VENTA" << endl ;
-
-    cout << "ID Detalle: " ; // ???????? // generado por el usuario o no?
+    cout << endl << "ID Producto: " ; // ???????? // generado por el usuario o no?
 
     cin >> num ;
 
-//    setID_Producto(num) ;
+    setID_Producto(num) ;
 
     // Cantidad
 
@@ -117,7 +113,7 @@ void Detalle_Venta::cargar() {
 
     setCantidad(num) ;
 
-    // Precio Unitario
+    /* Precio Unitario ----> NO SE PIDE SE CALCULA CON EL PRECIO DE PRODUCTO EN BASE A LA CANTIDAD
 
     cout << "Precio Unitario: " ;
 
@@ -126,16 +122,16 @@ void Detalle_Venta::cargar() {
     setPrecio_Unitario(precio) ;
 
     // El 'estado' (baja lógica) se mantiene en TRUE (activo) por defecto.
-    // El ID_Detalle y el ID_Venta se asignarán en el Manager.
+    // El ID_Detalle y el ID_Venta se asignarán desde el archivo. */
 }
 
 void Detalle_Venta::mostrar() const {
 
     cout << "  - ID Detalle: " << getID_Detalle() << endl ;
 
-//    cout << "  - ID Producto: " << getID_Producto() << endl ;
+    cout << "  - ID Producto: " << getID_Producto() << endl ;
 
-//    cout << "  - ID Venta Asociada: " << getID_Venta() << endl ;
+    cout << "  - ID Venta Asociada: " << getID_Venta() << endl ;
 
     cout << "  - Cantidad: " << getCantidad() << endl ;
 

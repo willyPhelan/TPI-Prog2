@@ -4,8 +4,7 @@
 #include "Fecha.h"
 #include "Ventas.h"
 
-class Venta
-{
+class Venta{
     private:
         int ID_Venta;
         Persona ID_persona;
@@ -23,15 +22,15 @@ class Venta
         Venta();
         Venta(int id_venta,const Persona& id_persona,const Fecha& fechaventa,int mediopago,int tipoenvio,float subtotal,float montototal,int tipofactura,bool estado);
 
-        int getID_Venta();
-        const Persona& getID_Persona();
-        const Fecha& getFechaVenta();
-        int getMedioPago();
-        int getTipoEnvio();
-        float getSubTotal();
-        float getMontoTotal();
-        int getTipoFactura();
-        bool getEstado();
+        int getID_Venta()const;
+        Persona getID_Persona()const;
+        Fecha getFechaVenta()const;
+        int getMedioPago()const;
+        int getTipoEnvio()const;
+        float getSubTotal()const;
+        float getMontoTotal()const;
+        int getTipoFactura()const;
+        bool getEstado()const;
 
         void setID_Venta(int _IDventa);
         void setID_Persona(const Persona& _IDPersona);
