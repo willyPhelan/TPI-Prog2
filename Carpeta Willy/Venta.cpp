@@ -30,7 +30,7 @@ Venta::Venta(int id_venta, int id_persona, const Fecha &_fechaVenta, int _mediop
 
 // getters
 
-int Venta::getID_Venta(){
+int Venta::getID_Venta() const {
 
     return ID_Venta ;
 }
@@ -178,12 +178,6 @@ void Venta::cargarVenta(){
 
     int contadorProductos = 1 ;
 
-    cout << "Carga de una venta" << endl ;
-
-    cout << "--------------------------------------------------------------" << endl ;
-
-    cout << "ID VENTA TIENE QUE SER AUTOINCRMENTAL DESDE ARCHIVO VENTA" << endl ;
-
     // Carga de ID_Persona y Fecha
 
     // Lógica de carga de ID_Persona aca
@@ -217,20 +211,7 @@ void Venta::cargarVenta(){
 
     // 3. Carga Condicional del ENVIO
 
-    if (getTipoEnvio() == 1) { // Si es "Envío a Domicilio"
 
-        Envio datosEnvio ; // Instancia de Envio
-
-        cout << endl << "Carga de datos del envio" << endl ;
-
-        cout << "--------------------------------------------------------------" << endl ;
-
-        datosEnvio.cargar(); // Carga de la fecha, estado, valor, etc.
-
-        // Aca se debería guardar 'datosEnvio' en su archivo (Envios.dat)
-
-        cout << "Detalle de ENVIO cargado. Pendiente de guardar en archivo Envios.dat." << endl ;
-    }
 
 
     // 4. Carga del DETALLE_VENTA (Bucle)
@@ -295,16 +276,13 @@ void Venta::cargarVenta(){
 }
 
 
-
-
-
 void Venta::mostrarVenta(){
 
     cout << "ID_Venta: " <<getID_Venta() << endl ;
 
     cout << "Medio de pago: " <<getMedioPago() << endl ;
 
-    cout << "Tipo de envio: " << getTipoEnvio() << endl ;
+    cout << "Forma de entrega: " << getTipoEnvio() << endl ;
 
     cout << "Subtotal: " << getSubTotal() << endl ;
 

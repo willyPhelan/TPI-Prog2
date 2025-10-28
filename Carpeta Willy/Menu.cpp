@@ -784,13 +784,19 @@ void Menu::subMenuABML_Productos(){
     } while (opcion != 0) ;
 }
 
+
+
 // SUB MENU VENTAS
 
 void Menu::subMenuABML_Ventas() {
 
     int opcion ;
 
-    Venta venta1 ; // Instancia de Venta
+    // Declaro e instancio el obj de gestión de archivos
+
+    VentaArchivo archivoVenta ;
+
+    EnvioArchivo archivoEnvio ;
 
     do {
 
@@ -810,65 +816,227 @@ void Menu::subMenuABML_Ventas() {
 
         cout << "4. Listar todas las ventas" << endl ;
 
-         cout << "--------------------------------------------" << endl ;
+        cout << "5. Gestionar ventas con envios" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
 
         cout << "0. Volver al menu ABML" << endl ;
 
-         cout << "--------------------------------------------" << endl ;
+        cout << "--------------------------------------------" << endl ;
 
         cout << "Ingrese una opcion: " ;
 
+        cin >> opcion ;
+
         cout << endl ;
 
-        cin >> opcion ;
 
         switch (opcion) {
 
-            case 1: {
-
-                // Lógica Cargar Venta
+            case 1: { // Cargar Venta
 
                 system("cls") ;
 
-                venta1.cargarVenta() ;
+                cout<< "Carga de Venta" << endl ;
 
-                cout << endl << "Venta cargada con exito (simulada). Pendiente guardar en archivo." << endl ;
+                cout << "--------------------------------------------------------------" << endl ;
+
+                Venta nuevaVenta ; // instancio obj
+
+                // Obtengo ID autoincremental
+
+                int nuevoID = archivoVenta.obtenerID() ;
+
+                nuevaVenta.setID_Venta(nuevoID); //  Asigno el ID
+
+                cout << "ID de Venta: " << nuevoID << " (Autogenerado)" << endl ;
+
+                // Carga de datos restantes
+
+                nuevaVenta.cargarVenta() ;
+
+                // 3. Guardar en el archivo
+
+                if(archivoVenta.guardar(nuevaVenta)){
+
+                    cout << endl << "Venta cargada con exito (ID: "<< nuevoID <<")." << endl ;
+
+                    if (nuevaVenta.getTipoEnvio() == 1) {
+
+                    cout << "--------------------------------------------------------------" << endl ;
+
+                    cout << "Creando registro de envio..." << endl ;
+
+                    Envio nuevoEnvio ;
+
+                    // Asigno IDS
+
+                        int nuevoID_Envio = archivoEnvio.obtenerID() ; // Obtengo el ID autoincremental para Envio
+
+                        nuevoEnvio.setID_Envio(nuevoID_Envio) ;   // ID del Envio
+
+                        nuevoEnvio.setID_Venta(nuevoID) ;        // ID de la Venta recien creada
+
+                        // 2. Cargar datos del Envio
+
+                        nuevoEnvio.cargar() ; // Llama al metodo cargar() en Envio.cpp
+
+                        // 3. Guardar el Envío en su archivo
+
+                        if (archivoEnvio.guardar(nuevoEnvio)) {
+
+                            cout << "Envio cargado con exito (ID_Envio: " << nuevoID_Envio << ")." << endl ;
+
+                        } else {
+
+                            cout << "ERROR: No se pudo guardar el Envio." << endl;
+                        }
+
+                    } else {
+
+                        cout << "Venta no requiere envio (Retiro en local). No se creo registro de Envio." << endl ;
+                    }
+
+                } else {
+
+                    cout << "No se pudo guardar la venta en el archivo." << endl ;
+                }
 
                 break ;
             }
 
-            case 2: {
+            case 2: { // Modificar Venta
 
-                // Lógica Modificar Venta
+                system("cls")  ;
 
-                cout << "Funcionalidad modificar venta no implementada." << endl ;
+                int idBuscar ;
+
+                cout << "Modificar una Venta" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID de la Venta a modificar: " ;
+
+                cout << endl ;
+
+                // 1. Buscar la posición
+
+                int pos = archivoVenta.buscarPosicion(idBuscar) ;
+
+                if(pos == -1){
+
+                    cout << "ERROR: No se encontro ninguna Venta con ID "<< idBuscar << endl ;
+
+                } else {
+
+                    Venta regModificar = archivoVenta.leer(pos) ; // 2. Leo el registro actual
+
+                    cout << "Venta Actual (ID " << idBuscar << ")" << endl ;
+
+                    regModificar.mostrarVenta() ;
+
+                    cout << "--------------------------------------------" << endl ;
+
+                    cout << "Ingrese los nuevos datos de la venta (el ID se mantendra):" << endl ;
+
+                    regModificar.cargarVenta() ; // Carga de los datos nuevos
+
+                    regModificar.setID_Venta(idBuscar) ; // Aseguro que el ID se mantenga
+
+                    // Modifico en el archivo
+
+                    if(archivoVenta.modificar(regModificar)){
+
+                        cout << endl << "Venta (ID "<< idBuscar << ") modificada con exito." << endl ;
+
+                    } else {
+
+                        cout << endl << "ERROR: No se pudo escribir la modificacion en el archivo." << endl ;
+                    }
+                }
 
                 break ;
             }
 
-            case 3: {
+            case 3: { // Anular Venta (Baja Lógica)
 
-                // Lógica Anular Venta (Baja Lógica)
+                system("cls") ;
 
-                cout << "Funcionalidad anular venta no implementada." << endl ;
+                int idBaja ;
+
+                cout << "Anular una venta" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID de la venta a anular: " ;
+
+                cin >> idBaja ;
+
+                cout << endl ;
+
+                // llamo a la función bajaLogica
+
+                if(archivoVenta.bajaLogica(idBaja)){
+
+                    cout << "Venta (ID " << idBaja << ") anulada logicamente (Estado: INACTIVO)." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo completar la anulación." << endl ;
+
+                    cout << "Posibles razones: El ID " << idBaja << " no existe, o la venta ya estaba inactiva." << endl ;
+                }
 
                 break ;
             }
 
-            case 4: {
+            case 4: { // Listar Ventas
 
-                // Lógica Listar TODAS las Ventas
+                system("cls") ;
 
-                cout << "Funcionalidad listar todas las ventas no implementada." << endl ;
+                int cantidad = archivoVenta.getCantidadRegistros() ;
+
+                if (cantidad == 0){
+
+                    cout << "No hay ventas cargadas en el sistema." << endl ;
+
+                    break ;
+                }
+
+                cout << "Listado de ventas" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                cout << "Cantidad de registros: " << cantidad << endl ;
+
+                for (int i=0; i<cantidad; i++){
+
+                    Venta reg = archivoVenta.leer(i) ;
+
+                    cout << "---------------------------------------------" << endl ;
+
+                    reg.mostrarVenta() ;
+
+                }
+
+                cout << "---------------------------------------------" << endl ;
 
                 break ;
             }
 
-            case 0:
+            case 5: {
+
+                    subMenuABML_Envios() ;
+
+                    break ;
+            }
+
+            case 0: {
 
                 cout << "Volviendo al menu ABML..." << endl ;
 
                 break ;
+            }
 
             default:
 
@@ -878,4 +1046,191 @@ void Menu::subMenuABML_Ventas() {
         }
 
     } while (opcion != 0) ;
+}
+
+// MENU ENVIOS
+
+void Menu::subMenuABML_Envios() {
+
+    int opcion ;
+
+    // Se asume que has incluido "EnvioArchivo.h"
+
+    EnvioArchivo archivoEnvio ;
+
+    do {
+
+        system("pause") ;
+
+        system("cls") ;
+
+        cout << "MENU ABML DE ENVIOS" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "1. Modificar envio (por ID_Envio)" << endl ;
+
+        cout << "2. Anular envio (por ID_Envio)" << endl ;
+
+        cout << "3. Listar todos los Envios" << endl ;
+
+        cout << "4. Buscar envio por ID" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "0. Volver al menu ABML" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cin >> opcion ;
+
+        cout << endl ;
+
+
+        switch (opcion) {
+
+            case 1: { // Modificar Envío
+
+                system("cls") ;
+
+                int idBuscar ;
+
+                cout << "Modificar envio" << endl ;
+
+                cout << "Ingrese el ID de envio a modificar: " ;
+
+                cin >> idBuscar ;
+
+                int pos = archivoEnvio.buscarPosicion(idBuscar) ; // Busca por ID_Envío (PK)
+
+                if (pos == -1) {
+
+                    cout << "No se encontro envio con ID " << idBuscar << endl ;
+
+                    break ;
+                }
+
+                Envio regModificar = archivoEnvio.leer(pos) ;
+
+                cout << "Envio actual (ID " << idBuscar << "):" ;
+
+                regModificar.mostrar() ; // Asumimos que tienes este método
+
+                cout << "Ingrese los nuevos datos del envio: " << endl ;
+
+                regModificar.cargar() ;
+
+                regModificar.setID_Envio(idBuscar) ;
+
+                if (archivoEnvio.modificar(regModificar)) {
+
+                    cout << "Envio (ID " << idBuscar << ") modificado con exito." << endl ;
+
+                } else {
+
+                    cout << "ERROR al modificar el registro." << endl ;
+                }
+
+                break ;
+            }
+
+            case 2: { // Anular Envio
+
+                system("cls") ;
+
+                int idBaja ;
+
+                cout << "Anular un envio" << endl ;
+
+                cout << "Ingrese el ID de Envio a anular: " ;
+
+                cin >> idBaja ;
+
+                if (archivoEnvio.bajaLogica(idBaja)) { // Usa ID_Envío
+
+                    cout << "Envio (ID " << idBaja << ") anulado logicamente." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo anular el envio o ya estaba inactivo." << endl ;
+                }
+
+                break ;
+            }
+
+            case 3: { // Listar envios
+
+                system("cls") ;
+
+                cout << "Listado de todos los envios" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                int cantidad = archivoEnvio.getCantidadRegistros() ;
+
+                if (cantidad == 0) { cout << "No hay envios cargados." << endl ; break ; }
+
+                for (int i = 0; i < cantidad; i++) {
+
+                    Envio reg = archivoEnvio.leer(i) ;
+
+                    cout << "Registro #" << i + 1  << endl ;
+
+                    reg.mostrar() ;
+                }
+
+                cout << "---------------------------------------------" << endl ;
+
+                break ;
+            }
+
+            case 4: { // Buscar por ID_Venta
+
+                system("cls") ;
+
+                int idVentaBuscar ;
+
+                cout << "Buscar envio por ID" << endl ;
+
+                cout << "Ingrese el ID del envio: " ;
+
+                cin >> idVentaBuscar ;
+
+                // Usa la función de búsqueda secundaria
+
+                int pos = archivoEnvio.buscarPosicionPorID_Venta(idVentaBuscar) ;
+
+                if (pos == -1) {
+
+                    cout << "No se encontro el envio asociado con ese ID " << idVentaBuscar << endl ;
+
+                    break ;
+                }
+
+                Envio reg = archivoEnvio.leer(pos) ;
+
+                cout << "Envio encontrado (ID_Venta: " << idVentaBuscar << " - ID_Envio: " << reg.getID_Envio() << ")\n" ;
+
+                reg.mostrar() ;
+
+                break ;
+            }
+
+            case 0: {
+
+                cout << "Volviendo al menu ABML..." << endl ;
+
+                break ;
+            }
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0);
 }

@@ -38,7 +38,7 @@ class Venta{
 
     // getters
 
-        int getID_Venta() ;
+        int getID_Venta() const ;
 
         Persona getID_Persona() ;
 

@@ -12,18 +12,23 @@ using namespace std ;
 // Constructor por defecto
 
 Envio::Envio()
-: ID_Venta(0), estado_Entrega(0), valor_Envio(0.0f), estado(true) // Estado por defecto: Activo
+: ID_Envio(0), estado_Entrega(0), valor_Envio(0.0f), estado(true) // Estado por defecto: Activo
 {}
 
 // Constructor con parámetros
 
-Envio::Envio(int idVenta, Fecha fecha, int estado, float valor, bool activo)
- : ID_Venta(idVenta), fecha_Entrega(fecha), estado_Entrega(estado), valor_Envio(valor), estado(activo)
+Envio::Envio(int idEnvio, Fecha fecha, int estado, float valor, bool activo)
+ : ID_Envio(idEnvio), fecha_Entrega(fecha), estado_Entrega(estado), valor_Envio(valor), estado(activo)
 {}
 
 
 
 // GETTERS
+
+int Envio::getID_Envio() const {
+
+    return ID_Envio ;
+}
 
 int Envio::getID_Venta() const {
 
@@ -53,9 +58,14 @@ bool Envio::getEstado() const {
 
 // SETTERS
 
-void Envio::setID_Venta(int idVenta) {
+void Envio::setID_Envio(int idEnvio) {
 
-    ID_Venta = idVenta ;
+    ID_Envio = idEnvio ;
+}
+
+void Envio::setID_Venta(int id_venta) {
+
+    ID_Venta = id_venta ;
 }
 
 void Envio::setFecha_Entrega(const Fecha& fecha) {
@@ -128,7 +138,7 @@ void Envio::cargar() {
 
     // Valor del Envío
 
-    cout << "Valor (en pesos) del Envio: " ;
+    cout << "Valor (en pesos) del Envio: $" ;
 
     cin >> valorEnvio ;
 
@@ -143,7 +153,7 @@ void Envio::mostrar() const {
 
     cout << endl << "DATOS DEL ENVIO" << endl ;
 
-    cout << "ID Venta: " << getID_Venta() << endl ;
+    cout << "ID Envio: " << getID_Envio() << endl ;
 
     cout << "Fecha de Entrega: " ;
 

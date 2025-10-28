@@ -12,6 +12,8 @@ public:
 
     // getters
 
+    int getID_Envio() const ;
+
     int getID_Venta() const ;
 
     Fecha getFecha_Entrega() const ;
@@ -24,7 +26,9 @@ public:
 
     // setters
 
-    void setID_Venta(int idVenta) ;
+    void setID_Envio(int idEnvio) ;
+
+    void setID_Venta(int id_venta);
 
     void setFecha_Entrega(const Fecha& fecha) ;
 
@@ -42,9 +46,11 @@ public:
 
 private:
 
-    int ID_Venta ; // va por composicion
+    int ID_Envio ;
 
-    Fecha fecha_Entrega ; // composicion Fecha
+    int ID_Venta ;
+
+    Fecha fecha_Entrega ;
 
     int estado_Entrega ;
 
