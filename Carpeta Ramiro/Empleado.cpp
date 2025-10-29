@@ -1,7 +1,9 @@
 #include "Empleado.h"
 #include <iostream>
+#include <string>
 #include <cstring>
 #include "Utils.h"
+#include "EmpleadoArchivo.h"
 
 using namespace std ;
 
@@ -47,9 +49,11 @@ void Empleado::cargar(){
     string datos ;
     int datos2 ;
 
-    /* cout << "Ingrese el CUIT del empleado: " << endl ;
+    EmpleadoArchivo reg;
+
+    cout << "Ingrese el CUIT del empleado: " << endl ;
     cin >> datos;
-    Empleado::setCuit(datos); */
+    Empleado::setCuit(datos);
 
     cout << "Ingrese el tipo de empleado: " ;
 
@@ -63,7 +67,7 @@ void Empleado::cargar(){
 
     Empleado::setHoras_Trabajo(datos2) ;
 
-   /* cout << "Ingrese el nombre del empleado: " << endl;
+    cout << "Ingrese el nombre del empleado: " << endl;
     cin >> datos;
     Empleado::setNombre(datos);
 
@@ -79,7 +83,9 @@ void Empleado::cargar(){
     datos = cargarCadena();
     Empleado::setDireccion(datos);
 
-    Empleado::setEstado(true); */
+    Empleado::setEstado(true);
+
+    Empleado::setID(reg.getCantidadRegistros()+1);
 
     cout<< endl << "El empleado fue agregado con exito. " << endl ;
 
@@ -95,6 +101,8 @@ void Empleado::mostrar(){
 
     cout << endl ;
 
+    cout << "ID del empleado: " << Empleado::getID() << endl;
+
     cout << "Nombre y apellido del empleado: " << Empleado::getNombre() << " " << Empleado::getApellido() << endl ;
 
     cout << "Telefono del empleado: " << Empleado::getTelefono() << endl ;
@@ -107,12 +115,20 @@ void Empleado::mostrar(){
 
     cout << "Horas trabajadas por semana del empleado: " << Empleado::getHoras_Trabajo() << endl ;
 
-    cout << "Estado: " << Empleado::getEstado() << endl ;
+    if (Empleado::getEstado())
+    {
+        cout << "Estado: Activo " << endl;
+    }else{
+
+        cout << "Estado: Inactivo " << endl;
+    }
+
+    //cout << "Estado: " << Empleado::getEstado() << endl ;
 
     cout << endl ;
 
-    system("pause") ;
+  //  system("pause") ;
 
-    system("cls") ;
+   // system("cls") ;
 
 }

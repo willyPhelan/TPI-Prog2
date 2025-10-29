@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstring>
 #include "Utils.h"
+#include "ClienteArchivo.h"
 
 using namespace std ;
 
@@ -55,11 +56,13 @@ void Cliente::cargar(){
     string datos ;
     int tipo_Cliente ;
 
-  /*  cout << "Ingrese el CUIT del cliente: " << endl ;
+    ClienteArchivo reg;
+
+    cout << "Ingrese el CUIT del cliente: " << endl ;
 
     cin >> datos ;
 
-    Cliente::setCuit(datos) ; */
+    Cliente::setCuit(datos) ;
 
     cout << "Ingrese el tipo de cliente: " ;
 
@@ -69,7 +72,7 @@ void Cliente::cargar(){
 
 
 
-   /* cout << "Ingrese el nombre del cliente: " << endl ;
+    cout << "Ingrese el nombre del cliente: " << endl ;
 
     cin >> datos ;
 
@@ -91,7 +94,7 @@ void Cliente::cargar(){
 
     datos = cargarCadena() ;
 
-    Cliente::setDireccion(datos) ; */
+    Cliente::setDireccion(datos) ;
 
     cout << "Ingrese el mail del cliente: "  ;
 
@@ -100,6 +103,8 @@ void Cliente::cargar(){
     Cliente::setMail(datos) ;
 
     Cliente::setEstado(true) ;
+
+    Cliente::setID(reg.getCantidadRegistros()+1);
 
     cout << endl ;
 
@@ -116,6 +121,8 @@ void Cliente::mostrar(){
 
     cout << endl ;
 
+    cout << "ID del cliente: " << Cliente::getID() << endl;
+
     cout << "Nombre y apellido del cliente: " << Cliente::getNombre() << " " << Cliente::getApellido() << endl ;
 
     cout << "Telefono del cliente: " << Cliente::getTelefono() << endl ;
@@ -128,12 +135,18 @@ void Cliente::mostrar(){
 
     cout << "Tipo de cliente: " << Cliente::getTipo_Cliente() << endl ;
 
-    cout << "Estado: " << Cliente::getEstado() << endl ;
+    if (Cliente::getEstado())
+    {
+        cout << "Estado: Activo " << endl;
+    }else{
+
+        cout << "Estado: Inactivo " << endl;
+    }
 
     cout << endl ;
 
-    system ("pause") ;
+ //   system ("pause") ;
 
-    system ("cls") ;
+  //  system ("cls") ;
 }
 

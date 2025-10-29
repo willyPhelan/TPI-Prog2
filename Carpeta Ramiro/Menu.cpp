@@ -4,85 +4,9 @@
 #include "Empleado.h"
 #include "Cliente.h"
 #include "Proveedor.h"
-#include "Ventas.h"
 
 using namespace std ;
 
-// MENU PERSONAS
-
-void Menu::subMenuPersonas() {
-
-    int opcion ;
-
-    do {
-
-        system("pause") ;
-
-        system("cls") ;
-
-        cout << "MENU ABML PERSONAS" << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "1. Clientes " << endl ;
-
-        cout << "2. Empleados " << endl ;
-
-        cout << "3. Proveedores " << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "0. Volver al Menu Principal" << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "Ingrese una opcion: " ;
-
-        cin >> opcion ;
-
-        cout << endl ;
-
-
-        switch (opcion) {
-
-            case 1: {
-
-                subMenuABML_Clientes() ;
-
-                break ;
-
-            }
-
-            case 2: {
-
-                subMenuABML_Empleados()  ;
-
-                break ; }
-
-            case 3: {
-
-                system("cls") ;
-
-                subMenuABML_Proveedores() ;
-
-                break ; }
-
-            case 0: {
-
-                cout << "Volviendo al menu principal..." << endl ;
-
-                break ; }
-
-            default:
-
-                cout << "Opcion Invalida. Intente de nuevo." << endl ;
-
-                system("pause") ;
-
-                break ;
-        }
-    } while (opcion != 0) ;
-}
 
 // MENU PRINCIPAL
 
@@ -98,11 +22,23 @@ void Menu::mostrar() {
 
         cout << "--------------------------" << endl ;
 
-        cout << "1. ABML" << endl ;
+        cout << "1. Clientes" << endl ;
 
-        cout << "2. Reportes " << endl ;
+        cout << "2. Proveedores" << endl ;
 
-        cout << "3. Copia de seguridad " << endl ;
+        cout << "3. Empleados" << endl ;
+
+        cout << "4. Productos" << endl ;
+
+        cout << "5. Ventas" << endl ;
+
+        cout << "6. Envios" << endl ;
+
+        cout << "7. Listados" << endl ;
+
+        cout << "8. Reportes " << endl ;
+
+        cout << "9. Copia de seguridad " << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -121,18 +57,55 @@ void Menu::mostrar() {
 
             case 1:
 
-                subMenuABML() ;
+                subMenuABML_Clientes() ;
 
                 break ;
 
             case 2:
 
+                subMenuABML_Proveedores() ;
 
                 break ;
 
             case 3:
 
+                subMenuABML_Empleados() ;
 
+                break ;
+
+             case 4:
+
+                subMenuABML_Productos() ;
+
+                break ;
+
+             case 5:
+
+                subMenuABML_Ventas() ;
+
+                break ;
+
+             case 6:
+
+                subMenuABML_Envios() ;
+
+                break ;
+
+             case 7:
+
+                subMenuABML_Listados() ;
+
+                break ;
+
+             case 8:
+
+                cout << "REPORTES ACA" << endl ;
+
+                break ;
+
+             case 9:
+
+                cout << "COPIA SEGURIDAD ACA" << endl ;
 
                 break ;
 
@@ -154,89 +127,7 @@ void Menu::mostrar() {
     } while (opcion != 0) ;
 }
 
-
-void Menu::subMenuABML() {
-
-    int opcion ;
-
-    do {
-
-        system("pause") ;
-
-        system("cls") ;
-
-        cout << "MENU ABML" << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "1. ABML Personas " << endl ;      // Llama al submenu de Clientes/Empleados/Proveedores
-
-        cout << "2. ABML Productos " << endl ;
-
-        cout << "3. ABML Ventas " << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "0. Volver al Menu Principal" << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "Ingrese una opcion: " ;
-
-        cin >> opcion ;
-
-        cout << endl ;
-
-
-        switch (opcion) {
-
-            case 1:
-
-                subMenuPersonas() ; // menú Personas
-
-                break ;
-
-            case 2:
-
-                // Lógica de ABML Productos
-
-                subMenuABML_Productos() ;
-
-                break ;
-
-            case 3:
-
-                // Lógica de ABML Ventas (
-
-                subMenuABML_Ventas() ;
-
-                break ;
-
-            case 0:
-
-                cout << "Volviendo al menu principal..." << endl ;
-
-                system("pause") ;
-
-                break ;
-
-            default:
-
-                cout << "Opcion Invalida. Intente de nuevo." << endl ;
-
-                break ;
-        }
-
-    } while (opcion != 0) ;
-}
-
-
-
-// SUB MENUS PARA ABMLSSS
-
-// ==================================================================================
-// NUEVO: ESTRUCTURA DE MENÚ CON 4 OPCIONES
-// ==================================================================================
+// SUB MENU CLIENTES
 
 void Menu::subMenuABML_Clientes() {
 
@@ -247,7 +138,7 @@ void Menu::subMenuABML_Clientes() {
 
         system("cls") ;
 
-        cout << "ABML Clientes" << endl ;
+        cout << "Menu de clientes" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -256,8 +147,6 @@ void Menu::subMenuABML_Clientes() {
         cout << "2. Eliminar Cliente" << endl ;
 
         cout << "3. Modificar Cliente" << endl ;
-
-        cout << "4. Listar Clientes" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -282,15 +171,13 @@ void Menu::subMenuABML_Clientes() {
 
                 cout << "-----------------------------------------" << endl ;
 
-                Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
-
-                nuevaPersona.cargar() ; // Carga los datos de la persona
-
-                // a partir de aca cargo los datos especificos de la clase derivada
-
                 Cliente nuevoCliente ;
 
                 nuevoCliente.cargar() ;
+
+                ClienteArchivo reg;
+
+                reg.guardar(nuevoCliente);
 
                 break ;
             }
@@ -300,6 +187,16 @@ void Menu::subMenuABML_Clientes() {
                 // LOGICA PARA OPCION 2
 
                 cout << "Eliminar un Cliente" << endl ;
+
+                int id_persona;
+
+                cout << "Ingrese el ID del cliente que desee borrar: " << endl;
+
+                cin >> id_persona;
+
+                ClienteArchivo reg;
+
+                reg.bajaLogica(id_persona);
 
                 break ;
 
@@ -311,12 +208,44 @@ void Menu::subMenuABML_Clientes() {
 
                 cout << "Modificar un Cliente" << endl ;
 
-                break ;
-            }
+                int idBuscar;
 
-            case 4: {
+                cout << "Ingrese el ID del cliente a modificar: " << endl;
 
-                cout << "Listado de Clientes" << endl ;
+                cin >> idBuscar;
+
+                ClienteArchivo archivo;
+
+                Cliente reg;
+
+                int pos = archivo.buscarPosicion (idBuscar);
+
+                if (pos == -1)
+                {
+                    cout << "ERROR: No se encontro un cliente con ese ID. " << endl;
+                }else{
+                    reg = archivo.leer(pos);
+
+                    reg.mostrar();
+
+                    cout << "--------------------------------------------" << endl;
+
+                    cout << "Ingrese los nuevos datos del cliente (el ID se mantendra): " << endl;
+
+                    reg.cargar();
+
+                    reg.setID(idBuscar);
+
+                    if (archivo.modificar(reg))
+                    {
+
+                        cout << endl << "Cliente modificado con exito. " << endl;
+
+                    }else{
+
+                        cout << endl << "ERROR: No se pudo escribir la modificacion en el archivo. " << endl;
+                    }
+                }
 
                 break ;
             }
@@ -351,7 +280,7 @@ void Menu::subMenuABML_Empleados() {
 
         system("cls") ;
 
-        cout << "ABML Empleados" << endl ;
+        cout << "Menu de empleados" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -360,8 +289,6 @@ void Menu::subMenuABML_Empleados() {
         cout << "2. Eliminar Empleado" << endl ;
 
         cout << "3. Modificar Empleado" << endl ;
-
-        cout << "4. Listar Empleados" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -386,15 +313,14 @@ void Menu::subMenuABML_Empleados() {
 
                 cout << "-----------------------------------------" << endl ;
 
-                Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
-
-                nuevaPersona.cargar() ; // Carga los datos de la persona
-
-                // a partir de aca cargo los datos especificos de la clase derivada
-
                 Empleado nuevoEmpleado ;
 
                 nuevoEmpleado.cargar() ;
+
+
+                EmpleadoArchivo reg;
+
+                reg.guardar(nuevoEmpleado);
 
                 break ;
             }
@@ -404,6 +330,16 @@ void Menu::subMenuABML_Empleados() {
                 // LOGICA PARA OPCION 2
 
                 cout << "Eliminar un Empleado" << endl ;
+
+                int id_persona;
+
+                cout << "Ingrese el id del empleado que desee borrar: " << endl;
+
+                cin >> id_persona;
+
+                EmpleadoArchivo reg;
+
+                reg.bajaLogica(id_persona);
 
                 break ;
 
@@ -415,12 +351,45 @@ void Menu::subMenuABML_Empleados() {
 
                 cout << "Modificar un Empleado" << endl ;
 
-                break ;
-            }
+                int idBuscar ;
 
-            case 4: {
+                cout << "Ingrese el ID del empleado a modificar: " << endl;
 
-                cout << "Listado de Empleado" << endl ;
+                cin >> idBuscar ;
+
+                EmpleadoArchivo archivo;
+
+                Empleado reg;
+
+                int pos = archivo.buscarPosicion(idBuscar) ;
+
+                if (pos == -1) {
+
+                    cout << "ERROR: No se encontro ningun empleado con ese ID. " << endl;
+
+                } else {
+
+                    reg = archivo.leer(pos) ;
+
+                    reg.mostrar();
+
+                    cout << "--------------------------------------------" << endl ;
+
+                    cout << "Ingrese los nuevos datos del empleado (el ID se mantendra):" << endl ;
+
+                    reg.cargar();
+
+                    reg.setID(idBuscar);
+
+                    if (archivo.modificar(reg)) {
+
+                        cout << endl << "Empleado modificado con exito. " << endl;
+
+                    } else {
+
+                        cout << endl << "ERROR: No se pudo escribir la modificacion en el archivo." << endl ;
+                    }
+                }
 
                 break ;
             }
@@ -455,7 +424,7 @@ void Menu::subMenuABML_Proveedores() {
 
         system("cls") ;
 
-        cout << "ABML Proveedores" << endl ;
+        cout << "Menu de Proveedores" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -464,8 +433,6 @@ void Menu::subMenuABML_Proveedores() {
         cout << "2. Eliminar Proveedor" << endl ;
 
         cout << "3. Modificar Proveedor" << endl ;
-
-        cout << "4. Listar Proveedores" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -490,15 +457,13 @@ void Menu::subMenuABML_Proveedores() {
 
                 cout << "-----------------------------------------" << endl ;
 
-                Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
-
-                nuevaPersona.cargar() ; // Carga los datos de la persona
-
-                // a partir de aca cargo los datos especificos de la clase derivada
-
                 Proveedor nuevoProveedor ;
 
                 nuevoProveedor.cargar() ;
+
+                ProveedorArchivo reg;
+
+                reg.guardar(nuevoProveedor);
 
                 break ;
             }
@@ -508,6 +473,16 @@ void Menu::subMenuABML_Proveedores() {
                 // LOGICA PARA OPCION 2
 
                 cout << "Eliminar un Proveedor" << endl ;
+
+                int id_persona;
+
+                cout << "Ingrese el ID del proveedor que desee borrar: " << endl;
+
+                cin >> id_persona;
+
+                ProveedorArchivo reg;
+
+                reg.bajaLogica(id_persona);
 
                 break ;
 
@@ -519,15 +494,51 @@ void Menu::subMenuABML_Proveedores() {
 
                 cout << "Modificar un Proveedor" << endl ;
 
+                 int idBuscar;
+
+                cout << "Ingrese el ID del proveedor a modificar: " << endl;
+
+                cin >> idBuscar;
+
+                ProveedorArchivo archivo;
+
+                Proveedor reg;
+
+                int pos = archivo.buscarPosicion(idBuscar);
+
+                if (pos == -1)
+                {
+                    cout << "ERROR: No se encontro ningun proveedor con ese ID. " << endl;
+
+                }else{
+
+                    reg = archivo.leer(pos);
+
+                    reg.mostrar ();
+
+                    cout << "--------------------------------------------" << endl;
+
+                    cout << "Ingrese los nuevos datos del proveedor (el ID se mantedra): " << endl;
+
+                    reg.cargar();
+
+                    reg.setID(idBuscar);
+
+                    if (archivo.modificar(reg))
+                    {
+
+                        cout << endl << "Proveedor modificado con exito. " << endl;
+
+                    }else{
+
+                        cout << endl << "ERROR: No se pudo escribir la modificacion en el archivo. " << endl;
+
+                    }
+                }
+
                 break ;
             }
 
-            case 4: {
-
-                cout << "Listado de Proveedores" << endl ;
-
-                break ;
-            }
 
             case 0: {
 
@@ -563,7 +574,7 @@ void Menu::subMenuABML_Productos(){
 
         system("cls") ;
 
-        cout << "MENU ABML DE PRODUCTOS" << endl ;
+        cout << "Menu productos" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -571,9 +582,7 @@ void Menu::subMenuABML_Productos(){
 
         cout << "2. Modificar producto (por ID)" << endl ;
 
-        cout << "3. Eliminar producto (Baja logica por ID)" << endl ;
-
-        cout << "4. Listar todos los Productos" << endl ;
+        cout << "3. Dar de baja un producto" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -630,7 +639,7 @@ void Menu::subMenuABML_Productos(){
 
                 int idBuscar ;
 
-                cout << "MODIFICAR PRODUCTO" << endl ;
+                cout << "Modificar producto" << endl ;
 
                 cout << "--------------------------------------------" << endl ;
 
@@ -694,7 +703,7 @@ void Menu::subMenuABML_Productos(){
 
                 int idBaja ;
 
-                cout << "DAR DE BAJA UN PRODUCTO" << endl ;
+                cout << "Dar de baja un producto" << endl ;
 
                 cout << "--------------------------------------------" << endl ;
 
@@ -720,8 +729,557 @@ void Menu::subMenuABML_Productos(){
                 break ;
             }
 
+            case 0:
 
-            case 4: {
+                cout << endl << "Volviendo al menu ABML..." << endl ;
+
+                break ;
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
+}
+
+
+
+// SUB MENU VENTAS
+
+void Menu::subMenuABML_Ventas() {
+
+    int opcion ;
+
+    // Declaro e instancio el obj de gestión de archivos
+
+    VentaArchivo archivoVenta ;
+
+    EnvioArchivo archivoEnvio ;
+
+    do {
+
+        system("pause") ;
+
+        system("cls") ;
+
+        cout << "Menu Ventas" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "1. Cargar venta" << endl ;
+
+        cout << "2. Modificar venta" << endl ;
+
+        cout << "3. Anular venta" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "0. Volver al menu ABML" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cin >> opcion ;
+
+        cout << endl ;
+
+
+        switch (opcion) {
+
+            case 1: { // Cargar Venta
+
+                system("cls") ;
+
+                cout<< "Carga de Venta" << endl ;
+
+                cout << "--------------------------------------------------------------" << endl ;
+
+                Venta nuevaVenta ; // instancio obj
+
+                // Obtengo ID autoincremental
+
+                int nuevoID = archivoVenta.obtenerID() ;
+
+                nuevaVenta.setID_Venta(nuevoID); //  Asigno el ID
+
+                cout << "ID de Venta: " << nuevoID << " (Autogenerado)" << endl ;
+
+                // Carga de datos restantes
+
+                nuevaVenta.cargarVenta() ;
+
+                // 3. Guardar en el archivo
+
+                if(archivoVenta.guardar(nuevaVenta)){
+
+                    cout << endl << "Venta cargada con exito (ID: "<< nuevoID <<")." << endl ;
+
+                    if (nuevaVenta.getTipoEnvio() == 1) {
+
+                    cout << "--------------------------------------------------------------" << endl ;
+
+                    cout << "Creando registro de envio..." << endl ;
+
+                    Envio nuevoEnvio ;
+
+                    // Asigno IDS
+
+                        int nuevoID_Envio = archivoEnvio.obtenerID() ; // Obtengo el ID autoincremental para Envio
+
+                        nuevoEnvio.setID_Envio(nuevoID_Envio) ;   // ID del Envio
+
+                        nuevoEnvio.setID_Venta(nuevoID) ;        // ID de la Venta recien creada
+
+                        // 2. Cargar datos del Envio
+
+                        nuevoEnvio.cargar() ; // Llama al metodo cargar() en Envio.cpp
+
+                        // 3. Guardar el Envío en su archivo
+
+                        if (archivoEnvio.guardar(nuevoEnvio)) {
+
+                            cout << "Envio cargado con exito (ID_Envio: " << nuevoID_Envio << ")." << endl ;
+
+                        } else {
+
+                            cout << "ERROR: No se pudo guardar el Envio." << endl;
+                        }
+
+                    } else {
+
+                        cout << "Venta no requiere envio (Retiro en local). No se creo registro de Envio." << endl ;
+                    }
+
+                } else {
+
+                    cout << "No se pudo guardar la venta en el archivo." << endl ;
+                }
+
+                break ;
+            }
+
+            case 2: { // Modificar Venta
+
+                system("cls")  ;
+
+                int idBuscar ;
+
+                cout << "Modificar una Venta" << endl ;
+
+                cout << "--------------------------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID de la Venta a modificar: " ;
+
+                cin >> idBuscar ;
+
+                cout << endl ;
+
+                // 1. Buscar la posición
+
+                int pos = archivoVenta.buscarPosicion(idBuscar) ;
+
+                if(pos == -1){
+
+                    cout << "ERROR: No se encontro ninguna Venta con ID "<< idBuscar << endl ;
+
+                } else {
+
+                    Venta regModificar = archivoVenta.leer(pos) ; // 2. Leo el registro actual
+
+                    cout << "Venta Actual: " << endl ;
+
+                    cout << "--------------------------------------------------------------" << endl ;
+
+                    regModificar.mostrarVenta() ;
+
+                    cout << "--------------------------------------------------------------" << endl ;
+
+                    cout << "Ingrese los nuevos datos de la venta (el ID se mantendra):" << endl ;
+
+                    regModificar.cargarVenta() ; // Carga de los datos nuevos
+
+                    regModificar.setID_Venta(idBuscar) ; // Aseguro que el ID se mantenga
+
+                    // Modifico en el archivo
+
+                    if(archivoVenta.modificar(regModificar)){
+
+                        cout << endl << "Venta (ID "<< idBuscar << ") modificada con exito." << endl ;
+
+                    } else {
+
+                        cout << endl << "ERROR: No se pudo escribir la modificacion en el archivo." << endl ;
+                    }
+                }
+
+                break ;
+            }
+
+            case 3: { // Anular Venta (Baja Lógica)
+
+                system("cls") ;
+
+                int idBaja ;
+
+                cout << "Anular una venta" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID de la venta a anular: " ;
+
+                cin >> idBaja ;
+
+                cout << endl ;
+
+                // llamo a la función bajaLogica
+
+                if(archivoVenta.bajaLogica(idBaja)){
+
+                    cout << "Venta (ID " << idBaja << ") anulada logicamente (Estado: INACTIVO)." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo completar la anulación." << endl ;
+
+                    cout << "Posibles razones: El ID " << idBaja << " no existe, o la venta ya estaba inactiva." << endl ;
+                }
+
+                break ;
+            }
+
+            case 0: {
+
+                cout << "Volviendo al menu ABML..." << endl ;
+
+                break ;
+            }
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
+}
+
+// MENU ENVIOS
+
+void Menu::subMenuABML_Envios() {
+
+    int opcion ;
+
+    // Se asume que has incluido "EnvioArchivo.h"
+
+    EnvioArchivo archivoEnvio ;
+
+    do {
+
+        system("pause") ;
+
+        system("cls") ;
+
+        cout << "Menu envios" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "1. Modificar un envio" << endl ;
+
+        cout << "2. Anular un envio" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "0. Volver al menu ABML" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cin >> opcion ;
+
+        cout << endl ;
+
+
+        switch (opcion) {
+
+            case 1: { // Modificar Envío
+
+                system("cls") ;
+
+                int idBuscar ;
+
+                cout << "Modificar envio" << endl ;
+
+                cout << "--------------------------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID de envio a modificar: " ;
+
+                cin >> idBuscar ;
+
+                cout << endl ;
+
+                int pos = archivoEnvio.buscarPosicion(idBuscar) ; // Busca por ID_Envío
+
+                if (pos == -1) {
+
+                    cout << "No se encontro envio con ID " << idBuscar << endl ;
+
+                    break ;
+                }
+
+                Envio regModificar = archivoEnvio.leer(pos) ;
+
+                regModificar.mostrar() ; // Asumimos que tienes este método
+
+                cout << endl << endl << "Ingrese los nuevos datos del envio: " << endl ;
+
+                regModificar.cargar() ;
+
+                regModificar.setID_Envio(idBuscar) ;
+
+                if (archivoEnvio.modificar(regModificar)) {
+
+                    cout << "Envio (ID " << idBuscar << ") modificado con exito." << endl ;
+
+                } else {
+
+                    cout << "ERROR al modificar el registro." << endl ;
+                }
+
+                break ;
+            }
+
+            case 2: { // Anular Envio
+
+                system("cls") ;
+
+                int idBaja ;
+
+                cout << "Anular un envio" << endl ;
+
+                cout << "Ingrese el ID de Envio a anular: " ;
+
+                cin >> idBaja ;
+
+                if (archivoEnvio.bajaLogica(idBaja)) { // Usa ID_Envío
+
+                    cout << "Envio (ID " << idBaja << ") anulado logicamente." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo anular el envio o ya estaba inactivo." << endl ;
+                }
+
+                break ;
+            }
+
+            case 0: {
+
+                cout << "Volviendo al menu ABML..." << endl ;
+
+                break ;
+            }
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0);
+}
+
+// SUB MENU LISTADOS
+
+void Menu::subMenuABML_Listados() {
+
+    int opcion ;
+
+    ProductoArchivo archivo1 ;
+    VentaArchivo archivoVenta ;
+    EnvioArchivo archivoEnvio ;
+
+    do {
+
+
+        system("cls") ;
+
+        cout << "Menu de listados" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "1. Listado de Clientes" << endl ;
+
+        cout << "2. Listado de Empleados" << endl ;
+
+        cout << "3. Listado de Proveedores" << endl ;
+
+        cout << "4. Listado de Ventas" << endl ;
+
+        cout << "5. Listado de Productos" << endl ;
+
+        cout << "6. Listado de Envios" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "0. Volver al menu anterior" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cout << endl ;
+
+        cin >> opcion ;
+
+
+        switch (opcion) {
+
+            case 1: {
+
+                system("cls") ;
+
+                cout << "Listado de Clientes" << endl ;
+
+                Cliente nuevoCliente;
+
+                ClienteArchivo reg;
+
+                int cantRegistros = reg.getCantidadRegistros();
+
+                for (int i = 0; i<cantRegistros; i++)
+                {
+                    cout << endl;
+
+                    cout << "------------------------------" << endl;
+
+                    nuevoCliente = reg.leer(i);
+
+                    nuevoCliente.mostrar();
+
+                    cout << "------------------------------" << endl;
+
+                    cout << endl;
+                }
+
+                system ("pause");
+
+                break;
+
+            }
+
+            case 2: {
+
+                // LOGICA PARA OPCION 2
+                system ("cls");
+
+                cout << "Listado de Empleados" << endl ;
+
+
+                Empleado nuevoEmpleado;
+
+                EmpleadoArchivo reg;
+
+                int cantRegistros = reg.getCantidadRegistros();
+
+                for (int i = 0; i<cantRegistros; i++)
+                {
+                    cout << endl;
+
+                    cout << "------------------------------" << endl;
+
+                    nuevoEmpleado = reg.leer (i);
+
+                    nuevoEmpleado.mostrar ();
+
+                    cout << "------------------------------" << endl;
+
+                    cout << endl;
+                }
+
+                system ("pause");
+
+                break ;
+
+            }
+
+            case 3: {
+
+                // LOGICA PARA OPCION 3
+
+                cout << "Listado de Proveedores" << endl ;
+
+                Proveedor nuevoProveedor;
+
+                ProveedorArchivo reg;
+
+                int cantRegistros = reg.getCantidadRegistros();
+
+                for (int i = 0; i<cantRegistros; i++)
+
+                {
+                    cout << endl;
+
+                    cout << "------------------------------" << endl;
+
+                    nuevoProveedor = reg.leer(i);
+
+                    nuevoProveedor.mostrar();
+
+                    cout << "------------------------------" << endl;
+
+                    cout << endl;
+                }
+
+                system ("pause");
+
+                break ;
+            }
+
+
+            case 4:  { // Listar Ventas
+
+                system("cls") ;
+
+                int cantidad = archivoVenta.getCantidadRegistros() ;
+
+                if (cantidad == 0){
+
+                    cout << "No hay ventas cargadas en el sistema." << endl ;
+
+                    break ;
+                }
+
+                cout << "Listado de ventas" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                cout << "Cantidad de registros: " << cantidad << endl ;
+
+                for (int i=0; i<cantidad; i++){
+
+                    Venta reg = archivoVenta.leer(i) ;
+
+                    cout << "---------------------------------------------" << endl ;
+
+                    reg.mostrarVenta() ;
+
+                }
+
+                cout << "---------------------------------------------" << endl ;
+
+                system("pause") ;
+
+                break ;
+            }
+
+            case 5:  { // listado productos
 
                 system("cls") ;
 
@@ -753,206 +1311,52 @@ void Menu::subMenuABML_Productos(){
 
                         cout << "---------------------------------------------" << endl ;
 
+                        system("pause") ;
+
                 break ; }
             }
 
+            case 6: {
+
+                system("cls") ;
+
+                cout << "Listado de todos los envios" << endl ;
+
+                cout << "-------------------------------" << endl ;
+
+                int cantidad = archivoEnvio.getCantidadRegistros() ;
+
+                if (cantidad == 0) { cout << "No hay envios cargados." << endl ; break ; }
+
+                for (int i = 0; i < cantidad; i++) {
+
+                    Envio reg = archivoEnvio.leer(i) ;
+
+                    reg.mostrar() ;
+                }
+
+                system("pause") ;
+
+                break ;
+            }
+
+
             case 0:
 
-                cout << endl << "Volviendo al menu ABML..." << endl ;
+                cout << endl ;
+
+                cout << "Volviendo al menu anterior..." << endl ;
 
                 break ;
 
+
             default:
 
-                cout << "Opcion invalida. Intente de nuevo." << endl ;
+                cout << "Opcion Invalida. Intente de nuevo." << endl ;
 
                 break ;
         }
 
     } while (opcion != 0) ;
-}
 
-// SUB MENU VENTAS
-
-void Menu::subMenuABML_Ventas() {
-
-    int opcion ;
-
-    VentaArchivo archivoventa;
-
-    do {
-
-        system("pause") ;
-
-        system("cls") ;
-
-        cout << "MENU ABML DE VENTAS" << endl ;
-
-        cout << "--------------------------------------------" << endl ;
-
-        cout << "1. Cargar venta" << endl ;
-
-        cout << "2. Modificar venta (por ID)" << endl ;
-
-        cout << "3. Anular venta (Baja logica por ID)" << endl ;
-
-        cout << "4. Listar todas las ventas" << endl ;
-
-         cout << "--------------------------------------------" << endl ;
-
-        cout << "0. Volver al menu ABML" << endl ;
-
-         cout << "--------------------------------------------" << endl ;
-
-        cout << "Ingrese una opcion: " ;
-
-        cout << endl ;
-
-        cin >> opcion ;
-
-        switch (opcion) {
-
-            case 1: {
-
-                system("cls") ;
-
-                cout<<"Carga de producto"<<endl;
-
-                cout<<"--------------------------------------------"<<endl;
-
-                Venta venta1;
-
-                int nuevoID = archivoventa.obtenerID();
-
-                cout<<"ID de Venta: "<<nuevoID<<" (Autogenerado)"<<endl;
-
-                venta1.cargarVenta();
-
-                if(archivoventa.guardar(venta1)){
-
-                    cout<<endl<<"Producto cargado con exito."<<endl;
-                }else{
-                    cout<<"ERROR: No se pudo guardar el producto en el archivo."<<endl;
-                }
-
-
-                break ;
-            }
-
-            case 2: {
-
-                system("cls") ;
-
-                int idBuscar ;
-
-                cout<<"MODIFICAR Venta"<<endl;
-                cout<<"--------------------------------------------" <<endl;
-                cout<<"Ingrese el ID del Venta a modificar: ";
-                cin>>idBuscar;
-                cout<<endl;
-
-                int pos = archivoventa.buscarPosicion(idBuscar);
-
-                if(pos == -1){
-
-                    cout<<"ERROR: No se encontro ningun Venta con ID"<< idBuscar<<endl;
-                }else{
-
-                    Venta regmodificar;
-                    regmodificar = archivoventa.leer(pos);
-
-                    cout<<"Venta Actual (ID "<<idBuscar<<")"<<endl;
-
-                    regmodificar.mostrarVenta();
-
-                    cout<<"--------------------------------------------"<<endl;
-                    cout<<"Ingrese los nuevos datos de la venta (el ID se mantendra):"<<endl;
-
-                    regmodificar.cargarVenta();
-
-                    regmodificar.setID_Venta(idBuscar);
-
-                    if(archivoventa.modificar(regmodificar)){
-
-                        cout<<endl<<"Venta (ID "<<idBuscar<<") modificado con exito."<<endl;
-                    }else{
-                        cout<<endl<<"ERROR: No se pudo escribir la modificacion en el archivo."<<endl;
-                    }
-
-                }
-
-                break ;
-            }
-
-            case 3: {
-
-                system("cls");
-
-                int idBaja;
-
-                cout<<"DAR DE BAJA UN VENTA"<<endl;
-                cout<<"--------------------------------------------"<<endl;
-                cout<<"Ingrese el ID de la venta a dar de baja: ";
-                cin>>idBaja;
-                cout<<endl;
-
-                if(archivoventa.bajaLogica(idBaja)){
-
-                    cout<<"Producto (ID "<<idBaja<<") dado de baja logicamente (Estado: INACTIVO)."<<endl;
-
-                }else {
-
-                    cout<<"ERROR: No se pudo completar la baja."<<endl;
-                    cout<<"Posibles razones: El ID "<<idBaja<<" no existe, o la venta ya esta inactivo."<<endl;
-                }
-
-                break ;
-            }
-
-            case 4: {
-
-                system("cls");
-
-                int cantidad = archivoventa.getCantidadRegistros();
-
-                if (cantidad == 0){
-
-                    cout<<"No hay ventas cargadas en el sistema."<<endl;
-
-                    break;
-
-                }else{
-
-                cout<<"LISTADO DE VENTAS"<<endl;
-                cout<<"---------------------------------------------"<<endl;
-                cout<<"Cantidad de registros: "<<cantidad<<endl;
-
-                for (int i=0; i<cantidad; i++){
-
-                    Venta reg = archivoventa.leer(i);
-
-                        cout<<"---------------------------------------------"<<endl;
-
-                        reg.mostrarVenta();
-
-                }
-                        cout<<"---------------------------------------------"<<endl;
-
-                break ;}
-            }
-
-            case 0: {
-
-                cout << "Volviendo al menu ABML..." << endl ;
-
-                break ;
-            }
-            default:
-
-                cout << "Opcion invalida. Intente de nuevo." << endl ;
-
-                break ;
-        }
-
-    } while (opcion != 0) ;
 }

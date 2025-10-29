@@ -68,6 +68,7 @@ bool VentaArchivo::bajaLogica(int id_venta){
 
     return escrito;
 }
+
 bool VentaArchivo::modificar(const Venta &reg){
     int pos;
     pos = buscarPosicion(reg.getID_Venta());

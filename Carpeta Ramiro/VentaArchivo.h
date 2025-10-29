@@ -1,5 +1,5 @@
 #pragma once
-#include "Ventas.h"
+#include "Venta.h"
 #include <cstdio>
 
 

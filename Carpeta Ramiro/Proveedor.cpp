@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cstring>
 #include "Utils.h"
+#include "Proveedor.h"
+#include "ProveedorArchivo.h"
 
 using namespace std ;
 
@@ -38,11 +40,13 @@ void Proveedor::cargar() {
 
     int tipo_proveedor ;
 
-   /* cout << "Ingrese el CUIT del proveedor: " << endl ;
+    ProveedorArchivo archivo;
+
+    cout << "Ingrese el CUIT del proveedor: " << endl ;
 
     cin >> datos ;
 
-    Proveedor::setCuit(datos) ; */
+    Proveedor::setCuit(datos) ;
 
     cout << "Ingrese el tipo de proveedor: " ;
 
@@ -50,7 +54,7 @@ void Proveedor::cargar() {
 
     Proveedor::setTipo_proveedor(tipo_proveedor) ;
 
-   /* cout << "Ingrese el nombre del proveedor: " << endl;
+    cout << "Ingrese el nombre del proveedor: " << endl;
     datos = cargarCadena();
     Proveedor::setNombre(datos);
 
@@ -62,7 +66,9 @@ void Proveedor::cargar() {
     datos = cargarCadena();
     Proveedor::setDireccion(datos);
 
-    Proveedor::setEstado(true); */
+    Proveedor::setEstado(true);
+
+    Proveedor::setID(archivo.getCantidadRegistros()+1);
 
     cout << endl << "El proveedor fue agregado con exito. " << endl ;
 
@@ -78,6 +84,8 @@ void Proveedor::mostrar(){
 
     cout << endl ;
 
+    cout << "ID del proveedor: " << Proveedor::getID() << endl;
+
     cout << "Nombre del proveedor: " << Proveedor::getNombre() << endl ;
 
     cout << "Telefono del proveedor: " << Proveedor::getTelefono() << endl ;
@@ -88,11 +96,17 @@ void Proveedor::mostrar(){
 
     cout << "Tipo de proveedor: " << Proveedor::getTipo_proveedor() << endl ;
 
-    cout << "Estado del proveedor: " << Proveedor::getEstado() << endl ;
+        if (Proveedor::getEstado())
+    {
+        cout << "Estado: Activo " << endl;
+    }else{
+
+        cout << "Estado: Inactivo " << endl;
+    }
 
     cout << endl;
 
-    system ("pause") ;
+ //   system ("pause") ;
 
-    system ("cls") ;
+ //   system ("cls") ;
 }

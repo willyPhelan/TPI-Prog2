@@ -50,10 +50,15 @@ Detalle_Venta(int idDetalle, int idProducto, int idVenta, int cantidad, float pr
 private:
 
     int ID_Detalle ;
-    int ID_Producto ; // composcion producto
-    int ID_Venta ; // composicion venta
+
+    int ID_Producto ;
+
+    int ID_Venta ;
+
     int cantidad ;
+
     float precio_Unitario ;
+
     bool estado ;
 
 

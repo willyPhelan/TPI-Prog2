@@ -28,7 +28,7 @@ void Fecha::mostrar() {
 
     if(esCorrecta()) cout << dia << "/" << mes << "/" << anio ;
 
-    else cout << "Fecha incorrecta" << endl ;
+    else cout << "Fecha incorrecta" ;
 }
 
 void Fecha::setDia(int d) {

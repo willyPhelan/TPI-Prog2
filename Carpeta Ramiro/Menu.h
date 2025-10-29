@@ -1,9 +1,14 @@
 #pragma once
 #include "Persona.h"
 #include "Producto.h"
-#include "Ventas.h"
+#include "Venta.h"
 #include "ProductoArchivo.h"
 #include "VentaArchivo.h"
+#include "EnvioArchivo.h"
+#include "EmpleadoArchivo.h"
+#include "ProveedorArchivo.h"
+#include "ClienteArchivo.h"
+
 
 class Menu {
 
@@ -26,5 +31,9 @@ private:
     void subMenuABML_Productos() ;
 
     void subMenuABML_Ventas() ;
+
+    void subMenuABML_Envios() ;
+
+    void subMenuABML_Listados() ;
 
 } ;

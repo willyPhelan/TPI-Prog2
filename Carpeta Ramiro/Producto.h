@@ -8,7 +8,7 @@ class Producto{
 
         int ID_Producto ;
 
-        Proveedor ID_Proveedor ;
+        int ID_Proveedor ;
 
         char descripcion[200] ;
 
@@ -36,7 +36,7 @@ class Producto{
 
         int getID_Producto() const ;
 
-        Proveedor getID_Proveedor() const ;
+        int getID_Proveedor() const ;
 
         const char* getDescripcion() const ;
 
@@ -56,7 +56,7 @@ class Producto{
 
         void setID_Producto(int _idProducto) ;
 
-        void setID_Proveedor(Proveedor ID_Proveedor) ;
+        void setID_Proveedor(int _idProveedor) ;
 
         void setDescripcion(const std::string &_descripcion) ;
 
