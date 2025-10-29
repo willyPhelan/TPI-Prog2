@@ -14,7 +14,7 @@ class DetalleVentaArchivo
         bool guardar(const Detalle_Venta &reg);
         Detalle_Venta leer(int pos);
         bool bajaLogica(int idDetalle);
-        bool darDealta(int idDetalle);
+        bool altaLogica (int id_persona);
         bool modificar(const Detalle_Venta &reg);
         int obtenerID();
         int getCantidadRegistros();

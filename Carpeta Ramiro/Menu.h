@@ -2,12 +2,14 @@
 #include "Persona.h"
 #include "Producto.h"
 #include "Venta.h"
+#include "Detalle_Venta.h"
 #include "ProductoArchivo.h"
 #include "VentaArchivo.h"
 #include "EnvioArchivo.h"
 #include "EmpleadoArchivo.h"
 #include "ProveedorArchivo.h"
 #include "ClienteArchivo.h"
+#include "DetalleVentaArchivo.h"
 
 
 class Menu {
@@ -31,6 +33,8 @@ private:
     void subMenuABML_Productos() ;
 
     void subMenuABML_Ventas() ;
+
+    void subMenuABML_Detalle_Ventas() ;
 
     void subMenuABML_Envios() ;
 

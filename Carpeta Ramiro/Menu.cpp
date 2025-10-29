@@ -4,6 +4,7 @@
 #include "Empleado.h"
 #include "Cliente.h"
 #include "Proveedor.h"
+#include "Detalle_Venta.h"
 
 using namespace std ;
 
@@ -32,13 +33,15 @@ void Menu::mostrar() {
 
         cout << "5. Ventas" << endl ;
 
-        cout << "6. Envios" << endl ;
+        cout << "6. Detalle de Ventas" << endl ;
 
-        cout << "7. Listados" << endl ;
+        cout << "7. Envios" << endl ;
 
-        cout << "8. Reportes " << endl ;
+        cout << "8. Listados" << endl ;
 
-        cout << "9. Copia de seguridad " << endl ;
+        cout << "9. Reportes " << endl ;
+
+        cout << "10. Copia de seguridad " << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -87,23 +90,29 @@ void Menu::mostrar() {
 
              case 6:
 
-                subMenuABML_Envios() ;
+                subMenuABML_Detalle_Ventas() ;
 
-                break ;
+                break;
 
              case 7:
 
-                subMenuABML_Listados() ;
+                subMenuABML_Envios() ;
 
                 break ;
 
              case 8:
 
-                cout << "REPORTES ACA" << endl ;
+                subMenuABML_Listados() ;
 
                 break ;
 
              case 9:
+
+                cout << "REPORTES ACA" << endl ;
+
+                break ;
+
+             case 10:
 
                 cout << "COPIA SEGURIDAD ACA" << endl ;
 
@@ -968,6 +977,141 @@ void Menu::subMenuABML_Ventas() {
     } while (opcion != 0) ;
 }
 
+// MENU DETALLE ENVIO
+
+void Menu::subMenuABML_Detalle_Ventas() {
+
+    int opcion ;
+
+    // Se asume que has incluido "EnvioArchivo.h"
+
+    DetalleVentaArchivo archivoDetalleventa ;
+
+    do {
+
+        system("pause") ;
+
+        system("cls") ;
+
+        cout << "Menu Detalle Venta" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "1. Modificar un Detalle de Venta" << endl ;
+
+        cout << "2. Anular un Detalle de Venta" << endl ;
+
+        cout << "3. Activar un Detalle de Venta" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "0. Volver al menu ABML" << endl ;
+
+        cout << "--------------------------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cin >> opcion ;
+
+        cout << endl ;
+
+
+        switch (opcion) {
+
+            case 1: { // Modificar Detalle de Venta
+
+                system("cls") ;
+
+                int idBuscar ;
+
+                cout << "Modificar Detalle Venta" << endl ;
+
+                cout << "--------------------------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID de Detalle de venta a modificar: " ;
+
+                cin >> idBuscar ;
+
+                cout << endl ;
+
+                int pos = archivoDetalleventa.buscarPosicion(idBuscar); // Busca por id Detalle
+
+                if (pos == -1) {
+
+                    cout << "No se encontro un Detalle de venta con ID " << idBuscar << endl ;
+
+                    break ;
+                }
+
+                Detalle_Venta regModificar = archivoDetalleventa.leer(pos) ;
+
+                regModificar.mostrar(); // Asumimos que tienes este método
+
+                cout << endl << endl << "Ingrese los nuevos datos del Detalle de Venta: " << endl ;
+
+                regModificar.cargar();
+
+                regModificar.setID_Detalle(idBuscar);
+
+                if (archivoDetalleventa.modificar(regModificar)) {
+
+                    cout << "Detalle de Venta (ID " << idBuscar << ") modificado con exito." << endl ;
+
+                } else {
+
+                    cout << "ERROR al modificar el registro." << endl ;
+                }
+
+                break ;
+            }
+
+            case 2: { // Anular Detalle de Venta
+
+                system("cls") ;
+
+                int idBaja ;
+
+                cout << "Anular un Detalle de Venta" << endl ;
+
+                cout << "Ingrese el ID de Detalle de Venta a anular: " ;
+
+                cin >> idBaja ;
+
+                if (archivoDetalleventa.bajaLogica(idBaja)) { // Usa ID_Envío
+
+                    cout << "Detalle de Venta (ID " << idBaja << ") anulado logicamente." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo anular el Detalle de Venta o ya estaba inactivo." << endl ;
+                }
+
+                break ;
+            }
+
+            case 0: {
+
+                cout << "Volviendo al menu ABML..." << endl ;
+
+                break ;
+            }
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0);
+
+
+
+
+
+
+}
+
 // MENU ENVIOS
 
 void Menu::subMenuABML_Envios() {
@@ -1104,6 +1248,7 @@ void Menu::subMenuABML_Listados() {
     ProductoArchivo archivo1 ;
     VentaArchivo archivoVenta ;
     EnvioArchivo archivoEnvio ;
+    DetalleVentaArchivo archivoDetalleVenta;
 
     do {
 
@@ -1122,9 +1267,11 @@ void Menu::subMenuABML_Listados() {
 
         cout << "4. Listado de Ventas" << endl ;
 
-        cout << "5. Listado de Productos" << endl ;
+        cout << "5. Listado de Detalle de Ventas" << endl ;
 
-        cout << "6. Listado de Envios" << endl ;
+        cout << "6. Listado de Productos" << endl ;
+
+        cout << "7. Listado de Envios" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -1278,8 +1425,42 @@ void Menu::subMenuABML_Listados() {
 
                 break ;
             }
+            case 5:{ // Listar Dealle Venta
 
-            case 5:  { // listado productos
+                int cantidad = archivoDetalleVenta.getCantidadRegistros();
+
+                if(cantidad == 0){
+                    cout << "No hay ventas cargadas en el sistema." << endl ;
+
+                    break ;
+
+                }
+
+                cout << "Listado de ventas" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                cout << "Cantidad de registros: " << cantidad << endl ;
+
+                for (int i=0; i<cantidad; i++){
+
+                    Detalle_Venta reg = archivoDetalleVenta.leer(i) ;
+
+                    cout << "---------------------------------------------" << endl ;
+
+                    reg.mostrar();
+
+                }
+
+                cout << "---------------------------------------------" << endl ;
+
+                system("pause") ;
+
+                break ;
+
+            }
+
+            case 6:  { // listado productos
 
                 system("cls") ;
 
@@ -1316,7 +1497,7 @@ void Menu::subMenuABML_Listados() {
                 break ; }
             }
 
-            case 6: {
+            case 7: {
 
                 system("cls") ;
 

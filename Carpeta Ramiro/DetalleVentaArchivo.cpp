@@ -70,30 +70,37 @@ bool DetalleVentaArchivo::bajaLogica(int idDetalle){
 
 }
 
-bool DetalleVentaArchivo::darDealta(int idDetalle){
+bool DetalleVentaArchivo::altaLogica (int id_persona)
+{
+     int pos = buscarPosicion (id_persona);
 
-    int pos= buscarPosicion(idDetalle);
-
-    if(pos == -1){
+    if (pos == -1)
+    {
+        cout << "El ID que ingreso es incorrecto. " << endl;
+        system ("pause");
         return false;
     }
-
-    Detalle_Venta reg = leer(pos);
+    Detalle_Venta reg = leer (pos);
 
     reg.setEstado(true);
 
-    FILE* pventa;
-    pventa = fopen(archivo_DetalleVenta,"rb+");
+    FILE *archivo;
 
-    if (pventa == nullptr){return false;}
+    archivo = fopen (archivo_DetalleVenta, "rb+");
 
-    fseek(pventa,pos*sizeof(Detalle_Venta),SEEK_SET);
+    if (archivo == nullptr)
+    {
+        return false;
+    }
 
-    int escrito = fwrite(&reg,sizeof(Detalle_Venta),1,pventa);
+    fseek (archivo, pos * sizeof (Detalle_Venta), SEEK_SET);
 
-    fclose(pventa);
+    int escrito = fwrite (&reg, sizeof (Detalle_Venta), 1, archivo);
+
+    fclose (archivo);
 
     return escrito;
+
 }
 
 bool DetalleVentaArchivo::modificar(const Detalle_Venta &reg){
