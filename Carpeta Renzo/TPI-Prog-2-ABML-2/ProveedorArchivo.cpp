@@ -60,6 +60,39 @@ bool ProveedorArchivo::bajaLogica(int id_persona)
     return escrito;
 }
 
+bool ProveedorArchivo::altaLogica(int id_persona)
+{
+        int pos = buscarPosicion(id_persona);
+
+    if (pos == -1)
+    {
+        cout << "El ID que ingreso es incorrecto. " << endl;
+        system ("pause");
+        return false;
+    }
+
+    Proveedor reg = leer (pos);
+
+    reg.setEstado(true);
+
+    FILE *archivo;
+
+    archivo = fopen (archivo_Proveedor, "rb+");
+
+    if (archivo == nullptr)
+    {
+        return false;
+    }
+
+    fseek (archivo, pos * sizeof (Proveedor), SEEK_SET);
+
+    int escrito = fwrite (&reg, sizeof (Proveedor), 1, archivo);
+
+    fclose (archivo);
+
+    return escrito;
+}
+
 Proveedor ProveedorArchivo::leer (int pos)
 {
     Proveedor reg;

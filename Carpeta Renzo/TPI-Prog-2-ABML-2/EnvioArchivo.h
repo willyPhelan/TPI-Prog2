@@ -18,6 +18,10 @@ public:
 
     bool bajaLogica(int id_venta) ; // Uso ID_Venta para dar de baja el envío asociado
 
+    // REACTIVACION
+
+    bool altaLogica (int id_envio);
+
     // MODIFICACIÓN
 
     bool modificar(const Envio &reg) ;

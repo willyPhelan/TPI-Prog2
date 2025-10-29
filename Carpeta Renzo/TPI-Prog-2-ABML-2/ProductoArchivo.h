@@ -24,6 +24,8 @@ public:
     // MODIFICACIÓN (Sobreescribe el registro con el mismo ID)
     // Recibe el registro modificado y lo guarda en su posición original.
 
+    bool altaLogica (int id_producto); // <-- Metodo para dar de alta, es decir, reactivar una venta
+
     bool modificar(const Producto &reg) ;
 
     int obtenerID() ; // cuenta los registos y suma 1 para el nuevo ID

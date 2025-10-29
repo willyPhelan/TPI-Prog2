@@ -13,6 +13,7 @@ class VentaArchivo {
         bool guardar(const Venta &reg);
         Venta leer(int pos);
         bool bajaLogica(int id_venta);
+        bool altaLogica (int id_venta);
         bool modificar(const Venta &reg);
         int obtenerID();
         int getCantidadRegistros();

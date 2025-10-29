@@ -148,6 +148,8 @@ void Menu::subMenuABML_Clientes() {
 
         cout << "3. Modificar Cliente" << endl ;
 
+        cout << "4. Reactivar Cliente" << endl;
+
         cout << "--------------------------" << endl ;
 
         cout << "0. Volver al menu anterior" << endl ;
@@ -250,6 +252,23 @@ void Menu::subMenuABML_Clientes() {
                 break ;
             }
 
+            case 4: {
+
+                cout << "Reactivar un Cliente" << endl ;
+
+                int id_persona;
+
+                cout << "Ingrese el ID del cliente que desee reactivar: " << endl;
+
+                cin >> id_persona;
+
+                ClienteArchivo reg;
+
+                reg.altaLogica(id_persona);
+
+                break;
+            }
+
             case 0: {
 
                 cout << endl ;
@@ -289,6 +308,8 @@ void Menu::subMenuABML_Empleados() {
         cout << "2. Eliminar Empleado" << endl ;
 
         cout << "3. Modificar Empleado" << endl ;
+
+        cout << "4. Reactivar Empleado" << endl;
 
         cout << "--------------------------" << endl ;
 
@@ -394,6 +415,23 @@ void Menu::subMenuABML_Empleados() {
                 break ;
             }
 
+            case 4: {
+
+                cout << "Reactivar un Empleado" << endl ;
+
+                int id_persona;
+
+                cout << "Ingrese el id del empleado que desee reactivar: " << endl;
+
+                cin >> id_persona;
+
+                EmpleadoArchivo reg;
+
+                reg.altaLogica(id_persona);
+
+                break ;
+            }
+
             case 0: {
 
                 cout << endl ;
@@ -433,6 +471,8 @@ void Menu::subMenuABML_Proveedores() {
         cout << "2. Eliminar Proveedor" << endl ;
 
         cout << "3. Modificar Proveedor" << endl ;
+
+        cout << "4. Reactivar Proveedor" << endl;
 
         cout << "--------------------------" << endl ;
 
@@ -540,6 +580,23 @@ void Menu::subMenuABML_Proveedores() {
             }
 
 
+            case 4: {
+
+                cout << "Reactivar un Proveedor" << endl ;
+
+                int id_persona;
+
+                cout << "Ingrese el ID del proveedor que desee reactivar: " << endl;
+
+                cin >> id_persona;
+
+                ProveedorArchivo reg;
+
+                reg.altaLogica(id_persona);
+
+                break;
+            }
+
             case 0: {
 
                 cout << endl ;
@@ -583,6 +640,8 @@ void Menu::subMenuABML_Productos(){
         cout << "2. Modificar producto (por ID)" << endl ;
 
         cout << "3. Dar de baja un producto" << endl ;
+
+        cout << "4. Reactivar un producto" << endl;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -729,6 +788,38 @@ void Menu::subMenuABML_Productos(){
                 break ;
             }
 
+            case 4: {
+
+                system("cls") ;
+
+                int idAlta ;
+
+                cout << "Reactivar un producto" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID del producto a reactivar: " ;
+
+                cin >> idAlta ;
+
+                cout << endl ;
+
+                //Llamo a la fn altaLogica
+
+                if (archivo1.altaLogica(idAlta)) {
+
+                    cout << "Producto (ID " << idAlta << ") reactivado correctamente (Estado: ACTIVO)." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo completar la reactivacion." << endl ;
+
+                    cout << "Posibles razones: El ID " << idAlta << " no existe. " << endl ;
+                }
+
+                break;
+            }
+
             case 0:
 
                 cout << endl << "Volviendo al menu ABML..." << endl ;
@@ -774,6 +865,8 @@ void Menu::subMenuABML_Ventas() {
         cout << "2. Modificar venta" << endl ;
 
         cout << "3. Anular venta" << endl ;
+
+        cout << "4. Reactivar venta" << endl;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -951,6 +1044,38 @@ void Menu::subMenuABML_Ventas() {
                 break ;
             }
 
+            case 4: {
+
+                system("cls") ;
+
+                int idAlta ;
+
+                cout << "Reactivar una venta" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID de la venta a reactivar: " ;
+
+                cin >> idAlta ;
+
+                cout << endl ;
+
+                // llamo a la función altaLogica
+
+                if(archivoVenta.altaLogica(idAlta)){
+
+                    cout << "Venta (ID " << idAlta << ") reactivada con exito (Estado: ACTIVO)." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo completar la reactivacion. " << endl ;
+
+                    cout << "Posibles razones: El ID " << idAlta << " no existe. " << endl;
+                }
+
+                break;
+            }
+
             case 0: {
 
                 cout << "Volviendo al menu ABML..." << endl ;
@@ -991,6 +1116,8 @@ void Menu::subMenuABML_Envios() {
         cout << "1. Modificar un envio" << endl ;
 
         cout << "2. Anular un envio" << endl ;
+
+        cout << "3. Reactivar un envio" << endl;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -1076,6 +1203,30 @@ void Menu::subMenuABML_Envios() {
                 }
 
                 break ;
+            }
+
+            case 3: {
+
+                system("cls") ;
+
+                int idAlta ;
+
+                cout << "Reactivar un envio" << endl ;
+
+                cout << "Ingrese el ID de Envio a reactivar: " ;
+
+                cin >> idAlta ;
+
+                if (archivoEnvio.altaLogica(idAlta)) { // Usa ID_Envío
+
+                    cout << "Envio (ID " << idAlta << ") reactivado con exito." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo reactivar el envio o ya estaba activado." << endl ;
+                }
+
+                break;
             }
 
             case 0: {
