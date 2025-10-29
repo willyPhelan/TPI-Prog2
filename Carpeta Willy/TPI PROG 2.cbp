@@ -40,6 +40,10 @@
 		<Unit filename="Empleado.h" />
 		<Unit filename="Envio.cpp" />
 		<Unit filename="Envio.h" />
+		<Unit filename="EnvioArchivo.cpp" />
+		<Unit filename="EnvioArchivo.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="Fecha.cpp" />
 		<Unit filename="Fecha.h" />
 		<Unit filename="Menu.cpp" />
@@ -48,12 +52,16 @@
 		<Unit filename="Persona.h" />
 		<Unit filename="Producto.cpp" />
 		<Unit filename="Producto.h" />
+		<Unit filename="ProductoArchivo.cpp" />
+		<Unit filename="ProductoArchivo.h" />
 		<Unit filename="Proveedor.cpp" />
 		<Unit filename="Proveedor.h" />
 		<Unit filename="Utils.cpp" />
 		<Unit filename="Utils.h" />
 		<Unit filename="Venta.cpp" />
 		<Unit filename="Venta.h" />
+		<Unit filename="VentaArchivo.cpp" />
+		<Unit filename="VentaArchivo.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>

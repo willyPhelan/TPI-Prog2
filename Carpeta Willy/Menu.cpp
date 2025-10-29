@@ -126,11 +126,9 @@ void Menu::mostrar() {
 
             case 2:
 
-                // aca llamo a subMenuProductos() cuando este
+                cout << "MENU REPORTES -- PENDIENTE " << endl ;
 
-                cout << "MENU PRODUCTOS" << endl ;
-
-                cout << "Funcionalidad no implementada (Se requiere la clase Producto)." << endl ;
+                cout << "Funcionalidad no implementada." << endl ;
 
                 system("pause") ;
 
@@ -140,9 +138,9 @@ void Menu::mostrar() {
 
                 // aca llamo subMenuVentas() cuando este
 
-                cout << "MENU VENTA" << endl ;
+                cout << "COPIA DE SEGURIDAD - PENDIENTE" << endl ;
 
-                cout << "Funcionalidad no implementada (Se requiere la clase Venta)." << endl ;
+                cout << "Funcionalidad no implementada." << endl ;
 
                 system("pause") ;
 
@@ -583,7 +581,7 @@ void Menu::subMenuABML_Productos(){
 
         cout << "2. Modificar producto (por ID)" << endl ;
 
-        cout << "3. Eliminar producto (Baja logica por ID)" << endl ;
+        cout << "3. Dar de baja un producto" << endl ;
 
         cout << "4. Listar todos los Productos" << endl ;
 
@@ -913,9 +911,11 @@ void Menu::subMenuABML_Ventas() {
 
                 cout << "Modificar una Venta" << endl ;
 
-                cout << "--------------------------------------------" << endl ;
+                cout << "--------------------------------------------------------------" << endl ;
 
                 cout << "Ingrese el ID de la Venta a modificar: " ;
+
+                cin >> idBuscar ;
 
                 cout << endl ;
 
@@ -931,11 +931,13 @@ void Menu::subMenuABML_Ventas() {
 
                     Venta regModificar = archivoVenta.leer(pos) ; // 2. Leo el registro actual
 
-                    cout << "Venta Actual (ID " << idBuscar << ")" << endl ;
+                    cout << "Venta Actual: " << endl ;
+
+                    cout << "--------------------------------------------------------------" << endl ;
 
                     regModificar.mostrarVenta() ;
 
-                    cout << "--------------------------------------------" << endl ;
+                    cout << "--------------------------------------------------------------" << endl ;
 
                     cout << "Ingrese los nuevos datos de la venta (el ID se mantendra):" << endl ;
 
@@ -1068,9 +1070,9 @@ void Menu::subMenuABML_Envios() {
 
         cout << "--------------------------------------------" << endl ;
 
-        cout << "1. Modificar envio (por ID_Envio)" << endl ;
+        cout << "1. Modificar un envio" << endl ;
 
-        cout << "2. Anular envio (por ID_Envio)" << endl ;
+        cout << "2. Anular un envio" << endl ;
 
         cout << "3. Listar todos los Envios" << endl ;
 
@@ -1099,11 +1101,15 @@ void Menu::subMenuABML_Envios() {
 
                 cout << "Modificar envio" << endl ;
 
+                cout << "--------------------------------------------------------------" << endl ;
+
                 cout << "Ingrese el ID de envio a modificar: " ;
 
                 cin >> idBuscar ;
 
-                int pos = archivoEnvio.buscarPosicion(idBuscar) ; // Busca por ID_Envío (PK)
+                cout << endl ;
+
+                int pos = archivoEnvio.buscarPosicion(idBuscar) ; // Busca por ID_Envío
 
                 if (pos == -1) {
 
@@ -1114,11 +1120,9 @@ void Menu::subMenuABML_Envios() {
 
                 Envio regModificar = archivoEnvio.leer(pos) ;
 
-                cout << "Envio actual (ID " << idBuscar << "):" ;
-
                 regModificar.mostrar() ; // Asumimos que tienes este método
 
-                cout << "Ingrese los nuevos datos del envio: " << endl ;
+                cout << endl << endl << "Ingrese los nuevos datos del envio: " << endl ;
 
                 regModificar.cargar() ;
 
@@ -1166,7 +1170,7 @@ void Menu::subMenuABML_Envios() {
 
                 cout << "Listado de todos los envios" << endl ;
 
-                cout << "---------------------------------------------" << endl ;
+                cout << "-------------------------------" << endl ;
 
                 int cantidad = archivoEnvio.getCantidadRegistros() ;
 
@@ -1176,12 +1180,10 @@ void Menu::subMenuABML_Envios() {
 
                     Envio reg = archivoEnvio.leer(i) ;
 
-                    cout << "Registro #" << i + 1  << endl ;
-
                     reg.mostrar() ;
                 }
 
-                cout << "---------------------------------------------" << endl ;
+
 
                 break ;
             }

@@ -151,7 +151,7 @@ void Envio::cargar() {
 
 void Envio::mostrar() const {
 
-    cout << endl << "DATOS DEL ENVIO" << endl ;
+    cout << endl << "DATOS DEL ENVIO:" << endl ;
 
     cout << "ID Envio: " << getID_Envio() << endl ;
 
@@ -159,9 +159,7 @@ void Envio::mostrar() const {
 
     getFecha_Entrega().mostrar() ; // Asume que la clase Fecha tiene un metodo mostrar()
 
-    cout << endl ;
-
-    cout << "Valor del Envio: $" << getValor_Envio() << endl ;
+    cout << endl << "Valor del Envio: $" << getValor_Envio() << endl ;
 
     // Traducción del estado numérico a texto legible
 
@@ -183,5 +181,6 @@ void Envio::mostrar() const {
 
     cout << "-------------------------------" << endl ;
 
-    cout << "Envio cargado exitosamente" << endl ;
+
+
 }

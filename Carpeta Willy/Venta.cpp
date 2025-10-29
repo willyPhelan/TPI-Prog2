@@ -236,7 +236,7 @@ void Venta::cargarVenta(){
 
         // *NOTA: Aquí se debería guardar 'linea' en su archivo correspondiente (DetalleVentas.dat)*
 
-        cout << endl << "Linea de Detalle_Venta cargada. Pendiente de guardar en archivo DetalleVentas.dat." << endl ;
+        cout << endl << "Detalle de venta cargado. " << endl ;
 
         cout << "Desea agregar otro producto a la venta? (1 = Si, 0 = No): "  ;
 
@@ -289,4 +289,8 @@ void Venta::mostrarVenta(){
     cout << "Monto total: " << getMontoTotal() << endl ;
 
     cout << "Tipo de factura: " << getTipoFactura() << endl ;
+
+    if(getEstado()) {
+
+    cout << "Estado: " << "Activa" << endl ; } else { cout << "Dada de baja" << endl ; }
 }
