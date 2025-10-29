@@ -30,4 +30,6 @@ private:
 
     void subMenuABML_Envios() ;
 
+    void subMenuABML_Listados() ;
+
 } ;

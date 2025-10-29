@@ -155,6 +155,8 @@ void Envio::mostrar() const {
 
     cout << "ID Envio: " << getID_Envio() << endl ;
 
+    cout << "ID Venta Asociada: " << getID_Venta() << endl ;
+
     cout << "Fecha de Entrega: " ;
 
     getFecha_Entrega().mostrar() ; // Asume que la clase Fecha tiene un metodo mostrar()

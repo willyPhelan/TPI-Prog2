@@ -36,7 +36,7 @@ int Producto::getID_Producto() const {
     return ID_Producto ;
 }
 
-Proveedor Producto::getID_Proveedor() const { // la funcion devuelve un proveedor (composicion)
+int Producto::getID_Proveedor() const { // la funcion devuelve un proveedor (composicion)
 
     return ID_Proveedor ;
 
@@ -84,7 +84,7 @@ void Producto::setID_Producto(int _idProducto){
     ID_Producto = _idProducto ;
 }
 
-void Producto::setID_Proveedor(Proveedor ID_Proveedor){
+void Producto::setID_Proveedor(int id_Proveedor){
 
     ID_Proveedor = ID_Proveedor ;
 }

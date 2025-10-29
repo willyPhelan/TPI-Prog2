@@ -46,7 +46,7 @@ public:
 
 private:
 
-    int ID_Envio ;
+    int ID_Envio ; //PREGUNTAR PROFE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     int ID_Venta ;
 
@@ -57,9 +57,6 @@ private:
     float valor_Envio ;
 
     bool estado ;
-
-
-
 
 
 

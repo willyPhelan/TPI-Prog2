@@ -7,81 +7,6 @@
 
 using namespace std ;
 
-// MENU PERSONAS
-
-void Menu::subMenuPersonas() {
-
-    int opcion ;
-
-    do {
-
-        system("pause") ;
-
-        system("cls") ;
-
-        cout << "MENU ABML PERSONAS" << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "1. Clientes " << endl ;
-
-        cout << "2. Empleados " << endl ;
-
-        cout << "3. Proveedores " << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "0. Volver al Menu Principal" << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "Ingrese una opcion: " ;
-
-        cin >> opcion ;
-
-        cout << endl ;
-
-
-        switch (opcion) {
-
-            case 1: {
-
-                subMenuABML_Clientes() ;
-
-                break ;
-
-            }
-
-            case 2: {
-
-                subMenuABML_Empleados()  ;
-
-                break ; }
-
-            case 3: {
-
-                system("cls") ;
-
-                subMenuABML_Proveedores() ;
-
-                break ; }
-
-            case 0: {
-
-                cout << "Volviendo al menu principal..." << endl ;
-
-                break ; }
-
-            default:
-
-                cout << "Opcion Invalida. Intente de nuevo." << endl ;
-
-                system("pause") ;
-
-                break ;
-        }
-    } while (opcion != 0) ;
-}
 
 // MENU PRINCIPAL
 
@@ -97,11 +22,23 @@ void Menu::mostrar() {
 
         cout << "--------------------------" << endl ;
 
-        cout << "1. ABML" << endl ;
+        cout << "1. Clientes" << endl ;
 
-        cout << "2. Reportes " << endl ;
+        cout << "2. Proveedores" << endl ;
 
-        cout << "3. Copia de seguridad " << endl ;
+        cout << "3. Empleados" << endl ;
+
+        cout << "4. Productos" << endl ;
+
+        cout << "5. Ventas" << endl ;
+
+        cout << "6. Envios" << endl ;
+
+        cout << "7. Listados" << endl ;
+
+        cout << "8. Reportes " << endl ;
+
+        cout << "9. Copia de seguridad " << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -120,29 +57,55 @@ void Menu::mostrar() {
 
             case 1:
 
-                subMenuABML() ;
+                subMenuABML_Clientes() ;
 
                 break ;
 
             case 2:
 
-                cout << "MENU REPORTES -- PENDIENTE " << endl ;
-
-                cout << "Funcionalidad no implementada." << endl ;
-
-                system("pause") ;
+                subMenuABML_Proveedores() ;
 
                 break ;
 
             case 3:
 
-                // aca llamo subMenuVentas() cuando este
+                subMenuABML_Empleados() ;
 
-                cout << "COPIA DE SEGURIDAD - PENDIENTE" << endl ;
+                break ;
 
-                cout << "Funcionalidad no implementada." << endl ;
+             case 4:
 
-                system("pause") ;
+                subMenuABML_Productos() ;
+
+                break ;
+
+             case 5:
+
+                subMenuABML_Ventas() ;
+
+                break ;
+
+             case 6:
+
+                subMenuABML_Envios() ;
+
+                break ;
+
+             case 7:
+
+                subMenuABML_Listados() ;
+
+                break ;
+
+             case 8:
+
+                cout << "REPORTES ACA" << endl ;
+
+                break ;
+
+             case 9:
+
+                cout << "COPIA SEGURIDAD ACA" << endl ;
 
                 break ;
 
@@ -164,89 +127,7 @@ void Menu::mostrar() {
     } while (opcion != 0) ;
 }
 
-
-void Menu::subMenuABML() {
-
-    int opcion ;
-
-    do {
-
-        system("pause") ;
-
-        system("cls") ;
-
-        cout << "MENU ABML" << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "1. ABML Personas " << endl ;      // Llama al submenu de Clientes/Empleados/Proveedores
-
-        cout << "2. ABML Productos " << endl ;
-
-        cout << "3. ABML Ventas " << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "0. Volver al Menu Principal" << endl ;
-
-        cout << "--------------------------" << endl ;
-
-        cout << "Ingrese una opcion: " ;
-
-        cin >> opcion ;
-
-        cout << endl ;
-
-
-        switch (opcion) {
-
-            case 1:
-
-                subMenuPersonas() ; // menú Personas
-
-                break ;
-
-            case 2:
-
-                // Lógica de ABML Productos
-
-                subMenuABML_Productos() ;
-
-                break ;
-
-            case 3:
-
-                // Lógica de ABML Ventas (
-
-                subMenuABML_Ventas() ;
-
-                break ;
-
-            case 0:
-
-                cout << "Volviendo al menu principal..." << endl ;
-
-                system("pause") ;
-
-                break ;
-
-            default:
-
-                cout << "Opcion Invalida. Intente de nuevo." << endl ;
-
-                break ;
-        }
-
-    } while (opcion != 0) ;
-}
-
-
-
-// SUB MENUS PARA ABMLSSS
-
-// ==================================================================================
-// NUEVO: ESTRUCTURA DE MENÚ CON 4 OPCIONES
-// ==================================================================================
+// SUB MENU CLIENTES
 
 void Menu::subMenuABML_Clientes() {
 
@@ -257,7 +138,7 @@ void Menu::subMenuABML_Clientes() {
 
         system("cls") ;
 
-        cout << "ABML Clientes" << endl ;
+        cout << "Menu de clientes" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -266,8 +147,6 @@ void Menu::subMenuABML_Clientes() {
         cout << "2. Eliminar Cliente" << endl ;
 
         cout << "3. Modificar Cliente" << endl ;
-
-        cout << "4. Listar Clientes" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -324,13 +203,6 @@ void Menu::subMenuABML_Clientes() {
                 break ;
             }
 
-            case 4: {
-
-                cout << "Listado de Clientes" << endl ;
-
-                break ;
-            }
-
             case 0: {
 
                 cout << endl ;
@@ -361,7 +233,7 @@ void Menu::subMenuABML_Empleados() {
 
         system("cls") ;
 
-        cout << "ABML Empleados" << endl ;
+        cout << "Menu de empleados" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -370,8 +242,6 @@ void Menu::subMenuABML_Empleados() {
         cout << "2. Eliminar Empleado" << endl ;
 
         cout << "3. Modificar Empleado" << endl ;
-
-        cout << "4. Listar Empleados" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -428,13 +298,6 @@ void Menu::subMenuABML_Empleados() {
                 break ;
             }
 
-            case 4: {
-
-                cout << "Listado de Empleado" << endl ;
-
-                break ;
-            }
-
             case 0: {
 
                 cout << endl ;
@@ -465,7 +328,7 @@ void Menu::subMenuABML_Proveedores() {
 
         system("cls") ;
 
-        cout << "ABML Proveedores" << endl ;
+        cout << "Menu de Proveedores" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -474,8 +337,6 @@ void Menu::subMenuABML_Proveedores() {
         cout << "2. Eliminar Proveedor" << endl ;
 
         cout << "3. Modificar Proveedor" << endl ;
-
-        cout << "4. Listar Proveedores" << endl ;
 
         cout << "--------------------------" << endl ;
 
@@ -532,12 +393,6 @@ void Menu::subMenuABML_Proveedores() {
                 break ;
             }
 
-            case 4: {
-
-                cout << "Listado de Proveedores" << endl ;
-
-                break ;
-            }
 
             case 0: {
 
@@ -573,7 +428,7 @@ void Menu::subMenuABML_Productos(){
 
         system("cls") ;
 
-        cout << "MENU ABML DE PRODUCTOS" << endl ;
+        cout << "Menu productos" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -582,8 +437,6 @@ void Menu::subMenuABML_Productos(){
         cout << "2. Modificar producto (por ID)" << endl ;
 
         cout << "3. Dar de baja un producto" << endl ;
-
-        cout << "4. Listar todos los Productos" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -640,7 +493,7 @@ void Menu::subMenuABML_Productos(){
 
                 int idBuscar ;
 
-                cout << "MODIFICAR PRODUCTO" << endl ;
+                cout << "Modificar producto" << endl ;
 
                 cout << "--------------------------------------------" << endl ;
 
@@ -704,7 +557,7 @@ void Menu::subMenuABML_Productos(){
 
                 int idBaja ;
 
-                cout << "DAR DE BAJA UN PRODUCTO" << endl ;
+                cout << "Dar de baja un producto" << endl ;
 
                 cout << "--------------------------------------------" << endl ;
 
@@ -728,42 +581,6 @@ void Menu::subMenuABML_Productos(){
                 }
 
                 break ;
-            }
-
-
-            case 4: {
-
-                system("cls") ;
-
-                int cantidad = archivo1.getCantidadRegistros() ;
-
-                if (cantidad == 0) {
-
-                    cout << "No hay productos cargados en el sistema." << endl ;
-
-                    break ;
-
-                } else {
-
-                cout << "LISTADO DE PRODUCTOS" << endl ;
-
-                cout << "---------------------------------------------" << endl ;
-
-                cout << "Cantidad de registros: " << cantidad << endl ;
-
-                for (int i = 0; i < cantidad; i++) {
-
-                    Producto reg = archivo1.leer(i) ;
-
-                        cout << "---------------------------------------------" << endl ;
-
-                        reg.mostrar() ;
-
-                }
-
-                        cout << "---------------------------------------------" << endl ;
-
-                break ; }
             }
 
             case 0:
@@ -802,19 +619,15 @@ void Menu::subMenuABML_Ventas() {
 
         system("cls") ;
 
-        cout << "MENU ABML DE VENTAS" << endl ;
+        cout << "Menu Ventas" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
         cout << "1. Cargar venta" << endl ;
 
-        cout << "2. Modificar venta (por ID)" << endl ;
+        cout << "2. Modificar venta" << endl ;
 
-        cout << "3. Anular venta (Baja logica por ID)" << endl ;
-
-        cout << "4. Listar todas las ventas" << endl ;
-
-        cout << "5. Gestionar ventas con envios" << endl ;
+        cout << "3. Anular venta" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -992,47 +805,6 @@ void Menu::subMenuABML_Ventas() {
                 break ;
             }
 
-            case 4: { // Listar Ventas
-
-                system("cls") ;
-
-                int cantidad = archivoVenta.getCantidadRegistros() ;
-
-                if (cantidad == 0){
-
-                    cout << "No hay ventas cargadas en el sistema." << endl ;
-
-                    break ;
-                }
-
-                cout << "Listado de ventas" << endl ;
-
-                cout << "---------------------------------------------" << endl ;
-
-                cout << "Cantidad de registros: " << cantidad << endl ;
-
-                for (int i=0; i<cantidad; i++){
-
-                    Venta reg = archivoVenta.leer(i) ;
-
-                    cout << "---------------------------------------------" << endl ;
-
-                    reg.mostrarVenta() ;
-
-                }
-
-                cout << "---------------------------------------------" << endl ;
-
-                break ;
-            }
-
-            case 5: {
-
-                    subMenuABML_Envios() ;
-
-                    break ;
-            }
-
             case 0: {
 
                 cout << "Volviendo al menu ABML..." << endl ;
@@ -1066,17 +838,13 @@ void Menu::subMenuABML_Envios() {
 
         system("cls") ;
 
-        cout << "MENU ABML DE ENVIOS" << endl ;
+        cout << "Menu envios" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
         cout << "1. Modificar un envio" << endl ;
 
         cout << "2. Anular un envio" << endl ;
-
-        cout << "3. Listar todos los Envios" << endl ;
-
-        cout << "4. Buscar envio por ID" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -1164,7 +932,172 @@ void Menu::subMenuABML_Envios() {
                 break ;
             }
 
-            case 3: { // Listar envios
+            case 0: {
+
+                cout << "Volviendo al menu ABML..." << endl ;
+
+                break ;
+            }
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0);
+}
+
+// SUB MENU LISTADOS
+
+void Menu::subMenuABML_Listados() {
+
+    int opcion ;
+
+    ProductoArchivo archivo1 ;
+    VentaArchivo archivoVenta ;
+    EnvioArchivo archivoEnvio ;
+
+    do {
+
+
+        system("cls") ;
+
+        cout << "Menu de listados" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "1. Listado de Clientes" << endl ;
+
+        cout << "2. Listado de Empleados" << endl ;
+
+        cout << "3. Listado de Proveedores" << endl ;
+
+        cout << "4. Listado de Ventas" << endl ;
+
+        cout << "5. Listado de Productos" << endl ;
+
+        cout << "6. Listado de Envios" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "0. Volver al menu anterior" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cout << endl ;
+
+        cin >> opcion ;
+
+
+        switch (opcion) {
+
+            case 1: {
+
+                system("cls") ;
+
+                cout << "Listado de Clientes" << endl ;
+
+
+            }
+
+            case 2: {
+
+                // LOGICA PARA OPCION 2
+
+                cout << "Listado de Empleados" << endl ;
+
+                break ;
+
+            }
+
+            case 3: {
+
+                // LOGICA PARA OPCION 3
+
+                cout << "Listado de Proveedores" << endl ;
+
+                break ;
+            }
+
+
+            case 4:  { // Listar Ventas
+
+                system("cls") ;
+
+                int cantidad = archivoVenta.getCantidadRegistros() ;
+
+                if (cantidad == 0){
+
+                    cout << "No hay ventas cargadas en el sistema." << endl ;
+
+                    break ;
+                }
+
+                cout << "Listado de ventas" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                cout << "Cantidad de registros: " << cantidad << endl ;
+
+                for (int i=0; i<cantidad; i++){
+
+                    Venta reg = archivoVenta.leer(i) ;
+
+                    cout << "---------------------------------------------" << endl ;
+
+                    reg.mostrarVenta() ;
+
+                }
+
+                cout << "---------------------------------------------" << endl ;
+
+                system("pause") ;
+
+                break ;
+            }
+
+            case 5:  { // listado productos
+
+                system("cls") ;
+
+                int cantidad = archivo1.getCantidadRegistros() ;
+
+                if (cantidad == 0) {
+
+                    cout << "No hay productos cargados en el sistema." << endl ;
+
+                    break ;
+
+                } else {
+
+                cout << "LISTADO DE PRODUCTOS" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                cout << "Cantidad de registros: " << cantidad << endl ;
+
+                for (int i = 0; i < cantidad; i++) {
+
+                    Producto reg = archivo1.leer(i) ;
+
+                        cout << "---------------------------------------------" << endl ;
+
+                        reg.mostrar() ;
+
+                }
+
+                        cout << "---------------------------------------------" << endl ;
+
+                        system("pause") ;
+
+                break ; }
+            }
+
+            case 6: {
 
                 system("cls") ;
 
@@ -1183,56 +1116,28 @@ void Menu::subMenuABML_Envios() {
                     reg.mostrar() ;
                 }
 
-
-
-                break ;
-            }
-
-            case 4: { // Buscar por ID_Venta
-
-                system("cls") ;
-
-                int idVentaBuscar ;
-
-                cout << "Buscar envio por ID" << endl ;
-
-                cout << "Ingrese el ID del envio: " ;
-
-                cin >> idVentaBuscar ;
-
-                // Usa la función de búsqueda secundaria
-
-                int pos = archivoEnvio.buscarPosicionPorID_Venta(idVentaBuscar) ;
-
-                if (pos == -1) {
-
-                    cout << "No se encontro el envio asociado con ese ID " << idVentaBuscar << endl ;
-
-                    break ;
-                }
-
-                Envio reg = archivoEnvio.leer(pos) ;
-
-                cout << "Envio encontrado (ID_Venta: " << idVentaBuscar << " - ID_Envio: " << reg.getID_Envio() << ")\n" ;
-
-                reg.mostrar() ;
+                system("pause") ;
 
                 break ;
             }
 
-            case 0: {
 
-                cout << "Volviendo al menu ABML..." << endl ;
+            case 0:
+
+                cout << endl ;
+
+                cout << "Volviendo al menu anterior..." << endl ;
 
                 break ;
-            }
+
 
             default:
 
-                cout << "Opcion invalida. Intente de nuevo." << endl ;
+                cout << "Opcion Invalida. Intente de nuevo." << endl ;
 
                 break ;
         }
 
-    } while (opcion != 0);
+    } while (opcion != 0) ;
+
 }

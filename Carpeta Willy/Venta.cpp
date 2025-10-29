@@ -45,6 +45,11 @@ Fecha Venta::getFechaVenta(){
     return fechaVenta ;
 }
 
+/* Envio Venta::getEnvio() const {
+
+    return envioAsociado ;
+} */
+
 int Venta::getMedioPago(){
 
     return medioDePago ;
@@ -91,6 +96,11 @@ void Venta::setFechaVenta(Fecha _fechaVenta){
 
     fechaVenta = _fechaVenta ;
 }
+
+/*void Venta::setEnvio(const Envio &_envio) {
+
+    envioAsociado = _envio ;
+} */
 
 void Venta::setMedioDePago(int _medioPago){
 
@@ -282,7 +292,16 @@ void Venta::mostrarVenta(){
 
     cout << "Medio de pago: " <<getMedioPago() << endl ;
 
-    cout << "Forma de entrega: " << getTipoEnvio() << endl ;
+    if(getTipoEnvio() == 1) {
+
+         cout << "Forma de entrega: Envio a domicilio"  << endl ;
+
+    } else {
+
+        cout <<  "Forma de entrega: Envio a domicilio"  << endl ;
+
+    }
+
 
     cout << "Subtotal: " << getSubTotal() << endl ;
 

@@ -11,6 +11,8 @@ class Venta{
 
         int ID_Venta ;
 
+        int ID_Cliente ;
+
         Persona ID_persona ;
 
         Fecha fechaVenta ;
@@ -42,6 +44,8 @@ class Venta{
 
         Persona getID_Persona() ;
 
+        int getID_Cliente() const ;
+
         Fecha getFechaVenta() ;
 
         int getMedioPago() ;
@@ -61,6 +65,8 @@ class Venta{
         void setID_Venta(int _IDventa) ;
 
         void setID_Persona(Persona _IDPersona) ;
+
+        void setID_Cliente(int _IDcliente) ;
 
         void setFechaVenta(Fecha _fechaVenta) ;
 
