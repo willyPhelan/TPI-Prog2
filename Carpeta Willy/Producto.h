@@ -76,6 +76,11 @@ class Producto{
 
         void mostrar() ;
 
+        // modificar de a uno
+
+        void modificarCampos();
+
+
 };
 
 

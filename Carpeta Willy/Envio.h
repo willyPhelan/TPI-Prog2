@@ -44,6 +44,8 @@ public:
 
     void mostrar() const ;
 
+
+
 private:
 
     int ID_Envio ; //PREGUNTAR PROFE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

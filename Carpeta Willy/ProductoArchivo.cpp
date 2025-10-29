@@ -198,6 +198,49 @@ bool ProductoArchivo::bajaLogica(int id_producto) {
     return escrito ;
 }
 
+// ALTA
+
+bool ProductoArchivo::altaLogica(int id_producto) {
+
+    // 1. Busco la posición del registro
+
+    int pos = buscarPosicion(id_producto) ;
+
+    if (pos == -1) {
+
+        return false ; // Producto no encontrado
+    }
+
+    // Leo el registro en la posición encontrada
+
+    Producto reg = leer(pos) ;
+
+    // Modifico el estado a falso (baja lógica)
+
+    reg.setEstado(true) ;
+
+    // 4. Sobreescribo el registro modificado en la misma posición (reutilizando la lógica de Modificar)
+    // "rb+" para reescribir
+
+    FILE* p ;
+
+    p = fopen(archivo_Producto, "rb+") ;
+
+    if (p == nullptr) { return false ; }
+
+    // Mover el puntero a la posición
+
+    fseek(p, pos * sizeof(Producto), SEEK_SET) ;
+
+    // Sobreescribir (write) el registro modificado
+
+    int escrito = fwrite(&reg, sizeof(Producto), 1, p) ;
+
+    fclose(p) ;
+
+    return escrito ;
+}
+
 int ProductoArchivo::obtenerID() {
 
     FILE* p = fopen(archivo_Producto, "rb") ;

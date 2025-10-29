@@ -298,7 +298,7 @@ void Venta::mostrarVenta(){
 
     } else {
 
-        cout <<  "Forma de entrega: Envio a domicilio"  << endl ;
+        cout <<  "Forma de entrega: Retiro en el local"  << endl ;
 
     }
 

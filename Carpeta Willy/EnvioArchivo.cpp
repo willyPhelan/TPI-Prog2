@@ -167,3 +167,26 @@ bool EnvioArchivo::bajaLogica(int id_envio) {
 
     return modificar(reg) ;
 }
+
+bool EnvioArchivo::altaLogica(int id_envio) {
+
+    // 1. Busco la posicion por ID_Envio
+
+    int pos = buscarPosicion(id_envio) ;
+
+    if (pos == -1) { return false ; }
+
+    // Leer y modificar estado
+
+    Envio reg = leer(pos) ;
+
+    if (reg.getEstado()) { return true ; } // Ya estaba aactivo
+
+    reg.setEstado(true) ; // Cambio a activo
+
+    // 3. Sobreescribo el registro modificado usa ID_Envio para buscar
+
+    return modificar(reg) ;
+}
+
+

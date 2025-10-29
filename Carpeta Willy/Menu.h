@@ -5,6 +5,7 @@
 #include "ProductoArchivo.h"
 #include "VentaArchivo.h"
 #include "EnvioArchivo.h"
+#include "ClienteArchivo.h"
 
 class Menu {
 

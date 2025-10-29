@@ -21,6 +21,8 @@ public:
 
     bool bajaLogica(int id_producto) ;
 
+    bool altaLogica(int id_producto) ;
+
     // MODIFICACIÓN (Sobreescribe el registro con el mismo ID)
     // Recibe el registro modificado y lo guarda en su posición original.
 

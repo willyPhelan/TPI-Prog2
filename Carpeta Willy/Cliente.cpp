@@ -1,4 +1,5 @@
 #include "Cliente.h"
+#include "ClienteArchivo.h"
 #include <iostream>
 #include <cstring>
 #include "Utils.h"
@@ -52,14 +53,21 @@ void Cliente::setTipo_Cliente (int tipo_Cliente){
 
 void Cliente::cargar(){
 
+    ClienteArchivo reg ;
+
     string datos ;
+
     int tipo_Cliente ;
 
-  /*  cout << "Ingrese el CUIT del cliente: " << endl ;
+    Cliente::setID(reg.getCantidadRegistros() +1 )  ;
+
+    cout << "ID del cliente: " << Cliente::getID() << endl ;
+
+    cout << "Ingrese el CUIT del cliente: " ;
 
     cin >> datos ;
 
-    Cliente::setCuit(datos) ; */
+    Cliente::setCuit(datos) ;
 
     cout << "Ingrese el tipo de cliente: " ;
 
@@ -67,31 +75,29 @@ void Cliente::cargar(){
 
     Cliente::setTipo_Cliente(tipo_Cliente) ;
 
-
-
-   /* cout << "Ingrese el nombre del cliente: " << endl ;
+    cout << "Ingrese el nombre del cliente: " ;
 
     cin >> datos ;
 
     Cliente::setNombre(datos) ;
 
-    cout << "Ingrese el apellido del cliente: " << endl ;
+    cout << "Ingrese el apellido del cliente: " ;
 
     cin >> datos ;
 
     Cliente::setApellido(datos) ;
 
-    cout << "Ingrese el telefono del cliente: " << endl ;
+    cout << "Ingrese el telefono del cliente: " ;
 
     cin >> datos ;
 
     Cliente::setTelefono(datos) ;
 
-    cout << "Ingrese la direccion del cliente: " << endl ;
+    cout << "Ingrese la direccion del cliente: " ;
 
     datos = cargarCadena() ;
 
-    Cliente::setDireccion(datos) ; */
+    Cliente::setDireccion(datos) ;
 
     cout << "Ingrese el mail del cliente: "  ;
 
@@ -103,18 +109,14 @@ void Cliente::cargar(){
 
     cout << endl ;
 
-    cout << "El cliente fue agregado con exito. " << endl << endl ;
 
-    system("pause") ;
-
-    system("cls") ;
 }
 
 void Cliente::mostrar(){
 
-    cout << "Informacion del cliente: " << endl ;
+    cout << endl << "Informacion del cliente: " << endl ;
 
-    cout << endl ;
+    cout << "ID del cliente: " << Cliente::getID() << endl ;
 
     cout << "Nombre y apellido del cliente: " << Cliente::getNombre() << " " << Cliente::getApellido() << endl ;
 
@@ -128,12 +130,11 @@ void Cliente::mostrar(){
 
     cout << "Tipo de cliente: " << Cliente::getTipo_Cliente() << endl ;
 
-    cout << "Estado: " << Cliente::getEstado() << endl ;
+    if(Cliente::getEstado()) {
+
+    cout << "Estado: Activo"  << endl ; } else { cout << "Estado: Dado de baja" << endl ; }
 
     cout << endl ;
 
-    system ("pause") ;
-
-    system ("cls") ;
 }
 

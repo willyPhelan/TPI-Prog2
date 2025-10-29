@@ -171,34 +171,96 @@ void Menu::subMenuABML_Clientes() {
 
                 cout << "-----------------------------------------" << endl ;
 
-                Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
-
-                nuevaPersona.cargar() ; // Carga los datos de la persona
-
-                // a partir de aca cargo los datos especificos de la clase derivada
-
                 Cliente nuevoCliente ;
 
                 nuevoCliente.cargar() ;
 
-                break ;
-            }
+                ClienteArchivo reg ;
+
+                reg.guardar(nuevoCliente) ;
+
+                cout << "El cliente fue agregado con exito. " << endl ;
+
+                system("pause") ;
+
+                break ; }
 
             case 2: {
 
-                // LOGICA PARA OPCION 2
+                system("cls") ;
 
                 cout << "Eliminar un Cliente" << endl ;
+
+                cout << "-----------------------------------------" << endl ;
+
+                int id_persona ;
+
+                cout << "Ingrese el ID del cliente que desee borrar: " ;
+
+                cin >> id_persona ;
+
+                ClienteArchivo reg ;
+
+                reg.bajaLogica(id_persona) ;
+
+                 cout << "Cliente dado de baja" << endl ;
+
+                system("pause") ;
 
                 break ;
 
             }
 
-            case 3: {
+            case 3:  {
 
-                // LOGICA PARA OPCION 3
+                system("cls") ;
 
                 cout << "Modificar un Cliente" << endl ;
+
+                cout << "--------------------------------------------" << endl;
+
+                int idBuscar ;
+
+                cout << "Ingrese el ID del cliente a modificar: " ;
+
+                cin >> idBuscar ;
+
+                ClienteArchivo archivo ;
+
+                Cliente reg ;
+
+                int pos = archivo.buscarPosicion (idBuscar) ;
+
+                if (pos == -1){
+
+                    cout << "ERROR: No se encontro un cliente con ese ID. " << endl ;
+
+                } else {
+
+                    reg = archivo.leer(pos) ;
+
+                    reg.mostrar() ;
+
+                    cout << "--------------------------------------------" << endl ;
+
+                    cout << "Ingrese los nuevos datos del cliente (el ID se mantendra): " << endl << endl ;
+
+                    reg.cargar() ;
+
+                    reg.setID(idBuscar) ;
+
+                    if (archivo.modificar(reg)){
+
+                        cout << endl << "Cliente modificado con exito. " << endl ;
+
+                    } else {
+
+                        cout << endl << "ERROR: No se pudo escribir la modificacion en el archivo. " << endl ;
+
+                    }
+                }
+
+                system("pause") ;
 
                 break ;
             }
@@ -268,7 +330,7 @@ void Menu::subMenuABML_Empleados() {
 
                 Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
 
-                nuevaPersona.cargar() ; // Carga los datos de la persona
+              //  nuevaPersona.cargar() ; // Carga los datos de la persona
 
                 // a partir de aca cargo los datos especificos de la clase derivada
 
@@ -363,7 +425,7 @@ void Menu::subMenuABML_Proveedores() {
 
                 Persona nuevaPersona ;  // Instancia de la clase Persona y llamada a cargar()
 
-                nuevaPersona.cargar() ; // Carga los datos de la persona
+             //   nuevaPersona.cargar() ; // Carga los datos de la persona
 
                 // a partir de aca cargo los datos especificos de la clase derivada
 
@@ -436,7 +498,11 @@ void Menu::subMenuABML_Productos(){
 
         cout << "2. Modificar producto (por ID)" << endl ;
 
-        cout << "3. Dar de baja un producto" << endl ;
+        cout << "3. Modificar un campo especifico del producto" << endl ;
+
+        cout << "4. Dar de baja un producto" << endl ;
+
+        cout << "5. Dar de alta un producto" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -548,8 +614,20 @@ void Menu::subMenuABML_Productos(){
                 break;
             }
 
-
             case 3: {
+
+                system("cls") ;
+
+                Producto regModificar ;
+
+                regModificar.modificarCampos() ;
+
+                break ;
+
+            }
+
+
+            case 4: {
 
                 // BAJA LÓGICA
 
@@ -578,6 +656,40 @@ void Menu::subMenuABML_Productos(){
                     cout << "ERROR: No se pudo completar la baja." << endl ;
 
                     cout << "Posibles razones: El ID " << idBaja << " no existe, o el producto ya esta inactivo." << endl ;
+                }
+
+                break ;
+            }
+
+            case 5: {
+
+                // BAJA LÓGICA
+
+                system("cls") ;
+
+                int idAlta ;
+
+                cout << "Dar de alta un producto" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID del producto a dar de alta: " ;
+
+                cin >> idAlta ;
+
+                cout << endl ;
+
+                //Llamo a la fn bajaLogica
+
+                if (archivo1.altaLogica(idAlta)) {
+
+                    cout << "Producto (ID " << idAlta << ") dado de alta." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo completar la alta." << endl ;
+
+                    cout << "Posibles razones: El ID " << idAlta << " no existe, o el producto ya esta inactivo." << endl ;
                 }
 
                 break ;
@@ -846,6 +958,8 @@ void Menu::subMenuABML_Envios() {
 
         cout << "2. Anular un envio" << endl ;
 
+        cout << "3. Dar de alta un envio que fue dado de baja" << endl ;
+
         cout << "--------------------------------------------" << endl ;
 
         cout << "0. Volver al menu ABML" << endl ;
@@ -932,6 +1046,30 @@ void Menu::subMenuABML_Envios() {
                 break ;
             }
 
+              case 3: { // Activar Envio
+
+                system("cls") ;
+
+                int idAlta ;
+
+                cout << "Activar un envio dado de baja anteriormente" << endl ;
+
+                cout << "Ingrese el ID de Envio a dar de alta: " ;
+
+                cin >> idAlta ;
+
+                if (archivoEnvio.altaLogica(idAlta)) { // Usa ID_Envío
+
+                    cout << "Envio (ID " << idAlta << ") anulado logicamente." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo dar de alta el envio." << endl ;
+                }
+
+                break ;
+            }
+
             case 0: {
 
                 cout << "Volviendo al menu ABML..." << endl ;
@@ -1001,7 +1139,30 @@ void Menu::subMenuABML_Listados() {
 
                 cout << "Listado de Clientes" << endl ;
 
+                cout << "--------------------------" << endl ;
 
+                Cliente nuevoCliente;
+
+                ClienteArchivo reg;
+
+                int cantRegistros = reg.getCantidadRegistros();
+
+                for (int i = 0; i<cantRegistros; i++) {
+
+
+                    nuevoCliente = reg.leer(i);
+                    if(nuevoCliente.getEstado() == true)
+                    {
+                        nuevoCliente.mostrar();
+
+                        cout << "--------------------------" << endl ;
+                    }
+
+                }
+
+                system("pause") ;
+
+                break ;
             }
 
             case 2: {
