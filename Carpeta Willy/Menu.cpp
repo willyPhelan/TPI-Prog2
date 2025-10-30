@@ -1033,7 +1033,11 @@ void Menu::subMenuABML_Ventas() {
 
         cout << "2. Modificar venta" << endl ;
 
-        cout << "3. Anular venta" << endl ;
+        cout << "3. Modificar un campo especifico de una venta" << endl ;
+
+        cout << "4. Anular venta" << endl ;
+
+        cout << "5. Dar de alta una venta anulada" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -1179,7 +1183,9 @@ void Menu::subMenuABML_Ventas() {
                 break ;
             }
 
-            case 3: { // Anular Venta (Baja Lógica)
+            case 3: {}
+
+            case 4: { // Anular Venta (Baja Lógica)
 
                 system("cls") ;
 
@@ -1206,6 +1212,38 @@ void Menu::subMenuABML_Ventas() {
                     cout << "ERROR: No se pudo completar la anulacion." << endl ;
 
                     cout << "Posibles razones: El ID " << idBaja << " no existe, o la venta ya estaba inactiva." << endl ;
+                }
+
+                break ;
+            }
+
+            case 5: { // Anular Venta (Baja Lógica)
+
+                system("cls") ;
+
+                int idAlta ;
+
+                cout << "Dar de alta una venta" << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Ingrese el ID de la venta a dar de alta: " ;
+
+                cin >> idAlta ;
+
+                cout << endl ;
+
+                // llamo a la función bajaLogica
+
+                if(archivoVenta.altaLogica(idAlta)){
+
+                    cout << "Venta (ID " << idAlta << ") dada de alta (Estado: ACTIVO)." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo completar el alta." << endl ;
+
+                    cout << "Posibles razones: El ID " << idAlta << " no existe, o la venta ya estaba activa." << endl ;
                 }
 
                 break ;
@@ -1250,9 +1288,11 @@ void Menu::subMenuABML_Envios() {
 
         cout << "1. Modificar un envio" << endl ;
 
-        cout << "2. Anular un envio" << endl ;
+        cout << "2. Modificar un campo especifico del envio" << endl ;
 
-        cout << "3. Dar de alta un envio que fue dado de baja" << endl ;
+        cout << "3. Anular un envio" << endl ;
+
+        cout << "4. Dar de alta un envio que fue dado de baja" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -1316,7 +1356,9 @@ void Menu::subMenuABML_Envios() {
                 break ;
             }
 
-            case 2: { // Anular Envio
+            case 2: {}
+
+            case 3: { // Anular Envio
 
                 system("cls") ;
 
@@ -1340,7 +1382,7 @@ void Menu::subMenuABML_Envios() {
                 break ;
             }
 
-              case 3: { // Activar Envio
+              case 4: { // Activar Envio
 
                 system("cls") ;
 

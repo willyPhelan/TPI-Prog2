@@ -17,6 +17,8 @@ class VentaArchivo {
 
         bool bajaLogica(int id_venta) ;
 
+        bool altaLogica(int id_venta) ;
+
         bool modificar(const Venta &reg) ;
 
         int obtenerID() ;

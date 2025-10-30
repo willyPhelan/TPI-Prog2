@@ -79,6 +79,33 @@ bool VentaArchivo::bajaLogica(int id_venta){
     return escrito ;
 }
 
+bool VentaArchivo::altaLogica(int id_venta){
+
+    int pos = buscarPosicion(id_venta) ;
+
+    if(pos == -1){
+
+        return false ;
+    }
+
+    Venta reg = leer(pos) ;
+
+    reg.setEstado(true) ;
+
+    FILE* pventa ;
+
+    pventa = fopen(archivo_Venta, "rb+") ;
+
+    if (pventa == nullptr){ return false ; }
+
+    fseek(pventa,pos*sizeof(Venta),SEEK_SET) ;
+
+    int escrito = fwrite(&reg, sizeof(Venta), 1, pventa) ;
+
+    fclose(pventa) ;
+
+    return escrito ;
+}
 
 bool VentaArchivo::modificar(const Venta &reg){
 
