@@ -768,6 +768,8 @@ void Menu::subMenuABML_Ventas() {
 
     EnvioArchivo archivoEnvio ;
 
+    DetalleVentaArchivo archivoDetalleVena;
+
     do {
 
         system("pause") ;
@@ -808,6 +810,7 @@ void Menu::subMenuABML_Ventas() {
                 cout << "--------------------------------------------------------------" << endl ;
 
                 Venta nuevaVenta ; // instancio obj
+                Detalle_Venta nuevoDetalleVenta;
 
                 // Obtengo ID autoincremental
 
@@ -820,10 +823,13 @@ void Menu::subMenuABML_Ventas() {
                 // Carga de datos restantes
 
                 nuevaVenta.cargarVenta() ;
+               // nuevoDetalleVenta.cargar();
 
                 // 3. Guardar en el archivo
 
                 if(archivoVenta.guardar(nuevaVenta)){
+
+
 
                     cout << endl << "Venta cargada con exito (ID: "<< nuevoID <<")." << endl ;
 
@@ -1426,6 +1432,8 @@ void Menu::subMenuABML_Listados() {
                 break ;
             }
             case 5:{ // Listar Dealle Venta
+
+                system("cls") ;
 
                 int cantidad = archivoDetalleVenta.getCantidadRegistros();
 

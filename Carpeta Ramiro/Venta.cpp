@@ -184,6 +184,10 @@ void Venta::cargarVenta(){
 
     int continuarDetalle = 1 ;
 
+    float MontoIVA = 1.21;
+
+    float montoFinal;
+
     float subtotalAcumulado = 0.0 ; // Para calcular el subtotal
 
     int contadorProductos = 1 ;
@@ -232,15 +236,24 @@ void Venta::cargarVenta(){
 
     do {
 
-        Detalle_Venta detalle ; // Instancia de Detalle_Venta
+        Detalle_Venta detalle ;// Instancia de Detalle_Venta
+        DetalleVentaArchivo archivoDetalleVenta;
+
+        detalle.setID_Detalle(getID_Venta());
+        detalle.setID_Venta(getID_Venta());
+
 
         cout << "Producto #" << contadorProductos << " " ;
 
-        detalle.cargar() ; // Carga de ID_Producto, Cantidad, Precio_Unitario
+        detalle.cargar() ;// Carga de ID_Producto, Cantidad, Precio_Unitario
+
+        cout <<"Precio del Producto: "<<detalle.getPrecio_Unitario();
 
         // CÁLCULO DE SUBTOTAL:
 
         subtotalAcumulado += (detalle.getCantidad() * detalle.getPrecio_Unitario()) ;
+
+        montoFinal += subtotalAcumulado * MontoIVA;
 
         contadorProductos++ ;
 
@@ -254,6 +267,8 @@ void Venta::cargarVenta(){
 
         cout << endl ;
 
+        archivoDetalleVenta.guardar(detalle);
+
     } while (continuarDetalle == 1) ;
 
 
@@ -263,7 +278,7 @@ void Venta::cargarVenta(){
 
     // El monto total debe incluir impuestos y costo de envío (si aplica)
 
-    setMontoTotal(subtotalAcumulado) ;
+    setMontoTotal(montoFinal) ;
 
     cout << "Tipo de factura: (1- Factura A, 2- Factura B, 3- Factura C): " ;
 

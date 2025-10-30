@@ -2,6 +2,7 @@
 #include <cstring>
 #include "Proveedor.h"
 
+
 class Producto{
 
     private:
