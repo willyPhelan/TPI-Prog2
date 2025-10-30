@@ -38,32 +38,85 @@ void Proveedor::cargar() {
 
     string datos ;
 
-    int tipo_proveedor ;
+    int datos2 ;
+
+    Proveedor proveedor1;
 
     ProveedorArchivo archivo;
+
+    int const cantReg = archivo.getCantidadRegistros();
 
     cout << "Ingrese el CUIT del proveedor: " << endl ;
 
     cin >> datos ;
 
+    for (int i = 0; i<cantReg; i++)
+    {
+        proveedor1 = archivo.leer(i);
+
+        while (strcmp(datos.c_str(), proveedor1.getCuit().c_str()) == 0 && proveedor1.getEstado() == true)
+        {
+
+            cout << "El CUIT que usted ingreso ya fue asignado. Desea salir o introducir otro CUIT?: 1: (Agregar otro CUIT), 2: (Salir)" << endl;
+
+            cin >> datos2;
+
+            switch (datos2)
+            {
+            case 1:
+                cout << "Ingrese el nuevo CUIT: " << endl;
+
+                cin >> datos;
+
+                break;
+
+            case 2:
+
+                cout << "Saliendo..." << endl;
+
+                system ("pause");
+
+                system ("cls");
+
+                return;
+
+                break;
+
+            default:
+
+                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl;
+
+                break;
+            }
+
+        }
+    }
+
     Proveedor::setCuit(datos) ;
 
     cout << "Ingrese el tipo de proveedor: " ;
 
-    cin >> tipo_proveedor ;
+    cin >> datos2 ;
 
-    Proveedor::setTipo_proveedor(tipo_proveedor) ;
+    Proveedor::setTipo_proveedor(datos2) ;
 
     cout << "Ingrese el nombre del proveedor: " << endl;
+
     datos = cargarCadena();
+
     Proveedor::setNombre(datos);
 
+
     cout << "Ingrese el numero de telefono del proveedor: " << endl;
+
     cin >> datos;
+
     Proveedor::setTelefono(datos);
 
     cout << "Ingrese la direccion del proveedor: " << endl;
+
     datos = cargarCadena();
+
     Proveedor::setDireccion(datos);
 
     Proveedor::setEstado(true);

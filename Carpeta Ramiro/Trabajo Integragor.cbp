@@ -38,6 +38,8 @@
 		<Unit filename="Cliente.h" />
 		<Unit filename="ClienteArchivo.cpp" />
 		<Unit filename="ClienteArchivo.h" />
+		<Unit filename="DetalleVentaArchivo.cpp" />
+		<Unit filename="DetalleVentaArchivo.h" />
 		<Unit filename="Detalle_Venta.cpp" />
 		<Unit filename="Detalle_Venta.h" />
 		<Unit filename="Empleado.cpp" />

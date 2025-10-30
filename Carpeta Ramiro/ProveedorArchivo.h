@@ -18,6 +18,8 @@ public: /// Metodos
 
     bool bajaLogica (int id_persona);
 
+    bool altaLogica (int id_persona);
+
     Proveedor leer (int pos);
 
     bool modificar (const Proveedor &reg);

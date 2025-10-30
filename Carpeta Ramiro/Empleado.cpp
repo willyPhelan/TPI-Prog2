@@ -49,10 +49,57 @@ void Empleado::cargar(){
     string datos ;
     int datos2 ;
 
+
     EmpleadoArchivo reg;
+
+    int const cantReg = reg.getCantidadRegistros();
+
+    Empleado empleado1;
 
     cout << "Ingrese el CUIT del empleado: " << endl ;
     cin >> datos;
+
+    for (int i = 0; i<cantReg; i++)
+    {
+        empleado1 = reg.leer(i);
+
+        while (strcmp(datos.c_str(), empleado1.getCuit().c_str()) == 0 && empleado1.getEstado() == true)
+        {
+            cout << "El CUIT que usted ingreso ya fue asignado. Desea salir o introducir otro CUIT?: 1: (Agregar otro CUIT), 2: (Salir)" << endl;
+
+            cin >> datos2;
+
+            switch (datos2)
+            {
+            case 1:
+                cout << "Ingrese el nuevo CUIT: " << endl;
+
+                cin >> datos;
+
+                break;
+
+            case 2:
+
+                cout << "Saliendo..." << endl;
+
+                system ("pause");
+
+                system ("cls");
+
+                return;
+
+                break;
+
+            default:
+
+                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl;
+
+                break;
+            }
+
+        }
+    }
+
     Empleado::setCuit(datos);
 
     cout << "Ingrese el tipo de empleado: " ;

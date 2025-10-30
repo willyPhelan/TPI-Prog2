@@ -9,7 +9,7 @@ using namespace std;
 // Constructor por defecto
 
 Detalle_Venta::Detalle_Venta()
- : ID_Detalle(0), ID_Producto(0), ID_Venta(), cantidad(0), precio_Unitario(0.0f), estado(true) // Estado Activo por defecto
+ : ID_Detalle(0), ID_Producto(0), ID_Venta(0), cantidad(0), precio_Unitario(0.0f), estado(true) // Estado Activo por defecto
 {}
 
 // Constructor con parámetros
@@ -92,6 +92,7 @@ void Detalle_Venta::cargar() {
 
     // El ID_Producto y el ID_Venta Tiene que ir por composicion de las respectivas clases y ID_detalle de esta clase (lo genera el archivo)???
     // Solo pedimos los datos necesarios al usuario.
+
     ProductoArchivo archivoP;
 
     int num ;
@@ -118,9 +119,6 @@ void Detalle_Venta::cargar() {
 
     float unitario = archivoP.buscarPrecio(id);
     setPrecio_Unitario(unitario);
-
-
-
 }
 
 void Detalle_Venta::mostrar() const {

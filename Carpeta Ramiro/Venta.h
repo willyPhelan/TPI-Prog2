@@ -5,7 +5,6 @@
 #include "Envio.h"
 #include "Detalle_Venta.h"
 #include "DetalleVentaArchivo.h"
-#include "ProductoArchivo.h"
 
 class Venta{
 

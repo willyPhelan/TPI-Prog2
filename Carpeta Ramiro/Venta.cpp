@@ -182,7 +182,7 @@ void Venta::cargarVenta(){
 
     int num ;
 
-    int continuarDetalle = 1 ;
+    int continuarDetalle = 1;
 
     float MontoIVA = 1.21;
 
@@ -223,12 +223,8 @@ void Venta::cargarVenta(){
 
     setTipoEnvio(num) ;
 
-    // 3. Carga Condicional del ENVIO
 
-
-
-
-    // 4. Carga del DETALLE_VENTA (Bucle)
+    // 3. Carga del DETALLE_VENTA (Bucle)
 
     cout << endl << "Carga de productos de (DETALLE DE VENTA)" << endl ;
 
@@ -247,13 +243,12 @@ void Venta::cargarVenta(){
 
         detalle.cargar() ;// Carga de ID_Producto, Cantidad, Precio_Unitario
 
-        cout <<"Precio del Producto: "<<detalle.getPrecio_Unitario();
+        cout <<"Precio del Producto: "<<detalle.getPrecio_Unitario()<<endl;
 
         // CÁLCULO DE SUBTOTAL:
 
         subtotalAcumulado += (detalle.getCantidad() * detalle.getPrecio_Unitario()) ;
 
-        montoFinal += subtotalAcumulado * MontoIVA;
 
         contadorProductos++ ;
 
@@ -271,8 +266,9 @@ void Venta::cargarVenta(){
 
     } while (continuarDetalle == 1) ;
 
+    montoFinal += subtotalAcumulado * MontoIVA;
 
-    // 5. Actualización de Totales y Factura
+    // 4. Actualización de Totales y Factura
 
     setSubTotal(subtotalAcumulado) ;
 

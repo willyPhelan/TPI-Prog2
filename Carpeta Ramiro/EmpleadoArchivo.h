@@ -18,6 +18,8 @@ public: /// Metodos
 
     bool bajaLogica (int id_persona); // <-- Metodo para hacer la baja logica
 
+    bool altaLogica (int id_persona); // <-- Metodo para hacer la alta logica
+
     Empleado leer (int pos); // <-- Metodo para leer (listado)
 
     bool modificar (const Empleado &reg);

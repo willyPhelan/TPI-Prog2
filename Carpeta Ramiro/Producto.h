@@ -2,7 +2,6 @@
 #include <cstring>
 #include "Proveedor.h"
 
-
 class Producto{
 
     private:
@@ -76,6 +75,10 @@ class Producto{
         void cargar() ;
 
         void mostrar() ;
+
+        // modificar de a uno
+
+        void modificarCampos();
 
 };
 

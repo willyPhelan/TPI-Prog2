@@ -2,7 +2,6 @@
 #include "Persona.h"
 #include "Producto.h"
 #include "Venta.h"
-#include "Detalle_Venta.h"
 #include "ProductoArchivo.h"
 #include "VentaArchivo.h"
 #include "EnvioArchivo.h"
