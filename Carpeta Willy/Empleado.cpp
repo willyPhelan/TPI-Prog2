@@ -1,4 +1,5 @@
 #include "Empleado.h"
+#include "EmpleadoArchivo.h"
 #include <iostream>
 #include <cstring>
 #include "Utils.h"
@@ -44,12 +45,17 @@ void Empleado::setHoras_Trabajo(int horas_Trabajo){
 
 void Empleado::cargar(){
 
+    EmpleadoArchivo reg ;
+
     string datos ;
+
     int datos2 ;
 
-    /* cout << "Ingrese el CUIT del empleado: " << endl ;
-    cin >> datos;
-    Empleado::setCuit(datos); */
+    cout << "Ingrese el CUIT del empleado: " ;
+
+    cin >> datos ;
+
+    Empleado::setCuit(datos) ;
 
     cout << "Ingrese el tipo de empleado: " ;
 
@@ -63,29 +69,33 @@ void Empleado::cargar(){
 
     Empleado::setHoras_Trabajo(datos2) ;
 
-   /* cout << "Ingrese el nombre del empleado: " << endl;
-    cin >> datos;
-    Empleado::setNombre(datos);
+    cout << "Ingrese el nombre del empleado: "  ;
 
-    cout << "Ingrese el apellido del empleado: " << endl;
-    cin >> datos;
-    Empleado::setApellido(datos);
+    cin >> datos ;
 
-    cout << "Ingrese el telefono del empleado: " << endl;
-    cin >> datos;
-    Empleado::setTelefono(datos);
+    Empleado::setNombre(datos) ;
 
-    cout << "Ingrese la direccion del empleado: " << endl;
-    datos = cargarCadena();
-    Empleado::setDireccion(datos);
+    cout << "Ingrese el apellido del empleado: " ;
 
-    Empleado::setEstado(true); */
+    cin >> datos ;
+
+    Empleado::setApellido(datos) ;
+
+    cout << "Ingrese el telefono del empleado: " ;
+
+    cin >> datos ;
+
+    Empleado::setTelefono(datos) ;
+
+    cout << "Ingrese la direccion del empleado: "  ;
+
+    datos = cargarCadena() ;
+
+    Empleado::setDireccion(datos) ;
+
+    Empleado::setEstado(true) ;
 
     cout<< endl << "El empleado fue agregado con exito. " << endl ;
-
-    system("pause") ;
-
-    system("cls") ;
 
 }
 
@@ -93,7 +103,7 @@ void Empleado::mostrar(){
 
     cout << "Informacion del empleado: " << endl ;
 
-    cout << endl ;
+    cout << "ID del empleado: " << Empleado::getID() << endl ;
 
     cout << "Nombre y apellido del empleado: " << Empleado::getNombre() << " " << Empleado::getApellido() << endl ;
 
@@ -110,9 +120,4 @@ void Empleado::mostrar(){
     cout << "Estado: " << Empleado::getEstado() << endl ;
 
     cout << endl ;
-
-    system("pause") ;
-
-    system("cls") ;
-
 }

@@ -1,11 +1,14 @@
 #pragma once
 #include "Persona.h"
 
+
 class Proveedor : public Persona {
 
 private: // Atributos
 
     int tipo_proveedor ;
+
+    char mail [30] ;
 
 public:
 
@@ -19,9 +22,13 @@ Proveedor (int tipo_proveedor) ;
 
 int getTipo_proveedor () ;
 
+std::string getMail () const ;
+
 // Setters
 
 void setTipo_proveedor (int tipo_proveedor) ;
+
+void setMail (std::string mail) ;
 
 // Metodos
 
