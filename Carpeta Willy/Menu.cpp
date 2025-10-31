@@ -162,8 +162,6 @@ void Menu::subMenuABML_Clientes() {
 
         cout << "Ingrese una opcion: " ;
 
-        cout << endl ;
-
         cin >> opcion ;
 
 
@@ -185,8 +183,6 @@ void Menu::subMenuABML_Clientes() {
 
                 reg.guardar(nuevoCliente) ;
 
-                cout << "El cliente fue agregado con exito. " << endl ;
-
                 system("pause") ;
 
                 break ; }
@@ -205,11 +201,11 @@ void Menu::subMenuABML_Clientes() {
 
                 cin >> id_persona ;
 
+                cout << endl ;
+
                 ClienteArchivo reg ;
 
-                reg.bajaLogica(id_persona) ;
-
-                 cout << "Cliente dado de baja" << endl ;
+                if (reg.bajaLogica(id_persona)) { cout << "Cliente dado de baja exitosamente" << endl ; } else { cout << "Error: el id no corresponde a ningun cliente" << endl ;}
 
                 system("pause") ;
 
@@ -593,8 +589,6 @@ void Menu::subMenuABML_Proveedores() {
 
                 reg.guardar(nuevoProveedor) ;
 
-                cout << endl << "El proveedor fue agregado con exito. " << endl ;
-
                 system("pause") ;
 
                 break ;
@@ -834,16 +828,9 @@ void Menu::subMenuABML_Productos(){
 
                 producto1.cargar(); // Usamos el método cargar que definiste en Producto.cpp
 
-                // 2. Guardar en el archivo
-
-                if (archivo1.guardar(producto1)) {
-
-                        cout << endl << "Producto cargado con exito." << endl ; } else {
-
-                        cout << "ERROR: No se pudo guardar el producto en el archivo." << endl ; }
-
                 break ;
-            }
+
+               } // 2. Guardar en el archivo
 
             case 2: {
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "ProductoArchivo.h"
 
 class Detalle_Venta {
 

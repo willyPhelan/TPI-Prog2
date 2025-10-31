@@ -182,7 +182,11 @@ void Venta::cargarVenta(){
 
     int num ;
 
-    int continuarDetalle = 1 ;
+    int continuarDetalle = 1;
+
+    float montoIVA = 1.21;
+
+    float montoFinal = 0;
 
     float subtotalAcumulado = 0.0 ; // Para calcular el subtotal
 
@@ -219,12 +223,8 @@ void Venta::cargarVenta(){
 
     setTipoEnvio(num) ;
 
-    // 3. Carga Condicional del ENVIO
 
-
-
-
-    // 4. Carga del DETALLE_VENTA (Bucle)
+    // 3. Carga del DETALLE_VENTA (Bucle)
 
     cout << endl << "Carga de productos de (DETALLE DE VENTA)" << endl ;
 
@@ -232,11 +232,20 @@ void Venta::cargarVenta(){
 
     do {
 
-        Detalle_Venta detalle ; // Instancia de Detalle_Venta
+        Detalle_Venta detalle ;// Instancia de Detalle_Venta
+
+        DetalleVentaArchivo archivoDetalleVenta ;
+
+        detalle.setID_Detalle(getID_Venta()) ;
+
+        detalle.setID_Venta(getID_Venta()) ;
+
 
         cout << "Producto #" << contadorProductos << " " ;
 
-        detalle.cargar() ; // Carga de ID_Producto, Cantidad, Precio_Unitario
+        detalle.cargar() ;// Carga de ID_Producto, Cantidad, Precio_Unitario
+
+        cout << "Precio del Producto: " << detalle.getPrecio_Unitario() << endl ;
 
         // CÁLCULO DE SUBTOTAL:
 
@@ -254,16 +263,19 @@ void Venta::cargarVenta(){
 
         cout << endl ;
 
+        archivoDetalleVenta.guardar(detalle);
+
     } while (continuarDetalle == 1) ;
 
+    montoFinal += subtotalAcumulado * montoIVA ;
 
-    // 5. Actualización de Totales y Factura
+    // 4. Actualización de Totales y Factura
 
     setSubTotal(subtotalAcumulado) ;
 
     // El monto total debe incluir impuestos y costo de envío (si aplica)
 
-    setMontoTotal(subtotalAcumulado) ;
+    setMontoTotal(montoFinal) ;
 
     cout << "Tipo de factura: (1- Factura A, 2- Factura B, 3- Factura C): " ;
 
@@ -273,9 +285,11 @@ void Venta::cargarVenta(){
 
     cout << "--------------------------------------------------------------" << endl << endl ;
 
-    cout << "Subtotal: " << getSubTotal() << endl ;
+    cout << "Subtotal: $" << getSubTotal() << endl ;
 
-    cout << "TOTAL: " << getMontoTotal() << endl ;
+    cout << "IVA: $" << subtotalAcumulado * 0.21 << endl ;
+
+    cout << "TOTAL: $" << getMontoTotal() << endl ;
 
     setTipoFactura(num) ;
 
@@ -290,7 +304,7 @@ void Venta::mostrarVenta(){
 
     cout << "ID_Venta: " <<getID_Venta() << endl ;
 
-    cout << "Medio de pago: " <<getMedioPago() << endl ;
+    cout << "Medio de pago: " << getMedioPago() << endl ;
 
     if(getTipoEnvio() == 1) {
 

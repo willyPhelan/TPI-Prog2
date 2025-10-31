@@ -281,3 +281,28 @@ int ProductoArchivo::obtenerID() {
 
     return numRegistros + 1 ;
 }
+
+float ProductoArchivo::buscarPrecio(int idBuscado){
+
+    FILE* archivoP ;
+
+    Producto reg ;
+
+    archivoP = fopen(archivo_Producto,"rb") ;
+
+    if(archivoP == nullptr){ return 0 ; } ;
+
+    while(fread(&reg,sizeof(Producto),1,archivoP)){
+
+        if(reg.getID_Producto() == idBuscado){
+
+            fclose(archivoP) ;
+
+            return reg.getPrecioActual() ;
+        }
+    }
+
+    fclose(archivoP) ;
+
+    return 0 ;
+}

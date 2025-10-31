@@ -50,11 +50,57 @@ void Proveedor::cargar() {
 
     string datos ;
 
+    int datos2 ;
+
+    Proveedor proveedor1 ;
+
+    ProveedorArchivo archivo;
+
     int tipo_proveedor ;
+
+    int const cantReg = archivo.getCantidadRegistros() ;
 
     cout << "Ingrese el CUIT del proveedor: "  ;
 
     cin >> datos ;
+
+    for (int i = 0; i <cantReg ; i++){
+
+        proveedor1 = archivo.leer(i) ;
+
+        while (strcmp(datos.c_str(), proveedor1.getCuit().c_str()) == 0 && proveedor1.getEstado() == true){
+
+            cout << "El CUIT ya corresponde a un proveedor existente. Desea salir o introducir otro CUIT? (1- Agregar otro CUIT, 2- Salir):" ;
+
+            cin >> datos2 ;
+
+            switch (datos2){
+
+            case 1:
+
+                cout << "Ingrese el nuevo CUIT: "  ;
+
+                cin >> datos ;
+
+                break ;
+
+            case 2:
+
+                cout << endl << "Saliendo..." << endl ;
+
+                return ;
+
+                break ;
+
+            default:
+
+                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl ;
+
+                break ;
+            }
+
+        }
+    }
 
     Proveedor::setCuit(datos) ;
 
@@ -88,7 +134,9 @@ void Proveedor::cargar() {
 
     Proveedor::setMail(datos) ;
 
-    Proveedor::setEstado(true);
+    Proveedor::setEstado(true) ;
+
+    cout << endl << "El proveedor fue agregado con exito. " << endl ;
 
 }
 

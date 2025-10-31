@@ -33,10 +33,6 @@ bool ClienteArchivo::bajaLogica (int id_persona){
 
     if (pos == -1){
 
-        cout << "El ID que ingreso es incorrecto. " << endl ;
-
-        system ("pause") ;
-
         return false ;
 
     }
@@ -64,10 +60,12 @@ bool ClienteArchivo::altaLogica (int id_persona) {
 
      int pos = buscarPosicion (id_persona);
 
-    if (pos == -1)
-    {
+    if (pos == -1) {
+
         cout << "El ID que ingreso es incorrecto. " << endl;
+
         system ("pause");
+
         return false;
     }
     Cliente reg = leer (pos);

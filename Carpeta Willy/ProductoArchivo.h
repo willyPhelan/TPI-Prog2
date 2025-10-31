@@ -36,6 +36,8 @@ public:
 
     int buscarPosicion(int id_producto) ; // Devuelve la posición (índice) del registro o -1 si no lo encuentra
 
+    float buscarPrecio(int idBuscado) ;
+
 private:
 
     const char *archivo_Producto = "Productos.dat" ;

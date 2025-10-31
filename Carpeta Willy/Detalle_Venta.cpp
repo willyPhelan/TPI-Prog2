@@ -93,36 +93,33 @@ void Detalle_Venta::cargar() {
     // El ID_Producto y el ID_Venta Tiene que ir por composicion de las respectivas clases y ID_detalle de esta clase (lo genera el archivo)???
     // Solo pedimos los datos necesarios al usuario.
 
+    ProductoArchivo archivoP;
+
     int num ;
+
+    int id ;
 
     float precio ;
 
     // ID Detalle
 
-    cout << endl << "ID Producto: " ; // ???????? // generado por el usuario o no?
+    cout << endl << "ID Producto: " ;
 
-    cin >> num ;
+    cin >> id;
 
-    setID_Producto(num) ;
+    setID_Producto(id);
 
     // Cantidad
 
-    cout << "Cantidad: " ;
+    cout << "Cantidad: ";
 
     cin >> num ;
 
-    setCantidad(num) ;
+    setCantidad(num);
 
-    /* Precio Unitario ----> NO SE PIDE SE CALCULA CON EL PRECIO DE PRODUCTO EN BASE A LA CANTIDAD
+    float unitario = archivoP.buscarPrecio(id) ;
 
-    cout << "Precio Unitario: " ;
-
-    cin >> precio ;
-
-    setPrecio_Unitario(precio) ;
-
-    // El 'estado' (baja lógica) se mantiene en TRUE (activo) por defecto.
-    // El ID_Detalle y el ID_Venta se asignarán desde el archivo. */
+    setPrecio_Unitario(unitario) ;
 }
 
 void Detalle_Venta::mostrar() const {

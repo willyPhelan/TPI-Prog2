@@ -34,10 +34,16 @@
 		</Compiler>
 		<Unit filename="Cliente.cpp" />
 		<Unit filename="Cliente.h" />
+		<Unit filename="ClienteArchivo.cpp" />
+		<Unit filename="ClienteArchivo.h" />
+		<Unit filename="DetalleVentaArchivo.cpp" />
+		<Unit filename="DetalleVentaArchivo.h" />
 		<Unit filename="Detalle_Venta.cpp" />
 		<Unit filename="Detalle_Venta.h" />
 		<Unit filename="Empleado.cpp" />
 		<Unit filename="Empleado.h" />
+		<Unit filename="EmpleadoArchivo.cpp" />
+		<Unit filename="EmpleadoArchivo.h" />
 		<Unit filename="Envio.cpp" />
 		<Unit filename="Envio.h" />
 		<Unit filename="EnvioArchivo.cpp" />
@@ -56,6 +62,8 @@
 		<Unit filename="ProductoArchivo.h" />
 		<Unit filename="Proveedor.cpp" />
 		<Unit filename="Proveedor.h" />
+		<Unit filename="ProveedorArchivo.cpp" />
+		<Unit filename="ProveedorArchivo.h" />
 		<Unit filename="Utils.cpp" />
 		<Unit filename="Utils.h" />
 		<Unit filename="Venta.cpp" />

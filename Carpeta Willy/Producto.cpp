@@ -127,9 +127,82 @@ void Producto::setDescripcion(const std::string &_descripcion){
 
 void Producto::cargar(){
 
-    string str ;
+    ProductoArchivo archivoProd ;
 
-  //  cout << endl << "Ingrese un ID al Producto: AUTO INCREMENTAL DESDE PRODUCTO ARCHIVO" << endl ;
+    Producto productoExistente ;
+
+
+    int cantReg = archivoProd.getCantidadRegistros() ;
+
+    string str ; // Para cargar Marca
+
+    string descripcionNueva ;
+
+    bool descripcionValida = false ;
+
+    int opcion;
+
+    do {
+        system("cls") ;
+
+        cout << "Carga de un nuevo producto" << endl ;
+
+        cout << "-------------------------------------" << endl ;
+
+        cout << "ID del Producto: " << getID_Producto() << endl;
+
+        cout << "Ingrese una Descripcion: " ;
+
+        descripcionNueva = cargarCadena() ;
+
+        setDescripcion(descripcionNueva) ;
+
+        descripcionValida = true ;
+
+        string descripcionNuevaLower = aMinusculas(descripcionNueva) ;
+
+        for (int i = 0; i < cantReg; i++){
+
+            productoExistente = archivoProd.leer(i) ;
+
+            const char* descripcionExistenteCStr = productoExistente.getDescripcion() ;
+
+            string descripcionExistenteStr(descripcionExistenteCStr) ;
+
+            string descripcionExistenteLower = aMinusculas(descripcionExistenteStr); // convietro a min
+
+           if (strcmp(descripcionNuevaLower.c_str(), descripcionExistenteLower.c_str()) == 0 && productoExistente.getEstado() == true) {
+
+                descripcionValida = false ; // Se encontró un duplicado
+
+                cout << endl << "ERROR: La descripcion: '" << descripcionNueva << "' ya existe para un producto." << endl ;
+
+                cout << "Desea: (1- Agregar otra descripcion, 2- Salir de la carga): " ;
+
+
+                cin >> opcion ;
+
+                if (opcion == 2) {
+
+                    cout << endl << "Saliendo de la carga de producto..." << endl ;
+
+                    return ; // SALIDA DEFINITIVA
+                }
+
+                break ; // Salimos del for
+            }
+        }
+
+    } while (descripcionValida == false) ;
+
+
+
+    // Asignación de ID Autoincremental
+
+    setID_Producto(archivoProd.obtenerID()) ;
+
+    // Marca
+    // CORRECCIÓN 2: Línea reescrita para eliminar el carácter invisible.
 
     cout << "Ingrese la Marca del Producto: " ;
 
@@ -137,11 +210,7 @@ void Producto::cargar(){
 
     setMarca(str) ;
 
-    cout << "Ingrese una Descripcion: " ;
-
-    str = cargarCadena() ;
-
-    setDescripcion(str) ;
+    // Tipo de Producto
 
     cout << "Ingrese Tipo de Producto (1-PCS, 2-Accesorios, 3-Otros): " ;
 
@@ -149,11 +218,15 @@ void Producto::cargar(){
 
     setTipoProducto(tipoProducto) ;
 
-    cout << "Ingrese el precio (en pesos) del producto: $"  ;
+    // Precio Actual
+
+    cout << "Ingrese el precio (en pesos) del producto: $" ;
 
     cin >> precioActual ;
 
     setPrecioActual(precioActual) ;
+
+    // Garantía
 
     cout << "Ingrese la garantia (en meses) que tiene el producto: " ;
 
@@ -161,20 +234,24 @@ void Producto::cargar(){
 
     setGarantia(garantia) ;
 
+    // Cantidad en Stock
+
     cout << "Ingrese la cantidad que hay del producto: " ;
 
     cin >> cantidadStock ;
 
     setCantidadStock(cantidadStock) ;
 
-   /* cout << "Estado(1- Activo, 0- Inactivo): " ;
+    // El estado es true por defecto.
 
-    cin >> estado ;
+      if (archivoProd.guardar(*this)) {
 
-    setEstado(estado) ; */
+                        cout << endl << "Producto cargado con exito." << endl ; } else {
 
+                        cout << "ERROR: No se pudo guardar el producto en el archivo." << endl ; }
 
-}
+            }
+
 
 void Producto::mostrar(){
 

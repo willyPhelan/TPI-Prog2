@@ -47,13 +47,55 @@ void Empleado::cargar(){
 
     EmpleadoArchivo reg ;
 
+    Empleado empleado1 ;
+
     string datos ;
 
     int datos2 ;
 
+    int const cantReg = reg.getCantidadRegistros() ;
+
     cout << "Ingrese el CUIT del empleado: " ;
 
     cin >> datos ;
+
+      for (int i = 0; i<cantReg; i++){
+
+        empleado1 = reg.leer(i) ;
+
+        while (strcmp(datos.c_str(), empleado1.getCuit().c_str()) == 0 && empleado1.getEstado() == true) {
+
+            cout << "El CUIT ya corresponde a un empleado existente. Desea salir o introducir otro CUIT?: (1- Agregar otro CUIT, 2- Salir)" ;
+
+            cin >> datos2 ;
+
+            switch (datos2){
+
+            case 1:
+
+                cout << "Ingrese el nuevo CUIT: " ;
+
+                cin >> datos ;
+
+                break ;
+
+            case 2:
+
+                cout << "Saliendo..." << endl ;
+
+                return ;
+
+                break ;
+
+            default:
+
+                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl ;
+
+                break;
+            }
+
+        }
+    }
 
     Empleado::setCuit(datos) ;
 
@@ -95,7 +137,7 @@ void Empleado::cargar(){
 
     Empleado::setEstado(true) ;
 
-    cout<< endl << "El empleado fue agregado con exito. " << endl ;
+    cout << endl << "El empleado fue agregado con exito. " << endl ;
 
 }
 

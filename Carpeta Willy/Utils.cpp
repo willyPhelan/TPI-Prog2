@@ -1,10 +1,11 @@
 #include "Utils.h"
 #include <iostream>
+#include <cctype>
 
 using namespace std ;
 
 
-std::string cargarCadena(){
+string cargarCadena(){
 
     std::string texto ;
 
@@ -18,3 +19,15 @@ std::string cargarCadena(){
     return texto ;
 
     }
+
+string aMinusculas(string s) {
+
+    for (int i = 0; i < s.length(); ++i) {
+
+        // tolower() convierte el carácter a minúscula
+
+        s[i] = tolower(s[i]) ;
+    }
+
+    return s ;
+}
