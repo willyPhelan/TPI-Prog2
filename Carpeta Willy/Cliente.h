@@ -1,6 +1,7 @@
 #pragma once
 #include "Persona.h"
 
+
 class Cliente : public Persona {
 
 private: // Atributos
@@ -35,6 +36,8 @@ void setTipo_Cliente (int tipo_Cliente) ;
 void cargar() ;
 
 void mostrar() ;
+
+void modificarCampos() ;
 
 };
 

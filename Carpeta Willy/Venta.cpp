@@ -1,4 +1,5 @@
 #include "Venta.h"
+#include "VentaArchivo.h"
 #include <iostream>
 #include <cstring>
 
@@ -199,6 +200,8 @@ void Venta::cargarVenta(){
 
     Fecha fechaActual ;
 
+    ProductoArchivo archivoP ;
+
     cout << endl << "Carga de Fecha de Venta: " << endl ;
 
     cout << "--------------------------------------------------------------" << endl ;
@@ -245,7 +248,39 @@ void Venta::cargarVenta(){
 
         detalle.cargar() ;// Carga de ID_Producto, Cantidad, Precio_Unitario
 
-        cout << "Precio del Producto: " << detalle.getPrecio_Unitario() << endl ;
+        if (detalle.getID_Producto() > 0 && detalle.getCantidad() > 0) {
+
+            // LoGICA DE REDUCCIoN DE STOCK
+
+            int id_prod = detalle.getID_Producto() ;
+
+            int cantidad_vendida = detalle.getCantidad() ;
+
+            int pos = archivoP.buscarPosicion(id_prod) ;
+
+            if (pos != -1) {
+
+                Producto regP = archivoP.leer(pos) ; // Leer el registro completo
+
+                int nuevo_stock = regP.getCantStock() - cantidad_vendida ;
+
+                regP.setCantidadStock(nuevo_stock) ;
+
+                if (archivoP.modificar(regP)) {
+
+                    cout << "Stock de Producto (ID " << id_prod << ") actualizado a " << nuevo_stock << " unidades." << endl ;
+
+                } else {
+
+                    cout << "ERROR: No se pudo guardar la modificacion del stock." << endl ;
+                }
+            } else {
+
+                 cout << " Advertencia: Producto no encontrado en archivo, stock no modificado." << endl ;
+            }
+        }
+
+        cout << "Precio del Producto: $" << detalle.getPrecio_Unitario() << endl ;
 
         // CÁLCULO DE SUBTOTAL:
 
@@ -297,7 +332,7 @@ void Venta::cargarVenta(){
 
     setEstado(true);
 
-}
+ }
 
 
 void Venta::mostrarVenta(){
@@ -326,4 +361,210 @@ void Venta::mostrarVenta(){
     if(getEstado()) {
 
     cout << "Estado: " << "Activa" << endl ; } else { cout << "Dada de baja" << endl ; }
+}
+
+
+void Venta::modificarCampos() {
+
+    VentaArchivo archivo ; // Objeto para interactuar con el archivo de Ventas
+
+    int id_a_buscar ;
+
+    int opcion ;
+
+    int nuevo_dato_int ;
+
+    float nuevo_dato_float ;
+
+    cout << "Modificar un campo especifico de una venta" << endl ;
+
+    cout << "-------------------------------------------" << endl ;
+
+    cout << "Ingrese el ID de la VENTA a modificar: " ;
+
+    cin >> id_a_buscar ;
+
+    // Asumo la existencia de VentaArchivo::buscarPosicion(int)
+
+    int pos = archivo.buscarPosicion(id_a_buscar) ;
+
+    if (pos == -1) {
+
+        cout << "ERROR: ID de venta no encontrado." << endl ;
+
+        system("pause") ;
+
+        return ;
+    }
+
+    // Cargar el objeto Venta actual desde el archivo a la instancia 'this'
+
+    *this = archivo.leer(pos) ;
+
+    do {
+
+        system("cls") ;
+
+        cout << "Venta a Modificar (ID: " << this->getID_Venta() << "):" << endl ;
+
+        cout << "-----------------------------" << endl ;
+
+        this->mostrarVenta() ;
+
+        cout << endl << "Seleccione el campo a modificar:" << endl ;
+
+        cout << "1. Fecha de venta" << endl ;
+
+        cout << "2. Medio de pago" << endl ;
+
+        cout << "3. Tipo de envio" << endl ;
+
+        cout << "4. Tipo de factura" << endl ;
+
+        cout << "0. Volver al menu anterior" << endl ;
+
+        cout << endl << "Opcion: " ;
+
+        cin >> opcion ;
+
+        cout << endl ;
+
+        switch (opcion) {
+
+            case 1: {
+
+                int dia, mes, anio ;
+
+                Fecha nueva_fecha ;
+
+                cout << "Ingrese nueva fecha de venta" << endl ;
+
+                cout << "Dia: " ;
+
+                cin >> dia ;
+
+                cout << "Mes: " ;
+
+                cin >> mes ;
+
+                cout << "Anio: " ;
+
+                cin >> anio ;
+
+                nueva_fecha.setDia(dia) ;
+
+                nueva_fecha.setMes(mes) ;
+
+                nueva_fecha.setAnio(anio) ;
+
+                this->setFechaVenta(nueva_fecha) ;
+
+                // Guardo el cambio
+
+                if (archivo.modificar(*this)) {
+
+                    cout << endl << "Fecha de venta modificada y guardada con exito." << endl ;
+
+                } else {
+
+                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+                }
+
+                system("pause") ;
+
+                break ;
+            }
+
+            case 2: { // Modificar Medio de Pago (int)
+
+                cout << "Nuevo medio de pago (1-Efectivo, 2-Tarjeta, 3-Transferencia): " ;
+
+                cin >> nuevo_dato_int ;
+
+                this->setMedioDePago(nuevo_dato_int) ;
+
+                if (archivo.modificar(*this)) {
+
+                    cout << endl << "Medio de pago modificado y guardado con exito." << endl ;
+
+                } else {
+
+                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+                }
+
+                system("pause") ;
+
+                break ;
+            }
+
+            case 3: { // Modificar Tipo de Envío
+
+                cout << "Nuevo tipo de envio (1-A domicilio, 2-Retiro en sucursal): " ;
+
+                cin >> nuevo_dato_int ;
+
+                this->setTipoEnvio(nuevo_dato_int) ;
+
+                if (archivo.modificar(*this)) {
+
+                    cout << endl << "Tipo de envio modificado y guardado con exito." << endl ;
+
+                } else {
+
+                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+                }
+                system("pause") ;
+
+                break ;
+            }
+
+            case 4: { // Modificar Tipo de Factura
+
+                cout << "Nuevo Tipo de Factura (1-A, 2-B, 3-C): " ;
+
+                cin >> nuevo_dato_int ;
+
+                this->setTipoFactura(nuevo_dato_int) ; // Asumo setTipoFactura(int)
+
+                if (archivo.modificar(*this)) {
+
+                    cout << endl << "Tipo de Factura modificado y guardado con exito." << endl ;
+
+                } else {
+
+                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+                }
+
+                system("pause") ;
+
+                break ;
+            }
+
+            // Los campos subTotal y montoTotal NO se modifican directamente por el usuario
+            // ya que se calculan en base al Detalle_Venta.
+
+
+
+            case 0: // Volver
+
+                cout << "Volviendo al menu anterior." << endl ;
+
+                return ;
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                system("pause") ;
+        }
+
+    } while (opcion != 0) ;
+
+    cout << "Todos los cambios han sido aplicados y guardados en el archivo de Ventas." << endl ;
+
+    system("pause") ;
 }

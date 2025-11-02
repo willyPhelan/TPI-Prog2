@@ -6,6 +6,7 @@
 #include "Detalle_Venta.h"
 #include "DetalleVentaArchivo.h"
 
+
 class Venta{
 
     private:
@@ -86,6 +87,8 @@ class Venta{
         void cargarVenta() ;
 
         void mostrarVenta() ;
+
+        void modificarCampos() ;
 
 };
 

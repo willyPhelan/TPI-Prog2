@@ -1,6 +1,7 @@
 #pragma once
 #include "Fecha.h"
 
+
 class Envio {
 
 
@@ -44,6 +45,8 @@ public:
 
     void mostrar() const ;
 
+    void modificarCampos() ;
+
 
 
 private:
@@ -59,6 +62,8 @@ private:
     float valor_Envio ;
 
     bool estado ;
+
+
 
 
 

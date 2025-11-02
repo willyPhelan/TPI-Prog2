@@ -1,3 +1,4 @@
+#include "Venta.h"
 #include "VentaArchivo.h"
 #include <iostream>
 #include <cstdio>

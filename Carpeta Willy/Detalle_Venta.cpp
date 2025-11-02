@@ -93,29 +93,59 @@ void Detalle_Venta::cargar() {
     // El ID_Producto y el ID_Venta Tiene que ir por composicion de las respectivas clases y ID_detalle de esta clase (lo genera el archivo)???
     // Solo pedimos los datos necesarios al usuario.
 
-    ProductoArchivo archivoP;
+    ProductoArchivo archivoP ;
 
-    int num ;
+    Producto regP ;
 
-    int id ;
+    int id, pos, cantidad_a_vender ;
 
     float precio ;
+
+    bool stock_ok = false ; // validacion de stock
 
     // ID Detalle
 
     cout << endl << "ID Producto: " ;
 
-    cin >> id;
+    cin >> id ;
+
+    pos = archivoP.buscarPosicion(id);
+
+    // Validar si el producto existe
+
+    if (pos == -1) {
+
+        cout << "ERROR: El ID de Producto no existe." << endl ;
+
+        return ; // Salir de cargar si el ID no es válido
+    }
+
+    regP = archivoP.leer(pos) ;
 
     setID_Producto(id);
 
     // Cantidad
 
-    cout << "Cantidad: ";
+    while (!stock_ok) {
 
-    cin >> num ;
+        cout << "Cantidad: " ;
 
-    setCantidad(num);
+        cin >> cantidad_a_vender ;
+
+
+        // VALIDACIÓN DE STOCK CRUCIAL
+
+        if (cantidad_a_vender > regP.getCantStock()) {
+
+            cout << "ERROR: Stock insuficiente. Solo hay " << regP.getCantStock() << " unidades disponibles." << endl ;
+
+        } else {
+
+            stock_ok = true ;
+        }
+    }
+
+    setCantidad(cantidad_a_vender) ;
 
     float unitario = archivoP.buscarPrecio(id) ;
 

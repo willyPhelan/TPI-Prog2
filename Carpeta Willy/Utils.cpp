@@ -22,7 +22,9 @@ string cargarCadena(){
 
 string aMinusculas(string s) {
 
-    for (int i = 0; i < s.length(); ++i) {
+    int longitud = s.length() ;
+
+    for (int i = 0; i < longitud ; ++i) {
 
         // tolower() convierte el carácter a minúscula
 

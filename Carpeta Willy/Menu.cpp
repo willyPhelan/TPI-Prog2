@@ -7,6 +7,7 @@
 #include "ProveedorArchivo.h"
 #include "EmpleadoArchivo.h"
 
+
 using namespace std ;
 
 
@@ -133,6 +134,8 @@ void Menu::mostrar() {
 
 void Menu::subMenuABML_Clientes() {
 
+    ClienteArchivo reg ;
+
     int opcion ;
 
     do {
@@ -179,7 +182,7 @@ void Menu::subMenuABML_Clientes() {
 
                 nuevoCliente.cargar() ;
 
-                ClienteArchivo reg ;
+                int nuevo_ID = reg.getCantidadRegistros() + 1 ;
 
                 reg.guardar(nuevoCliente) ;
 
@@ -794,13 +797,11 @@ void Menu::subMenuABML_Productos(){
 
         cout << "--------------------------------------------" << endl ;
 
-        cout << "0. Volver al menu ABML" << endl ;
+        cout << "0. Volver al menu anterior" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
         cout << "Ingrese una opcion: " ;
-
-        cout << endl ;
 
         cin >> opcion ;
 
@@ -891,6 +892,8 @@ void Menu::subMenuABML_Productos(){
                         cout << endl << "ERROR: No se pudo escribir la modificacion en el archivo." << endl ;
                     }
                 }
+
+                system("pause") ;
 
                 break;
             }
@@ -1028,7 +1031,7 @@ void Menu::subMenuABML_Ventas() {
 
         cout << "--------------------------------------------" << endl ;
 
-        cout << "0. Volver al menu ABML" << endl ;
+        cout << "0. Volver al menu anterior" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -1170,7 +1173,19 @@ void Menu::subMenuABML_Ventas() {
                 break ;
             }
 
-            case 3: {}
+            case 3: {
+
+            system("cls") ;
+
+            Venta venta1 ;
+
+            venta1.modificarCampos() ;
+
+            break ;
+
+
+
+            }
 
             case 4: { // Anular Venta (Baja Lógica)
 
@@ -1283,7 +1298,7 @@ void Menu::subMenuABML_Envios() {
 
         cout << "--------------------------------------------" << endl ;
 
-        cout << "0. Volver al menu ABML" << endl ;
+        cout << "0. Volver al menu anterior" << endl ;
 
         cout << "--------------------------------------------" << endl ;
 
@@ -1343,7 +1358,21 @@ void Menu::subMenuABML_Envios() {
                 break ;
             }
 
-            case 2: {}
+            case 2: {
+
+                system("cls") ;
+
+                cout << "Modifica un campo especifico del envio" << endl ;
+
+                Envio envio1 ;
+
+                envio1.modificarCampos() ;
+
+                break ;
+
+
+
+            }
 
             case 3: { // Anular Envio
 
@@ -1395,7 +1424,7 @@ void Menu::subMenuABML_Envios() {
 
             case 0: {
 
-                cout << "Volviendo al menu ABML..." << endl ;
+                cout << "Volviendo al menu anterior..." << endl ;
 
                 break ;
             }
@@ -1442,6 +1471,8 @@ void Menu::subMenuABML_Listados() {
 
         cout << "6. Listado de Envios" << endl ;
 
+        cout << "7. Listado de Activos" << endl ;
+
         cout << "--------------------------" << endl ;
 
         cout << "0. Volver al menu anterior" << endl ;
@@ -1449,8 +1480,6 @@ void Menu::subMenuABML_Listados() {
         cout << "--------------------------" << endl ;
 
         cout << "Ingrese una opcion: " ;
-
-        cout << endl ;
 
         cin >> opcion ;
 
@@ -1613,7 +1642,7 @@ void Menu::subMenuABML_Listados() {
 
                 } else {
 
-                cout << "LISTADO DE PRODUCTOS" << endl ;
+                cout << "Listado de productos" << endl ;
 
                 cout << "---------------------------------------------" << endl ;
 
@@ -1653,6 +1682,301 @@ void Menu::subMenuABML_Listados() {
                     Envio reg = archivoEnvio.leer(i) ;
 
                     reg.mostrar() ;
+                }
+
+                system("pause") ;
+
+
+            break ;
+            }
+
+            case 7: {
+
+                system ("cls") ;
+
+                subMenuABML_Listados_Activos() ;
+
+
+            }
+
+
+            case 0:
+
+                cout << endl ;
+
+                cout << "Volviendo al menu anterior..." << endl ;
+
+                break ;
+
+
+            default:
+
+                cout << "Opcion Invalida. Intente de nuevo." << endl ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
+
+}
+
+
+void Menu::subMenuABML_Listados_Activos(){
+
+    int opcion ;
+
+    ProductoArchivo archivo1 ;
+
+    VentaArchivo archivoVenta ;
+
+    EnvioArchivo archivoEnvio ;
+
+    ProveedorArchivo archivoProveedor ;
+
+    do {
+
+
+        system("cls") ;
+
+        cout << "Menu de listados Activos" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "1. Listado de Clientes Activos" << endl ;
+
+        cout << "2. Listado de Empleados Activos" << endl ;
+
+        cout << "3. Listado de Proveedores Activos" << endl ;
+
+        cout << "4. Listado de Ventas Activas" << endl ;
+
+        cout << "5. Listado de Productos Activos" << endl ;
+
+        cout << "6. Listado de Envios Activos" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "0. Volver al menu anterior" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cin >> opcion ;
+
+
+        switch (opcion) {
+
+            case 1: {
+
+                system("cls") ;
+
+                cout << "Listado de Clientes Activos" << endl ;
+
+                cout << "--------------------------" << endl ;
+
+                Cliente nuevoCliente;
+
+                ClienteArchivo reg;
+
+                int cantRegistros = reg.getCantidadRegistros();
+
+                for (int i = 0; i<cantRegistros; i++) {
+
+                    nuevoCliente = reg.leer(i) ;
+
+                    if(nuevoCliente.getEstado() == true){
+
+                        nuevoCliente.mostrar() ;
+
+                        cout << "--------------------------" << endl ;
+                    }
+
+                }
+
+                system("pause") ;
+
+                break ;
+            }
+
+            case 2: {
+
+                // LOGICA PARA OPCION 2
+
+                system ("cls") ;
+
+                cout << "Listado de Empleados Activos" << endl ;
+
+                Empleado nuevoEmpleado ;
+
+                EmpleadoArchivo reg ;
+
+                int cantRegistros = reg.getCantidadRegistros();
+
+                for (int i = 0; i<cantRegistros; i++)
+                {
+
+                    cout << endl;
+
+                    cout << "------------------------------" << endl;
+
+                    nuevoEmpleado = reg.leer (i);
+
+                    if(nuevoEmpleado.getEstado() == true){nuevoEmpleado.mostrar ();}
+
+                    cout << "------------------------------" << endl;
+
+                    cout << endl;
+                }
+
+                system ("pause");
+
+                break ;
+
+
+            }
+
+            case 3: { // Listado de Proveedores
+
+                system("cls") ;
+
+                cout << endl << "Listado de proveedores Activos" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                Proveedor nuevoProveedor ;
+
+                int cantRegistros = archivoProveedor.getCantidadRegistros() ;
+
+                if (cantRegistros == 0) {
+
+                    cout << "No hay proveedores cargados en el sistema." << endl ;
+
+                } else {
+
+                    cout << "Cantidad total de proveedores: " << cantRegistros << endl ;
+
+                    cout << "---------------------------------------------" << endl ;
+
+                    for (int i = 0; i < cantRegistros; i++) {
+
+                        nuevoProveedor = archivoProveedor.leer(i) ;
+
+                        if(nuevoProveedor.getEstado() == true){
+                            nuevoProveedor.mostrar() ;
+
+                            cout << "---------------------------------------------" << endl ;
+                        }
+                    }
+                }
+
+                system("pause") ;
+
+                break ;
+            }
+
+
+            case 4:  { // Listar Ventas
+
+                system("cls") ;
+
+                int cantidad = archivoVenta.getCantidadRegistros() ;
+
+                if (cantidad == 0){
+
+                    cout << "No hay ventas cargadas en el sistema." << endl ;
+
+                    break ;
+                }
+
+                cout << "Listado de todas las ventas Acivas" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                cout << "Cantidad de registros: " << cantidad << endl ;
+
+                for (int i=0; i<cantidad; i++){
+
+                    Venta reg = archivoVenta.leer(i) ;
+                    if(reg.getEstado() == true){
+                        cout << "---------------------------------------------" << endl ;
+
+                        reg.mostrarVenta() ;
+
+
+                    }
+
+                }
+
+                cout << "---------------------------------------------" << endl ;
+
+                system("pause") ;
+
+                break ;
+            }
+
+            case 5:  { // listado productos
+
+                system("cls") ;
+
+                int cantidad = archivo1.getCantidadRegistros() ;
+
+                if (cantidad == 0) {
+
+                    cout << "No hay productos cargados en el sistema." << endl ;
+
+                    break ;
+
+                } else {
+
+                cout << "LISTADO DE TODOS LOS PRODUCTOS ACTIVOS" << endl ;
+
+                cout << "---------------------------------------------" << endl ;
+
+                cout << "Cantidad de registros: " << cantidad << endl ;
+
+                for (int i = 0; i < cantidad; i++) {
+
+                    Producto reg = archivo1.leer(i) ;
+                        if(reg.getEstado() == true){
+
+                        cout << "---------------------------------------------" << endl ;
+
+                        reg.mostrar() ;
+
+                        }
+
+                }
+
+                        cout << "---------------------------------------------" << endl ;
+
+                        system("pause") ;
+
+                break ; }
+            }
+
+            case 6: {
+
+                system("cls") ;
+
+                cout << "Listado de todos los envios Activos" << endl ;
+
+                cout << "-------------------------------" << endl ;
+
+                int cantidad = archivoEnvio.getCantidadRegistros() ;
+
+                if (cantidad == 0) { cout << "No hay envios cargados." << endl ; break ; }
+
+                for (int i = 0; i < cantidad; i++) {
+
+                    Envio reg = archivoEnvio.leer(i) ;
+
+                    if(reg.getEstado()== true){
+
+                    reg.mostrar() ;
+
+                    }
+
                 }
 
                 system("pause") ;

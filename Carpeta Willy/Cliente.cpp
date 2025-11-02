@@ -63,8 +63,6 @@ void Cliente::cargar(){
 
     int tipo_Cliente ;
 
-    Cliente::setID(reg.getCantidadRegistros() +1 )  ;
-
     int const cantReg = reg.getCantidadRegistros();
 
     cout << "ID del cliente: " << Cliente::getID() << endl ;
