@@ -1,15 +1,14 @@
 #include "Cliente.h"
+#include "ClienteArchivo.h"
 #include <iostream>
 #include <cstring>
 #include "Utils.h"
-#include "ClienteArchivo.h"
 
 using namespace std ;
 
 // Constructores
 
-Cliente::Cliente() : tipo_Cliente(0)   // constructor por defecto
-{
+Cliente::Cliente() : tipo_Cliente(0) { // constructor por defecto
 
     // Inicializo el array de caracteres 'mail'
     // La clase base Persona se inicializa con sus valores por defecto.
@@ -17,8 +16,7 @@ Cliente::Cliente() : tipo_Cliente(0)   // constructor por defecto
     strncpy(this->mail, "", 29) ;
 }
 
-Cliente::Cliente(string mail, int tipo_Cliente)
-{
+Cliente::Cliente(string mail, int tipo_Cliente){
 
     setMail(mail) ;
 
@@ -27,15 +25,13 @@ Cliente::Cliente(string mail, int tipo_Cliente)
 
 // Getters
 
-string Cliente::getMail()
-{
+string Cliente::getMail(){
 
     return string (mail) ;
 
 }
 
-int Cliente::getTipo_Cliente ()
-{
+int Cliente::getTipo_Cliente (){
 
     return tipo_Cliente ;
 
@@ -43,107 +39,106 @@ int Cliente::getTipo_Cliente ()
 
 // Setters
 
-void Cliente::setMail(string mail)
-{
+void Cliente::setMail(string mail) {
 
     strncpy(this->mail, mail.c_str(), 29) ;
 }
 
-void Cliente::setTipo_Cliente (int tipo_Cliente)
-{
+void Cliente::setTipo_Cliente (int tipo_Cliente){
 
     this->tipo_Cliente = tipo_Cliente ;
 }
 
 // Metodos
 
-void Cliente::cargar()
-{
+void Cliente::cargar(){
+
+    Cliente cliente ;
+
+    ClienteArchivo reg ;
 
     string datos ;
-    int datos2 ;
 
-    Cliente cliente;
+    int datos2 ; // para validacion
 
-    ClienteArchivo reg;
+    int tipo_Cliente ;
+
+    Cliente::setID(reg.getCantidadRegistros() +1 )  ;
 
     int const cantReg = reg.getCantidadRegistros();
 
-    cout << "Ingrese el CUIT del cliente: " << endl ;
+    cout << "ID del cliente: " << Cliente::getID() << endl ;
+
+    cout << "Ingrese el CUIT del cliente: " ;
 
     cin >> datos ;
 
-    for (int i = 0; i<cantReg; i++)
-    {
-        cliente = reg.leer(i);
+    for (int i = 0; i < cantReg; i++){
 
-        while (strcmp(datos.c_str(), cliente.getCuit().c_str()) == 0 && cliente.getEstado() == true) // == 0 significa si son iguales los dos strings, no si son iguales a 0
-        {
+        cliente = reg.leer(i) ;
+
+        while (strcmp(datos.c_str(), cliente.getCuit().c_str()) == 0 && cliente.getEstado() == true) { // == 0 significa si son iguales los dos strings, no si son iguales a 0
 
 
-            cout << "El CUIT que usted ingreso ya fue asignado. Desea salir o introducir otro CUIT?: 1: (Agregar otro CUIT), 2: (Salir)" << endl;
+            cout << "El CUIT ya corresponde a un cliente existente. Desea salir o introducir otro CUIT?: (1- Agregar otro CUIT, 2- Salir): " ;
 
-            cin >> datos2;
+            cin >> datos2 ;
 
-            switch (datos2)
-            {
+            switch (datos2) {
+
             case 1:
-                cout << "Ingrese el nuevo CUIT: " << endl;
 
-                cin >> datos;
+                cout << "Ingrese el nuevo CUIT: " ;
 
-                break;
+                cin >> datos ;
+
+                break ;
 
             case 2:
 
-                cout << "Saliendo..." << endl;
+                cout << endl << "Saliendo..." << endl ;
 
-                system ("pause");
+                return ;
 
-                system ("cls");
-
-                return;
-
-                break;
+                break ;
 
             default:
 
-                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl;
+                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl ;
 
-                break;
+                break ;
             }
 
         }
     }
+
     Cliente::setCuit(datos) ;
 
     cout << "Ingrese el tipo de cliente: " ;
 
-    cin >> datos2 ;
+    cin >> tipo_Cliente ;
 
-    Cliente::setTipo_Cliente(datos2) ;
+    Cliente::setTipo_Cliente(tipo_Cliente) ;
 
-
-
-    cout << "Ingrese el nombre del cliente: " << endl ;
+    cout << "Ingrese el nombre del cliente: " ;
 
     cin >> datos ;
 
     Cliente::setNombre(datos) ;
 
-    cout << "Ingrese el apellido del cliente: " << endl ;
+    cout << "Ingrese el apellido del cliente: " ;
 
     cin >> datos ;
 
     Cliente::setApellido(datos) ;
 
-    cout << "Ingrese el telefono del cliente: " << endl ;
+    cout << "Ingrese el telefono del cliente: " ;
 
     cin >> datos ;
 
     Cliente::setTelefono(datos) ;
 
-    cout << "Ingrese la direccion del cliente: " << endl ;
+    cout << "Ingrese la direccion del cliente: " ;
 
     datos = cargarCadena() ;
 
@@ -157,25 +152,18 @@ void Cliente::cargar()
 
     Cliente::setEstado(true) ;
 
-    Cliente::setID(reg.getCantidadRegistros()+1);
-
     cout << endl ;
 
-    cout << "El cliente fue agregado con exito. " << endl << endl ;
+    cout << endl << "El cliente fue agregado con exito. " << endl ;
 
-    system("pause") ;
 
-    system("cls") ;
 }
 
-void Cliente::mostrar()
-{
+void Cliente::mostrar(){
 
-    cout << "Informacion del cliente: " << endl ;
+    cout << endl << "Informacion del cliente: " << endl ;
 
-    cout << endl ;
-
-    cout << "ID del cliente: " << Cliente::getID() << endl;
+    cout << "ID del cliente: " << Cliente::getID() << endl ;
 
     cout << "Nombre y apellido del cliente: " << Cliente::getNombre() << " " << Cliente::getApellido() << endl ;
 
@@ -189,20 +177,11 @@ void Cliente::mostrar()
 
     cout << "Tipo de cliente: " << Cliente::getTipo_Cliente() << endl ;
 
-    if (Cliente::getEstado())
-    {
-        cout << "Estado: Activo " << endl;
-    }
-    else
-    {
+    if(Cliente::getEstado()) {
 
-        cout << "Estado: Inactivo " << endl;
-    }
+    cout << "Estado: Activo"  << endl ; } else { cout << "Estado: Dado de baja" << endl ; }
 
     cout << endl ;
 
-//   system ("pause") ;
-
-    //  system ("cls") ;
 }
 

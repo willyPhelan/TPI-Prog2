@@ -21,10 +21,10 @@ public:
 
     bool bajaLogica(int id_producto) ;
 
+    bool altaLogica(int id_producto) ;
+
     // MODIFICACIÓN (Sobreescribe el registro con el mismo ID)
     // Recibe el registro modificado y lo guarda en su posición original.
-
-    bool altaLogica (int id_producto); // <-- Metodo para dar de alta, es decir, reactivar una venta
 
     bool modificar(const Producto &reg) ;
 
@@ -36,7 +36,7 @@ public:
 
     int buscarPosicion(int id_producto) ; // Devuelve la posición (índice) del registro o -1 si no lo encuentra
 
-    float buscarPrecio(int idBuscado);
+    float buscarPrecio(int idBuscado) ;
 
 private:
 

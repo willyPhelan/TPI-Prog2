@@ -1,9 +1,8 @@
 #include "Proveedor.h"
+#include "ProveedorArchivo.h"
 #include <iostream>
 #include <cstring>
 #include "Utils.h"
-#include "Proveedor.h"
-#include "ProveedorArchivo.h"
 
 using namespace std ;
 
@@ -25,12 +24,25 @@ int Proveedor::getTipo_proveedor() {
     return tipo_proveedor ;
 }
 
+
+string Proveedor::getMail() const {
+
+    return mail ; }
+
 // Setters
 
 void Proveedor::setTipo_proveedor(int tipo_proveedor) {
 
     this->tipo_proveedor = tipo_proveedor ;
 }
+
+void Proveedor::setMail(std::string mail) {
+
+    // strncpy para copiar la cadena al array char[30] de forma segura
+
+    strncpy(this->mail, mail.c_str(), 29) ;
+
+    this->mail[29] = '\0' ; }
 
 // Metodos
 
@@ -40,53 +52,51 @@ void Proveedor::cargar() {
 
     int datos2 ;
 
-    Proveedor proveedor1;
+    Proveedor proveedor1 ;
 
     ProveedorArchivo archivo;
 
-    int const cantReg = archivo.getCantidadRegistros();
+    int tipo_proveedor ;
 
-    cout << "Ingrese el CUIT del proveedor: " << endl ;
+    int const cantReg = archivo.getCantidadRegistros() ;
+
+    cout << "Ingrese el CUIT del proveedor: "  ;
 
     cin >> datos ;
 
-    for (int i = 0; i<cantReg; i++)
-    {
-        proveedor1 = archivo.leer(i);
+    for (int i = 0; i <cantReg ; i++){
 
-        while (strcmp(datos.c_str(), proveedor1.getCuit().c_str()) == 0 && proveedor1.getEstado() == true)
-        {
+        proveedor1 = archivo.leer(i) ;
 
-            cout << "El CUIT que usted ingreso ya fue asignado. Desea salir o introducir otro CUIT?: 1: (Agregar otro CUIT), 2: (Salir)" << endl;
+        while (strcmp(datos.c_str(), proveedor1.getCuit().c_str()) == 0 && proveedor1.getEstado() == true){
 
-            cin >> datos2;
+            cout << "El CUIT ya corresponde a un proveedor existente. Desea salir o introducir otro CUIT? (1- Agregar otro CUIT, 2- Salir):" ;
 
-            switch (datos2)
-            {
+            cin >> datos2 ;
+
+            switch (datos2){
+
             case 1:
-                cout << "Ingrese el nuevo CUIT: " << endl;
 
-                cin >> datos;
+                cout << "Ingrese el nuevo CUIT: "  ;
 
-                break;
+                cin >> datos ;
+
+                break ;
 
             case 2:
 
-                cout << "Saliendo..." << endl;
+                cout << endl << "Saliendo..." << endl ;
 
-                system ("pause");
+                return ;
 
-                system ("cls");
-
-                return;
-
-                break;
+                break ;
 
             default:
 
-                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl;
+                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl ;
 
-                break;
+                break ;
             }
 
         }
@@ -94,40 +104,39 @@ void Proveedor::cargar() {
 
     Proveedor::setCuit(datos) ;
 
-    cout << "Ingrese el tipo de proveedor: " ;
+    cout << "Ingrese el tipo de proveedor (1-Empresa, 2-Particular, 3-Servicios):  " ;
 
-    cin >> datos2 ;
+    cin >> tipo_proveedor ;
 
-    Proveedor::setTipo_proveedor(datos2) ;
+    Proveedor::setTipo_proveedor(tipo_proveedor) ;
 
-    cout << "Ingrese el nombre del proveedor: " << endl;
+    cout << "Ingrese el nombre del proveedor: " ;
 
-    datos = cargarCadena();
+    datos = cargarCadena() ;
 
-    Proveedor::setNombre(datos);
+    Proveedor::setNombre(datos) ;
 
+    cout << "Ingrese el numero de telefono del proveedor: " ;
 
-    cout << "Ingrese el numero de telefono del proveedor: " << endl;
+    cin >> datos ;
 
-    cin >> datos;
+    Proveedor::setTelefono(datos) ;
 
-    Proveedor::setTelefono(datos);
+    cout << "Ingrese la direccion del proveedor: "  ;
 
-    cout << "Ingrese la direccion del proveedor: " << endl;
+    datos = cargarCadena() ;
 
-    datos = cargarCadena();
+    Proveedor::setDireccion(datos) ;
 
-    Proveedor::setDireccion(datos);
+    cout << "Ingrese el mail del proveedor: "  ;
 
-    Proveedor::setEstado(true);
+    datos = cargarCadena() ;
 
-    Proveedor::setID(archivo.getCantidadRegistros()+1);
+    Proveedor::setMail(datos) ;
+
+    Proveedor::setEstado(true) ;
 
     cout << endl << "El proveedor fue agregado con exito. " << endl ;
-
-    system("pause") ;
-
-    system("cls") ;
 
 }
 
@@ -137,7 +146,11 @@ void Proveedor::mostrar(){
 
     cout << endl ;
 
-    cout << "ID del proveedor: " << Proveedor::getID() << endl;
+    cout << "ID del proveedor: " << Proveedor::getID() << endl ;
+
+    cout << "CUIT del proveedor: " << Proveedor::getCuit() << endl ;
+
+    cout << "Tipo de proveedor: " << Proveedor::getTipo_proveedor() << endl ;
 
     cout << "Nombre del proveedor: " << Proveedor::getNombre() << endl ;
 
@@ -145,21 +158,11 @@ void Proveedor::mostrar(){
 
     cout << "Direccion del proveedor: " << Proveedor::getDireccion() << endl ;
 
-    cout << "CUIT del proveedor: " << Proveedor::getCuit() << endl ;
+    cout << "Mail del proveedor: " << Proveedor::getMail() << endl ;
 
-    cout << "Tipo de proveedor: " << Proveedor::getTipo_proveedor() << endl ;
+    if(Proveedor::getEstado()){
 
-        if (Proveedor::getEstado())
-    {
-        cout << "Estado: Activo " << endl;
-    }else{
-
-        cout << "Estado: Inactivo " << endl;
-    }
+    cout << "Estado del proveedor: Activo " << endl ; } else { cout << "Estado del proveedor: Inactivo " << endl ; }
 
     cout << endl;
-
- //   system ("pause") ;
-
- //   system ("cls") ;
 }

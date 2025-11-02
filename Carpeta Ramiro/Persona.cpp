@@ -113,7 +113,7 @@ void Persona::setEstado(bool estado) {
 
 // METODO CARGAR
 
-void Persona::cargar() {
+/* void Persona::cargar() {
 
     int id ;
 
@@ -173,7 +173,7 @@ void Persona::cargar() {
 
   //  cout << "Registro creado con exito. " ;
 
-}
+} */
 
 
 //MÉTODO MOSTRAR

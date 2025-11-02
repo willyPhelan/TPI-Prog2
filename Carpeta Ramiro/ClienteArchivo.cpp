@@ -1,71 +1,71 @@
 #include "ClienteArchivo.h"
+#include "Cliente.h"
 #include <iostream>
 #include <cstdio>
 
-using namespace std;
+using namespace std ;
 
 /// FUNCIONES ABML
 
-bool ClienteArchivo::guardar(const Cliente &reg)
-{
-    FILE *archivo;
+bool ClienteArchivo::guardar(const Cliente &reg){
 
-    archivo = fopen (archivo_Cliente, "ab");
+    FILE *archivo ;
 
-    if (archivo == nullptr)
-    {
-        cout << "NO SE PUDO CREAR EL ARCHIVO. " << endl;
-        return false;
+    archivo = fopen (archivo_Cliente, "ab") ;
+
+    if (archivo == nullptr){
+
+        cout << "NO SE PUDO CREAR EL ARCHIVO. " << endl ;
+
+        return false ;
     }
 
-    int escribio = fwrite (&reg, sizeof (Cliente), 1, archivo);
+    int escribio = fwrite (&reg, sizeof (Cliente), 1, archivo) ;
 
-    fclose (archivo);
+    fclose (archivo) ;
 
-    return escribio;
+    return escribio ;
 }
 
-bool ClienteArchivo::bajaLogica (int id_persona)
-{
-    int pos = buscarPosicion (id_persona);
+bool ClienteArchivo::bajaLogica (int id_persona){
 
-    if (pos == -1)
-    {
-        cout << "El ID que ingreso es incorrecto. " << endl;
-        system ("pause");
-        return false;
+    int pos = buscarPosicion (id_persona) ;
+
+    if (pos == -1){
+
+        return false ;
+
     }
-    Cliente reg = leer (pos);
+    Cliente reg = leer (pos) ;
 
-    reg.setEstado (false);
+    reg.setEstado (false) ;
 
-    FILE *archivo;
+    FILE *archivo ;
 
-    archivo = fopen (archivo_Cliente, "rb+");
+    archivo = fopen (archivo_Cliente, "rb+") ;
 
-    if (archivo == nullptr)
-    {
-        return false;
-    }
+    if (archivo == nullptr){ return false ; }
 
-    fseek (archivo, pos * sizeof (Cliente), SEEK_SET);
+    fseek (archivo, pos * sizeof (Cliente), SEEK_SET) ;
 
-    int escrito = fwrite (&reg, sizeof (Cliente), 1, archivo);
+    int escrito = fwrite (&reg, sizeof (Cliente), 1, archivo) ;
 
-    fclose (archivo);
+    fclose (archivo) ;
 
-    return escrito;
+    return escrito ;
 
 }
 
-bool ClienteArchivo::altaLogica (int id_persona)
-{
+bool ClienteArchivo::altaLogica (int id_persona) {
+
      int pos = buscarPosicion (id_persona);
 
-    if (pos == -1)
-    {
+    if (pos == -1) {
+
         cout << "El ID que ingreso es incorrecto. " << endl;
+
         system ("pause");
+
         return false;
     }
     Cliente reg = leer (pos);
@@ -91,91 +91,82 @@ bool ClienteArchivo::altaLogica (int id_persona)
 
 }
 
-Cliente ClienteArchivo::leer (int pos)
-{
-    Cliente reg;
+Cliente ClienteArchivo::leer (int pos){
 
-    FILE *archivo;
+    Cliente reg ;
 
-    archivo = fopen (archivo_Cliente, "rb");
+    FILE *archivo ;
 
-    if (archivo == nullptr)
-    {
-        return reg;
-    }
+    archivo = fopen (archivo_Cliente, "rb") ;
 
-    fseek (archivo, pos * sizeof (Cliente), SEEK_SET);
+    if (archivo == nullptr){ return reg ; }
 
-    fread (&reg, sizeof (Cliente), 1, archivo);
+    fseek (archivo, pos * sizeof (Cliente), SEEK_SET) ;
 
-    fclose (archivo);
+    fread (&reg, sizeof (Cliente), 1, archivo) ;
 
-    return reg;
+    fclose (archivo) ;
+
+    return reg ;
 }
 
-bool ClienteArchivo::modificar (const Cliente &reg)
-{
-    int pos = buscarPosicion (reg.getID());
+bool ClienteArchivo::modificar (const Cliente &reg){
 
-    if (pos == -1)
-    {
-        cout << "El ID ingresado es incorrecto. " << endl;
-        return false;
+    int pos = buscarPosicion (reg.getID()) ;
+
+    if (pos == -1){
+
+        cout << "El ID ingresado es incorrecto. " << endl ;
+
+        return false ;
     }
 
     FILE *archivo;
 
-    archivo = fopen (archivo_Cliente, "rb+");
+    archivo = fopen (archivo_Cliente, "rb+") ;
 
-    if (archivo == nullptr)
-    {
-        return false;
-    }
+    if (archivo == nullptr){ return false ; }
 
-    fseek (archivo, pos * sizeof (Cliente), SEEK_SET);
+    fseek (archivo, pos * sizeof (Cliente), SEEK_SET) ;
 
-    int escribio = fwrite (&reg, sizeof (Cliente), 1, archivo);
+    int escribio = fwrite (&reg, sizeof (Cliente), 1, archivo) ;
 
-    fclose (archivo);
+    fclose (archivo) ;
 
-    return escribio;
+    return escribio ;
 }
 /// FUNCIONES AUXILIARES
 
-int ClienteArchivo::buscarPosicion (int id_persona)
-{
-    Cliente reg;
+int ClienteArchivo::buscarPosicion (int id_persona){
 
-    int cantReg = getCantidadRegistros();
+    Cliente reg ;
 
-    for (int i = 0; i<cantReg; i++)
-    {
-        reg = leer(i);
+    int cantReg = getCantidadRegistros() ;
 
-        if (reg.getID() == id_persona)
-        {
-            return i;
-        }
+    for (int i = 0; i<cantReg; i++){
+
+        reg = leer(i) ;
+
+        if (reg.getID() == id_persona){ return i ; }
+
     }
-    return -1;
+    return -1 ;
 }
 
-int ClienteArchivo::getCantidadRegistros ()
-{
-    FILE *archivo;
+int ClienteArchivo::getCantidadRegistros (){
 
-    archivo = fopen (archivo_Cliente, "rb");
+    FILE *archivo ;
 
-    if (archivo == nullptr)
-    {
-        return 0;
-    }
+    archivo = fopen (archivo_Cliente, "rb") ;
 
-    fseek (archivo, 0, SEEK_END);
+    if (archivo == nullptr){ return 0 ; }
 
-    int tamanio = ftell (archivo);
+    fseek (archivo, 0, SEEK_END) ;
 
-    fclose (archivo);
+    int tamanio = ftell (archivo) ;
 
-    return tamanio / sizeof (Cliente);
+    fclose (archivo) ;
+
+    return tamanio / sizeof (Cliente) ;
+
 }

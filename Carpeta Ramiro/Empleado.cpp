@@ -1,9 +1,8 @@
 #include "Empleado.h"
+#include "EmpleadoArchivo.h"
 #include <iostream>
-#include <string>
 #include <cstring>
 #include "Utils.h"
-#include "EmpleadoArchivo.h"
 
 using namespace std ;
 
@@ -46,53 +45,51 @@ void Empleado::setHoras_Trabajo(int horas_Trabajo){
 
 void Empleado::cargar(){
 
+    EmpleadoArchivo reg ;
+
+    Empleado empleado1 ;
+
     string datos ;
+
     int datos2 ;
 
+    int const cantReg = reg.getCantidadRegistros() ;
 
-    EmpleadoArchivo reg;
+    cout << "Ingrese el CUIT del empleado: " ;
 
-    int const cantReg = reg.getCantidadRegistros();
+    cin >> datos ;
 
-    Empleado empleado1;
+      for (int i = 0; i<cantReg; i++){
 
-    cout << "Ingrese el CUIT del empleado: " << endl ;
-    cin >> datos;
+        empleado1 = reg.leer(i) ;
 
-    for (int i = 0; i<cantReg; i++)
-    {
-        empleado1 = reg.leer(i);
+        while (strcmp(datos.c_str(), empleado1.getCuit().c_str()) == 0 && empleado1.getEstado() == true) {
 
-        while (strcmp(datos.c_str(), empleado1.getCuit().c_str()) == 0 && empleado1.getEstado() == true)
-        {
-            cout << "El CUIT que usted ingreso ya fue asignado. Desea salir o introducir otro CUIT?: 1: (Agregar otro CUIT), 2: (Salir)" << endl;
+            cout << "El CUIT ya corresponde a un empleado existente. Desea salir o introducir otro CUIT?: (1- Agregar otro CUIT, 2- Salir)" ;
 
-            cin >> datos2;
+            cin >> datos2 ;
 
-            switch (datos2)
-            {
+            switch (datos2){
+
             case 1:
-                cout << "Ingrese el nuevo CUIT: " << endl;
 
-                cin >> datos;
+                cout << "Ingrese el nuevo CUIT: " ;
 
-                break;
+                cin >> datos ;
+
+                break ;
 
             case 2:
 
-                cout << "Saliendo..." << endl;
+                cout << "Saliendo..." << endl ;
 
-                system ("pause");
+                return ;
 
-                system ("cls");
-
-                return;
-
-                break;
+                break ;
 
             default:
 
-                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl;
+                cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl ;
 
                 break;
             }
@@ -100,7 +97,7 @@ void Empleado::cargar(){
         }
     }
 
-    Empleado::setCuit(datos);
+    Empleado::setCuit(datos) ;
 
     cout << "Ingrese el tipo de empleado: " ;
 
@@ -114,31 +111,33 @@ void Empleado::cargar(){
 
     Empleado::setHoras_Trabajo(datos2) ;
 
-    cout << "Ingrese el nombre del empleado: " << endl;
-    cin >> datos;
-    Empleado::setNombre(datos);
+    cout << "Ingrese el nombre del empleado: "  ;
 
-    cout << "Ingrese el apellido del empleado: " << endl;
-    cin >> datos;
-    Empleado::setApellido(datos);
+    cin >> datos ;
 
-    cout << "Ingrese el telefono del empleado: " << endl;
-    cin >> datos;
-    Empleado::setTelefono(datos);
+    Empleado::setNombre(datos) ;
 
-    cout << "Ingrese la direccion del empleado: " << endl;
-    datos = cargarCadena();
-    Empleado::setDireccion(datos);
+    cout << "Ingrese el apellido del empleado: " ;
 
-    Empleado::setEstado(true);
+    cin >> datos ;
 
-    Empleado::setID(reg.getCantidadRegistros()+1);
+    Empleado::setApellido(datos) ;
 
-    cout<< endl << "El empleado fue agregado con exito. " << endl ;
+    cout << "Ingrese el telefono del empleado: " ;
 
-    system("pause") ;
+    cin >> datos ;
 
-    system("cls") ;
+    Empleado::setTelefono(datos) ;
+
+    cout << "Ingrese la direccion del empleado: "  ;
+
+    datos = cargarCadena() ;
+
+    Empleado::setDireccion(datos) ;
+
+    Empleado::setEstado(true) ;
+
+    cout << endl << "El empleado fue agregado con exito. " << endl ;
 
 }
 
@@ -146,9 +145,7 @@ void Empleado::mostrar(){
 
     cout << "Informacion del empleado: " << endl ;
 
-    cout << endl ;
-
-    cout << "ID del empleado: " << Empleado::getID() << endl;
+    cout << "ID del empleado: " << Empleado::getID() << endl ;
 
     cout << "Nombre y apellido del empleado: " << Empleado::getNombre() << " " << Empleado::getApellido() << endl ;
 
@@ -162,20 +159,7 @@ void Empleado::mostrar(){
 
     cout << "Horas trabajadas por semana del empleado: " << Empleado::getHoras_Trabajo() << endl ;
 
-    if (Empleado::getEstado())
-    {
-        cout << "Estado: Activo " << endl;
-    }else{
-
-        cout << "Estado: Inactivo " << endl;
-    }
-
-    //cout << "Estado: " << Empleado::getEstado() << endl ;
+    cout << "Estado: " << Empleado::getEstado() << endl ;
 
     cout << endl ;
-
-  //  system("pause") ;
-
-   // system("cls") ;
-
 }

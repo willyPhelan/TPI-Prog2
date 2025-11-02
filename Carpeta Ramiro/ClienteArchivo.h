@@ -1,34 +1,32 @@
-#ifndef CLIENTEARCHIVO_H_INCLUDED
-#define CLIENTEARCHIVO_H_INCLUDED
 #pragma once
 #include "Cliente.h"
 #include <cstdio>
 
-class ClienteArchivo
-{
+class ClienteArchivo{
+
 private: /// Atributos
 
-    const char *archivo_Cliente = "Clientes.dat";
+    const char *archivo_Cliente = "Clientes.dat" ;
 
 public: /// Metodos
 
 /// FUNCIONES ABML
 
-    bool guardar (const Cliente &reg);
+    bool guardar (const Cliente &reg) ;
 
-    bool bajaLogica (int id_persona);
+    bool bajaLogica (int id_persona) ;
 
-    bool altaLogica (int id_persona);
+    bool altaLogica(int id_persona) ;
 
-    Cliente leer (int pos);
+    Cliente leer (int pos) ;
 
-    bool modificar (const Cliente &reg);
+    bool modificar (const Cliente &reg) ;
 
 /// FUNCIONES AUXILIARES
 
-    int getCantidadRegistros ();
+    int getCantidadRegistros () ;
 
-    int buscarPosicion (int id_persona);
+    int buscarPosicion (int id_persona) ;
 };
 
-#endif // CLIENTEARCHIVO_H_INCLUDED
+

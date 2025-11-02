@@ -198,9 +198,11 @@ bool ProductoArchivo::bajaLogica(int id_producto) {
     return escrito ;
 }
 
-bool ProductoArchivo::altaLogica (int id_producto)
-{
-        // 1. Busco la posición del registro
+// ALTA
+
+bool ProductoArchivo::altaLogica(int id_producto) {
+
+    // 1. Busco la posición del registro
 
     int pos = buscarPosicion(id_producto) ;
 
@@ -213,9 +215,9 @@ bool ProductoArchivo::altaLogica (int id_producto)
 
     Producto reg = leer(pos) ;
 
-    // Modifico el estado a true (alta lógica)
+    // Modifico el estado a falso (baja lógica)
 
-    reg.setEstado(true);
+    reg.setEstado(true) ;
 
     // 4. Sobreescribo el registro modificado en la misma posición (reutilizando la lógica de Modificar)
     // "rb+" para reescribir
@@ -282,20 +284,25 @@ int ProductoArchivo::obtenerID() {
 
 float ProductoArchivo::buscarPrecio(int idBuscado){
 
-    FILE* archivoP;
-    Producto reg;
-    archivoP = fopen(archivo_Producto,"rb");
+    FILE* archivoP ;
 
-    if(archivoP == nullptr){return 0;};
+    Producto reg ;
+
+    archivoP = fopen(archivo_Producto,"rb") ;
+
+    if(archivoP == nullptr){ return 0 ; } ;
 
     while(fread(&reg,sizeof(Producto),1,archivoP)){
 
         if(reg.getID_Producto() == idBuscado){
-            fclose(archivoP);
-            return reg.getPrecioActual();
+
+            fclose(archivoP) ;
+
+            return reg.getPrecioActual() ;
         }
     }
 
-    fclose(archivoP);
-    return 0;
+    fclose(archivoP) ;
+
+    return 0 ;
 }

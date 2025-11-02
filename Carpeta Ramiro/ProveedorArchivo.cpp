@@ -7,62 +7,62 @@ using namespace std;
 
 /// FUNCIONES ABML
 
-bool ProveedorArchivo::guardar(const Proveedor &reg)
-{
-    FILE *archivo;
+bool ProveedorArchivo::guardar(const Proveedor &reg){
 
-    archivo = fopen (archivo_Proveedor, "ab");
+    FILE *archivo ;
 
-    if (archivo == nullptr)
-    {
-        cout << "NO SE PUDO CREAR EL ARCHIVO. " << endl;
-        return false;
+    archivo = fopen (archivo_Proveedor, "ab") ;
+
+    if (archivo == nullptr){
+
+        cout << "NO SE PUDO CREAR EL ARCHIVO. " << endl ;
+
+        return false ;
     }
 
-    int escribio = fwrite (&reg, sizeof (Proveedor), 1, archivo);
+    int escribio = fwrite (&reg, sizeof (Proveedor), 1, archivo) ;
 
-    fclose (archivo);
+    fclose (archivo) ;
 
-    return escribio;
+    return escribio ;
 
 }
 
-bool ProveedorArchivo::bajaLogica(int id_persona)
-{
+bool ProveedorArchivo::bajaLogica(int id_persona){
+
+    int pos = buscarPosicion(id_persona) ;
+
+    if (pos == -1){
+
+        cout << "El ID que ingreso es incorrecto. " << endl ;
+
+        system ("pause") ;
+
+        return false ;
+    }
+
+    Proveedor reg = leer (pos) ;
+
+    reg.setEstado(false) ;
+
+    FILE *archivo ;
+
+    archivo = fopen (archivo_Proveedor, "rb+") ;
+
+    if (archivo == nullptr){ return false ; }
+
+    fseek (archivo, pos * sizeof (Proveedor), SEEK_SET) ;
+
+    int escrito = fwrite (&reg, sizeof (Proveedor), 1, archivo) ;
+
+    fclose (archivo) ;
+
+    return escrito ;
+}
+
+bool ProveedorArchivo::altaLogica(int id_persona){
+
     int pos = buscarPosicion(id_persona);
-
-    if (pos == -1)
-    {
-        cout << "El ID que ingreso es incorrecto. " << endl;
-        system ("pause");
-        return false;
-    }
-
-    Proveedor reg = leer (pos);
-
-    reg.setEstado(false);
-
-    FILE *archivo;
-
-    archivo = fopen (archivo_Proveedor, "rb+");
-
-    if (archivo == nullptr)
-    {
-        return false;
-    }
-
-    fseek (archivo, pos * sizeof (Proveedor), SEEK_SET);
-
-    int escrito = fwrite (&reg, sizeof (Proveedor), 1, archivo);
-
-    fclose (archivo);
-
-    return escrito;
-}
-
-bool ProveedorArchivo::altaLogica(int id_persona)
-{
-        int pos = buscarPosicion(id_persona);
 
     if (pos == -1)
     {
@@ -93,94 +93,84 @@ bool ProveedorArchivo::altaLogica(int id_persona)
     return escrito;
 }
 
-Proveedor ProveedorArchivo::leer (int pos)
-{
-    Proveedor reg;
+Proveedor ProveedorArchivo::leer (int pos){
 
-    FILE *archivo;
+    Proveedor reg ;
 
-    archivo = fopen (archivo_Proveedor, "rb");
+    FILE *archivo ;
 
-    if (archivo == nullptr)
-    {
-        return reg;
-    }
+    archivo = fopen (archivo_Proveedor, "rb") ;
 
-    fseek (archivo, pos * sizeof (Proveedor), SEEK_SET);
+    if (archivo == nullptr){ return reg ; }
 
-    fread (&reg, sizeof (Proveedor), 1, archivo);
+    fseek (archivo, pos * sizeof (Proveedor), SEEK_SET) ;
 
-    fclose (archivo);
+    fread (&reg, sizeof (Proveedor), 1, archivo) ;
 
-    return reg;
+    fclose (archivo) ;
+
+    return reg ;
 }
 
-bool ProveedorArchivo::modificar(const Proveedor &reg)
-{
-    int pos = buscarPosicion (reg.getID());
+bool ProveedorArchivo::modificar(const Proveedor &reg){
 
-    if (pos == -1)
-    {
-        cout << "El ID ingresado es incorrecto. " << endl;
-        return false;
+    int pos = buscarPosicion (reg.getID()) ;
+
+    if (pos == -1){
+
+        cout << "El ID ingresado es incorrecto. " << endl ;
+
+        return false ;
     }
 
-    FILE *archivo;
+    FILE *archivo ;
 
-    archivo = fopen (archivo_Proveedor, "rb+");
+    archivo = fopen (archivo_Proveedor, "rb+") ;
 
-    if (archivo == nullptr)
-    {
-        return false;
-    }
+    if (archivo == nullptr){ return false ;}
 
-    fseek (archivo, pos * sizeof (Proveedor), SEEK_SET);
+    fseek (archivo, pos * sizeof (Proveedor), SEEK_SET) ;
 
-    int escribio = fwrite (&reg, sizeof (Proveedor), 1, archivo);
+    int escribio = fwrite (&reg, sizeof (Proveedor), 1, archivo) ;
 
-    fclose (archivo);
+    fclose (archivo) ;
 
-    return escribio;
+    return escribio ;
 }
 
 /// FUNCIONES AUXILIARES
 
-int ProveedorArchivo::buscarPosicion (int id_persona)
-{
+int ProveedorArchivo::buscarPosicion (int id_persona){
 
-    Proveedor reg;
+    Proveedor reg ;
 
-    int cantReg = getCantidadRegistros();
+    int cantReg = getCantidadRegistros() ;
 
-    for (int i = 0; i<cantReg; i++)
-    {
-        reg = leer (i);
+    for (int i = 0; i<cantReg; i++){
 
-        if (reg.getID() == id_persona)
-        {
-            return i;
-        }
+        reg = leer (i) ;
+
+        if (reg.getID() == id_persona) {
+
+            return i ; }
     }
 
-    return -1;
+    return -1 ;
 }
 
-int ProveedorArchivo::getCantidadRegistros ()
-{
-    FILE *archivo;
+int ProveedorArchivo::getCantidadRegistros (){
 
-    archivo = fopen (archivo_Proveedor, "rb");
+    FILE *archivo ;
 
-    if (archivo == nullptr)
-    {
-        return 0;
-    }
+    archivo = fopen (archivo_Proveedor, "rb") ;
 
-    fseek (archivo, 0, SEEK_END);
+    if (archivo == nullptr){ return 0 ; }
 
-    int tamanio = ftell (archivo);
+    fseek (archivo, 0, SEEK_END) ;
 
-    fclose (archivo);
+    int tamanio = ftell (archivo) ;
 
-    return tamanio / sizeof (Proveedor);
+    fclose (archivo) ;
+
+    return tamanio / sizeof (Proveedor) ;
 }

@@ -184,9 +184,9 @@ void Venta::cargarVenta(){
 
     int continuarDetalle = 1;
 
-    float MontoIVA = 1.21;
+    float montoIVA = 1.21;
 
-    float montoFinal;
+    float montoFinal = 0;
 
     float subtotalAcumulado = 0.0 ; // Para calcular el subtotal
 
@@ -233,22 +233,23 @@ void Venta::cargarVenta(){
     do {
 
         Detalle_Venta detalle ;// Instancia de Detalle_Venta
-        DetalleVentaArchivo archivoDetalleVenta;
 
-        detalle.setID_Detalle(getID_Venta());
-        detalle.setID_Venta(getID_Venta());
+        DetalleVentaArchivo archivoDetalleVenta ;
+
+        detalle.setID_Detalle(getID_Venta()) ;
+
+        detalle.setID_Venta(getID_Venta()) ;
 
 
         cout << "Producto #" << contadorProductos << " " ;
 
         detalle.cargar() ;// Carga de ID_Producto, Cantidad, Precio_Unitario
 
-        cout <<"Precio del Producto: "<<detalle.getPrecio_Unitario()<<endl;
+        cout << "Precio del Producto: " << detalle.getPrecio_Unitario() << endl ;
 
         // CÁLCULO DE SUBTOTAL:
 
         subtotalAcumulado += (detalle.getCantidad() * detalle.getPrecio_Unitario()) ;
-
 
         contadorProductos++ ;
 
@@ -266,7 +267,7 @@ void Venta::cargarVenta(){
 
     } while (continuarDetalle == 1) ;
 
-    montoFinal += subtotalAcumulado * MontoIVA;
+    montoFinal += subtotalAcumulado * montoIVA ;
 
     // 4. Actualización de Totales y Factura
 
@@ -284,9 +285,11 @@ void Venta::cargarVenta(){
 
     cout << "--------------------------------------------------------------" << endl << endl ;
 
-    cout << "Subtotal: " << getSubTotal() << endl ;
+    cout << "Subtotal: $" << getSubTotal() << endl ;
 
-    cout << "TOTAL: " << getMontoTotal() << endl ;
+    cout << "IVA: $" << subtotalAcumulado * 0.21 << endl ;
+
+    cout << "TOTAL: $" << getMontoTotal() << endl ;
 
     setTipoFactura(num) ;
 
@@ -301,7 +304,7 @@ void Venta::mostrarVenta(){
 
     cout << "ID_Venta: " <<getID_Venta() << endl ;
 
-    cout << "Medio de pago: " <<getMedioPago() << endl ;
+    cout << "Medio de pago: " << getMedioPago() << endl ;
 
     if(getTipoEnvio() == 1) {
 
@@ -309,7 +312,7 @@ void Venta::mostrarVenta(){
 
     } else {
 
-        cout <<  "Forma de entrega: Envio a domicilio"  << endl ;
+        cout <<  "Forma de entrega: Retiro en el local"  << endl ;
 
     }
 

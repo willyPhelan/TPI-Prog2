@@ -97,7 +97,7 @@ void Detalle_Venta::cargar() {
 
     int num ;
 
-    int id;
+    int id ;
 
     float precio ;
 
@@ -117,8 +117,9 @@ void Detalle_Venta::cargar() {
 
     setCantidad(num);
 
-    float unitario = archivoP.buscarPrecio(id);
-    setPrecio_Unitario(unitario);
+    float unitario = archivoP.buscarPrecio(id) ;
+
+    setPrecio_Unitario(unitario) ;
 }
 
 void Detalle_Venta::mostrar() const {

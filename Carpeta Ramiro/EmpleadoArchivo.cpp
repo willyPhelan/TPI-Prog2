@@ -2,62 +2,66 @@
 #include <iostream>
 #include <cstdio>
 
-using namespace std;
+using namespace std ;
 
 /// FUNCIONES ABML
 
-bool EmpleadoArchivo::guardar(const Empleado &reg)
-{
-    FILE *archivo; // Se crea el puntero para utilizar el archivo
+bool EmpleadoArchivo::guardar(const Empleado &reg){
 
-    archivo = fopen(archivo_Empleado, "ab"); // Se abre el archivo en modo append binary
+    FILE *archivo ;  // Se crea el puntero para utilizar el archivo
 
-    if (archivo == nullptr) // Se verifica si se abrio correctamente el archivo
-    {
-        cout << "NO SE PUDO CREAR EL ARCHIVO. " << endl;
-        return false;
+    archivo = fopen(archivo_Empleado, "ab") ; // Se abre el archivo en modo append binary
+
+    if (archivo == nullptr){ // Se verifica si se abrio correctamente el archivo
+
+        cout << "NO SE PUDO CREAR EL ARCHIVO. " << endl ;
+
+        return false ; }
+
+    int escribio = fwrite(&reg, sizeof (Empleado), 1, archivo) ; // Se escribe la informacion en el archivo
+
+    fclose(archivo) ; // Se cierra el archivo
+
+    return escribio ; // Devuelvo la variable escribio
+
+}
+
+bool EmpleadoArchivo::bajaLogica(int id_persona){
+
+    int pos = buscarPosicion(id_persona) ;
+
+    if (pos == -1){
+
+        cout << "El ID que ingreso es incorrecto. " << endl ;
+
+        system ("pause") ;
+
+        return false ;
     }
 
-    int escribio = fwrite(&reg, sizeof (Empleado), 1, archivo); // Se escribe la informacion en el archivo
+    Empleado reg = leer (pos) ;
 
-    fclose(archivo); // Se cierra el archivo
+    reg.setEstado(false) ;
 
-    return escribio; // Devuelvo la variable escribio
+    FILE *archivo ;
+
+    archivo = fopen (archivo_Empleado, "rb+") ;
+
+    if (archivo == nullptr){
+
+        return false ;
+    }
+
+    fseek (archivo, pos * sizeof (Empleado), SEEK_SET) ;
+
+    int escrito = fwrite (&reg, sizeof (Empleado), 1, archivo) ;
+
+    fclose (archivo) ;
+
+    return escrito ;
 
 }
 
-bool EmpleadoArchivo::bajaLogica(int id_persona)
-{
-    int pos = buscarPosicion(id_persona);
-
-    if (pos == -1)
-    {
-        cout << "El ID que ingreso es incorrecto. " << endl;
-        system ("pause");
-        return false;
-    }
-
-    Empleado reg = leer (pos);
-
-    reg.setEstado(false);
-
-    FILE *archivo;
-
-    archivo = fopen (archivo_Empleado, "rb+");
-    if (archivo == nullptr)
-    {
-        return false;
-    }
-
-    fseek (archivo, pos * sizeof (Empleado), SEEK_SET);
-
-    int escrito = fwrite (&reg, sizeof (Empleado), 1, archivo);
-
-    fclose (archivo);
-
-    return escrito;
-
-}
 
 bool EmpleadoArchivo::altaLogica (int id_persona)
 {
@@ -92,35 +96,35 @@ bool EmpleadoArchivo::altaLogica (int id_persona)
 
 }
 
-Empleado EmpleadoArchivo::leer (int pos)
-{
-    Empleado reg;
 
-    FILE *archivo;
-    archivo = fopen(archivo_Empleado, "rb");
+Empleado EmpleadoArchivo::leer (int pos){
 
-    if (archivo == nullptr)
-    {
-        return reg;
-    }
+    Empleado reg ;
 
-    fseek (archivo, pos * sizeof (Empleado), SEEK_SET);
+    FILE *archivo ;
 
-    fread (&reg, sizeof (Empleado), 1, archivo);
+    archivo = fopen(archivo_Empleado, "rb") ;
 
-    fclose (archivo);
+    if (archivo == nullptr){ return reg ; }
 
-    return reg;
+    fseek (archivo, pos * sizeof (Empleado), SEEK_SET) ;
+
+    fread (&reg, sizeof (Empleado), 1, archivo) ;
+
+    fclose (archivo) ;
+
+    return reg ;
 }
 
-bool EmpleadoArchivo::modificar (const Empleado &reg)
-{
-    int pos = buscarPosicion (reg.getID());
+bool EmpleadoArchivo::modificar (const Empleado &reg){
 
-    if (pos == -1)
-    {
-        cout << "El ID ingresado es incorrecto. " << endl;
-        return false;
+    int pos = buscarPosicion (reg.getID()) ;
+
+    if (pos == -1){
+
+        cout << "El ID ingresado es incorrecto. " << endl ;
+
+        return false ;
     }
 
     FILE *archivo;
@@ -129,54 +133,52 @@ bool EmpleadoArchivo::modificar (const Empleado &reg)
 
     if (archivo == nullptr)
     {
-        return false;
+        return false ;
     }
 
-    fseek (archivo, pos * sizeof (Empleado), SEEK_SET);
+    fseek (archivo, pos * sizeof (Empleado), SEEK_SET) ;
 
-    int escribio = fwrite (&reg, sizeof (Empleado), 1, archivo);
+    int escribio = fwrite (&reg, sizeof (Empleado), 1, archivo) ;
 
-    fclose (archivo);
+    fclose (archivo) ;
 
-    return escribio;
+    return escribio ;
 }
 
 /// FUNCIONES AUXILIARES
 
-int EmpleadoArchivo::buscarPosicion (int id_persona)
-{
+int EmpleadoArchivo::buscarPosicion (int id_persona){
+
     Empleado reg;
 
-    int cantReg = getCantidadRegistros();
+    int cantReg = getCantidadRegistros() ;
 
-    for (int i = 0; i<cantReg; i++)
-    {
-        reg = leer (i);
+    for (int i = 0; i<cantReg; i++){
 
-        if (reg.getID() == id_persona)
-        {
-            return i;
+        reg = leer (i) ;
+
+        if (reg.getID() == id_persona){
+
+            return i ;
         }
     }
-    return -1;
+
+    return -1 ;
 }
 
-int EmpleadoArchivo::getCantidadRegistros ()
-{
-    FILE *archivo;
+int EmpleadoArchivo::getCantidadRegistros (){
 
-    archivo = fopen(archivo_Empleado, "rb");
+    FILE *archivo ;
 
-    if (archivo == nullptr)
-    {
-        return 0;
-    }
+    archivo = fopen(archivo_Empleado, "rb") ;
 
-    fseek(archivo, 0, SEEK_END);
+    if (archivo == nullptr){ return 0 ; }
 
-    int tamanio = ftell(archivo);
+    fseek(archivo, 0, SEEK_END) ;
 
-    fclose(archivo);
+    int tamanio = ftell(archivo) ;
 
-    return tamanio / sizeof (Empleado);
+    fclose(archivo) ;
+
+    return tamanio / sizeof (Empleado) ;
 }
