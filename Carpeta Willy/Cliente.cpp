@@ -63,9 +63,11 @@ void Cliente::cargar(){
 
     int tipo_Cliente ;
 
-    int const cantReg = reg.getCantidadRegistros();
+    int const cantReg = reg.getCantidadRegistros() ;
 
-    cout << "ID del cliente: " << Cliente::getID() << endl ;
+    cliente.setID(cantReg +1) ;
+
+    cout << "ID del cliente: " << cliente.getID() << endl ;
 
     cout << "Ingrese el CUIT del cliente: " ;
 
@@ -76,7 +78,6 @@ void Cliente::cargar(){
         cliente = reg.leer(i) ;
 
         while (strcmp(datos.c_str(), cliente.getCuit().c_str()) == 0 && cliente.getEstado() == true) { // == 0 significa si son iguales los dos strings, no si son iguales a 0
-
 
             cout << "El CUIT ya corresponde a un cliente existente. Desea salir o introducir otro CUIT?: (1- Agregar otro CUIT, 2- Salir): " ;
 
@@ -110,45 +111,45 @@ void Cliente::cargar(){
         }
     }
 
-    Cliente::setCuit(datos) ;
+    cliente.setCuit(datos) ;
 
     cout << "Ingrese el tipo de cliente: " ;
 
     cin >> tipo_Cliente ;
 
-    Cliente::setTipo_Cliente(tipo_Cliente) ;
+    cliente.setTipo_Cliente(tipo_Cliente) ;
 
     cout << "Ingrese el nombre del cliente: " ;
 
     cin >> datos ;
 
-    Cliente::setNombre(datos) ;
+    cliente.setNombre(datos) ;
 
     cout << "Ingrese el apellido del cliente: " ;
 
     cin >> datos ;
 
-    Cliente::setApellido(datos) ;
+    cliente.setApellido(datos) ;
 
     cout << "Ingrese el telefono del cliente: " ;
 
     cin >> datos ;
 
-    Cliente::setTelefono(datos) ;
+    cliente.setTelefono(datos) ;
 
     cout << "Ingrese la direccion del cliente: " ;
 
     datos = cargarCadena() ;
 
-    Cliente::setDireccion(datos) ;
+    cliente.setDireccion(datos) ;
 
     cout << "Ingrese el mail del cliente: "  ;
 
     cin >> datos ;
 
-    Cliente::setMail(datos) ;
+    cliente.setMail(datos) ;
 
-    Cliente::setEstado(true) ;
+    cliente.setEstado(true) ;
 
     cout << endl ;
 
@@ -161,21 +162,21 @@ void Cliente::mostrar(){
 
     cout << endl << "Informacion del cliente: " << endl ;
 
-    cout << "ID del cliente: " << Cliente::getID() << endl ;
+    cout << "ID del cliente: " << getID() << endl ;
 
-    cout << "Nombre y apellido del cliente: " << Cliente::getNombre() << " " << Cliente::getApellido() << endl ;
+    cout << "Nombre y apellido del cliente: " << getNombre() << " " << getApellido() << endl ;
 
-    cout << "Telefono del cliente: " << Cliente::getTelefono() << endl ;
+    cout << "Telefono del cliente: " << getTelefono() << endl ;
 
-    cout << "Direccion del cliente: " << Cliente::getDireccion() << endl ;
+    cout << "Direccion del cliente: " << getDireccion() << endl ;
 
-    cout << "Cuit del cliente: " << Cliente::getCuit() << endl ;
+    cout << "Cuit del cliente: " << getCuit() << endl ;
 
-    cout << "Mail del cliente: " << Cliente::getMail() << endl ;
+    cout << "Mail del cliente: " << getMail() << endl ;
 
-    cout << "Tipo de cliente: " << Cliente::getTipo_Cliente() << endl ;
+    cout << "Tipo de cliente: " << getTipo_Cliente() << endl ;
 
-    if(Cliente::getEstado()) {
+    if(getEstado()) {
 
     cout << "Estado: Activo"  << endl ; } else { cout << "Estado: Dado de baja" << endl ; }
 

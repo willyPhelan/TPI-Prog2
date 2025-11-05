@@ -131,7 +131,6 @@ void Producto::cargar(){
 
     Producto productoExistente ;
 
-
     int cantReg = archivoProd.getCantidadRegistros() ;
 
     string str ; // Para cargar Marca
@@ -140,60 +139,19 @@ void Producto::cargar(){
 
     bool descripcionValida = false ;
 
-    int opcion;
+    int opcion ;
 
     do {
-        system("cls") ;
 
-        cout << "Carga de un nuevo producto" << endl ;
-
-        cout << "-------------------------------------" << endl ;
-
-        cout << "ID del Producto: " << getID_Producto() << endl;
-
-        cout << "Ingrese una Descripcion: " ;
-
-        descripcionNueva = cargarCadena() ;
-
-        setDescripcion(descripcionNueva) ;
-
-        descripcionValida = true ;
-
-        string descripcionNuevaLower = aMinusculas(descripcionNueva) ;
-
-        for (int i = 0; i < cantReg; i++){
-
-            productoExistente = archivoProd.leer(i) ;
-
-            const char* descripcionExistenteCStr = productoExistente.getDescripcion() ;
-
-            string descripcionExistenteStr(descripcionExistenteCStr) ;
-
-            string descripcionExistenteLower = aMinusculas(descripcionExistenteStr); // convietro a min
-
-           if (strcmp(descripcionNuevaLower.c_str(), descripcionExistenteLower.c_str()) == 0 && productoExistente.getEstado() == true) {
-
-                descripcionValida = false ; // Se encontró un duplicado
-
-                cout << endl << "ERROR: La descripcion: '" << descripcionNueva << "' ya existe para un producto." << endl ;
-
-                cout << "Desea: (1- Agregar otra descripcion, 2- Salir de la carga): " ;
+        cout << "Ingrese la descripcion del producto: " ;
 
 
-                cin >> opcion ;
+        cin >> descripcionNueva ;
 
-                if (opcion == 2) {
 
-                    cout << endl << "Saliendo de la carga de producto..." << endl ;
+    } while (!archivoProd.validarDescripcion(descripcionNueva)) ;
 
-                    return ; // SALIDA DEFINITIVA
-                }
-
-                break ; // Salimos del for
-            }
-        }
-
-    } while (descripcionValida == false) ;
+    this->setDescripcion(descripcionNueva);
 
 
 

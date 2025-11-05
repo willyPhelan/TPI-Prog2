@@ -27,6 +27,7 @@ public: /// Metodos
     int getCantidadRegistros () ;
 
     int buscarPosicion (int id_persona) ;
-};
+
+} ;
 
 

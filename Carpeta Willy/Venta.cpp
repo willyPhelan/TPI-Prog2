@@ -243,14 +243,13 @@ void Venta::cargarVenta(){
 
         detalle.setID_Venta(getID_Venta()) ;
 
-
         cout << "Producto #" << contadorProductos << " " ;
 
         detalle.cargar() ;// Carga de ID_Producto, Cantidad, Precio_Unitario
 
         if (detalle.getID_Producto() > 0 && detalle.getCantidad() > 0) {
 
-            // LoGICA DE REDUCCIoN DE STOCK
+            // LOGICA DE REDUCCION DE STOCK
 
             int id_prod = detalle.getID_Producto() ;
 
@@ -274,6 +273,7 @@ void Venta::cargarVenta(){
 
                     cout << "ERROR: No se pudo guardar la modificacion del stock." << endl ;
                 }
+
             } else {
 
                  cout << " Advertencia: Producto no encontrado en archivo, stock no modificado." << endl ;
@@ -337,7 +337,7 @@ void Venta::cargarVenta(){
 
 void Venta::mostrarVenta(){
 
-    cout << "ID_Venta: " <<getID_Venta() << endl ;
+    cout << "ID_Venta: " << getID_Venta() << endl ;
 
     cout << "Medio de pago: " << getMedioPago() << endl ;
 
@@ -364,7 +364,7 @@ void Venta::mostrarVenta(){
 }
 
 
-void Venta::modificarCampos() {
+/*void Venta::modificarCampos() {
 
     VentaArchivo archivo ; // Objeto para interactuar con el archivo de Ventas
 
@@ -568,3 +568,4 @@ void Venta::modificarCampos() {
 
     system("pause") ;
 }
+*/

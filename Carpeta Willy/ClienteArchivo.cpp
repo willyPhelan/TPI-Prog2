@@ -153,6 +153,7 @@ int ClienteArchivo::buscarPosicion (int id_persona){
     return -1 ;
 }
 
+
 int ClienteArchivo::getCantidadRegistros (){
 
     FILE *archivo ;

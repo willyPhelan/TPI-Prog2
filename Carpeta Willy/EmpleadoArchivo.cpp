@@ -63,15 +63,17 @@ bool EmpleadoArchivo::bajaLogica(int id_persona){
 }
 
 
-bool EmpleadoArchivo::altaLogica (int id_persona)
-{
-    int pos = buscarPosicion(id_persona);
+bool EmpleadoArchivo::altaLogica (int id_persona){
 
-    if (pos == -1)
-    {
-        cout << "El ID que ingreso es incorrecto. " << endl;
-        system ("pause");
-        return false;
+    int pos = buscarPosicion(id_persona) ;
+
+    if (pos == -1){
+
+        cout << "El ID que ingreso es incorrecto. " << endl ;
+
+        system ("pause") ;
+
+        return false ;
     }
 
     Empleado reg = leer (pos);
@@ -80,11 +82,11 @@ bool EmpleadoArchivo::altaLogica (int id_persona)
 
     FILE *archivo;
 
-    archivo = fopen (archivo_Empleado, "rb+");
-    if (archivo == nullptr)
-    {
-        return false;
-    }
+    archivo = fopen (archivo_Empleado, "rb+") ;
+
+    if (archivo == nullptr){
+
+        return false ; }
 
     fseek (archivo, pos * sizeof (Empleado), SEEK_SET);
 

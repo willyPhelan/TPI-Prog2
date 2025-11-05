@@ -145,21 +145,21 @@ void Empleado::mostrar(){
 
     cout << "Informacion del empleado: " << endl ;
 
-    cout << "ID del empleado: " << Empleado::getID() << endl ;
+    cout << "ID del empleado: " << getID() << endl ;
 
-    cout << "Nombre y apellido del empleado: " << Empleado::getNombre() << " " << Empleado::getApellido() << endl ;
+    cout << "Nombre y apellido del empleado: " << getNombre() << " " << getApellido() << endl ;
 
-    cout << "Telefono del empleado: " << Empleado::getTelefono() << endl ;
+    cout << "Telefono del empleado: " << getTelefono() << endl ;
 
-    cout << "Direccion del empleado: " << Empleado::getDireccion() << endl ;
+    cout << "Direccion del empleado: " << getDireccion() << endl ;
 
-    cout << "CUIT del empleado: " << Empleado::getCuit() << endl ;
+    cout << "CUIT del empleado: " << getCuit() << endl ;
 
-    cout << "ID de puesto del empleado: " << Empleado::getID_Puesto() << endl ;
+    cout << "ID de puesto del empleado: " << getID_Puesto() << endl ;
 
-    cout << "Horas trabajadas por semana del empleado: " << Empleado::getHoras_Trabajo() << endl ;
+    cout << "Horas trabajadas por semana del empleado: " << getHoras_Trabajo() << endl ;
 
-    cout << "Estado: " << Empleado::getEstado() << endl ;
+    cout << "Estado: " << getEstado() << endl ;
 
     cout << endl ;
 }

@@ -38,6 +38,8 @@ public:
 
     float buscarPrecio(int idBuscado) ;
 
+    bool validarDescripcion(const std::string &descripcion_a_validar) ;
+
 private:
 
     const char *archivo_Producto = "Productos.dat" ;

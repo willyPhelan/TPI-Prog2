@@ -84,11 +84,13 @@ class Venta{
 
         void setEstado(bool _estado) ;
 
+        // metodos
+
         void cargarVenta() ;
 
         void mostrarVenta() ;
 
-        void modificarCampos() ;
+
 
 };
 

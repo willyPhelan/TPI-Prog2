@@ -189,7 +189,7 @@ void Envio::mostrar() const {
 }
 
 
-void Envio::modificarCampos() {
+/* void Envio::modificarCampos() {
 
     EnvioArchivo archivo ;
 
@@ -366,3 +366,4 @@ void Envio::modificarCampos() {
 
     system("pause") ;
 }
+*/

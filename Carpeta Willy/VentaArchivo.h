@@ -27,5 +27,16 @@ class VentaArchivo {
 
         int buscarPosicion(int id_venta) ;
 
+        // METODOS
+
+        void modificarCampos() ;
+
+
+        // REPORTES
+
+       float calcularRecaudacionAnual(int anio) ;
+
+       float calcularRecaudacionMensual(int mes, int anio) ;
+
 
 };

@@ -45,9 +45,6 @@ public:
 
     void mostrar() const ;
 
-    void modificarCampos() ;
-
-
 
 private:
 

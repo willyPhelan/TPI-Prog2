@@ -36,4 +36,6 @@ private:
 
     void subMenuABML_Listados_Activos() ;
 
+    void subMenuReportes() ;
+
 } ;

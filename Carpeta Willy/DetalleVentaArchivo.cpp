@@ -7,12 +7,14 @@ using namespace std;
 
 bool DetalleVentaArchivo::guardar(const Detalle_Venta &reg){
 
-    FILE* pventa;
-    pventa = fopen(archivo_DetalleVenta,"ab");
+    FILE* pventa ;
+
+    pventa = fopen(archivo_DetalleVenta,"ab") ;
 
     if(pventa == nullptr){
 
         cout << "NO SE PUDO CREAR EL ARCHIVO" ;
+
         return false ;
     }
 
@@ -22,51 +24,58 @@ bool DetalleVentaArchivo::guardar(const Detalle_Venta &reg){
 
     return escrito;
 }
+
 Detalle_Venta DetalleVentaArchivo::leer(int pos){
 
-    Detalle_Venta reg;
-    FILE* pventa;
-    pventa = fopen(archivo_DetalleVenta, "rb");
+    Detalle_Venta reg ;
+
+    FILE* pventa ;
+
+    pventa = fopen(archivo_DetalleVenta, "rb") ;
 
     if(pventa == nullptr){
 
         cout << "NO SE PUDO CREAR EL ARCHIVO" ;
-        return reg;
+
+        return reg ;
     }
 
-    fseek(pventa,pos*sizeof(Detalle_Venta), SEEK_SET);
+    fseek(pventa,pos*sizeof(Detalle_Venta), SEEK_SET) ;
 
-    fread(&reg,sizeof(Detalle_Venta),1,pventa);
+    fread(&reg,sizeof(Detalle_Venta),1,pventa) ;
 
-    fclose(pventa);
+    fclose(pventa) ;
 
-    return reg;
+    return reg ;
 
 }
+
 bool DetalleVentaArchivo::bajaLogica(int idDetalle){
 
-    int pos = buscarPosicion(idDetalle);
+    int pos = buscarPosicion(idDetalle) ;
 
     if(pos == -1){
-        return false;
+
+        return false ;
     }
 
-    Detalle_Venta reg = leer(pos);
+    Detalle_Venta reg = leer(pos) ;
 
-    reg.setEstado(false);
+    reg.setEstado(false) ;
 
-    FILE* pventa;
-    pventa = fopen(archivo_DetalleVenta,"rb+");
+    FILE* pventa ;
 
-    if (pventa == nullptr){return false;}
+    pventa = fopen(archivo_DetalleVenta,"rb+") ;
 
-    fseek(pventa,pos*sizeof(Detalle_Venta),SEEK_SET);
+    if (pventa == nullptr){ return false ; }
 
-    int escrito = fwrite(&reg,sizeof(Detalle_Venta),1,pventa);
+    fseek(pventa,pos*sizeof(Detalle_Venta),SEEK_SET) ;
 
-    fclose(pventa);
+    int escrito = fwrite(&reg,sizeof(Detalle_Venta),1,pventa) ;
 
-    return escrito;
+    fclose(pventa) ;
+
+    return escrito ;
 
 }
 

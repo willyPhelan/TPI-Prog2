@@ -306,3 +306,36 @@ float ProductoArchivo::buscarPrecio(int idBuscado){
 
     return 0 ;
 }
+
+
+// Implementacion método de validacion
+
+// Devuelve true si la descripcion es valida
+
+bool ProductoArchivo::validarDescripcion(const std::string &descripcion_a_validar) {
+
+    // Validar que no exista otro producto con la misma descripción
+    // El tamaño máximo en Producto.h es 200 (char descripcion[200])
+
+    Producto reg ;
+
+    int cantidad = getCantidadRegistros() ;
+
+    for (int i = 0; i < cantidad; i++) {
+
+        reg = leer(i);
+
+        // Usar strncmp para comparar con la longitud del miembro del objeto
+
+        // Asumo que getDescripcion() devuelve un char*
+
+        if (strcmp(reg.getDescripcion(), descripcion_a_validar.c_str()) == 0) {
+
+            cout << "ERROR: Ya existe un producto con esta descripcion: " << reg.getDescripcion() << endl ;
+
+            return false ;
+        }
+    }
+
+    return true; // La descripción es válida
+}

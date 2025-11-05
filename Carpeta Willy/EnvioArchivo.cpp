@@ -189,4 +189,172 @@ bool EnvioArchivo::altaLogica(int id_envio) {
     return modificar(reg) ;
 }
 
+//  funciones de EnvioArchivo
 
+void EnvioArchivo::modificarCampos() {
+
+    int id_a_buscar ;
+
+    int opcion ;
+
+    int nuevo_dato_int ;
+
+    cout << "Modificar un campo especifico de un envio" << endl ;
+
+    cout << "-------------------------------------------" << endl ;
+
+    cout << "Ingrese el ID del envio a modificar: " ;
+
+    cin >> id_a_buscar ;
+
+    int pos = buscarPosicion(id_a_buscar) ; // Uso el método de la clase EnvioArchivo
+
+    if (pos == -1) {
+
+        cout << "ERROR: ID de envio no encontrado." << endl ;
+
+        system("pause") ;
+
+        return ;
+    }
+
+    // Cargar el objeto Envio actual
+    // La modificacion se hace sobre este objeto, y luego se guarda en el archivo
+
+    Envio envio_modificar = leer(pos) ; // Uso el método de la clase EnvioArchivo
+
+    do {
+
+        system("cls") ;
+
+        cout << "Envio a modificar (ID: " << envio_modificar.getID_Envio() << "):" << endl ;
+
+        cout << "-----------------------------" << endl ;
+
+        envio_modificar.mostrar() ; // Llama al método de la instancia de Envio
+
+        cout << endl << "Seleccione el campo a modificar:" << endl ;
+
+        cout << "1. Fecha de entrega" << endl ;
+
+        cout << "2. Valor del envio" << endl ;
+
+        cout << "3. Estado del envio" << endl ;
+
+        cout << "0. Volver al menu anterior " << endl ;
+
+        cout << endl << "Opcion: " ;
+
+        cin >> opcion ;
+
+        cout << endl ;
+
+        switch (opcion) {
+
+            case 1: { // Modificar Fecha de Entrega
+
+                int dia, mes, anio ;
+
+                Fecha nueva_fecha ; // Asumo que existe la clase Fecha
+
+                cout << "Ingrese una nueva fecha de entrega" << endl ;
+
+                cout << "Dia: " ;
+
+                cin >> dia ;
+
+                cout << "Mes: " ;
+
+                cin >> mes ;
+
+                cout << "Año: " ;
+
+                cin >> anio ;
+
+                nueva_fecha.setDia(dia) ;
+
+                nueva_fecha.setMes(mes) ;
+
+                nueva_fecha.setAnio(anio) ;
+
+                envio_modificar.setFecha_Entrega(nueva_fecha) ;
+
+                if (modificar(envio_modificar)) { // Uso el método modificar de EnvioArchivo
+
+                    cout << endl << "Fecha de entrega modificada y guardada con exito." << endl ;
+
+                } else {
+
+                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+                }
+
+                system("pause") ;
+
+                break ;
+            }
+
+            case 2: { // Modifico valor del envio
+
+                float nuevo_valor ;
+
+                cout << "Nuevo valor del envio: $" ;
+
+                cin >> nuevo_valor ;
+
+                envio_modificar.setValor_Envio(nuevo_valor) ;
+
+                if (modificar(envio_modificar)) { // Uso el método modificar de EnvioArchivo
+
+                    cout << endl << "Valor del envio modificado y guardado con exito." << endl ;
+
+                } else {
+
+                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+                }
+
+                system("pause") ;
+
+                break ;
+            }
+
+            case 3: { // Modificar Estado del Envío
+
+                cout << "Nuevo Estado (1-Pendiente, 2-En curso, 3-Entregado): " ;
+
+                cin >> nuevo_dato_int ;
+
+                envio_modificar.setEstado_Entrega(nuevo_dato_int) ;
+
+                if (modificar(envio_modificar)) { // Uso el método modificar de EnvioArchivo
+
+                    cout << endl << "Estado del envio modificado y guardado con exito." << endl ;
+
+                } else {
+
+                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+                }
+
+                system("pause") ;
+
+                break ;
+            }
+
+
+
+            case 0: // Volver
+
+                cout << "Volviendo al menu anterior." << endl ;
+
+                return ; // Salir de la función
+
+            default:
+
+                cout << "Opcion invalida. Intente de nuevo." << endl ;
+
+                system("pause") ;
+        }
+
+    } while (opcion != 0) ; // El bucle termina si opcion es 0
+}

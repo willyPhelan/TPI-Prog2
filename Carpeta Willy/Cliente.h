@@ -27,6 +27,7 @@ int getTipo_Cliente() ;
 
 // Setters
 
+
 void setMail (std::string mail) ;
 
 void setTipo_Cliente (int tipo_Cliente) ;

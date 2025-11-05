@@ -102,7 +102,7 @@ void Menu::mostrar() {
 
              case 8:
 
-                cout << "REPORTES ACA" << endl ;
+                subMenuReportes() ;
 
                 break ;
 
@@ -1092,11 +1092,19 @@ void Menu::subMenuABML_Ventas() {
 
                         nuevoEnvio.cargar() ; // Llama al metodo cargar() en Envio.cpp
 
+
                         // 3. Guardar el Envío en su archivo
 
                         if (archivoEnvio.guardar(nuevoEnvio)) {
 
+
                             cout << "Envio cargado con exito (ID_Envio: " << nuevoID_Envio << ")." << endl ;
+
+                            cout << endl << "-----------------------------------------------------------------------"  ;
+
+                            cout << endl  << "MONTO TOTAL CON ENVIO INCLUIDO $: " << nuevaVenta.getMontoTotal() + nuevoEnvio.getValor_Envio() << endl ;
+
+                            cout << "-----------------------------------------------------------------------" << endl ;
 
                         } else {
 
@@ -1177,9 +1185,9 @@ void Menu::subMenuABML_Ventas() {
 
             system("cls") ;
 
-            Venta venta1 ;
+            VentaArchivo archivoVenta1 ;
 
-            venta1.modificarCampos() ;
+            archivoVenta1.modificarCampos() ;
 
             break ;
 
@@ -1362,9 +1370,7 @@ void Menu::subMenuABML_Envios() {
 
                 system("cls") ;
 
-                cout << "Modifica un campo especifico del envio" << endl ;
-
-                Envio envio1 ;
+                EnvioArchivo envio1 ;
 
                 envio1.modificarCampos() ;
 
@@ -1863,6 +1869,7 @@ void Menu::subMenuABML_Listados_Activos(){
                         nuevoProveedor = archivoProveedor.leer(i) ;
 
                         if(nuevoProveedor.getEstado() == true){
+
                             nuevoProveedor.mostrar() ;
 
                             cout << "---------------------------------------------" << endl ;
@@ -1898,7 +1905,9 @@ void Menu::subMenuABML_Listados_Activos(){
                 for (int i=0; i<cantidad; i++){
 
                     Venta reg = archivoVenta.leer(i) ;
+
                     if(reg.getEstado() == true){
+
                         cout << "---------------------------------------------" << endl ;
 
                         reg.mostrarVenta() ;
@@ -2003,4 +2012,113 @@ void Menu::subMenuABML_Listados_Activos(){
 
     } while (opcion != 0) ;
 
+}
+
+
+void Menu::subMenuReportes() {
+
+    int opcion ;
+
+    VentaArchivo archivoVenta ;
+
+    int anio, mes ;
+
+    float recaudacion ;
+
+    do {
+
+        system("cls") ;
+
+        cout << "Menu de reportes" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "1. Recaudacion anual" << endl ;
+
+        cout << "2. Recaudacion mensual" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "0. Volver al menu principal" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cin >> opcion ;
+
+        cout << endl << endl ;
+
+        switch (opcion) {
+
+            case 1: { // Recaudación Anual
+
+                cout << "Recaudacion anual" << endl ;
+
+                cout << "Ingrese el anio a consultar: " ;
+
+                cin >> anio ;
+
+                recaudacion = archivoVenta.calcularRecaudacionAnual(anio) ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Recaudacion en " << anio << ": $" << recaudacion << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                system("pause") ;
+
+                break ;
+            }
+            case 2: { // Recaudación Mensual
+
+                cout << "Recaudacion mensual " << endl ;
+
+                cout << "Ingrese el anio a consultar: " ;
+
+                cin >> anio ;
+
+                cout << "Ingrese el mes (1-12) a consultar: " ;
+
+                cin >> mes ;
+
+                if (mes < 1 || mes > 12) {
+
+                    cout << "Mes invalido. Intente de nuevo." << endl ;
+
+                    system("pause") ;
+
+                    break ;
+                }
+
+                recaudacion = archivoVenta.calcularRecaudacionMensual(mes, anio) ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                cout << "Recaudacion para " << mes << "/" << anio << ": $" << recaudacion << endl ;
+
+                cout << "--------------------------------------------" << endl ;
+
+                system("pause") ;
+
+                break ;
+            }
+
+            case 0:
+
+                cout << "Volviendo al menu principal..." << endl ;
+
+                break ;
+
+            default:
+
+                cout << "Opcion Invalida. Intente de nuevo." << endl ;
+
+                system("pause") ;
+
+                break ;
+        }
+
+    } while (opcion != 0) ;
 }
