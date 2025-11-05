@@ -2,8 +2,7 @@
 #include "Producto.h"
 #include <cstdio> // Para el manejo de archivos FILE*
 
-class ProductoArchivo
-{
+class ProductoArchivo {
 
 public:
 
@@ -38,6 +37,11 @@ public:
     int buscarPosicion(int id_producto) ; // Devuelve la posición (índice) del registro o -1 si no lo encuentra
 
     float buscarPrecio(int idBuscado) ;
+
+    bool validarDescripcion(const std::string &descripcion_a_validar) ;
+
+    void modificarCampos();
+
 
 private:
 

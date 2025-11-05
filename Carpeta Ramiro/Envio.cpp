@@ -13,51 +13,45 @@ using namespace std ;
 // Constructor por defecto
 
 Envio::Envio()
-    : ID_Envio(0), estado_Entrega(0), valor_Envio(0.0f), estado(true) // Estado por defecto: Activo
+: ID_Envio(0), estado_Entrega(0), valor_Envio(0.0f), estado(true) // Estado por defecto: Activo
 {}
 
 // Constructor con parámetros
 
 Envio::Envio(int idEnvio, Fecha fecha, int estado, float valor, bool activo)
-    : ID_Envio(idEnvio), fecha_Entrega(fecha), estado_Entrega(estado), valor_Envio(valor), estado(activo)
+ : ID_Envio(idEnvio), fecha_Entrega(fecha), estado_Entrega(estado), valor_Envio(valor), estado(activo)
 {}
 
 
 
 // GETTERS
 
-int Envio::getID_Envio() const
-{
+int Envio::getID_Envio() const {
 
     return ID_Envio ;
 }
 
-int Envio::getID_Venta() const
-{
+int Envio::getID_Venta() const {
 
     return ID_Venta ;
 }
 
-Fecha Envio::getFecha_Entrega() const
-{
+Fecha Envio::getFecha_Entrega() const {
 
     return fecha_Entrega ;
 }
 
-int Envio::getEstado_Entrega() const
-{
+int Envio::getEstado_Entrega() const {
 
     return estado_Entrega ;
 }
 
-float Envio::getValor_Envio() const
-{
+float Envio::getValor_Envio() const {
 
     return valor_Envio ;
 }
 
-bool Envio::getEstado() const
-{
+bool Envio::getEstado() const {
 
     return estado ;
 }
@@ -65,38 +59,32 @@ bool Envio::getEstado() const
 
 // SETTERS
 
-void Envio::setID_Envio(int idEnvio)
-{
+void Envio::setID_Envio(int idEnvio) {
 
     ID_Envio = idEnvio ;
 }
 
-void Envio::setID_Venta(int id_venta)
-{
+void Envio::setID_Venta(int id_venta) {
 
     ID_Venta = id_venta ;
 }
 
-void Envio::setFecha_Entrega(const Fecha& fecha)
-{
+void Envio::setFecha_Entrega(const Fecha& fecha) {
 
     fecha_Entrega = fecha ;
 }
 
-void Envio::setEstado_Entrega(int estado)
-{
+void Envio::setEstado_Entrega(int estado) {
 
     estado_Entrega = estado ;
 }
 
-void Envio::setValor_Envio(float valor)
-{
+void Envio::setValor_Envio(float valor) {
 
     valor_Envio = valor ;
 }
 
-void Envio::setEstado(bool activo)
-{
+void Envio::setEstado(bool activo) {
 
     estado = activo ;
 }
@@ -105,8 +93,7 @@ void Envio::setEstado(bool activo)
 // MÉTODOS
 
 
-void Envio::cargar()
-{
+void Envio::cargar() {
 
     int estadoEntrega ;
 
@@ -163,8 +150,7 @@ void Envio::cargar()
     // Estado se mantiene en TRUE (Activo) por defecto
 }
 
-void Envio::mostrar() const
-{
+void Envio::mostrar() const {
 
     cout << endl << "DATOS DEL ENVIO:" << endl ;
 
@@ -182,26 +168,17 @@ void Envio::mostrar() const
 
     cout << "Estado de Entrega: " ;
 
-    switch (getEstado_Entrega())
-    {
+    switch (getEstado_Entrega()) {
 
-    case 1:
-        cout << "Pendiente" << endl ;
-        break ;
+        case 1: cout << "Pendiente" << endl ; break ;
 
-    case 2:
-        cout << "En curso" << endl ;
-        break ;
+        case 2: cout << "En curso" << endl ; break ;
 
-    case 3:
-        cout << "Entregado" << endl ;
-        break ;
+        case 3: cout << "Entregado" << endl ; break ;
 
-    default:
-        cout << "Desconocido" << endl ;
-        break ;
+        default: cout << "Desconocido" << endl ; break ;
 
-    }
+     }
 
     cout << "Registro Activo: " << (getEstado() ? "Si" : "No") << endl ;
 
@@ -211,7 +188,8 @@ void Envio::mostrar() const
 
 }
 
-void Envio::modificarCampos() {
+
+/* void Envio::modificarCampos() {
 
     EnvioArchivo archivo ;
 
@@ -388,3 +366,4 @@ void Envio::modificarCampos() {
 
     system("pause") ;
 }
+*/

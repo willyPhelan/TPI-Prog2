@@ -2,8 +2,7 @@
 #include "Fecha.h"
 
 
-class Envio
-{
+class Envio {
 
 
 public:
@@ -46,9 +45,6 @@ public:
 
     void mostrar() const ;
 
-    void modificarCampos();
-
-
 
 private:
 
@@ -63,6 +59,8 @@ private:
     float valor_Envio ;
 
     bool estado ;
+
+
 
 
 

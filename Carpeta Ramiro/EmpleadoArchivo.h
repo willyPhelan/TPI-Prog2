@@ -2,12 +2,11 @@
 #include "Empleado.h"
 #include <cstdio>
 
-class EmpleadoArchivo
-{
+class EmpleadoArchivo{
 
 private: /// Atributos
 
-    const char *archivo_Empleado = "Empleados.dat" ;
+const char *archivo_Empleado = "Empleados.dat" ;
 
 public: /// Metodos
 
@@ -28,6 +27,10 @@ public: /// Metodos
     int getCantidadRegistros () ;
 
     int buscarPosicion (int id_persona) ;
+
+    bool validarCUIT (std::string cuit);
+
+    void modificarCampo ();
 
 } ;
 

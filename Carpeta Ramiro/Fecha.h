@@ -3,29 +3,28 @@
 
 using namespace std ;
 
-class Fecha
-{
+class Fecha {
 
 
-public:
+    public:
 
-    Fecha(int _dia=0, int _mes=0, int _anio=0) ;
+        Fecha(int _dia=0, int _mes=0, int _anio=0) ;
 
-    void cargar() ;
-    bool esCorrecta() ;
-    void mostrar() ;
+        void cargar() ;
+        bool esCorrecta() ;
+        void mostrar() ;
 
-    void setDia(int d) ;
-    void setMes(int m) ;
-    void setAnio(int a) ;
+        void setDia(int d) ;
+        void setMes(int m) ;
+        void setAnio(int a) ;
 
-    int getDia() ;
-    int getMes() ;
-    int getAnio() ;
+        int getDia() ;
+        int getMes() ;
+        int getAnio() ;
 
 
-private:
+     private:
 
-    int dia, mes, anio ;
+        int dia, mes, anio ;
 
-};
+    };

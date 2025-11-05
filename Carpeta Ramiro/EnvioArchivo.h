@@ -2,8 +2,7 @@
 #include "Envio.h"
 #include <cstdio> // Para el manejo de archivos FILE*
 
-class EnvioArchivo
-{
+class EnvioArchivo {
 
 public:
 
@@ -33,9 +32,11 @@ public:
 
     int getCantidadRegistros() ;
 
-    int buscarPosicion(int id_envio) ; // Busca la posición del Envío por ID_Venta
+    int buscarPosicion(int id_envio) ; // Busca la posición del Envío
 
-    int buscarPosicionPorID_Venta(int id_venta);
+    int buscarPosicionPorID_Venta(int id_venta) ;
+
+    void modificarCampos() ;
 
 private:
 

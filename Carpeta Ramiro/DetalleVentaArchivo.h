@@ -5,20 +5,20 @@
 
 class DetalleVentaArchivo
 {
-private:
+    private:
 
     const char* archivo_DetalleVenta = "DetalleVenta.dat";
 
-public:
+    public:
 
-    bool guardar(const Detalle_Venta &reg);
-    Detalle_Venta leer(int pos);
-    bool bajaLogica(int idDetalle);
-    bool darDealta(int idDetalle);
-    bool modificar(const Detalle_Venta &reg);
-    int obtenerID();
-    int getCantidadRegistros();
-    int buscarPosicion(int idDetalle);
+        bool guardar(const Detalle_Venta &reg);
+        Detalle_Venta leer(int pos);
+        bool bajaLogica(int idDetalle);
+        bool darDealta(int idDetalle);
+        bool modificar(const Detalle_Venta &reg);
+        int obtenerID();
+        int getCantidadRegistros();
+        int buscarPosicion(int idDetalle);
 
 };
 

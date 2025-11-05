@@ -6,9 +6,9 @@
 #include "VentaArchivo.h"
 #include "EnvioArchivo.h"
 #include "ClienteArchivo.h"
+#include "Envio.h"
 
-class Menu
-{
+class Menu {
 
 public:
 
@@ -35,5 +35,7 @@ private:
     void subMenuABML_Listados() ;
 
     void subMenuABML_Listados_Activos() ;
+
+    void subMenuReportes() ;
 
 } ;

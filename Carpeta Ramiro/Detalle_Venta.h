@@ -1,18 +1,17 @@
 #pragma once
 #include "ProductoArchivo.h"
 
-class Detalle_Venta
-{
+class Detalle_Venta {
 
 public:
 
 // Constructores
 
-    Detalle_Venta() ;
+Detalle_Venta() ;
 
 // Constructor con parámetros
 
-    Detalle_Venta(int idDetalle, int idProducto, int idVenta, int cantidad, float precio, bool activo = true) ;
+Detalle_Venta(int idDetalle, int idProducto, int idVenta, int cantidad, float precio, bool activo = true) ;
 
 //GETTERS
 
@@ -47,7 +46,6 @@ public:
     void cargar() ;
 
     void mostrar() const ;
-
 
 
 private:

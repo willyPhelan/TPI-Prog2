@@ -30,6 +30,12 @@ public: /// Metodos
 
     int buscarPosicion (int id_persona);
 
+    bool validarCUIT (std::string cuit);
+
+    void modificarCampo ();
+
 };
+
+
 
 #endif // PROVEEDORARCHIVO_H_INCLUDED

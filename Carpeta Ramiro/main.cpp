@@ -6,10 +6,9 @@
 
 using namespace std;
 
-int main()
-{
+int main(){
 
-    // Instacnio bjeto Menu
+  // Instacnio bjeto Menu
 
     Menu gestorMenu ;
 
@@ -17,29 +16,29 @@ int main()
 
     gestorMenu.mostrar() ;
 
-    /*   cout << "Ahora pruebo Envio" << endl ;
-      cout << "-------------------------------------" << endl ;
-      system("pause") ;
-      system("cls") ;
+  /*   cout << "Ahora pruebo Envio" << endl ;
+    cout << "-------------------------------------" << endl ;
+    system("pause") ;
+    system("cls") ;
 
-      Envio envio1 ;
+    Envio envio1 ;
 
-      envio1.cargar() ;
+    envio1.cargar() ;
 
-      envio1.mostrar() ;
+    envio1.mostrar() ;
 
 
-      cout << "Ahora pruebo Detalle Venta" << endl ;
-      cout << "-------------------------------------"<< endl ;
-      system("pause") ;
-      system("cls") ;
+    cout << "Ahora pruebo Detalle Venta" << endl ;
+    cout << "-------------------------------------"<< endl ;
+    system("pause") ;
+    system("cls") ;
 
-      Detalle_Venta detalle1 ;
+    Detalle_Venta detalle1 ;
 
-      detalle1.cargar() ;
+    detalle1.cargar() ;
 
-      detalle1.mostrar() ;
-    */
+    detalle1.mostrar() ;
+*/
 
     return 0;
 }

@@ -1,8 +1,7 @@
 #pragma once
 #include "Persona.h"
 
-class Empleado : public Persona
-{
+class Empleado : public Persona{
 
 private: // Atributos
 
@@ -35,8 +34,6 @@ public:
     void cargar () ;
 
     void mostrar () ;
-
-    void modificarCampo ();
 };
 
 

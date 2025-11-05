@@ -2,8 +2,7 @@
 #include "Cliente.h"
 #include <cstdio>
 
-class ClienteArchivo
-{
+class ClienteArchivo{
 
 private: /// Atributos
 
@@ -28,6 +27,11 @@ public: /// Metodos
     int getCantidadRegistros () ;
 
     int buscarPosicion (int id_persona) ;
-};
+
+    bool validarCUIT (std::string cuit) ;
+
+    void modificarCampo ();
+
+} ;
 
 

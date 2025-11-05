@@ -1,8 +1,8 @@
 #pragma once
 #include "Persona.h"
 
-class Cliente : public Persona
-{
+
+class Cliente : public Persona {
 
 private: // Atributos
 
@@ -15,29 +15,30 @@ public:
 
 // Constructor
 
-    Cliente() ; // agrego constructor por defecto
+Cliente() ; // agrego constructor por defecto
 
-    Cliente (std::string mail, int tipo_Cliente) ;
+Cliente (std::string mail, int tipo_Cliente) ;
 
 // Getters
 
-    std::string getMail () ;
+std::string getMail () ;
 
-    int getTipo_Cliente() ;
+int getTipo_Cliente() ;
 
 // Setters
 
-    void setMail (std::string mail) ;
 
-    void setTipo_Cliente (int tipo_Cliente) ;
+void setMail (std::string mail) ;
+
+void setTipo_Cliente (int tipo_Cliente) ;
 
 // Metodos
 
-    void cargar() ;
+void cargar() ;
 
-    void mostrar() ;
+void mostrar() ;
 
-    void modificarCampo ();
+
 
 };
 

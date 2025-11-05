@@ -1,15 +1,14 @@
 #pragma once
 #include <string>
 
-class Persona
-{
+class Persona {
 
 public:
 
 
     Persona( // constructor por defecto
 
-        int id = 0, const std::string& nombre = "N/A", const std::string &apellido = "N/A", const std::string &telefono = "", const std::string &direccion = "", const std::string& cuit = "", bool estado = true );
+        int id = 0, const std::string& nombre = "N/A" , const std::string &apellido = "N/A" , const std::string &telefono = "" , const std::string &direccion = "" , const std::string& cuit = "" , bool estado = true );
 
     // Getters
 
