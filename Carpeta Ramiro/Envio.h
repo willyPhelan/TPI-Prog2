@@ -1,7 +1,9 @@
 #pragma once
 #include "Fecha.h"
 
-class Envio {
+
+class Envio
+{
 
 
 public:
@@ -43,6 +45,8 @@ public:
     void cargar() ;
 
     void mostrar() const ;
+
+    void modificarCampos();
 
 
 

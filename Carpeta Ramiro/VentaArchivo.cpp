@@ -5,13 +5,15 @@
 using namespace std ;
 
 
-bool VentaArchivo::guardar(const Venta &reg){
+bool VentaArchivo::guardar(const Venta &reg)
+{
 
     FILE* pventa;
 
     pventa = fopen(archivo_Venta,"ab") ;
 
-    if(pventa == nullptr){
+    if(pventa == nullptr)
+    {
 
         cout << "NO SE PUDO CREAR EL ARCHIVO" ;
 
@@ -26,7 +28,8 @@ bool VentaArchivo::guardar(const Venta &reg){
 
 }
 
-Venta VentaArchivo::leer(int pos){
+Venta VentaArchivo::leer(int pos)
+{
 
     Venta reg ;
 
@@ -34,7 +37,8 @@ Venta VentaArchivo::leer(int pos){
 
     pventa = fopen(archivo_Venta, "rb") ;
 
-    if(pventa == nullptr){
+    if(pventa == nullptr)
+    {
 
         cout << "NO SE PUDO CREAR EL ARCHIVO" ;
 
@@ -51,11 +55,13 @@ Venta VentaArchivo::leer(int pos){
 
 }
 
-bool VentaArchivo::bajaLogica(int id_venta){
+bool VentaArchivo::bajaLogica(int id_venta)
+{
 
     int pos = buscarPosicion(id_venta) ;
 
-    if(pos == -1){
+    if(pos == -1)
+    {
 
         return false ;
     }
@@ -68,7 +74,10 @@ bool VentaArchivo::bajaLogica(int id_venta){
 
     pventa = fopen(archivo_Venta, "rb+") ;
 
-    if (pventa == nullptr){ return false ; }
+    if (pventa == nullptr)
+    {
+        return false ;
+    }
 
     fseek(pventa,pos*sizeof(Venta),SEEK_SET) ;
 
@@ -79,11 +88,13 @@ bool VentaArchivo::bajaLogica(int id_venta){
     return escrito ;
 }
 
-bool VentaArchivo::altaLogica(int id_venta){
+bool VentaArchivo::altaLogica(int id_venta)
+{
 
     int pos = buscarPosicion(id_venta) ;
 
-    if(pos == -1){
+    if(pos == -1)
+    {
 
         return false ;
     }
@@ -96,7 +107,10 @@ bool VentaArchivo::altaLogica(int id_venta){
 
     pventa = fopen(archivo_Venta, "rb+") ;
 
-    if (pventa == nullptr){ return false ; }
+    if (pventa == nullptr)
+    {
+        return false ;
+    }
 
     fseek(pventa,pos*sizeof(Venta),SEEK_SET) ;
 
@@ -107,13 +121,15 @@ bool VentaArchivo::altaLogica(int id_venta){
     return escrito ;
 }
 
-bool VentaArchivo::modificar(const Venta &reg){
+bool VentaArchivo::modificar(const Venta &reg)
+{
 
     int pos ;
 
     pos = buscarPosicion(reg.getID_Venta()) ;
 
-    if(pos == -1){
+    if(pos == -1)
+    {
 
         return false ;
     }
@@ -122,7 +138,10 @@ bool VentaArchivo::modificar(const Venta &reg){
 
     pventa = fopen(archivo_Venta, "rb+") ;
 
-    if(pventa == nullptr){ return false ; }
+    if(pventa == nullptr)
+    {
+        return false ;
+    }
 
     fseek(pventa, pos * sizeof(Venta), SEEK_SET) ;
 
@@ -134,7 +153,8 @@ bool VentaArchivo::modificar(const Venta &reg){
 
 }
 
-int VentaArchivo::obtenerID(){
+int VentaArchivo::obtenerID()
+{
 
     int bytes ;
 
@@ -144,7 +164,10 @@ int VentaArchivo::obtenerID(){
 
     pventa = fopen(archivo_Venta, "rb") ;
 
-    if(pventa == nullptr){ return 1 ; }
+    if(pventa == nullptr)
+    {
+        return 1 ;
+    }
 
     fseek(pventa, 0, SEEK_END) ;
 
@@ -152,19 +175,24 @@ int VentaArchivo::obtenerID(){
 
     fclose(pventa) ;
 
-    if(bytes == 0){ return 1 ; }
+    if(bytes == 0)
+    {
+        return 1 ;
+    }
 
     numRegistros = bytes / sizeof(Venta) ;
 
     return numRegistros + 1 ;
 }
-int VentaArchivo::getCantidadRegistros(){
+int VentaArchivo::getCantidadRegistros()
+{
 
     FILE* pventa ;
 
     pventa = fopen(archivo_Venta, "rb") ;
 
-    if(pventa == nullptr){
+    if(pventa == nullptr)
+    {
 
         cout << "NO SE PUDO CREAR EL ARCHIVO" ;
 
@@ -181,17 +209,20 @@ int VentaArchivo::getCantidadRegistros(){
 
 }
 
-int VentaArchivo::buscarPosicion(int id_venta){
+int VentaArchivo::buscarPosicion(int id_venta)
+{
 
     Venta reg;
 
     int cantidad = getCantidadRegistros() ;
 
-    for (int i = 0; i < cantidad ; i++){
+    for (int i = 0; i < cantidad ; i++)
+    {
 
         reg = leer(i) ;
 
-        if(reg.getID_Venta() == id_venta){
+        if(reg.getID_Venta() == id_venta)
+        {
 
             return i ;
         }

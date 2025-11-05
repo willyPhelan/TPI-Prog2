@@ -10,7 +10,7 @@ using namespace std ;
 
 Venta::Venta()
 
-: ID_Venta(0), ID_persona(), fechaVenta(), medioDePago(0), tipoEnvio(0), subTotal(0.0), montoTotal(0.0), tipoFactura(0), estado(true)
+    : ID_Venta(0), ID_persona(), fechaVenta(), medioDePago(0), tipoEnvio(0), subTotal(0.0), montoTotal(0.0), tipoFactura(0), estado(true)
 
 {}
 
@@ -20,27 +20,31 @@ Venta::Venta(int id_venta, int id_persona, const Fecha &_fechaVenta, int _mediop
 
 // Inicializa miembros de objeto con sus constructores por defecto.
 
-:ID_Venta(id_venta), ID_persona(), fechaVenta(_fechaVenta), medioDePago(_mediopago), tipoEnvio(_tipoEnvio), subTotal(_subtotal), montoTotal(_montoTotal), tipoFactura(_tipoFactura), estado(_estado)
+    :ID_Venta(id_venta), ID_persona(), fechaVenta(_fechaVenta), medioDePago(_mediopago), tipoEnvio(_tipoEnvio), subTotal(_subtotal), montoTotal(_montoTotal), tipoFactura(_tipoFactura), estado(_estado)
 {
     // Lógica para asignar el ID a la Persona (ya que el miembro es un objeto)
 
-    ID_persona.setID(id_persona) ; }
+    ID_persona.setID(id_persona) ;
+}
 
 
 
 // getters
 
-int Venta::getID_Venta() const {
+int Venta::getID_Venta() const
+{
 
     return ID_Venta ;
 }
 
-Persona Venta::getID_Persona(){ // composicion Persona
+Persona Venta::getID_Persona()  // composicion Persona
+{
 
     return ID_persona ;
 }
 
-Fecha Venta::getFechaVenta(){
+Fecha Venta::getFechaVenta()
+{
 
     return fechaVenta ;
 }
@@ -50,49 +54,58 @@ Fecha Venta::getFechaVenta(){
     return envioAsociado ;
 } */
 
-int Venta::getMedioPago(){
+int Venta::getMedioPago()
+{
 
     return medioDePago ;
 }
 
-int Venta::getTipoEnvio(){
+int Venta::getTipoEnvio()
+{
 
     return tipoEnvio ;
 }
 
-float Venta::getSubTotal(){
+float Venta::getSubTotal()
+{
 
     return subTotal ;
 }
 
-float Venta::getMontoTotal(){
+float Venta::getMontoTotal()
+{
 
     return montoTotal ;
 }
 
-int Venta::getTipoFactura(){
+int Venta::getTipoFactura()
+{
 
     return tipoFactura ;
 }
 
-bool Venta::getEstado(){
+bool Venta::getEstado()
+{
 
     return estado ;
 }
 
 // setters
 
-void Venta::setID_Venta(int _IDventa){
+void Venta::setID_Venta(int _IDventa)
+{
 
     ID_Venta = _IDventa ;
 }
 
-void Venta::setID_Persona(Persona _IDPersona){
+void Venta::setID_Persona(Persona _IDPersona)
+{
 
     ID_persona = _IDPersona ;
 }
 
-void Venta::setFechaVenta(Fecha _fechaVenta){
+void Venta::setFechaVenta(Fecha _fechaVenta)
+{
 
     fechaVenta = _fechaVenta ;
 }
@@ -102,35 +115,41 @@ void Venta::setFechaVenta(Fecha _fechaVenta){
     envioAsociado = _envio ;
 } */
 
-void Venta::setMedioDePago(int _medioPago){
+void Venta::setMedioDePago(int _medioPago)
+{
 
     medioDePago = _medioPago ;
 }
 
-void Venta::setTipoEnvio(int _tipoEnvio){
+void Venta::setTipoEnvio(int _tipoEnvio)
+{
 
     tipoEnvio = _tipoEnvio ;
 }
 
-void Venta::setSubTotal(float _subTotal){
+void Venta::setSubTotal(float _subTotal)
+{
 
     subTotal = _subTotal ;
 
 }
 
-void Venta::setMontoTotal(float _montoTotal){
+void Venta::setMontoTotal(float _montoTotal)
+{
 
     montoTotal = _montoTotal ;
 
 }
 
-void Venta::setTipoFactura(int _tipoFactura){
+void Venta::setTipoFactura(int _tipoFactura)
+{
 
     tipoFactura = _tipoFactura ;
 
 }
 
-void Venta::setEstado(bool _estado){
+void Venta::setEstado(bool _estado)
+{
 
     estado = _estado ;
 }
@@ -178,7 +197,8 @@ void Venta::setEstado(bool _estado){
 } */
 
 
-void Venta::cargarVenta(){
+void Venta::cargarVenta()
+{
 
     int num ;
 
@@ -230,7 +250,8 @@ void Venta::cargarVenta(){
 
     cout << "--------------------------------------------------------------" << endl ;
 
-    do {
+    do
+    {
 
         Detalle_Venta detalle ;// Instancia de Detalle_Venta
 
@@ -265,7 +286,8 @@ void Venta::cargarVenta(){
 
         archivoDetalleVenta.guardar(detalle);
 
-    } while (continuarDetalle == 1) ;
+    }
+    while (continuarDetalle == 1) ;
 
     montoFinal += subtotalAcumulado * montoIVA ;
 
@@ -300,17 +322,21 @@ void Venta::cargarVenta(){
 }
 
 
-void Venta::mostrarVenta(){
+void Venta::mostrarVenta()
+{
 
     cout << "ID_Venta: " <<getID_Venta() << endl ;
 
     cout << "Medio de pago: " << getMedioPago() << endl ;
 
-    if(getTipoEnvio() == 1) {
+    if(getTipoEnvio() == 1)
+    {
 
-         cout << "Forma de entrega: Envio a domicilio"  << endl ;
+        cout << "Forma de entrega: Envio a domicilio"  << endl ;
 
-    } else {
+    }
+    else
+    {
 
         cout <<  "Forma de entrega: Retiro en el local"  << endl ;
 
@@ -323,7 +349,13 @@ void Venta::mostrarVenta(){
 
     cout << "Tipo de factura: " << getTipoFactura() << endl ;
 
-    if(getEstado()) {
+    if(getEstado())
+    {
 
-    cout << "Estado: " << "Activa" << endl ; } else { cout << "Dada de baja" << endl ; }
+        cout << "Estado: " << "Activa" << endl ;
+    }
+    else
+    {
+        cout << "Dada de baja" << endl ;
+    }
 }

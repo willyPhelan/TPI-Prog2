@@ -7,7 +7,8 @@
 #include "EnvioArchivo.h"
 #include "ClienteArchivo.h"
 
-class Menu {
+class Menu
+{
 
 public:
 
