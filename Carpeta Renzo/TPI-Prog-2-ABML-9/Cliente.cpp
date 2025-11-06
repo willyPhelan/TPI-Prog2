@@ -126,7 +126,7 @@ void Cliente::cargar()
 
     cout << endl ;
 
-    cout << endl << "El cliente fue agregado con exito. " << endl ;
+//    cout << endl << "El cliente fue agregado con exito. " << endl ;
 
 
 }

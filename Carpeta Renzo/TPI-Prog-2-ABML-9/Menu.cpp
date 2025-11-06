@@ -199,6 +199,8 @@ void Menu::subMenuABML_Clientes()
 
                 reg.guardar(nuevoCliente) ;
 
+                cout << "Cliente agregado con exito. " << endl;
+
             }
 
             system("pause") ;
@@ -412,16 +414,20 @@ void Menu::subMenuABML_Empleados()
 
             cout << "-----------------------------------------" << endl ;
 
+            EmpleadoArchivo reg;
+
             Empleado nuevoEmpleado ;
+
+            nuevoEmpleado.setID (reg.getCantidadRegistros () + 1);
 
             nuevoEmpleado.cargar() ;
 
             if (nuevoEmpleado.getID_Puesto () != 0)
             {
 
-                EmpleadoArchivo reg;
-
                 reg.guardar(nuevoEmpleado) ;
+
+                cout << "Empleado agregado con exito. " << endl;
 
             }
 
@@ -540,7 +546,7 @@ void Menu::subMenuABML_Empleados()
 
                 cout << endl << "Ingrese los nuevos datos del empleado (el ID se mantendra):" << endl ;
 
-                cout << "ID del empleado: " << idBuscar << endl ;
+//              cout << "ID del empleado: " << idBuscar << endl ;
 
                 reg.cargar() ;
 
@@ -648,8 +654,11 @@ void Menu::subMenuABML_Proveedores()
 
             cout << "-----------------------------------------" << endl ;
 
+            ProveedorArchivo reg;
 
             Proveedor nuevoProveedor ;
+
+            nuevoProveedor.setID (reg.getCantidadRegistros () + 1);
 
             nuevoProveedor.cargar() ;
 
@@ -657,9 +666,9 @@ void Menu::subMenuABML_Proveedores()
             if (nuevoProveedor.getTipo_proveedor () != 0)
             {
 
-                ProveedorArchivo reg;
-
                 reg.guardar(nuevoProveedor) ;
+
+                cout << "Proveedor agregado con exito. " << endl;
 
             }
 
@@ -797,7 +806,7 @@ void Menu::subMenuABML_Proveedores()
 
                 cout << endl << "Ingrese los nuevos datos del proveedor (el ID se mantendra): " << endl << endl ;
 
-                cout << "ID del proveedor: " << idBuscar << endl ;
+//              cout << "ID del proveedor: " << idBuscar << endl ;
 
                 reg.cargar() ; // Carga todos los atributos excepto el ID
 
