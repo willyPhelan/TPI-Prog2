@@ -12,18 +12,18 @@ using namespace std ;
 
 Producto::Producto() // por defecto con lista de inicializacion
 
-: ID_Producto(0), ID_Proveedor(), descripcion{}, marca{}, tipoProducto(0), precioActual(0.0), garantia(0), cantidadStock(0), estado(true)
+    : ID_Producto(0), ID_Proveedor(), descripcion{}, marca{}, tipoProducto(0), precioActual(0.0), garantia(0), cantidadStock(0), estado(true)
 {} // inicializo los arrays marca y descripcion vacios
 
 // consturctor con parametros
 
-Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcion, const string &marca ,int _tipoProducto, float _precioActual, int _garantia, int _cantStock, bool _estado)
+Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcion, const string &marca,int _tipoProducto, float _precioActual, int _garantia, int _cantStock, bool _estado)
 
 // Aca ID_Proveedor() llama al constructor por defecto de Proveedor
 
-: ID_Producto(_id_Producto), ID_Proveedor(), tipoProducto(_tipoProducto), precioActual(_precioActual), garantia(_garantia), cantidadStock(_cantStock), estado(_estado)
+    : ID_Producto(_id_Producto), ID_Proveedor(), tipoProducto(_tipoProducto), precioActual(_precioActual), garantia(_garantia), cantidadStock(_cantStock), estado(_estado)
 {
- // setters para asignar cadenas de texto
+// setters para asignar cadenas de texto
 
     setDescripcion(descripcion) ;
 
@@ -33,99 +33,118 @@ Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcio
 
 // getters
 
-int Producto::getID_Producto() const {
+int Producto::getID_Producto() const
+{
 
     return ID_Producto ;
 }
 
-int Producto::getID_Proveedor() const { // la funcion devuelve un proveedor (composicion)
+int Producto::getID_Proveedor() const   // la funcion devuelve un proveedor (composicion)
+{
 
     return ID_Proveedor ;
 
 }
 
-const char* Producto::getDescripcion() const {
+const char* Producto::getDescripcion() const
+{
 
     return descripcion ;
 }
 
-const char* Producto::getMarca() const {
+const char* Producto::getMarca() const
+{
 
     return marca ;
 }
 
-int Producto::getTipoProducto() const {
+int Producto::getTipoProducto() const
+{
 
     return tipoProducto ;
 }
 
-float Producto::getPrecioActual() const {
+float Producto::getPrecioActual() const
+{
 
     return precioActual ;
 }
 
-int Producto::getGarantia() const {
+int Producto::getGarantia() const
+{
 
     return garantia ;
 }
 
-int Producto::getCantStock() const {
+int Producto::getCantStock() const
+{
 
     return cantidadStock ;
 }
 
-bool Producto::getEstado() const {
+bool Producto::getEstado() const
+{
 
     return estado ;
 }
 
 // setters
 
-void Producto::setID_Producto(int _idProducto){
+void Producto::setID_Producto(int _idProducto)
+{
 
     ID_Producto = _idProducto ;
 }
 
-void Producto::setID_Proveedor(int id_Proveedor){
+void Producto::setID_Proveedor(int id_Proveedor)
+{
 
     ID_Proveedor = ID_Proveedor ;
 }
 
-void Producto::setDescripcion(const std::string &_descripcion){
+void Producto::setDescripcion(const std::string &_descripcion)
+{
 
     strncpy(this->descripcion, _descripcion.c_str(), 19) ;
- }
+}
 
-  void Producto::setMarca(const std::string &_marca){
+void Producto::setMarca(const std::string &_marca)
+{
 
     strncpy(this->marca, _marca.c_str(), 19) ;
- }
+}
 
- void Producto::setTipoProducto(int _tipoProducto){
+void Producto::setTipoProducto(int _tipoProducto)
+{
 
     tipoProducto = _tipoProducto ;
- }
+}
 
- void Producto::setPrecioActual(float _precioActual){
+void Producto::setPrecioActual(float _precioActual)
+{
 
     precioActual = _precioActual;
- }
+}
 
- void Producto::setGarantia(int _garantia){
+void Producto::setGarantia(int _garantia)
+{
     garantia = _garantia;
- }
+}
 
- void Producto::setCantidadStock(int _cantStock){
+void Producto::setCantidadStock(int _cantStock)
+{
 
     cantidadStock = _cantStock ;
- }
+}
 
- void Producto::setEstado(bool _estado){
+void Producto::setEstado(bool _estado)
+{
 
     this-> estado = _estado ;
- }
+}
 
-void Producto::cargar(){
+void Producto::cargar()
+{
 
     ProductoArchivo archivoProd ;
 
@@ -141,7 +160,8 @@ void Producto::cargar(){
 
     int opcion ;
 
-    do {
+    do
+    {
 
         cout << "Ingrese la descripcion del producto: " ;
 
@@ -149,7 +169,8 @@ void Producto::cargar(){
         cin >> descripcionNueva ;
 
 
-    } while (!archivoProd.validarDescripcion(descripcionNueva)) ;
+    }
+    while (!archivoProd.validarDescripcion(descripcionNueva)) ;
 
     this->setDescripcion(descripcionNueva);
 
@@ -202,16 +223,22 @@ void Producto::cargar(){
 
     // El estado es true por defecto.
 
-      if (archivoProd.guardar(*this)) {
+    if (archivoProd.guardar(*this))
+    {
 
-                        cout << endl << "Producto cargado con exito." << endl ; } else {
+        cout << endl << "Producto cargado con exito." << endl ;
+    }
+    else
+    {
 
-                        cout << "ERROR: No se pudo guardar el producto en el archivo." << endl ; }
+        cout << "ERROR: No se pudo guardar el producto en el archivo." << endl ;
+    }
 
-            }
+}
 
 
-void Producto::mostrar(){
+void Producto::mostrar()
+{
 
     cout << "ID de producto: " << getID_Producto() << endl ;
 
@@ -234,7 +261,8 @@ void Producto::mostrar(){
 }
 
 
-void Producto::modificarCampos() {
+void Producto::modificarCampos()
+{
 
 
 
@@ -274,7 +302,8 @@ void Producto::modificarCampos() {
 
 
 
-    if (pos == -1) {
+    if (pos == -1)
+    {
 
 
 
@@ -302,7 +331,8 @@ void Producto::modificarCampos() {
 
 
 
-    do {
+    do
+    {
 
 
 
@@ -370,327 +400,359 @@ void Producto::modificarCampos() {
 
 
 
-        switch (opcion) {
+        switch (opcion)
+        {
 
 
 
-            case 1: { // Modificar marca (string)
+        case 1:   // Modificar marca (string)
+        {
 
 
 
-                cout << "Modificar marca: " ;
+            cout << "Modificar marca: " ;
 
 
 
-                nuevo_dato_str = cargarCadena() ;
+            nuevo_dato_str = cargarCadena() ;
 
 
 
-                this->setMarca(nuevo_dato_str) ;
+            this->setMarca(nuevo_dato_str) ;
 
 
 
-                if (archivo.modificar(*this)) {
+            if (archivo.modificar(*this))
+            {
 
 
 
-                    cout << endl << "Marca modificada y guardada con exito en el archivo." << endl ;
+                cout << endl << "Marca modificada y guardada con exito en el archivo." << endl ;
 
 
 
-                } else {
+            }
+            else
+            {
 
 
 
-                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-                }
-
-
-
-                system("pause") ;
-
-
-
-                break ; }
-
-
-
-            case 2: { // Modificar Descripcion
-
-
-
-                string nueva_desc ;
-
-
-
-                cout << "Nueva descripcion: " ;
-
-
-
-                nueva_desc = cargarCadena() ;
-
-
-
-                this->setDescripcion(nueva_desc) ;
-
-
-
-                if (archivo.modificar(*this)) {
-
-
-
-                    cout << endl << "Descripcion modificada y guardada con exito en el archivo." << endl ;
-
-
-
-                } else {
-
-
-
-                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-                }
-
-
-
-                system("pause") ;
-
-
-
-                break ;
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
 
             }
 
 
 
-            case 3: { // Modificar Precio
+            system("pause") ;
 
 
 
-                float nuevo_precio ;
+            break ;
+        }
 
 
 
-                cout << "Nuevo precio: $" ;
+        case 2:   // Modificar Descripcion
+        {
 
 
 
-                cin >> nuevo_precio ;
+            string nueva_desc ;
 
 
 
-                this->setPrecioActual(nuevo_precio) ;
+            cout << "Nueva descripcion: " ;
 
 
 
-                if (archivo.modificar(*this)) {
+            nueva_desc = cargarCadena() ;
 
 
 
-                    cout << endl << "Precio modificado y guardado con exito en el archivo." << endl ;
+            this->setDescripcion(nueva_desc) ;
 
 
 
-                } else {
+            if (archivo.modificar(*this))
+            {
 
 
 
-                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-                }
+                cout << endl << "Descripcion modificada y guardada con exito en el archivo." << endl ;
 
 
 
-                system("pause") ;
+            }
+            else
+            {
 
 
 
-                break ;
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
 
             }
 
 
 
-            case 4: {
+            system("pause") ;
 
 
 
-                int nuevo_tipo ;
-
-
-
-                cout << "Nuevo tipo de producto" ;
-
-
-
-                cin >> nuevo_tipo ;
-
-
-
-                this->setTipoProducto(nuevo_tipo) ;
-
-
-
-                if (archivo.modificar(*this)) {
-
-
-
-                    cout << endl << "Tipo de producto modificado y guardado con exito en el archivo." << endl ;
-
-
-
-                } else {
-
-
-
-                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-                }
-
-
-
-                system("pause") ;
-
-
-
-                break ; }
-
-
-
-            case 5: {
-
-
-
-                int nueva_garantia ;
-
-
-
-                cout << "Nueva garantia" ;
-
-
-
-                cin >> nueva_garantia ;
-
-
-
-                this->setGarantia(nueva_garantia) ;
-
-
-
-                if (archivo.modificar(*this)) {
-
-
-
-                    cout << endl << "Garantia modificada y guardada con exito en el archivo." << endl ;
-
-
-
-                } else {
-
-
-
-                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-                }
-
-
-
-                system("pause") ;
-
-
-
-                break ; }
-
-
-
-            case 6: {
-
-
-
-                int nueva_cantidad ;
-
-
-
-                cout << "Nueva cantidad" ;
-
-
-
-                cin >> nueva_cantidad ;
-
-
-
-                this->setCantidadStock(nueva_cantidad) ;
-
-
-
-                if (archivo.modificar(*this)) {
-
-
-
-                    cout << endl << "Cantidad modificada y guardada con exito en el archivo." << endl ;
-
-
-
-                } else {
-
-
-
-                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-                }
-
-
-
-                system("pause") ;
-
-
-
-                break ; }
-
-
-
-             case 7: {
-
-
-
-                cout << "Finalizando y volviendo al menu anterior" ;
-
-
-
-                break ; }
-
-
-
-
-
-            case 0:
-
-
-
-                cout << "Volviendo al menu anterior" << endl ;
-
-
-
-                return ;
-
-
-
-            default:
-
-
-
-                cout << "Opcion invalida." << endl ;
-
-
-
-                system("pause") ;
+            break ;
 
         }
 
 
 
-    } while (opcion != 7) ;
+        case 3:   // Modificar Precio
+        {
+
+
+
+            float nuevo_precio ;
+
+
+
+            cout << "Nuevo precio: $" ;
+
+
+
+            cin >> nuevo_precio ;
+
+
+
+            this->setPrecioActual(nuevo_precio) ;
+
+
+
+            if (archivo.modificar(*this))
+            {
+
+
+
+                cout << endl << "Precio modificado y guardado con exito en el archivo." << endl ;
+
+
+
+            }
+            else
+            {
+
+
+
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+            }
+
+
+
+            system("pause") ;
+
+
+
+            break ;
+
+        }
+
+
+
+        case 4:
+        {
+
+
+
+            int nuevo_tipo ;
+
+
+
+            cout << "Nuevo tipo de producto" ;
+
+
+
+            cin >> nuevo_tipo ;
+
+
+
+            this->setTipoProducto(nuevo_tipo) ;
+
+
+
+            if (archivo.modificar(*this))
+            {
+
+
+
+                cout << endl << "Tipo de producto modificado y guardado con exito en el archivo." << endl ;
+
+
+
+            }
+            else
+            {
+
+
+
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+            }
+
+
+
+            system("pause") ;
+
+
+
+            break ;
+        }
+
+
+
+        case 5:
+        {
+
+
+
+            int nueva_garantia ;
+
+
+
+            cout << "Nueva garantia" ;
+
+
+
+            cin >> nueva_garantia ;
+
+
+
+            this->setGarantia(nueva_garantia) ;
+
+
+
+            if (archivo.modificar(*this))
+            {
+
+
+
+                cout << endl << "Garantia modificada y guardada con exito en el archivo." << endl ;
+
+
+
+            }
+            else
+            {
+
+
+
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+            }
+
+
+
+            system("pause") ;
+
+
+
+            break ;
+        }
+
+
+
+        case 6:
+        {
+
+
+
+            int nueva_cantidad ;
+
+
+
+            cout << "Nueva cantidad" ;
+
+
+
+            cin >> nueva_cantidad ;
+
+
+
+            this->setCantidadStock(nueva_cantidad) ;
+
+
+
+            if (archivo.modificar(*this))
+            {
+
+
+
+                cout << endl << "Cantidad modificada y guardada con exito en el archivo." << endl ;
+
+
+
+            }
+            else
+            {
+
+
+
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+
+            }
+
+
+
+            system("pause") ;
+
+
+
+            break ;
+        }
+
+
+
+        case 7:
+        {
+
+
+
+            cout << "Finalizando y volviendo al menu anterior" ;
+
+
+
+            break ;
+        }
+
+
+
+
+
+        case 0:
+
+
+
+            cout << "Volviendo al menu anterior" << endl ;
+
+
+
+            return ;
+
+
+
+        default:
+
+
+
+            cout << "Opcion invalida." << endl ;
+
+
+
+            system("pause") ;
+
+        }
+
+
+
+    }
+    while (opcion != 7) ;
 
 
 
@@ -698,7 +760,8 @@ void Producto::modificarCampos() {
 
 
 
-    if (archivo.modificar(*this)) {
+    if (archivo.modificar(*this))
+    {
 
 
 
@@ -706,7 +769,9 @@ void Producto::modificarCampos() {
 
 
 
-    } else {
+    }
+    else
+    {
 
 
 

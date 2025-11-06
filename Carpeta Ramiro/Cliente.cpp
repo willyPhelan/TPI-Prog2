@@ -8,7 +8,8 @@ using namespace std ;
 
 // Constructores
 
-Cliente::Cliente() : tipo_Cliente(0) { // constructor por defecto
+Cliente::Cliente() : tipo_Cliente(0)   // constructor por defecto
+{
 
     // Inicializo el array de caracteres 'mail'
     // La clase base Persona se inicializa con sus valores por defecto.
@@ -16,7 +17,8 @@ Cliente::Cliente() : tipo_Cliente(0) { // constructor por defecto
     strncpy(this->mail, "", 29) ;
 }
 
-Cliente::Cliente(string mail, int tipo_Cliente){
+Cliente::Cliente(string mail, int tipo_Cliente)
+{
 
     setMail(mail) ;
 
@@ -25,13 +27,15 @@ Cliente::Cliente(string mail, int tipo_Cliente){
 
 // Getters
 
-string Cliente::getMail(){
+string Cliente::getMail()
+{
 
     return string (mail) ;
 
 }
 
-int Cliente::getTipo_Cliente (){
+int Cliente::getTipo_Cliente ()
+{
 
     return tipo_Cliente ;
 
@@ -39,19 +43,22 @@ int Cliente::getTipo_Cliente (){
 
 // Setters
 
-void Cliente::setMail(string mail) {
+void Cliente::setMail(string mail)
+{
 
     strncpy(this->mail, mail.c_str(), 29) ;
 }
 
-void Cliente::setTipo_Cliente (int tipo_Cliente){
+void Cliente::setTipo_Cliente (int tipo_Cliente)
+{
 
     this->tipo_Cliente = tipo_Cliente ;
 }
 
 // Metodos
 
-void Cliente::cargar(){
+void Cliente::cargar()
+{
 
     ClienteArchivo reg ;
 
@@ -59,9 +66,9 @@ void Cliente::cargar(){
 
     int tipo_Cliente ;
 
-    int const cantReg = reg.getCantidadRegistros();
+//  int const cantReg = reg.getCantidadRegistros();
 
-    setID(cantReg + 1)  ;
+    setID(reg.getCantidadRegistros () + 1)  ;
 
     cout << "ID del cliente: " << getID() << endl ;
 
@@ -69,9 +76,9 @@ void Cliente::cargar(){
 
     cin >> datos ;
 
-    bool const validado = reg.validarCUIT (datos) ;
+//  bool const validado = reg.validarCUIT (datos) ;
 
-    if (validado == false)
+    if (reg.validarCUIT(datos) == false)
     {
 
         return;
@@ -124,7 +131,8 @@ void Cliente::cargar(){
 
 }
 
-void Cliente::mostrar(){
+void Cliente::mostrar()
+{
 
     cout << endl << "Informacion del cliente: " << endl ;
 
@@ -142,9 +150,15 @@ void Cliente::mostrar(){
 
     cout << "Tipo de cliente: " << getTipo_Cliente() << endl ;
 
-    if(getEstado()) {
+    if(getEstado())
+    {
 
-    cout << "Estado: Activo"  << endl ; } else { cout << "Estado: Dado de baja" << endl ; }
+        cout << "Estado: Activo"  << endl ;
+    }
+    else
+    {
+        cout << "Estado: Dado de baja" << endl ;
+    }
 
     cout << endl ;
 

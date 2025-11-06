@@ -2,7 +2,8 @@
 #include "Producto.h"
 #include <cstdio> // Para el manejo de archivos FILE*
 
-class ProductoArchivo {
+class ProductoArchivo
+{
 
 public:
 

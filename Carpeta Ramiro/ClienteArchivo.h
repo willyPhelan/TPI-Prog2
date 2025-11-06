@@ -2,7 +2,8 @@
 #include "Cliente.h"
 #include <cstdio>
 
-class ClienteArchivo{
+class ClienteArchivo
+{
 
 private: /// Atributos
 

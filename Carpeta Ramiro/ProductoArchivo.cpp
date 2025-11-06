@@ -7,7 +7,8 @@ using namespace std ;
 
 // 1. Obtener la cantidad total de registros
 
-int ProductoArchivo::getCantidadRegistros() {
+int ProductoArchivo::getCantidadRegistros()
+{
 
     FILE* p ;
 
@@ -15,7 +16,8 @@ int ProductoArchivo::getCantidadRegistros() {
 
     p = fopen(archivo_Producto, "rb") ;
 
-    if (p == nullptr) {
+    if (p == nullptr)
+    {
 
         return 0 ; // Si no existe o no se puede abrir
     }
@@ -37,19 +39,22 @@ int ProductoArchivo::getCantidadRegistros() {
 
 // 2. Buscar la posición (índice) de un registro por ID
 
-int ProductoArchivo::buscarPosicion(int id_producto) {
+int ProductoArchivo::buscarPosicion(int id_producto)
+{
 
     Producto reg ;
 
     int cantidad = getCantidadRegistros() ;
 
-    for (int i = 0; i < cantidad; i++) {
+    for (int i = 0; i < cantidad; i++)
+    {
 
         reg = leer(i) ; // Uso el método leer por posición
 
         // Comparo el ID
 
-        if (reg.getID_Producto() == id_producto) {
+        if (reg.getID_Producto() == id_producto)
+        {
 
             return i ; // Retorna la posición (índice)
         }
@@ -64,7 +69,8 @@ int ProductoArchivo::buscarPosicion(int id_producto) {
 
 // ALTA (Guardar)
 
-bool ProductoArchivo::guardar(const Producto &reg) {
+bool ProductoArchivo::guardar(const Producto &reg)
+{
 
     FILE* p ;
 
@@ -72,11 +78,13 @@ bool ProductoArchivo::guardar(const Producto &reg) {
 
     p = fopen(archivo_Producto, "ab") ;
 
-    if (p == nullptr) {
+    if (p == nullptr)
+    {
 
-            cout << "NO SE PUDO CREAR EL ARCHIVO" ;
+        cout << "NO SE PUDO CREAR EL ARCHIVO" ;
 
-            return false ; }
+        return false ;
+    }
 
     // Escribir el registro al final del archivo
     // fwrite(&variable, tamaño_del_registro, cantidad_de_registros, puntero_archivo)
@@ -92,7 +100,8 @@ bool ProductoArchivo::guardar(const Producto &reg) {
 
 // LECTURA
 
-Producto ProductoArchivo::leer(int pos) {
+Producto ProductoArchivo::leer(int pos)
+{
 
     Producto reg ; // Se inicializa con el constructor por defecto
 
@@ -102,7 +111,8 @@ Producto ProductoArchivo::leer(int pos) {
 
     p = fopen(archivo_Producto, "rb") ;
 
-    if (p == nullptr) {
+    if (p == nullptr)
+    {
 
         return reg ; // Retorna un objeto vacío
     }
@@ -124,13 +134,15 @@ Producto ProductoArchivo::leer(int pos) {
 
 // MODIFICACIÓN (Sobreescribir con datos nuevos)
 
-bool ProductoArchivo::modificar(const Producto &reg) {
+bool ProductoArchivo::modificar(const Producto &reg)
+{
 
     // 1. Buscar la posición del registro
 
     int pos = buscarPosicion(reg.getID_Producto()) ;
 
-    if (pos == -1) {
+    if (pos == -1)
+    {
 
         return false ; // El registro a modificar no existe
     }
@@ -141,7 +153,10 @@ bool ProductoArchivo::modificar(const Producto &reg) {
 
     p = fopen(archivo_Producto, "rb+") ;
 
-    if (p == nullptr) { return false ; }
+    if (p == nullptr)
+    {
+        return false ;
+    }
 
     // 2. Muevo el puntero a la posición del registro a modificar
 
@@ -158,13 +173,15 @@ bool ProductoArchivo::modificar(const Producto &reg) {
 
 // BAJA LÓGICA
 
-bool ProductoArchivo::bajaLogica(int id_producto) {
+bool ProductoArchivo::bajaLogica(int id_producto)
+{
 
     // 1. Busco la posición del registro
 
     int pos = buscarPosicion(id_producto) ;
 
-    if (pos == -1) {
+    if (pos == -1)
+    {
 
         return false ; // Producto no encontrado
     }
@@ -184,7 +201,10 @@ bool ProductoArchivo::bajaLogica(int id_producto) {
 
     p = fopen(archivo_Producto, "rb+") ;
 
-    if (p == nullptr) { return false ; }
+    if (p == nullptr)
+    {
+        return false ;
+    }
 
     // Mover el puntero a la posición
 
@@ -201,13 +221,15 @@ bool ProductoArchivo::bajaLogica(int id_producto) {
 
 // ALTA
 
-bool ProductoArchivo::altaLogica(int id_producto) {
+bool ProductoArchivo::altaLogica(int id_producto)
+{
 
     // 1. Busco la posición del registro
 
     int pos = buscarPosicion(id_producto) ;
 
-    if (pos == -1) {
+    if (pos == -1)
+    {
 
         return false ; // Producto no encontrado
     }
@@ -227,7 +249,10 @@ bool ProductoArchivo::altaLogica(int id_producto) {
 
     p = fopen(archivo_Producto, "rb+") ;
 
-    if (p == nullptr) { return false ; }
+    if (p == nullptr)
+    {
+        return false ;
+    }
 
     // Mover el puntero a la posición
 
@@ -242,13 +267,15 @@ bool ProductoArchivo::altaLogica(int id_producto) {
     return escrito ;
 }
 
-int ProductoArchivo::obtenerID() {
+int ProductoArchivo::obtenerID()
+{
 
     FILE* p = fopen(archivo_Producto, "rb") ;
 
     // Si el archivo no existe o no se puede abrir, es el primer registro.
 
-    if (p == nullptr) {
+    if (p == nullptr)
+    {
 
         return 1 ;
     }
@@ -267,7 +294,8 @@ int ProductoArchivo::obtenerID() {
 
     // Si el archivo está vacío (0 bytes), el primer ID es 1.
 
-    if (bytes == 0) {
+    if (bytes == 0)
+    {
 
         return 1 ;
     }
@@ -283,7 +311,8 @@ int ProductoArchivo::obtenerID() {
     return numRegistros + 1 ;
 }
 
-float ProductoArchivo::buscarPrecio(int idBuscado){
+float ProductoArchivo::buscarPrecio(int idBuscado)
+{
 
     FILE* archivoP ;
 
@@ -291,11 +320,16 @@ float ProductoArchivo::buscarPrecio(int idBuscado){
 
     archivoP = fopen(archivo_Producto,"rb") ;
 
-    if(archivoP == nullptr){ return 0 ; } ;
+    if(archivoP == nullptr)
+    {
+        return 0 ;
+    } ;
 
-    while(fread(&reg,sizeof(Producto),1,archivoP)){
+    while(fread(&reg,sizeof(Producto),1,archivoP))
+    {
 
-        if(reg.getID_Producto() == idBuscado){
+        if(reg.getID_Producto() == idBuscado)
+        {
 
             fclose(archivoP) ;
 
@@ -313,7 +347,8 @@ float ProductoArchivo::buscarPrecio(int idBuscado){
 
 // Devuelve true si la descripcion es valida
 
-bool ProductoArchivo::validarDescripcion(const std::string &descripcion_a_validar) {
+bool ProductoArchivo::validarDescripcion(const std::string &descripcion_a_validar)
+{
 
     // Validar que no exista otro producto con la misma descripción
     // El tamaño máximo en Producto.h es 200 (char descripcion[200])
@@ -322,7 +357,8 @@ bool ProductoArchivo::validarDescripcion(const std::string &descripcion_a_valida
 
     int cantidad = getCantidadRegistros() ;
 
-    for (int i = 0; i < cantidad; i++) {
+    for (int i = 0; i < cantidad; i++)
+    {
 
         reg = leer(i);
 
@@ -330,7 +366,8 @@ bool ProductoArchivo::validarDescripcion(const std::string &descripcion_a_valida
 
         // Asumo que getDescripcion() devuelve un char*
 
-        if (strcmp(reg.getDescripcion(), descripcion_a_validar.c_str()) == 0) {
+        if (strcmp(reg.getDescripcion(), descripcion_a_validar.c_str()) == 0)
+        {
 
             cout << "ERROR: Ya existe un producto con esta descripcion: " << reg.getDescripcion() << endl ;
 
@@ -341,7 +378,8 @@ bool ProductoArchivo::validarDescripcion(const std::string &descripcion_a_valida
     return true; // La descripción es válida
 }
 
-void ProductoArchivo::modificarCampos(){
+void ProductoArchivo::modificarCampos()
+{
     int id_a_buscar ;
 
     int opcion ;
@@ -458,7 +496,7 @@ void ProductoArchivo::modificarCampos(){
             {
 
                 cout << endl << "Descripcion modificada y guardada con exito en el archivo." << endl ;
-                  modificar(producto_modificado);
+                modificar(producto_modificado);
 
             }
             else

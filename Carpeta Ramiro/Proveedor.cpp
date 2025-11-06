@@ -9,54 +9,63 @@ using namespace std ;
 // Constructor
 
 
-Proveedor::Proveedor() : tipo_proveedor(0) {
+Proveedor::Proveedor() : tipo_proveedor(0)
+{
 }
 
-Proveedor::Proveedor(int tipo_proveedor) {
+Proveedor::Proveedor(int tipo_proveedor)
+{
 
     setTipo_proveedor(tipo_proveedor) ;
 }
 
 // Getters
 
-int Proveedor::getTipo_proveedor() {
+int Proveedor::getTipo_proveedor()
+{
 
     return tipo_proveedor ;
 }
 
 
-string Proveedor::getMail() const {
+string Proveedor::getMail() const
+{
 
-    return mail ; }
+    return mail ;
+}
 
 // Setters
 
-void Proveedor::setTipo_proveedor(int tipo_proveedor) {
+void Proveedor::setTipo_proveedor(int tipo_proveedor)
+{
 
     this->tipo_proveedor = tipo_proveedor ;
 }
 
-void Proveedor::setMail(std::string mail) {
+void Proveedor::setMail(std::string mail)
+{
 
     // strncpy para copiar la cadena al array char[30] de forma segura
 
     strncpy(this->mail, mail.c_str(), 29) ;
 
-    this->mail[29] = '\0' ; }
+    this->mail[29] = '\0' ;
+}
 
 // Metodos
 
-void Proveedor::cargar() {
+void Proveedor::cargar()
+{
 
-     string datos ;
+    string datos ;
 
     ProveedorArchivo archivo;
 
     int tipo_proveedor ;
 
-    int const cantReg = archivo.getCantidadRegistros() ;
+//  int const cantReg = archivo.getCantidadRegistros() ;
 
-    setID (cantReg + 1);
+    setID (archivo.getCantidadRegistros () + 1);
 
     cout << "ID del proveedor: " << getID () << endl;
 
@@ -64,9 +73,9 @@ void Proveedor::cargar() {
 
     cin >> datos ;
 
-    bool const validado = archivo.validarCUIT (datos);
+//  bool const validado = archivo.validarCUIT (datos);
 
-    if (validado == false)
+    if (archivo.validarCUIT (datos) == false)
     {
 
         return;
@@ -110,29 +119,36 @@ void Proveedor::cargar() {
 
 }
 
-void Proveedor::mostrar(){
+void Proveedor::mostrar()
+{
 
     cout << "Informacion del proveedor: " << endl ;
 
     cout << endl ;
 
-    cout << "ID del proveedor: " << Proveedor::getID() << endl ;
+    cout << "ID del proveedor: " << getID() << endl ;
 
-    cout << "CUIT del proveedor: " << Proveedor::getCuit() << endl ;
+    cout << "CUIT del proveedor: " << getCuit() << endl ;
 
-    cout << "Tipo de proveedor: " << Proveedor::getTipo_proveedor() << endl ;
+    cout << "Tipo de proveedor: " << getTipo_proveedor() << endl ;
 
-    cout << "Nombre del proveedor: " << Proveedor::getNombre() << endl ;
+    cout << "Nombre del proveedor: " << getNombre() << endl ;
 
-    cout << "Telefono del proveedor: " << Proveedor::getTelefono() << endl ;
+    cout << "Telefono del proveedor: " << getTelefono() << endl ;
 
-    cout << "Direccion del proveedor: " << Proveedor::getDireccion() << endl ;
+    cout << "Direccion del proveedor: " << getDireccion() << endl ;
 
-    cout << "Mail del proveedor: " << Proveedor::getMail() << endl ;
+    cout << "Mail del proveedor: " << getMail() << endl ;
 
-    if(Proveedor::getEstado()){
+    if(getEstado())
+    {
 
-    cout << "Estado del proveedor: Activo " << endl ; } else { cout << "Estado del proveedor: Inactivo " << endl ; }
+        cout << "Estado del proveedor: Activo " << endl ;
+    }
+    else
+    {
+        cout << "Estado del proveedor: Inactivo " << endl ;
+    }
 
     cout << endl;
 }

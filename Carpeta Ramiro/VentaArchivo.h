@@ -3,40 +3,41 @@
 #include <cstdio>
 
 
-class VentaArchivo {
+class VentaArchivo
+{
 
-    private:
+private:
 
-        const char *archivo_Venta = "Ventas.dat" ;
+    const char *archivo_Venta = "Ventas.dat" ;
 
-    public:
+public:
 
-        bool guardar(const Venta &reg) ;
+    bool guardar(const Venta &reg) ;
 
-        Venta leer(int pos) ;
+    Venta leer(int pos) ;
 
-        bool bajaLogica(int id_venta) ;
+    bool bajaLogica(int id_venta) ;
 
-        bool altaLogica(int id_venta) ;
+    bool altaLogica(int id_venta) ;
 
-        bool modificar(const Venta &reg) ;
+    bool modificar(const Venta &reg) ;
 
-        int obtenerID() ;
+    int obtenerID() ;
 
-        int getCantidadRegistros() ;
+    int getCantidadRegistros() ;
 
-        int buscarPosicion(int id_venta) ;
+    int buscarPosicion(int id_venta) ;
 
-        // METODOS
+    // METODOS
 
-        void modificarCampos() ;
+    void modificarCampos() ;
 
 
-        // REPORTES
+    // REPORTES
 
-       float calcularRecaudacionAnual(int anio) ;
+    float calcularRecaudacionAnual(int anio) ;
 
-       float calcularRecaudacionMensual(int mes, int anio) ;
+    float calcularRecaudacionMensual(int mes, int anio) ;
 
 
 };

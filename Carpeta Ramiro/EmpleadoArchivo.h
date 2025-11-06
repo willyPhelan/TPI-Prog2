@@ -2,11 +2,12 @@
 #include "Empleado.h"
 #include <cstdio>
 
-class EmpleadoArchivo{
+class EmpleadoArchivo
+{
 
 private: /// Atributos
 
-const char *archivo_Empleado = "Empleados.dat" ;
+    const char *archivo_Empleado = "Empleados.dat" ;
 
 public: /// Metodos
 

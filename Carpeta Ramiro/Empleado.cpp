@@ -8,9 +8,10 @@ using namespace std ;
 
 // Constructor
 
-Empleado::Empleado() : ID_Puesto(0), horas_Trabajo(0){}
+Empleado::Empleado() : ID_Puesto(0), horas_Trabajo(0) {}
 
-Empleado::Empleado(int ID_Puesto, int horas_Trabajo){
+Empleado::Empleado(int ID_Puesto, int horas_Trabajo)
+{
 
     setID_Puesto (ID_Puesto) ;
 
@@ -19,31 +20,36 @@ Empleado::Empleado(int ID_Puesto, int horas_Trabajo){
 
 // Getters
 
-int Empleado::getID_Puesto(){
+int Empleado::getID_Puesto()
+{
 
     return ID_Puesto ;
 }
 
-int Empleado::getHoras_Trabajo(){
+int Empleado::getHoras_Trabajo()
+{
 
     return horas_Trabajo ;
 }
 
 // Setters
 
-void Empleado::setID_Puesto(int ID_Puesto){
+void Empleado::setID_Puesto(int ID_Puesto)
+{
 
     this->ID_Puesto = ID_Puesto ;
 }
 
-void Empleado::setHoras_Trabajo(int horas_Trabajo){
+void Empleado::setHoras_Trabajo(int horas_Trabajo)
+{
 
     this->horas_Trabajo = horas_Trabajo ;
 }
 
 // Metodos
 
-void Empleado::cargar(){
+void Empleado::cargar()
+{
 
     EmpleadoArchivo reg ;
 
@@ -51,9 +57,9 @@ void Empleado::cargar(){
 
     int datos2 ;
 
-    int const cantReg = reg.getCantidadRegistros() ;
+//  int const cantReg = reg.getCantidadRegistros() ;
 
-    setID (cantReg + 1);
+    setID (reg.getCantidadRegistros () + 1);
 
     cout << "ID del empleado: " << getID () << endl;
 
@@ -61,9 +67,9 @@ void Empleado::cargar(){
 
     cin >> datos ;
 
-    bool const validado = reg.validarCUIT (datos);
+//  bool const validado = reg.validarCUIT (datos);
 
-    if (validado == false)
+    if (reg.validarCUIT (datos) == false)
     {
 
         return;
@@ -114,7 +120,8 @@ void Empleado::cargar(){
 
 }
 
-void Empleado::mostrar(){
+void Empleado::mostrar()
+{
 
     cout << "Informacion del empleado: " << endl ;
 

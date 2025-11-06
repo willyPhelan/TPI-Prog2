@@ -5,11 +5,13 @@
 using namespace std ;
 
 
-string cargarCadena(){
+string cargarCadena()
+{
 
     std::string texto ;
 
-    if(std::cin.peek() == '\n') {
+    if(std::cin.peek() == '\n')
+    {
 
         std::cin.ignore() ;
     }
@@ -18,13 +20,15 @@ string cargarCadena(){
 
     return texto ;
 
-    }
+}
 
-string aMinusculas(string s) {
+string aMinusculas(string s)
+{
 
     int longitud = s.length() ;
 
-    for (int i = 0; i < longitud ; ++i) {
+    for (int i = 0; i < longitud ; ++i)
+    {
 
         // tolower() convierte el carácter a minúscula
 

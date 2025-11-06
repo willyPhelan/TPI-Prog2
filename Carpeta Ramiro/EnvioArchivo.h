@@ -2,7 +2,8 @@
 #include "Envio.h"
 #include <cstdio> // Para el manejo de archivos FILE*
 
-class EnvioArchivo {
+class EnvioArchivo
+{
 
 public:
 
