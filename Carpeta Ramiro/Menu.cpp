@@ -186,16 +186,14 @@ void Menu::subMenuABML_Clientes()
 
             cout << "-----------------------------------------" << endl ;
 
-            ClienteArchivo reg ;
-
             Cliente nuevoCliente ;
-
-            nuevoCliente.setID (reg.getCantidadRegistros () + 1);
 
             nuevoCliente.cargar() ;
 
             if (nuevoCliente.getTipo_Cliente() != 0)
             {
+
+                ClienteArchivo reg ;
 
                 reg.guardar(nuevoCliente) ;
 
@@ -1127,6 +1125,10 @@ void Menu::subMenuABML_Ventas()
 
     EnvioArchivo archivoEnvio ;
 
+    DetalleVentaArchivo archivoDetalleVenta;
+
+    ProductoArchivo archivoP;
+
     do
     {
 
@@ -1285,6 +1287,17 @@ void Menu::subMenuABML_Ventas()
             {
 
                 Venta regModificar = archivoVenta.leer(pos) ; // 2. Leo el registro actual
+                Producto regP = archivoP.leer(pos);
+                Detalle_Venta detalle2 = archivoDetalleVenta.leer(pos);
+
+                int nuevo_stock = regP.getCantStock() + detalle2.getCantidad();
+                regP.setCantidadStock(nuevo_stock);
+
+                archivoP.modificar(regP);
+
+                cout <<endl;
+                cout<< regP.getCantStock()<<endl;
+
 
                 cout << "Venta Actual: " << endl ;
 

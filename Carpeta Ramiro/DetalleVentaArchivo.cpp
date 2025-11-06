@@ -15,7 +15,7 @@ bool DetalleVentaArchivo::guardar(const Detalle_Venta &reg)
     if(pventa == nullptr)
     {
 
-        cout << "NO SE PUDO CREAR EL ARCHIVO" ;
+        cout << "NO SE PUDO CREAR EL ARCHIVO " ;
 
         return false ;
     }

@@ -282,19 +282,23 @@ void Venta::cargarVenta()
 
             int pos = archivoP.buscarPosicion(id_prod) ;
 
+            int nuevo_stock;
+
             if (pos != -1)
             {
 
                 Producto regP = archivoP.leer(pos) ; // Leer el registro completo
 
+
                 int nuevo_stock = regP.getCantStock() - cantidad_vendida ;
 
                 regP.setCantidadStock(nuevo_stock) ;
 
+
                 if (archivoP.modificar(regP))
                 {
 
-                    cout << "Stock de Producto (ID " << id_prod << ") actualizado a " << nuevo_stock << " unidades." << endl ;
+                    cout << "Stock de Producto (ID " << id_prod << ") actualizado a " << regP.getCantStock() << " unidades." << endl ;
 
                 }
                 else

@@ -242,7 +242,7 @@ void Producto::mostrar()
 
     cout << "ID de producto: " << getID_Producto() << endl ;
 
-    cout << "ID de proveedor: " << 200 << endl ;
+    cout << "ID de proveedor: " << getID_Proveedor() << endl ;
 
     cout << "Descripcon: " << getDescripcion() << endl ;
 
