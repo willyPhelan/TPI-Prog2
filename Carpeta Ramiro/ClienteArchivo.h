@@ -31,6 +31,8 @@ public: /// Metodos
 
     bool validarCUIT (std::string cuit) ;
 
+    int verificarID (int idcliente);
+
     void modificarCampo ();
 
 } ;

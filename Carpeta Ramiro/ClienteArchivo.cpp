@@ -256,6 +256,26 @@ bool ClienteArchivo::validarCUIT (string cuit)
     return true;
 }
 
+int ClienteArchivo::verificarID (int idcliente){
+
+    Cliente reg ;
+
+    int cantReg = getCantidadRegistros() ;
+
+    for (int i = 0; i<cantReg; i++)
+    {
+
+        reg = leer(i) ;
+
+        if (reg.getID() == idcliente)
+        {
+            return i ;
+        }
+
+    }
+    return -1;
+}
+
 
 void ClienteArchivo::modificarCampo ()
 {

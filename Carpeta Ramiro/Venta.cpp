@@ -1,5 +1,6 @@
 #include "Venta.h"
 #include "VentaArchivo.h"
+#include "ClienteArchivo.h"
 #include <iostream>
 #include <cstring>
 
@@ -213,6 +214,8 @@ void Venta::cargarVenta()
 
     int contadorProductos = 1 ;
 
+    int idcliente;
+
     // Carga de ID_Persona y Fecha
 
     // Lógica de carga de ID_Persona aca
@@ -233,6 +236,24 @@ void Venta::cargarVenta()
     //2. Carga de la Cabecera de la Venta
 
     cout << "--------------------------------------------------------------" << endl ;
+
+    cout << "Ingrese ID de Cliente: "<< endl;
+    cin>> idcliente;
+
+    ClienteArchivo archivoC;
+
+    idcliente = archivoC.verificarID(idcliente);
+
+    if(idcliente != -1){
+
+        cout<<"ID de Cliente existe: "<< endl;
+
+    }else{
+
+        cout <<"ID NO existe: " << endl;
+        return;
+    }
+
 
     cout << endl << "Medio de pago (1-Efectivo, 2-Tarjeta): " ;
 
