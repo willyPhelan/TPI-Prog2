@@ -269,7 +269,7 @@ int ClienteArchivo::verificarID (int idcliente){
 
         if (reg.getID() == idcliente)
         {
-            return i ;
+            return reg.getID() ;
         }
 
     }

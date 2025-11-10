@@ -12,13 +12,13 @@ using namespace std ;
 
 Venta::Venta()
 
-    : ID_Venta(0), ID_persona(), fechaVenta(), medioDePago(0), tipoEnvio(0), subTotal(0.0), montoTotal(0.0), tipoFactura(0), estado(true)
+    :ID_Cliente(), ID_Venta(0), ID_persona(), fechaVenta(), medioDePago(0), tipoEnvio(0), subTotal(0.0), montoTotal(0.0), tipoFactura(0), estado(true)
 
 {}
 
 // constructor con parametros
 
-Venta::Venta(int id_venta, int id_persona, const Fecha &_fechaVenta, int _mediopago, int _tipoEnvio, float _subtotal, float _montoTotal, int _tipoFactura, bool _estado)
+Venta::Venta(int id_cliente, int id_venta, int id_persona, const Fecha &_fechaVenta, int _mediopago, int _tipoEnvio, float _subtotal, float _montoTotal, int _tipoFactura, bool _estado)
 
 // Inicializa miembros de objeto con sus constructores por defecto.
 
@@ -37,6 +37,11 @@ int Venta::getID_Venta() const
 {
 
     return ID_Venta ;
+}
+
+int Venta::getID_Cliente(){
+
+    return ID_Cliente ;
 }
 
 Persona Venta::getID_Persona()  // composicion Persona
@@ -98,6 +103,12 @@ void Venta::setID_Venta(int _IDventa)
 {
 
     ID_Venta = _IDventa ;
+}
+
+void Venta::setID_Cliente(int _IDCliente)
+{
+
+    ID_Cliente = _IDCliente ;
 }
 
 void Venta::setID_Persona(Persona _IDPersona)
@@ -247,6 +258,7 @@ void Venta::cargarVenta()
     if(idcliente != -1){
 
         cout<<"ID de Cliente existe: "<< endl;
+        setID_Cliente(idcliente);
 
     }else{
 
@@ -396,6 +408,8 @@ void Venta::mostrarVenta()
 {
 
     cout << "ID_Venta: " << getID_Venta() << endl ;
+
+    cout << "ID_Cliente: " << getID_Cliente() << endl ;
 
     cout << "Medio de pago: " << getMedioPago() << endl ;
 

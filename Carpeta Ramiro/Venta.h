@@ -3,6 +3,7 @@
 #include "Persona.h"
 #include "Fecha.h"
 #include "Envio.h"
+#include "Cliente.h"
 #include "Detalle_Venta.h"
 #include "DetalleVentaArchivo.h"
 
@@ -39,11 +40,13 @@ public:
 
     Venta() ;
 
-    Venta(int id_venta, int id_persona, const Fecha &fechaventa, int mediopago, int tipoenvio, float subtotal, float montototal, int tipofactura, bool estado) ;
+    Venta(int id_cliente, int id_venta, int id_persona, const Fecha &fechaventa, int mediopago, int tipoenvio, float subtotal, float montototal, int tipofactura, bool estado) ;
 
     // getters
 
     int getID_Venta() const ;
+
+    int getID_Cliente() ;
 
     Persona getID_Persona() ;
 
@@ -67,9 +70,9 @@ public:
 
     void setID_Venta(int _IDventa) ;
 
-    void setID_Persona(Persona _IDPersona) ;
+    void setID_Cliente(int _IDCliente);
 
-    void setID_Cliente(int _IDcliente) ;
+    void setID_Persona(Persona _IDPersona) ;
 
     void setFechaVenta(Fecha _fechaVenta) ;
 
