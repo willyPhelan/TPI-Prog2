@@ -39,6 +39,8 @@ public:
 
     float calcularRecaudacionMensual(int mes, int anio) ;
 
+    void calcularRecaudacionPorCliente () ;
 
+    void reporteCantidadPorMedioPago();
 
 };

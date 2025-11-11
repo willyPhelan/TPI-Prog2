@@ -39,4 +39,6 @@ private:
 
     void subMenuReportes() ;
 
+    void menuConfiguraciones();
+
 } ;

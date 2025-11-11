@@ -1,5 +1,6 @@
 #include "Venta.h"
 #include "VentaArchivo.h"
+#include "ClienteArchivo.h"
 #include <iostream>
 #include <cstdio>
 
@@ -512,3 +513,152 @@ void VentaArchivo::modificarCampos()
 }
 
 
+void VentaArchivo::calcularRecaudacionPorCliente ()
+{
+
+    Venta venta;
+
+    ClienteArchivo registroCliente;
+
+    Cliente cliente;
+
+    int const cantCliente = registroCliente.getCantidadRegistros ();
+
+    int const cantVenta = getCantidadRegistros ();
+
+    if (cantCliente == 0 || cantVenta == 0)
+    {
+
+        cout << "No hay registros de clientes o ventas. " << endl;
+
+        system ("pause");
+
+        return;
+    }
+
+    float *acumulador = new float [cantCliente] (); // Acumulador por ID de cliente -1
+
+    for (int i=0; i<cantVenta; i++)
+    {
+
+        venta = leer (i);
+
+        if (venta.getEstado() == false) continue;
+
+        for (int j=0; j<cantCliente; j++)
+        {
+
+            cliente = registroCliente.leer (j);
+
+            if (cliente.getEstado () == true && cliente.getID() == venta.getID_Cliente())
+            {
+
+                acumulador [j] += venta.getMontoTotal ();
+
+                break;
+            }
+
+
+        }
+
+
+    }
+
+    cout << "-------------------------------------------------------------------------------" << endl;
+
+    cout << "RECAUDACION POR CLIENTE" << endl;
+
+    cout << "-------------------------------------------------------------------------------" << endl;
+
+    for (int i=0; i<cantCliente; i++)
+    {
+
+        cliente = registroCliente.leer (i);
+
+        if (cliente.getEstado () == true)
+        {
+
+            cout << "-------------------------------------------------------------------------------" << endl;
+
+            cout << "ID del cliente: " << cliente.getID() << " | " << "Nombre y apellido: " << cliente.getNombre() << " " << cliente.getApellido () << " | " << "Recaudacion total: $" << acumulador [i] << endl;
+
+            cout << "-------------------------------------------------------------------------------" << endl;
+        }
+    }
+
+    delete[] acumulador;
+
+    system ("pause");
+
+}
+
+void VentaArchivo::reporteCantidadPorMedioPago()
+{
+
+    const int MAX_METODOS_PAGO = 4;
+    const char *nombresMetodos[MAX_METODOS_PAGO] = {
+        "1. Efectivo",
+        "2. Transferencia",
+        "3. Debito",
+        "4. Credito",
+    };
+
+    int contadores[MAX_METODOS_PAGO] = {0};
+    float montosAcumulados[MAX_METODOS_PAGO] = {0.0};
+
+    int cantVentas = getCantidadRegistros();
+    if (cantVentas == 0)
+    {
+        cout << "No hay ventas cargadas para reportar." << endl;
+        system("pause");
+        return;
+    }
+
+    Venta reg;
+    int totalGeneralVentas = 0;
+    float totalGeneralMonto = 0.0;
+
+    for (int i = 0; i < cantVentas; i++)
+    {
+        reg = leer(i);
+
+
+        if (reg.getEstado())
+        {
+            int metodo = reg.getMedioPago();
+
+
+            if (metodo >= 1 && metodo <= MAX_METODOS_PAGO)
+            {
+                int indiceArray = metodo - 1;
+
+
+                contadores[indiceArray]++;
+                totalGeneralVentas++;
+
+
+                montosAcumulados[indiceArray] += reg.getMontoTotal();
+                totalGeneralMonto += reg.getMontoTotal();
+
+            }
+        }
+    }
+
+    system("cls");
+    cout << "--- REPORTE DE VENTAS POR MEDIO DE PAGO ---" << endl;
+    cout << "-------------------------------------------" << endl;
+
+    for (int i = 0; i < MAX_METODOS_PAGO; i++)
+    {
+        cout << nombresMetodos[i] << ":" << endl;
+        cout << "   - Cantidad: " << contadores[i] << " ventas" << endl;
+        cout << "   - Monto Total: $" << montosAcumulados[i] << endl;
+    }
+
+    cout << "-------------------------------------------" << endl;
+    cout << "TOTAL VENTAS (ACTIVAS): " << totalGeneralVentas << " ventas" << endl;
+    cout << "MONTO TOTAL (ACTIVOS): $" << totalGeneralMonto << endl;
+    cout << "-------------------------------------------" << endl;
+
+    system("pause");
+}

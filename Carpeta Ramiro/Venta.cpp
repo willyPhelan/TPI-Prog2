@@ -267,7 +267,7 @@ void Venta::cargarVenta()
     }
 
 
-    cout << endl << "Medio de pago (1-Efectivo, 2-Tarjeta): " ;
+    cout << endl << "Medio de pago (1-Efectivo, 2-Transferencia, 3-Debito, 4-Credito): " ;
 
     cin >> num ;
 

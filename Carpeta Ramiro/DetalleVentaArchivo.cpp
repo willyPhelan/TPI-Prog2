@@ -1,8 +1,6 @@
 #include "DetalleVentaArchivo.h"
-#include "ProductoArchivo.h"
 #include <iostream>
 #include <cstdio>
-#include <new>
 
 using namespace std;
 

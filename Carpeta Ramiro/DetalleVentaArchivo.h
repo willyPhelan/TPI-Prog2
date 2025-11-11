@@ -22,7 +22,5 @@ public:
     int buscarIndiceDeMarca(const char* marcaBuscada, char** marcas, int tamActual);
     void reportePorMarca();
 
-
-
 };
 

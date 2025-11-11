@@ -111,7 +111,7 @@ void Menu::mostrar()
 
         case 9:
 
-            cout << "COPIA SEGURIDAD ACA" << endl ;
+            menuConfiguraciones();
 
             break ;
 
@@ -2382,7 +2382,13 @@ void Menu::subMenuReportes()
 
         cout << "2. Recaudacion mensual" << endl ;
 
-        cout << "5. Recaudacion mensual" << endl ;
+        cout << "3. Recaudacion por cliente" << endl;
+
+        cout << "4. xxxxxxxxxxxxxxxxxxxxxxx" << endl ;
+
+        cout << "5. Cantidad de Unidade Vendidas por marca" << endl ;
+
+        cout << "6. Cantidad de Ventas por Medio de Pago"<< endl;
 
         cout << "--------------------------" << endl ;
 
@@ -2456,12 +2462,26 @@ void Menu::subMenuReportes()
             break ;
         }
 
+        case 3:{
+
+            VentaArchivo reg;
+
+            reg.calcularRecaudacionPorCliente();
+
+            break;}
+
         case 5:
         {
             DetalleVentaArchivo archivoDetalle;
             archivoDetalle.reportePorMarca();
             break;
 
+        }
+
+        case 6:
+        {
+            archivoVenta.reporteCantidadPorMedioPago();
+            break;
         }
 
         case 0:
@@ -2481,4 +2501,59 @@ void Menu::subMenuReportes()
 
     }
     while (opcion != 0) ;
+}
+
+
+void Menu::menuConfiguraciones(){
+
+int opcion;
+
+do
+{
+    system("cls") ;
+
+        cout << "MENU PRINCIPAL DE GESTION" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "1. Realizar Copia de seguridad " << endl ;
+
+        cout << "2. Restaurar Copia de seguridad " << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "0. SALIR" << endl ;
+
+        cout << "--------------------------" << endl ;
+
+        cout << "Ingrese una opcion: " ;
+
+        cin >> opcion ;
+
+        cout << endl << endl ;
+
+        switch(opcion)
+        {
+        case 1:
+
+
+            break;
+        case 2:
+
+            break;
+        default :
+
+            cout << "Opcion Invalida. Intente de nuevo." << endl ;
+
+            system("pause") ;
+
+            break ;
+
+        }
+
+
+
+}while(opcion != 0);
+
+
 }
