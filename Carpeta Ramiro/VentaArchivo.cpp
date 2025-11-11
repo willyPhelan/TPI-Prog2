@@ -510,3 +510,5 @@ void VentaArchivo::modificarCampos()
 
     system("pause") ;
 }
+
+

@@ -43,6 +43,8 @@ public:
 
     void modificarCampos();
 
+    bool getMarcaPorID(int idBuscado, char* marcaDestino, int tam);
+
 
 private:
 

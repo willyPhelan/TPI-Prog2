@@ -2382,6 +2382,8 @@ void Menu::subMenuReportes()
 
         cout << "2. Recaudacion mensual" << endl ;
 
+        cout << "5. Recaudacion mensual" << endl ;
+
         cout << "--------------------------" << endl ;
 
         cout << "0. Volver al menu principal" << endl ;
@@ -2452,6 +2454,14 @@ void Menu::subMenuReportes()
             system("pause") ;
 
             break ;
+        }
+
+        case 5:
+        {
+            DetalleVentaArchivo archivoDetalle;
+            archivoDetalle.reportePorMarca();
+            break;
+
         }
 
         case 0:

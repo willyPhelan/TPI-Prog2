@@ -19,6 +19,10 @@ public:
     int obtenerID();
     int getCantidadRegistros();
     int buscarPosicion(int idDetalle);
+    int buscarIndiceDeMarca(const char* marcaBuscada, char** marcas, int tamActual);
+    void reportePorMarca();
+
+
 
 };
 

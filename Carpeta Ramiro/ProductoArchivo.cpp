@@ -653,3 +653,29 @@ void ProductoArchivo::modificarCampos()
 
 
 }
+
+bool ProductoArchivo::getMarcaPorID(int idBuscado, char* marcaDestino, int tam)
+{
+    FILE* p = fopen(archivo_Producto, "rb");
+    if (p == NULL) {
+        strncpy(marcaDestino, "ERROR_FILE", tam - 1);
+        marcaDestino[tam - 1] = '\0';
+        return false;
+    }
+
+    Producto reg;
+    while (fread(&reg, sizeof(Producto), 1, p) == 1) {
+
+        if (reg.getID_Producto() == idBuscado) {
+            strncpy(marcaDestino, reg.getMarca(), tam - 1);
+            marcaDestino[tam - 1] = '\0';
+            fclose(p);
+            return true;
+        }
+    }
+
+    fclose(p);
+    strncpy(marcaDestino, "DESCONOCIDA", tam - 1);
+    marcaDestino[tam - 1] = '\0';
+    return false;
+}
