@@ -226,24 +226,23 @@ int DetalleVentaArchivo::buscarIndiceDeMarca(const char* marcaBuscada, char** ma
 {
     for (int i = 0; i < tamActual; i++) {
         if (strcmp(marcas[i], marcaBuscada) == 0) {
-            return i; // La encontramos en el índice 'i'
+            return i;
         }
     }
-    return -1; // No se encontró, es una marca nueva
+    return -1;
 }
 
  void DetalleVentaArchivo::reportePorMarca(){
 
     // --- PASO 1: Preparar Instancias de Archivo ---
-    ProductoArchivo archivoProductos; // La clase de detalle "usa" la de producto
+    ProductoArchivo archivoProductos;
 
-    // Usamos 'this->' para llamar a métodos de esta misma clase
     int cantDetalles = this->getCantidadRegistros();
 
     if (cantDetalles == 0) {
         cout << "No hay detalles de venta para reportar." << endl;
         system("pause");
-        return; // Salimos de la función
+        return;
     }
 
     // --- PASO 2: Preparar Arrays DINÁMICOS ---
@@ -275,9 +274,9 @@ int DetalleVentaArchivo::buscarIndiceDeMarca(const char* marcaBuscada, char** ma
         int cantidad = regDetalle.getCantidad();
 
         char marcaActual[30];
-        archivoProductos.getMarcaPorID(idProd, marcaActual, 30);
+        archivoProductos.MarcaPorID(idProd, marcaActual, 30);
 
-        // 'this->'
+
         int indice = this->buscarIndiceDeMarca(marcaActual, marcasReporte, cantMarcasEncontradas);
 
         // 3c. Contar
@@ -323,7 +322,7 @@ int DetalleVentaArchivo::buscarIndiceDeMarca(const char* marcaBuscada, char** ma
     }
 
     // --- PASO 4: Mostrar Reporte ---
-    system("cls"); // Limpiamos la pantalla
+    system("cls");
     cout << "--- REPORTE DE UNIDADES VENDIDAS POR MARCA ---" << endl;
     cout << "----------------------------------------------" << endl;
 

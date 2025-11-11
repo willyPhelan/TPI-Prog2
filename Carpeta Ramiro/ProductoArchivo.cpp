@@ -654,7 +654,7 @@ void ProductoArchivo::modificarCampos()
 
 }
 
-bool ProductoArchivo::getMarcaPorID(int idBuscado, char* marcaDestino, int tam)
+bool ProductoArchivo::MarcaPorID(int idBuscado, char* marcaDestino, int tam)
 {
     FILE* p = fopen(archivo_Producto, "rb");
     if (p == NULL) {
