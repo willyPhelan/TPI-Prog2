@@ -1,0 +1,49 @@
+#pragma once
+#include "Venta.h"
+#include <cstdio>
+
+
+class VentaArchivo
+{
+
+private:
+
+    const char *archivo_Venta = "Ventas.dat" ;
+
+    const char *archivo_Ventabkp = "Ventas.bkp" ;
+
+public:
+
+    bool guardar(const Venta &reg) ;
+
+    Venta leer(int pos) ;
+
+    bool bajaLogica(int id_venta) ;
+
+    bool altaLogica(int id_venta) ;
+
+    bool modificar(const Venta &reg) ;
+
+    int obtenerID() ;
+
+    int getCantidadRegistros() ;
+
+    int buscarPosicion(int id_venta) ;
+
+    // METODOS
+
+    void modificarCampos() ;
+
+    bool hacerBackup() ;
+
+    bool restaurarBackup() ;
+
+
+    // REPORTES
+
+    float calcularRecaudacionAnual(int anio) ;
+
+    float calcularRecaudacion(int anio) ;
+
+
+};
