@@ -12,8 +12,7 @@ int EnvioArchivo::getCantidadRegistros()
 
     FILE* p = fopen(archivo_Envio, "rb") ;
 
-    if (p == nullptr)
-    {
+    if (p == nullptr){
 
         return 0 ;
     }
@@ -307,8 +306,7 @@ void EnvioArchivo::modificarCampos()
 
         cout << endl ;
 
-        switch (opcion)
-        {
+        switch (opcion){
 
         case 1:   // Modificar Fecha de Entrega
        {
@@ -399,7 +397,9 @@ void EnvioArchivo::modificarCampos()
                     // Asigno al objeto Fecha temporal
 
                     nueva_fecha.setDia(dia) ;
+
                     nueva_fecha.setMes(mes) ;
+
                     nueva_fecha.setAnio(anio) ;
 
                     // VALIDACIÓN CLAVE
@@ -526,8 +526,7 @@ void EnvioArchivo::modificarCampos()
 }
 
 
-bool EnvioArchivo::hacerBackup ()
-{
+bool EnvioArchivo::hacerBackup (){
 
     // Abro el archivo original ("Envios.dat")
 

@@ -666,6 +666,40 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
         }
     }
 
+    // El empleado con mas horas esta en la posición [0]
+
+    Empleado empleadoMasHoras = leer(buscarPosicion(id_empleado[0])) ;
+
+    // El empleado con MENOS horas esta en la última posición [acum_activos - 1]
+
+    Empleado empleadoMenosHoras = leer(buscarPosicion(id_empleado[acum_activos - 1])) ;
+
+    cout << "-------------------------------------------------------------------------------------------------" << endl ;
+
+    cout << "RESUMEN DE HORAS TRABAJADAS" << endl ;
+
+    cout << "-------------------------------------------------------------------------------------------------" << endl;
+
+    // EMPLEADO CON MÁS HORAS (Posición 0)
+
+    cout << "EMPLEADO CON MÁS HORAS TRABAJADAS (" << horas[0] << " hs): "
+
+         << empleadoMasHoras.getNombre() << " "
+
+         << empleadoMasHoras.getApellido() << " (ID: "
+
+         << id_empleado[0] << ")" << endl ;
+
+    // EMPLEADO CON MENOS HORAS (Última Posición)
+
+    cout << "EMPLEADO CON MENOS HORAS (" << horas[acum_activos - 1] << " hs): "
+
+         << empleadoMenosHoras.getNombre() << " "
+
+         << empleadoMenosHoras.getApellido() << " (ID: "
+
+         << id_empleado[acum_activos - 1] << ")" << endl ;
+
     cout << "-------------------------------------------------------------------------------------------------" << endl;
 
     cout << "EMPLEADOS ORDENADOS POR HORAS SEMANALES" << endl;
