@@ -493,7 +493,20 @@ void EmpleadoArchivo::modificarCampo ()
 
             cout << "Modificar ID de puesto: " << endl;
 
-            cin >> datos2;
+            cin >> datos2 ;
+
+
+            while (datos2 != 1 && datos2 != 2){
+
+                cout << "El tipo de empleado que ingreso es incorrecto. Intentelo de nuevo. " << endl ;
+
+                cout << "Ingrese el tipo de empleado (1- Empleado en el local, 2- Empleado repartidor): " ;
+
+                cin >> datos2 ;
+
+            }
+
+
 
             empleado.setID_Puesto (datos2);
 

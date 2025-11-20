@@ -211,17 +211,11 @@ void Venta::setEstado(bool _estado)
 } */
 
 
-void Venta::cargarVenta()
-
-{
-
-
+void Venta::cargarVenta(){
 
     int num ;
 
     int continuarDetalle = 1;
-
-//    float montoIVA = 1.21;
 
     float montoFinal = 0;
 
@@ -230,6 +224,10 @@ void Venta::cargarVenta()
     int contadorProductos = 1 ;
 
     int idcliente;
+
+    ClienteArchivo archivoCliente ; // Objeto para manejar la busqueda de clientes
+
+    bool clienteEncontrado = false ;
 
     // Carga de ID_Persona y Fecha
 
@@ -252,28 +250,26 @@ void Venta::cargarVenta()
 
     cout << "--------------------------------------------------------------" << endl ;
 
-    cout << "Ingrese ID de Cliente: "<< endl ;
+    do {
 
-    cin>> idcliente;
+        cout << "Ingrese ID del Cliente: " ;
 
-    ClienteArchivo archivoC;
+        cin >> idcliente ;
 
-    idcliente = archivoC.verificarID(idcliente);
+        if (archivoCliente.buscarPosicion(idcliente) != -1) {
 
-    if(idcliente != -1)
-    {
+            setID_Cliente(idcliente) ;
 
-        cout << "ID de Cliente encontrado. " << endl ;
+            clienteEncontrado = true ;
 
-        setID_Cliente(idcliente);
+        } else {
 
-    }
-    else
-    {
+            cout << "ERROR: El ID de Cliente (" << idcliente << ") no existe." << endl ;
 
-        cout <<"ID NO existe: " << endl;
-        return;
-    }
+            cout << "Por favor, ingrese un ID de Cliente valido." << endl ;
+        }
+
+    } while (!clienteEncontrado) ;
 
 
     cout << endl << "Medio de pago (1-Efectivo, 2-Transferencia, 3-Debito, 4-Credito): " ;
@@ -285,6 +281,16 @@ void Venta::cargarVenta()
     cout << "Tipo de envio: (1- Domicilio, 0- Retiro en Local): " ;
 
     cin >> num ;
+
+    while (num != 1 && num != 0){
+
+        cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
+
+        cout << "Tipo de envio: (1- Domicilio, 0- Retiro en Local): " ;
+
+        cin >> num ;
+
+    }
 
     setTipoEnvio(num) ;
 
@@ -403,7 +409,7 @@ void Venta::cargarVenta()
 */
     cout << "--------------------------------------------------------------" << endl << endl ;
 
-    cout << "Total: $" << getSubTotal() << endl ;
+    cout << "Total: $" << getMontoTotal() << endl ;
 
 //    cout << "IVA: $" << subtotalAcumulado * 0.21 << endl ;
 

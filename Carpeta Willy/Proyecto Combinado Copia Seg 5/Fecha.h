@@ -23,6 +23,8 @@ public:
     int getMes() ;
     int getAnio() ;
 
+    bool esMayorOIgualA(const Fecha &otraFecha) const ;
+
 
 private:
 

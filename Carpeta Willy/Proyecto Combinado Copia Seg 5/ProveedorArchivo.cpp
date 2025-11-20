@@ -484,7 +484,18 @@ void ProveedorArchivo::modificarCampo ()
 
             cout << "Modificar tipo de proveedor: " << endl;
 
-            cin >> datos2;
+            cin >> datos2 ;
+
+            while (datos2 != 1 && datos2 != 2)
+            {
+
+                cout << "El tipo de proveedor que ingreso es incorrecto. Intentelo de nuevo. " << endl;
+
+                cout << "Ingrese el tipo de proveedor (1-Particular, 2-Empresarial):  " ;
+
+                cin >> datos2 ;
+
+            }
 
             proveedor1.setTipo_proveedor (datos2);
 

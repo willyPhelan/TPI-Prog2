@@ -1,6 +1,8 @@
 #pragma once
 #include "Envio.h"
 #include <cstdio> // Para el manejo de archivos FILE*
+#include "Venta.h"
+#include "VentaArchivo.h"
 
 class EnvioArchivo
 {

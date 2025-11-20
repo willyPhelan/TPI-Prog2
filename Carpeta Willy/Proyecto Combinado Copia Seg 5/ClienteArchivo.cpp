@@ -532,14 +532,13 @@ void ClienteArchivo::modificarCampo ()
 
             cin >> datos2;
 
-            while (datos2 != 1 && datos2 != 2)
-            {
+            while (datos2 != 1 && datos2 != 2){
 
                 cout << "El tipo de cliente que ingreso es invalido. Intentelo de nuevo. " << endl;
 
                 cout << "Ingrese el tipo de cliente (1- Particular, 2- Empresarial): " ;
 
-                cin >> datos2;
+                cin >> datos2 ;
 
             }
 

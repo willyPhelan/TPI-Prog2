@@ -100,7 +100,28 @@ int Fecha::getMes()
 {
     return mes ;
 }
-int Fecha::getAnio()
-{
+
+int Fecha::getAnio(){
+
     return anio ;
+}
+
+bool Fecha::esMayorOIgualA(const Fecha& otraFecha) const {
+
+
+    // 1. Comparar años
+
+    if (anio > otraFecha.anio) return true ;
+
+    if (anio < otraFecha.anio) return false ;
+
+    // Si los años son iguales, comparar meses
+
+    if (mes > otraFecha.mes) return true ;
+
+    if (mes < otraFecha.mes) return false ;
+
+    // Si los años y meses son iguales, comparar días
+
+    return dia >= otraFecha.dia ;
 }
