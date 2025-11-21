@@ -113,7 +113,8 @@ void Envio::cargar() {
 
     int posVenta = archivoVenta.buscarPosicion(getID_Venta()) ;
 
-    if (posVenta == -1) {
+    if (posVenta == -1)
+    {
 
         cout << "ERROR: Venta asociada (ID " << getID_Venta() << ") no encontrada. No se puede validar la fecha." << endl ;
 
@@ -137,9 +138,6 @@ void Envio::cargar() {
 
         int dia, mes, anio ;
 
-        cout << "La fecha de venta fue: " ;
-
-        fechaVenta.mostrar() ; // Muestra la fecha de la venta para referencia.
 
         cout << endl << "-----------------------------------" << endl ;
 

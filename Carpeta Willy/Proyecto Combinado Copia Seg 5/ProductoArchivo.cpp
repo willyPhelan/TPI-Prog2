@@ -463,7 +463,8 @@ void ProductoArchivo::modificarCampos()
 
         cout << endl ;
 
-        switch (opcion){
+        switch (opcion)
+        {
 
 
 
@@ -528,31 +529,33 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-        case 3: {
-                    int nuevo_id_proveedor ;
+        case 3:
+        {
+            int nuevo_id_proveedor ;
 
-                    cout << "Nuevo ID del proveedor: " ;
+            cout << "Nuevo ID del proveedor: " ;
 
-                    cin >> nuevo_id_proveedor ;
+            cin >> nuevo_id_proveedor ;
 
-                    int aux = producto_modificado.getID_Proveedor() ;
+            int aux = producto_modificado.getID_Proveedor() ;
 
-                    producto_modificado.setID_Proveedor(nuevo_id_proveedor) ;
+            producto_modificado.setID_Proveedor(nuevo_id_proveedor) ;
 
-                    if (producto_modificado.getID_Proveedor() != aux)
-                    {
-                        cout << endl << "ID de proveedor modificado y guardado con exito en el archivo." << endl;
+            if (producto_modificado.getID_Proveedor() != aux)
+            {
+                cout << endl << "ID de proveedor modificado y guardado con exito en el archivo." << endl;
 
-                        modificar(producto_modificado) ;
-                    }
-                    else
-                    {
-                        cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-                    }
+                modificar(producto_modificado) ;
+            }
+            else
+            {
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+            }
 
-                    system("pause") ;
+            system("pause") ;
 
-                    break ; }
+            break ;
+        }
 
 
         case 4:   // Modificar Precio
@@ -574,7 +577,9 @@ void ProductoArchivo::modificarCampos()
                 cout << endl << "Precio modificado y guardado con exito en el archivo." << endl ;
                 modificar(producto_modificado);
 
-            } else {
+            }
+            else
+            {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
             }
@@ -667,7 +672,9 @@ void ProductoArchivo::modificarCampos()
 
                 modificar(producto_modificado);
 
-            } else {
+            }
+            else
+            {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
             }

@@ -149,28 +149,38 @@ void Detalle_Venta::cargar()
 
     // Cantidad
 
-    while (!stock_ok){
+    while (!stock_ok)
+    {
 
         cout << "Cantidad: " ;
 
         cin >> cantidad_a_vender ;
 
-        if(cantidad_a_vender > 0){
+        if(cantidad_a_vender > 0)
+        {
 
 
-        // VALIDACIÓN DE STOCK CRUCIAL
+            // VALIDACIÓN DE STOCK CRUCIAL
 
-        if (cantidad_a_vender > regP.getCantStock()){
+            if (cantidad_a_vender > regP.getCantStock())
+            {
 
-            cout << "ERROR: Stock insuficiente. Solo hay " << regP.getCantStock() << " unidades disponibles." << endl ;
+                cout << "ERROR: Stock insuficiente. Solo hay " << regP.getCantStock() << " unidades disponibles." << endl ;
 
-        } else { stock_ok = true ; }
+            }
+            else
+            {
+                stock_ok = true ;
+            }
 
-        } else { cout << "Ingrese una cantidad valida:" << endl ;
+        }
+        else
+        {
+            cout << "Ingrese una cantidad valida:" << endl ;
 
 
 
-    }
+        }
     }
 
     setCantidad(cantidad_a_vender) ;

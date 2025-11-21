@@ -207,7 +207,14 @@ void Menu::subMenuABML_Clientes()
 
 
 
-                if(reg.guardar(nuevoCliente)) {  cout  << endl << "Cliente cargado con exito. " << endl ; } else { cout << "El cliente no se pudo cargar" << endl ; }
+                if(reg.guardar(nuevoCliente))
+                {
+                    cout  << endl << "Cliente cargado con exito. " << endl ;
+                }
+                else
+                {
+                    cout << "El cliente no se pudo cargar" << endl ;
+                }
 
 
             }
@@ -475,7 +482,14 @@ void Menu::subMenuABML_Empleados()
             if (nuevoEmpleado.getID_Puesto () != 0)
             {
 
-                 if(reg.guardar(nuevoEmpleado)) {  cout  << endl << "Empleado cargado con exito. " << endl ; } else { cout << "El empleado no se pudo cargar" << endl ; }
+                if(reg.guardar(nuevoEmpleado))
+                {
+                    cout  << endl << "Empleado cargado con exito. " << endl ;
+                }
+                else
+                {
+                    cout << "El empleado no se pudo cargar" << endl ;
+                }
 
             }
 
@@ -747,7 +761,14 @@ void Menu::subMenuABML_Proveedores()
             if (nuevoProveedor.getTipo_proveedor () != 0)
             {
 
-                if(reg.guardar(nuevoProveedor)) {  cout  << endl << "Proveedor cargado con exito. " << endl ; } else { cout << "El proveedor no se pudo cargar" << endl ; }
+                if(reg.guardar(nuevoProveedor))
+                {
+                    cout  << endl << "Proveedor cargado con exito. " << endl ;
+                }
+                else
+                {
+                    cout << "El proveedor no se pudo cargar" << endl ;
+                }
 
 
 
@@ -1051,7 +1072,7 @@ void Menu::subMenuABML_Productos()
         } // 2. Guardar en el archivo
 
 
-         case 2:
+        case 2:
         {
 
             // BAJA LÓGICA
@@ -1335,7 +1356,8 @@ void Menu::subMenuABML_Ventas()
 
                     cout << endl << "Venta cargada con exito (ID: "<< nuevoID <<")." << endl ;
 
-                    if (nuevaVenta.getTipoEnvio() == 1 ){
+                    if (nuevaVenta.getTipoEnvio() == 1 )
+                    {
 
                         cout << "--------------------------------------------------------------" << endl ;
 
@@ -1355,7 +1377,8 @@ void Menu::subMenuABML_Ventas()
 
                         nuevoEnvio.cargar() ; // Llama al metodo cargar() en Envio.cpp
 
-                        if(nuevaVenta.getMontoTotal() > 50000) {
+                        if(nuevaVenta.getMontoTotal() > 50000)
+                        {
 
                             nuevoEnvio.setValor_Envio(0.0) ;
 
@@ -1379,13 +1402,16 @@ void Menu::subMenuABML_Ventas()
 
                             cout << "-----------------------------------------------------------------------" << endl ;
 
-                        } else {
+                        }
+                        else
+                        {
 
                             cout << "ERROR: No se pudo guardar el Envio." << endl;
                         }
 
                     }
-                    else{
+                    else
+                    {
 
                         cout << "La venta no requiere cargar registro de envio porque se retira por el local" << endl ;
                     }
@@ -1404,7 +1430,7 @@ void Menu::subMenuABML_Ventas()
         }
 
 
-          case 2:   // Anular Venta (Baja Lógica)
+        case 2:   // Anular Venta (Baja Lógica)
         {
 
             system("cls") ;
@@ -1423,7 +1449,8 @@ void Menu::subMenuABML_Ventas()
 
             // llamo a la función bajaLogica
 
-            if(archivoVenta.bajaLogica(idBaja)){
+            if(archivoVenta.bajaLogica(idBaja))
+            {
 
                 cout << "Venta (ID " << idBaja << ") dada de baja." << endl ;
 
@@ -1508,13 +1535,16 @@ void Menu::subMenuABML_Ventas()
             {
 
                 Venta regModificar = archivoVenta.leer(pos) ; // 2. Leo el registro actual
-                Producto regP = archivoP.leer(pos);
-                Detalle_Venta detalle2 = archivoDetalleVenta.leer(pos);
 
-                int nuevo_stock = regP.getCantStock() + detalle2.getCantidad();
-                regP.setCantidadStock(nuevo_stock);
+                Producto regP = archivoP.leer(pos) ;
 
-                archivoP.modificar(regP);
+                Detalle_Venta detalle2 = archivoDetalleVenta.leer(pos) ;
+
+                int nuevo_stock = regP.getCantStock() + detalle2.getCantidad() ;
+
+                regP.setCantidadStock(nuevo_stock) ;
+
+                archivoP.modificar(regP) ;
 
                 cout << endl ;
 
@@ -1528,11 +1558,37 @@ void Menu::subMenuABML_Ventas()
 
                 cout << "Ingrese los nuevos datos de la venta (el ID se mantendra):" << endl ;
 
+                bool envioAnterior ;
+
+                if(regModificar.getTipoEnvio() == 1)
+                {
+
+                    envioAnterior = true ;
+
+                }
+                else
+                {
+
+                    envioAnterior = false ;
+
+                }
+
                 regModificar.cargarVenta() ; // Carga de los datos nuevos
 
-                regModificar.setID_Venta(idBuscar) ; // Aseguro que el ID se mantenga
+                cout << endl << "--------------------------------------------------------------" << endl ;
 
-                // Modifico en el archivo
+                cout << endl << "Nueva informacion de la venta: " << endl ;
+
+                regModificar.mostrarVenta() ;
+
+                cout << endl ;
+
+                system("pause") ;
+
+
+                regModificar.setID_Venta(idBuscar) ;
+
+
 
                 if(archivoVenta.modificar(regModificar))
                 {
@@ -1545,7 +1601,77 @@ void Menu::subMenuABML_Ventas()
 
                     cout << endl << "ERROR: No se pudo escribir la modificacion en el archivo." << endl ;
                 }
+
+
+                if(regModificar.getTipoEnvio() == 1)
+                {
+
+                    Envio nuevo_envio ;
+
+                    cout << endl <<  "Ha seleccionado envio a domicilio, cargue los siguientes datos: "  ;
+
+
+                    if(envioAnterior == true)
+                    {
+
+
+
+                        system("cls") ;
+
+                        int pos = archivoEnvio.buscarPosicionPorID_Venta(nuevo_envio.getID_Venta()) ;
+
+                        archivoEnvio.leer(pos) ;
+
+                        cout << endl ;
+
+                        nuevo_envio = archivoEnvio.leer(pos) ;
+
+
+                        nuevo_envio.setID_Venta(regModificar.getID_Venta()) ;
+
+                        nuevo_envio.cargar() ;
+
+
+                        nuevo_envio.setID_Envio(idBuscar) ;
+
+                        if (archivoEnvio.modificar(nuevo_envio))
+                        {
+
+                            cout << "Envio (ID " << idBuscar << ") modificado con exito." << endl ;
+
+                        }
+
+                        else{
+
+                            cout << "ERROR al modificar el registro." << endl ;
+                        }
+
+
+                    }
+
+                     else if (envioAnterior == false)
+
+                    {
+
+
+                        nuevo_envio.setID_Venta(regModificar.getID_Venta()) ;
+
+                        nuevo_envio.cargar() ;
+
+                        nuevo_envio.setID_Envio(archivoEnvio.getCantidadRegistros()+1) ;
+
+                        archivoEnvio.guardar(nuevo_envio) ;
+
+
+                    }
+
+                }
             }
+
+
+
+
+
 
             break ;
         }
@@ -1628,9 +1754,10 @@ void Menu::subMenuABML_Envios()
         cout << endl ;
 
 
-        switch (opcion){
+        switch (opcion)
+        {
 
-         case 1:   // Anular Envio
+        case 1:   // Anular Envio
         {
 
             system("cls") ;
@@ -1742,7 +1869,8 @@ void Menu::subMenuABML_Envios()
             break ;
         }
 
-        case 4: {
+        case 4:
+        {
 
             system("cls") ;
 
@@ -1843,14 +1971,16 @@ void Menu::subMenuABML_Listados()
 
             int cantRegistros = reg.getCantidadRegistros();
 
-            if (cantRegistros <= 0) {
+            if (cantRegistros <= 0)
+            {
 
-                    cout << "Error. No hay clientes cargados en el sistema" << endl ;
+                cout << "Error. No hay clientes cargados en el sistema" << endl ;
 
 
             }
 
-            for (int i = 0; i<cantRegistros; i++){
+            for (int i = 0; i<cantRegistros; i++)
+            {
 
 
                 nuevoCliente = reg.leer(i) ;
@@ -1869,7 +1999,7 @@ void Menu::subMenuABML_Listados()
             break ;
         }
 
-         case 2:   // Listado de Proveedores
+        case 2:   // Listado de Proveedores
         {
 
             system("cls") ;
@@ -1882,9 +2012,10 @@ void Menu::subMenuABML_Listados()
 
             int cantRegistros = archivoProveedor.getCantidadRegistros() ;
 
-              if (cantRegistros <= 0) {
+            if (cantRegistros <= 0)
+            {
 
-                    cout << "Error. No hay proveedores cargados en el sistema" << endl ;
+                cout << "Error. No hay proveedores cargados en el sistema" << endl ;
 
 
             }
@@ -1930,9 +2061,10 @@ void Menu::subMenuABML_Listados()
 
             int cantRegistros = reg.getCantidadRegistros() ;
 
-              if (cantRegistros <= 0) {
+            if (cantRegistros <= 0)
+            {
 
-                    cout << "Error. No hay empleados cargados en el sistema" << endl ;
+                cout << "Error. No hay empleados cargados en el sistema" << endl ;
             }
 
             for (int i = 0; i<cantRegistros; i++)
@@ -1957,7 +2089,7 @@ void Menu::subMenuABML_Listados()
 
         }
 
-         case 4 :    // listado productos
+        case 4 :    // listado productos
         {
 
             system("cls") ;
@@ -2008,7 +2140,7 @@ void Menu::subMenuABML_Listados()
 
             system("cls") ;
 
-             cout << "Listado de ventas" << endl ;
+            cout << "Listado de ventas" << endl ;
 
             cout << "-------------------------------------------------------------------" << endl ;
 
@@ -2237,7 +2369,7 @@ void Menu::subMenuABML_Listados_Activos()
 
             int cantRegistros = reg.getCantidadRegistros();
 
-             if (cantRegistros == 0)
+            if (cantRegistros == 0)
             {
 
                 cout << "No hay clientes activos cargados en el sistema." << endl ;
@@ -2312,7 +2444,7 @@ void Menu::subMenuABML_Listados_Activos()
             break ;
         }
 
-         case 3:
+        case 3:
         {
 
             // LOGICA PARA OPCION 2
@@ -2329,7 +2461,10 @@ void Menu::subMenuABML_Listados_Activos()
 
             int cantRegistros = reg.getCantidadRegistros();
 
-            if (cantRegistros <= 0) { cout << "No hay empleados activos cargados en el sistema" << endl ;}
+            if (cantRegistros <= 0)
+            {
+                cout << "No hay empleados activos cargados en el sistema" << endl ;
+            }
 
             for (int i = 0; i<cantRegistros; i++)
             {
@@ -2357,7 +2492,7 @@ void Menu::subMenuABML_Listados_Activos()
 
         }
 
-         case 4:    // listado productos
+        case 4:    // listado productos
         {
 
             system("cls") ;
@@ -2420,7 +2555,8 @@ void Menu::subMenuABML_Listados_Activos()
 
             int cantidad = archivoVenta.getCantidadRegistros() ;
 
-            if (cantidad == 0){
+            if (cantidad == 0)
+            {
 
                 cout << endl << "No hay ventas activas cargadas en el sistema." << endl ;
 

@@ -389,7 +389,8 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
 
     // Iterar solo sobre los elementos que contienen datos
 
-    for (int i = 0; i < total_productos_distintos; i++){
+    for (int i = 0; i < total_productos_distintos; i++)
+    {
 
         int id_prod = ids_productos[i] ;
 
@@ -401,7 +402,8 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
 
         int pos = archivoProducto.buscarPosicion(id_prod) ;
 
-        if (pos != -1){
+        if (pos != -1)
+        {
 
             producto = archivoProducto.leer(pos) ;
         }
@@ -410,7 +412,8 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
 
         cout << "ID: " << id_prod ;
 
-        if (producto.getID_Producto() >= 0){
+        if (producto.getID_Producto() >= 0)
+        {
 
             cout << " | Producto: " << producto.getDescripcion() ;
 

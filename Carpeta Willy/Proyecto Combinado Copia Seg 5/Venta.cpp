@@ -282,7 +282,8 @@ void Venta::cargarVenta(){
 
     cin >> num ;
 
-    while (num != 1 && num != 0){
+    while (num != 1 && num != 0)
+    {
 
         cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
 

@@ -12,7 +12,8 @@ int EnvioArchivo::getCantidadRegistros()
 
     FILE* p = fopen(archivo_Envio, "rb") ;
 
-    if (p == nullptr){
+    if (p == nullptr)
+    {
 
         return 0 ;
     }
@@ -307,140 +308,155 @@ void EnvioArchivo::modificarCampos()
 
         cout << endl ;
 
-        switch (opcion){
+        switch (opcion)
+        {
 
         case 1:   // Modificar Fecha de Entrega
-       {
-                int dia, mes, anio ;
+        {
+            int dia, mes, anio ;
 
-                Fecha nueva_fecha ;
+            Fecha nueva_fecha ;
 
-                // OBTENER LA FECHA DE VENTA ASOCIADA
+            // OBTENER LA FECHA DE VENTA ASOCIADA
 
-                VentaArchivo archivoVenta ;
+            VentaArchivo archivoVenta ;
 
-                Venta ventaAsociada ;
+            Venta ventaAsociada ;
 
-                Fecha fechaVenta ;
+            Fecha fechaVenta ;
 
-                int idVenta = envio_modificar.getID_Venta() ;
+            int idVenta = envio_modificar.getID_Venta() ;
 
-                int posVenta = archivoVenta.buscarPosicion(idVenta) ;
+            int posVenta = archivoVenta.buscarPosicion(idVenta) ;
 
-                if (posVenta != -1) {
+            if (posVenta != -1)
+            {
 
-                    ventaAsociada = archivoVenta.leer(posVenta) ;
+                ventaAsociada = archivoVenta.leer(posVenta) ;
 
-                    fechaVenta = ventaAsociada.getFechaVenta() ;
+                fechaVenta = ventaAsociada.getFechaVenta() ;
 
-                    cout << "La fecha de la venta original es: " ;
+                cout << "La fecha de la venta original es: " ;
 
-                    fechaVenta.mostrar() ; // Muestra la fecha para referencia
+                fechaVenta.mostrar() ; // Muestra la fecha para referencia
 
-                    cout << endl ;
+                cout << endl ;
 
-                } else {
+            }
+            else
+            {
 
-                    cout << "Advertencia: No se pudo encontrar la Venta (ID " << idVenta << ") asociada." << endl ;
+                cout << "Advertencia: No se pudo encontrar la Venta (ID " << idVenta << ") asociada." << endl ;
 
-                }
+            }
 
 
-                bool fechaValida = false ;
+            bool fechaValida = false ;
 
-                do {
+            do
+            {
 
-                    cout << "-----------------------------------" << endl ;
+                cout << "-----------------------------------" << endl ;
 
-                    cout << "Ingrese la nueva fecha de entrega" << endl ;
+                cout << "Ingrese la nueva fecha de entrega" << endl ;
 
-                    cout << "Dia de entrega: " ;
+                cout << "Dia de entrega: " ;
+
+                cin >> dia ;
+
+                while (dia < 1 || dia > 31)
+                {
+
+                    cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+                    cout << "Dia: " ;
 
                     cin >> dia ;
-
-                    while (dia < 1 || dia > 31) {
-
-                        cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl ;
-
-                        cout << "Dia: " ;
-
-                        cin >> dia ;
-                    }
-
-
-                    cout << "Mes de entrega: " ;
-
-                    cin >> mes ;
-
-                    while (mes < 1 || mes > 12) {
-
-                        cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl ;
-
-                        cout << "Mes: " ;
-
-                        cin >> mes ;
-                    }
-
-
-                    cout << "Anio de entrega: " ;
-
-                    cin >> anio ;
-
-                    while (anio < 2000 || anio > 2025){
-
-                        cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl ;
-
-                        cout << "Anio: " ;
-
-                        cin >> anio ;
-                    }
-
-                    // Asigno al objeto Fecha temporal
-
-                    nueva_fecha.setDia(dia) ;
-
-                    nueva_fecha.setMes(mes) ;
-
-                    nueva_fecha.setAnio(anio) ;
-
-                    // VALIDACIÓN CLAVE
-
-                    if (nueva_fecha.esMayorOIgualA(fechaVenta)) {
-
-                        envio_modificar.setFecha_Entrega(nueva_fecha) ;
-
-                        fechaValida = true ; // Sale del bucle do-while
-
-                    } else {
-
-                        cout << endl << "ERROR: La fecha de entrega (" ;
-
-                        nueva_fecha.mostrar() ;
-
-                        cout << ") debe ser IGUAL O POSTERIOR a la fecha de la venta (" ;
-
-                        fechaVenta.mostrar() ;
-
-                        cout << "). Intente de nuevo." << endl << endl ;
-                    }
-
-
-                } while (!fechaValida) ;
-
-
-                if (modificar(envio_modificar)) {
-
-                    cout << endl << "Fecha de entrega modificada y guardada con exito." << endl ;
-
-                } else {
-
-                    cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
                 }
 
-                system("pause") ;
 
-                break ;
+                cout << "Mes de entrega: " ;
+
+                cin >> mes ;
+
+                while (mes < 1 || mes > 12)
+                {
+
+                    cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+                    cout << "Mes: " ;
+
+                    cin >> mes ;
+                }
+
+
+                cout << "Anio de entrega: " ;
+
+                cin >> anio ;
+
+                while (anio < 2000 || anio > 2025)
+                {
+
+                    cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+                    cout << "Anio: " ;
+
+                    cin >> anio ;
+                }
+
+                // Asigno al objeto Fecha temporal
+
+                nueva_fecha.setDia(dia) ;
+
+                nueva_fecha.setMes(mes) ;
+
+                nueva_fecha.setAnio(anio) ;
+
+                // VALIDACIÓN CLAVE
+
+                if (nueva_fecha.esMayorOIgualA(fechaVenta))
+                {
+
+                    envio_modificar.setFecha_Entrega(nueva_fecha) ;
+
+                    fechaValida = true ; // Sale del bucle do-while
+
+                }
+                else
+                {
+
+                    cout << endl << "ERROR: La fecha de entrega (" ;
+
+                    nueva_fecha.mostrar() ;
+
+                    cout << ") debe ser IGUAL O POSTERIOR a la fecha de la venta (" ;
+
+                    fechaVenta.mostrar() ;
+
+                    cout << "). Intente de nuevo." << endl << endl ;
+                }
+
+
             }
+            while (!fechaValida) ;
+
+
+            if (modificar(envio_modificar))
+            {
+
+                cout << endl << "Fecha de entrega modificada y guardada con exito." << endl ;
+
+            }
+            else
+            {
+
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+            }
+
+            system("pause") ;
+
+            break ;
+        }
 
         case 2:   // Modifico valor del envio
         {
@@ -477,7 +493,8 @@ void EnvioArchivo::modificarCampos()
 
             cin >> nuevo_dato_int ;
 
-            while (nuevo_dato_int < 1 || nuevo_dato_int > 3){
+            while (nuevo_dato_int < 1 || nuevo_dato_int > 3)
+            {
 
                 cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
 
@@ -527,7 +544,8 @@ void EnvioArchivo::modificarCampos()
 }
 
 
-bool EnvioArchivo::hacerBackup (){
+bool EnvioArchivo::hacerBackup ()
+{
 
     // Abro el archivo original ("Envios.dat")
 
