@@ -678,11 +678,11 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
 
     cout << "RESUMEN DE HORAS TRABAJADAS" << endl ;
 
-    cout << "-------------------------------------------------------------------------------------------------" << endl;
+    cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
     // EMPLEADO CON MÁS HORAS (Posición 0)
 
-    cout << "EMPLEADO CON MÁS HORAS TRABAJADAS (" << horas[0] << " hs): "
+    cout << "EMPLEADO CON MAS HORAS TRABAJADAS (" << horas[0] << " hs): "
 
          << empleadoMasHoras.getNombre() << " "
 
@@ -700,11 +700,11 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
 
          << id_empleado[acum_activos - 1] << ")" << endl ;
 
-    cout << "-------------------------------------------------------------------------------------------------" << endl;
+    cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
     cout << "EMPLEADOS ORDENADOS POR HORAS SEMANALES" << endl;
 
-    cout << "-------------------------------------------------------------------------------------------------" << endl;
+    cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
     for (int i=0; i<acum_activos; i++)
     {
@@ -713,7 +713,7 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
 
         //    if (empleadoObjeto.getEstado() == true){
 
-        cout << "-------------------------------------------------------------------------------------------------" << endl;
+        cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
         cout << "ID de Empleado: " << id_empleado [i] << " | " << "Nombre y apellido: " << empleadoObjeto.getNombre () << " " << empleadoObjeto.getApellido () << " | " << "Horas trabajadas a la semana: " << horas [i] << endl;
 

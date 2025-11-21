@@ -147,13 +147,41 @@ void Envio::cargar() {
 
         cin >> dia ;
 
+        while (dia < 1 || dia > 31){
+
+        cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl;
+
+        cout << "Dia: " ;
+
+        cin >> dia ; }
+
         cout << "Mes de entrega: " ;
 
         cin >> mes ;
 
+        while (mes < 1 || mes > 12){
+
+                cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl;
+
+                cout << "Mes: " ;
+
+                cin >> mes ;
+
+            }
+
         cout << "Anio de entrega: " ;
 
         cin >> anio ;
+
+    while (anio < 2000 || anio > 2025){
+
+        cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+        cout << "Anio: " ;
+
+        cin >> anio ;
+
+    }
 
         // Asigno lo que se ingreso en el cin al obj Fecha
 

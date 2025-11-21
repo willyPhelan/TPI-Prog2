@@ -1,5 +1,6 @@
 #pragma once
 #include "Venta.h"
+#include "EnvioArchivo.h"
 #include <cstdio>
 
 
@@ -33,6 +34,8 @@ public:
     // METODOS
 
     void modificarCampos() ;
+
+    void actualizarEnvioCondicional(Venta& venta_modificar, int nuevo_tipo_envio) ;
 
 
     // REPORTES
