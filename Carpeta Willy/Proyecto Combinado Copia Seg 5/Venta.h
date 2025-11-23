@@ -90,7 +90,7 @@ public:
 
     // metodos
 
-    void cargarVenta() ;
+    bool cargarVenta() ;
 
     void mostrarVenta() ;
 

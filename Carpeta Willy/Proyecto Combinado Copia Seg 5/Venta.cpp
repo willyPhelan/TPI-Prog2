@@ -211,7 +211,7 @@ void Venta::setEstado(bool _estado)
 } */
 
 
-void Venta::cargarVenta(){
+bool Venta::cargarVenta(){
 
     int num ;
 
@@ -252,9 +252,16 @@ void Venta::cargarVenta(){
 
     do {
 
-        cout << "Ingrese ID del Cliente: " ;
+        cout << "Ingrese ID del Cliente o [0] para cancelar la carga: " ;
 
         cin >> idcliente ;
+
+        if (idcliente == 0) {
+
+        cout << endl << "Carga cancelada por el usuario." << endl ;
+
+        return false ;
+                        }
 
         if (archivoCliente.buscarPosicion(idcliente) != -1) {
 
@@ -272,24 +279,42 @@ void Venta::cargarVenta(){
     } while (!clienteEncontrado) ;
 
 
-    cout << endl << "Medio de pago (1-Efectivo, 2-Transferencia, 3-Debito, 4-Credito): " ;
+    cout << endl << "Medio de pago (1- Efectivo, 2- Transferencia, 3- Debito, 4- Credito, 0- Cancelar): " ;
 
     cin >> num ;
+
+    if (num == 0){
+
+    cout << endl << "Carga cancel1ada por el usuario." << endl ;
+
+    return false ; }
 
     setMedioDePago(num) ;
 
-    cout << "Tipo de envio: (1- Domicilio, 0- Retiro en Local): " ;
+    cout << endl << "Tipo de envio: (1- Domicilio, 2- Retiro en Local, 0- Cancelar): " ;
 
     cin >> num ;
 
-    while (num != 1 && num != 0)
-    {
+    if (num == 0){
+
+             cout << endl << "Carga cancelada por el usuario." << endl ;
+
+            return false ; }
+
+    while (num != 1 && num != 0 && num != 2){
 
         cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
 
-        cout << "Tipo de envio: (1- Domicilio, 0- Retiro en Local): " ;
+        cout << "Tipo de envio: (1- Domicilio, 2- Retiro en Local, 0- Cancelar): " ;
 
         cin >> num ;
+
+        if (num == 0){
+
+             cout << endl << "Carga cancelada por el usuario." << endl ;
+
+             return false ;
+        }
 
     }
 
@@ -376,11 +401,17 @@ void Venta::cargarVenta(){
 
         cout << endl << "Detalle de venta cargado. " << endl ;
 
-        cout << "Desea agregar otro producto a la venta? (1 = Si, 0 = No): "  ;
+        cout << "Desea agregar otro producto a la venta? (1- Si, 2- No, 0-Cancelar): "  ;
 
         cin >> continuarDetalle ;
 
         cout << endl ;
+
+        if (continuarDetalle == 0){
+
+            cout << endl << "Carga cancelada por el usuario." << endl ;
+
+            return false ; }
 
         if (detalle.getCantidad () != 0)
         {
@@ -426,6 +457,8 @@ void Venta::cargarVenta(){
 
     setEstado(true);
 
+    return true ;
+
 }
 
 
@@ -466,10 +499,11 @@ void Venta::mostrarVenta()
 
     }
 
-    if(getTipoEnvio() == 1)
-    {
+    if(getTipoEnvio() == 1){
 
         cout << "Forma de entrega: Envio a domicilio"  << endl ;
+
+        cout << "Para ver mas informacion sobre el envio, busque el ID de esta venta en el listado de envios." << endl ;
 
     }
     else
@@ -481,9 +515,9 @@ void Venta::mostrarVenta()
 
     cout << "Fecha de la venta (dia/mes/anio): " << fechaVenta.getDia () << "/" << fechaVenta.getMes () << "/" << fechaVenta.getAnio() << endl;
 
-    cout << "Subtotal: $" << getSubTotal() << endl ;
+    cout << "Subtotal (Monto sin envio incluido): $" << getSubTotal() << endl ;
 
-    cout << "Monto total: $" << getMontoTotal() << endl ;
+    cout << "Monto total (con envio incluido, si es aplicable): $" << getMontoTotal() << endl ;
 
 //    cout << "Tipo de factura: " << getTipoFactura() << endl ;
 

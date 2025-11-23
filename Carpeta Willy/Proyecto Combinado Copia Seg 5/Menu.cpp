@@ -1338,13 +1338,13 @@ void Menu::subMenuABML_Ventas()
 
             int nuevoID = archivoVenta.obtenerID() ;
 
-            nuevaVenta.setID_Venta(nuevoID); //  Asigno el ID
+            nuevaVenta.setID_Venta(nuevoID) ; //  Asigno el ID
 
-            cout << "ID de Venta: " << nuevoID << " (Autogenerado)" << endl ;
-
-            // Carga de datos restantes
+            cout << "ID de Venta: " << nuevoID << endl ;
 
             nuevaVenta.cargarVenta() ;
+
+
 
             // 3. Guardar en el archivo
 
@@ -1383,7 +1383,12 @@ void Menu::subMenuABML_Ventas()
                             nuevoEnvio.setValor_Envio(0.0) ;
 
                             cout << "El envio no se cobra porque la compra supero los $50000" << endl ;
+
                         }
+
+                        nuevaVenta.setMontoTotal(nuevaVenta.getSubTotal() + nuevoEnvio.getValor_Envio()) ;
+
+                        archivoVenta.modificar (nuevaVenta) ;
 
 
                         // 3. Guardar el Envío en su archivo
@@ -1396,7 +1401,7 @@ void Menu::subMenuABML_Ventas()
 
                             cout << endl << "-----------------------------------------------------------------------"  ;
 
-                            cout << endl  << "MONTO TOTAL CON ENVIO INCLUIDO $: " << nuevaVenta.getMontoTotal() + nuevoEnvio.getValor_Envio() << endl ;
+                            cout << endl  << "MONTO TOTAL CON ENVIO INCLUIDO $: " << nuevaVenta.getMontoTotal()  << endl ;
 
 
 
@@ -1422,6 +1427,8 @@ void Menu::subMenuABML_Ventas()
 
                     cout << "No se pudo guardar la venta en el archivo." << endl ;
                 }
+
+
 
             }
 
