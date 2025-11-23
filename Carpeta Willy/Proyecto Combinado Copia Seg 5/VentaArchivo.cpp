@@ -570,7 +570,7 @@ void VentaArchivo::modificarCampos()
                 if (pos_envio != -1)
                 {
 
-                    int dia, mes, anio ;
+
 
                     Fecha nueva_fecha ;
 
