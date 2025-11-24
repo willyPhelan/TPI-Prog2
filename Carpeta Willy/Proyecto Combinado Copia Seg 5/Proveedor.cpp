@@ -6,8 +6,6 @@
 
 using namespace std ;
 
-// Constructor
-
 
 Proveedor::Proveedor() : tipo_proveedor(0)
 {
@@ -19,7 +17,6 @@ Proveedor::Proveedor(int tipo_proveedor)
     setTipo_proveedor(tipo_proveedor) ;
 }
 
-// Getters
 
 int Proveedor::getTipo_proveedor()
 {
@@ -34,7 +31,6 @@ string Proveedor::getMail() const
     return mail ;
 }
 
-// Setters
 
 void Proveedor::setTipo_proveedor(int tipo_proveedor)
 {
@@ -45,14 +41,12 @@ void Proveedor::setTipo_proveedor(int tipo_proveedor)
 void Proveedor::setMail(std::string mail)
 {
 
-    // strncpy para copiar la cadena al array char[30] de forma segura
 
     strncpy(this->mail, mail.c_str(), 29) ;
 
     this->mail[29] = '\0' ;
 }
 
-// Metodos
 
 void Proveedor::cargar()
 {
@@ -63,17 +57,11 @@ void Proveedor::cargar()
 
     int tipo_proveedor ;
 
-//  int const cantReg = archivo.getCantidadRegistros() ;
-
-//  setID (archivo.getCantidadRegistros () + 1);
-
     cout << "El proveedor sera guardado con el siguiente ID: " << getID () << endl;
 
     cout << "Ingrese el CUIT del proveedor: "  ;
 
     cin >> datos ;
-
-//  bool const validado = archivo.validarCUIT (datos);
 
     if (archivo.validarCUIT (datos) == false)
     {

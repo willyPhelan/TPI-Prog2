@@ -29,20 +29,16 @@ private:
 
     float montoTotal ;
 
-//    int tipoFactura ;
-
     bool estado ;
 
 
 public:
 
-    // constructores
+
 
     Venta() ;
 
     Venta(int id_cliente, int id_venta, int id_persona, const Fecha &fechaventa, int mediopago, int tipoenvio, float subtotal, float montototal, bool estado) ;
-
-    // getters
 
     int getID_Venta() const ;
 
@@ -62,11 +58,7 @@ public:
 
     float getMontoTotal() ;
 
-//    int getTipoFactura() ;
-
     bool getEstado() ;
-
-    // setters
 
     void setID_Venta(int _IDventa) ;
 
@@ -84,11 +76,7 @@ public:
 
     void setMontoTotal(float _montoTotal) ;
 
- //   void setTipoFactura(int _tipoFactura) ;
-
     void setEstado(bool _estado) ;
-
-    // metodos
 
     bool cargarVenta() ;
 

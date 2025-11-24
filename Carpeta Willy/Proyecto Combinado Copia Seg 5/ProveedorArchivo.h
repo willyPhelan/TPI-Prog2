@@ -1,20 +1,17 @@
-#ifndef PROVEEDORARCHIVO_H_INCLUDED
-#define PROVEEDORARCHIVO_H_INCLUDED
 #pragma once
 #include "Proveedor.h"
 #include <cstdio>
 
 class ProveedorArchivo
 {
-private: /// Atributos
+private:
 
     const char *archivo_Proveedor = "Proveedores.dat";
 
     const char *archivo_Proveedor_Backup = "Proveedores_Backup.bkp";
 
-public: /// Metodos
+public:
 
-/// FUNCIONES ABML
 
     bool guardar (const Proveedor &reg);
 
@@ -28,15 +25,13 @@ public: /// Metodos
 
     void modificarCampo ();
 
-/// FUNCIONES AUXILIARES
-
     int getCantidadRegistros ();
 
     int buscarPosicion (int id_persona);
 
     bool validarCUIT (std::string cuit);
 
-/// BACKUPS
+
 
     bool hacerBackup ();
 
@@ -45,5 +40,3 @@ public: /// Metodos
 };
 
 
-
-#endif // PROVEEDORARCHIVO_H_INCLUDED

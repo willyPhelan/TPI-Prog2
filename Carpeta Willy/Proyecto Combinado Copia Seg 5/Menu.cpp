@@ -1,6 +1,6 @@
 #include "Menu.h"
 #include <iostream>
-#include "Persona.h" // Necesario para usar la clase Persona
+#include "Persona.h"
 #include "Empleado.h"
 #include "Cliente.h"
 #include "Proveedor.h"
@@ -10,8 +10,6 @@
 
 using namespace std ;
 
-
-// MENU PRINCIPAL
 
 void Menu::mostrar()
 {
@@ -140,7 +138,6 @@ void Menu::mostrar()
     while (opcion != 0) ;
 }
 
-// SUB MENU CLIENTES
 
 void Menu::subMenuABML_Clientes()
 {
@@ -420,7 +417,7 @@ void Menu::subMenuABML_Clientes()
 
 }
 
-// SUB MENU ABML EMPLEADOS
+
 
 void Menu::subMenuABML_Empleados()
 {
@@ -500,8 +497,6 @@ void Menu::subMenuABML_Empleados()
 
         case 2:
         {
-
-            // LOGICA PARA OPCION 2
 
             system("cls") ;
 
@@ -698,7 +693,6 @@ void Menu::subMenuABML_Empleados()
 
 }
 
-// SUB MENU ABML PROVEEDORES
 
 void Menu::subMenuABML_Proveedores()
 {
@@ -782,8 +776,6 @@ void Menu::subMenuABML_Proveedores()
         case 2:
         {
 
-            // Eliminar Proveedor
-
             system("cls") ;
 
             cout << "Eliminar un Proveedor" << endl ;
@@ -797,8 +789,6 @@ void Menu::subMenuABML_Proveedores()
             cin >> id_proveedor ;
 
             ProveedorArchivo archivo ;
-
-            // Se llama a la función de baja
 
             if (archivo.bajaLogica(id_proveedor))
             {
@@ -823,8 +813,6 @@ void Menu::subMenuABML_Proveedores()
         case 3:
         {
 
-            // Eliminar Proveedor
-
             system("cls") ;
 
             cout << "Dar de alta a un Proveedor" << endl ;
@@ -838,8 +826,6 @@ void Menu::subMenuABML_Proveedores()
             cin >> id_proveedor ;
 
             ProveedorArchivo archivo ;
-
-            // Se llama a la función de baja
 
             if (archivo.altaLogica(id_proveedor))
             {
@@ -880,8 +866,6 @@ void Menu::subMenuABML_Proveedores()
 
             Proveedor reg ;
 
-            // 1. Busco la posición del registro
-
             int pos = archivo.buscarPosicion(idBuscar) ;
 
             if (pos == -1)
@@ -895,25 +879,17 @@ void Menu::subMenuABML_Proveedores()
             else
             {
 
-                // 2. Leo el registro actual
-
                 reg = archivo.leer(pos) ;
 
-                reg.mostrar() ; // Muestra el estado actual del proveedor
+                reg.mostrar() ;
 
                 cout << "--------------------------------------------" << endl ;
 
-                // 3. Pido los nuevos datos
-
                 cout << endl << "Ingrese los nuevos datos del proveedor (el ID se mantendra): " << endl << endl ;
 
-                reg.cargar() ; // Carga todos los atributos excepto el ID
-
-                // 4. Aseguro que el ID se mantenga
+                reg.cargar() ;
 
                 reg.setID(idBuscar) ;
-
-                // 5. Escribo el registro modificado en la misma posición
 
                 int opc;
 
@@ -1000,8 +976,6 @@ void Menu::subMenuABML_Proveedores()
 
 }
 
-// SUBMENU ABML PRODUCTOS
-
 void Menu::subMenuABML_Productos()
 {
 
@@ -1045,17 +1019,13 @@ void Menu::subMenuABML_Productos()
         case 1:
         {
 
-            // Lógica Cargar Producto
-
             system("cls") ;
 
             cout << "Carga de producto" << endl ;
 
             cout << "--------------------------------------------" << endl ;
 
-            Producto producto1 ; // Instancia de clase Producto
-
-            // ASIGNO ID AUTOINCREMENTAL
+            Producto producto1 ;
 
             int nuevoID = archivo1.obtenerID() ;
 
@@ -1063,19 +1033,19 @@ void Menu::subMenuABML_Productos()
 
             cout << "ID de Producto: " << nuevoID << " (Autogenerado)" << endl;
 
-            producto1.cargar(); // Usamos el método cargar que definiste en Producto.cpp
+            producto1.cargar();
 
             system("pause") ;
 
             break ;
 
-        } // 2. Guardar en el archivo
+        }
 
 
         case 2:
         {
 
-            // BAJA LÓGICA
+
 
             system("cls") ;
 
@@ -1090,8 +1060,6 @@ void Menu::subMenuABML_Productos()
             cin >> idBaja ;
 
             cout << endl ;
-
-            //Llamo a la fn bajaLogica
 
             if (archivo1.bajaLogica(idBaja))
             {
@@ -1115,7 +1083,6 @@ void Menu::subMenuABML_Productos()
         case 3:
         {
 
-            // BAJA LÓGICA
 
             system("cls") ;
 
@@ -1130,8 +1097,6 @@ void Menu::subMenuABML_Productos()
             cin >> idAlta ;
 
             cout << endl ;
-
-            //Llamo a la fn bajaLogica
 
             if (archivo1.altaLogica(idAlta))
             {
@@ -1155,8 +1120,6 @@ void Menu::subMenuABML_Productos()
         case 4:
         {
 
-            // MODIFICAR PRODUCTO
-
             system("cls") ;
 
             int idBuscar ;
@@ -1171,8 +1134,6 @@ void Menu::subMenuABML_Productos()
 
             cout << endl ;
 
-            // Busco la posicion del registro
-
             int pos = archivo1.buscarPosicion(idBuscar) ;
 
             if (pos == -1)
@@ -1184,8 +1145,6 @@ void Menu::subMenuABML_Productos()
             else
             {
 
-                // leo el registro actual
-
                 Producto regModificar = archivo1.leer(pos) ;
 
                 cout << "Producto Actual (ID " << idBuscar << ")" << endl ;
@@ -1194,17 +1153,11 @@ void Menu::subMenuABML_Productos()
 
                 cout << "--------------------------------------------" << endl ;
 
-                // 3. Pedir los nuevos datos
-
                 cout << "Ingrese los nuevos datos del producto (el ID se mantendra):" << endl ;
 
-                regModificar.cargar() ; // Carga todos los atributos excepto el ID
-
-                // 4. Aseguro que el ID autoincremental no se pierda al sobreescribir
+                regModificar.cargar() ;
 
                 regModificar.setID_Producto(idBuscar) ;
-
-                // Escribo el registro modificado en la misma posición
 
                 if (archivo1.modificar(regModificar))
                 {
@@ -1267,16 +1220,10 @@ void Menu::subMenuABML_Productos()
     while (opcion != 0) ;
 }
 
-
-
-// SUB MENU VENTAS
-
 void Menu::subMenuABML_Ventas()
 {
 
     int opcion ;
-
-    // Declaro e instancio el obj de gestión de archivos
 
     VentaArchivo archivoVenta ;
 
@@ -1323,7 +1270,7 @@ void Menu::subMenuABML_Ventas()
         switch (opcion)
         {
 
-        case 1:   // Cargar Venta
+        case 1:
         {
 
             system("cls") ;
@@ -1332,21 +1279,15 @@ void Menu::subMenuABML_Ventas()
 
             cout << "--------------------------------------------------------------" << endl ;
 
-            Venta nuevaVenta ; // instancio obj
-
-            // Obtengo ID autoincremental
+            Venta nuevaVenta ;
 
             int nuevoID = archivoVenta.obtenerID() ;
 
-            nuevaVenta.setID_Venta(nuevoID) ; //  Asigno el ID
+            nuevaVenta.setID_Venta(nuevoID) ;
 
             cout << "ID de Venta: " << nuevoID << endl ;
 
             nuevaVenta.cargarVenta() ;
-
-
-
-            // 3. Guardar en el archivo
 
             if (nuevaVenta.getMontoTotal () != 0.0)
             {
@@ -1365,17 +1306,13 @@ void Menu::subMenuABML_Ventas()
 
                         Envio nuevoEnvio ;
 
-                        // Asigno IDS
+                        int nuevoID_Envio = archivoEnvio.obtenerID() ;
 
-                        int nuevoID_Envio = archivoEnvio.obtenerID() ; // Obtengo el ID autoincremental para Envio
+                        nuevoEnvio.setID_Envio(nuevoID_Envio) ;
 
-                        nuevoEnvio.setID_Envio(nuevoID_Envio) ;   // ID del Envio
+                        nuevoEnvio.setID_Venta(nuevoID) ;
 
-                        nuevoEnvio.setID_Venta(nuevoID) ;        // ID de la Venta recien creada
-
-                        // 2. Cargar datos del Envio
-
-                        nuevoEnvio.cargar() ; // Llama al metodo cargar() en Envio.cpp
+                        nuevoEnvio.cargar() ;
 
                         if(nuevaVenta.getMontoTotal() > 50000)
                         {
@@ -1389,9 +1326,6 @@ void Menu::subMenuABML_Ventas()
                         nuevaVenta.setMontoTotal(nuevaVenta.getSubTotal() + nuevoEnvio.getValor_Envio()) ;
 
                         archivoVenta.modificar (nuevaVenta) ;
-
-
-                        // 3. Guardar el Envío en su archivo
 
                         if (archivoEnvio.guardar(nuevoEnvio))
                         {
@@ -1437,7 +1371,8 @@ void Menu::subMenuABML_Ventas()
         }
 
 
-        case 2:   // Anular Venta (Baja Lógica)
+        case 2:
+
         {
 
             system("cls") ;
@@ -1454,7 +1389,7 @@ void Menu::subMenuABML_Ventas()
 
             cout << endl ;
 
-            // llamo a la función bajaLogica
+            archivoDetalleVenta.bajaLogica(idBaja);
 
             if(archivoVenta.bajaLogica(idBaja))
             {
@@ -1490,7 +1425,7 @@ void Menu::subMenuABML_Ventas()
 
             cout << endl ;
 
-            // llamo a la función bajaLogica
+            archivoVenta.altaLogica(idAlta) ;
 
             if(archivoVenta.altaLogica(idAlta))
             {
@@ -1511,7 +1446,7 @@ void Menu::subMenuABML_Ventas()
 
 
 
-        case 4:   // Modificar Venta
+        case 4:
         {
 
             system("cls")  ;
@@ -1528,8 +1463,6 @@ void Menu::subMenuABML_Ventas()
 
             cout << endl ;
 
-            // 1. Buscar la posición
-
             int pos = archivoVenta.buscarPosicion(idBuscar) ;
 
             if(pos == -1)
@@ -1541,7 +1474,7 @@ void Menu::subMenuABML_Ventas()
             else
             {
 
-                Venta regModificar = archivoVenta.leer(pos) ; // 2. Leo el registro actual
+                Venta regModificar = archivoVenta.leer(pos) ;
 
                 Producto regP = archivoP.leer(pos) ;
 
@@ -1580,7 +1513,7 @@ void Menu::subMenuABML_Ventas()
 
                 }
 
-                regModificar.cargarVenta() ; // Carga de los datos nuevos
+                regModificar.cargarVenta() ;
 
                 cout << endl << "--------------------------------------------------------------" << endl ;
 
@@ -1598,11 +1531,13 @@ void Menu::subMenuABML_Ventas()
 
 
                 if(archivoVenta.modificar(regModificar))
+
                 {
 
                     cout << endl << "Venta (ID "<< idBuscar << ") modificada con exito." << endl ;
 
                 }
+
                 else
                 {
 
@@ -1718,14 +1653,11 @@ void Menu::subMenuABML_Ventas()
     while (opcion != 0) ;
 }
 
-// MENU ENVIOS
 
 void Menu::subMenuABML_Envios()
 {
 
     int opcion ;
-
-    // Se asume que has incluido "EnvioArchivo.h"
 
     EnvioArchivo archivoEnvio ;
 
@@ -1764,7 +1696,7 @@ void Menu::subMenuABML_Envios()
         switch (opcion)
         {
 
-        case 1:   // Anular Envio
+        case 1:
         {
 
             system("cls") ;
@@ -1777,7 +1709,7 @@ void Menu::subMenuABML_Envios()
 
             cin >> idBaja ;
 
-            if (archivoEnvio.bajaLogica(idBaja))   // Usa ID_Envío
+            if (archivoEnvio.bajaLogica(idBaja))
             {
 
                 cout << "Envio (ID " << idBaja << ") dado de baja." << endl ;
@@ -1794,7 +1726,7 @@ void Menu::subMenuABML_Envios()
             break ;
         }
 
-        case 2:   // Activar Envio
+        case 2:
         {
 
             system("cls") ;
@@ -1807,7 +1739,7 @@ void Menu::subMenuABML_Envios()
 
             cin >> idAlta ;
 
-            if (archivoEnvio.altaLogica(idAlta))   // Usa ID_Envío
+            if (archivoEnvio.altaLogica(idAlta))
             {
 
                 cout << "Envio (ID " << idAlta << ") dado de alta." << endl ;
@@ -1824,7 +1756,7 @@ void Menu::subMenuABML_Envios()
             break ;
         }
 
-        case 3:   // Modificar Envío
+        case 3:
         {
 
             system("cls") ;
@@ -1841,7 +1773,7 @@ void Menu::subMenuABML_Envios()
 
             cout << endl ;
 
-            int pos = archivoEnvio.buscarPosicion(idBuscar) ; // Busca por ID_Envío
+            int pos = archivoEnvio.buscarPosicion(idBuscar) ;
 
             if (pos == -1)
             {
@@ -1853,7 +1785,7 @@ void Menu::subMenuABML_Envios()
 
             Envio regModificar = archivoEnvio.leer(pos) ;
 
-            regModificar.mostrar() ; // Asumimos que tienes este método
+            regModificar.mostrar() ;
 
             cout << endl << endl << "Ingrese los nuevos datos del envio: " << endl ;
 
@@ -1910,7 +1842,6 @@ void Menu::subMenuABML_Envios()
     while (opcion != 0);
 }
 
-// SUB MENU LISTADOS
 
 void Menu::subMenuABML_Listados()
 {
@@ -1918,10 +1849,14 @@ void Menu::subMenuABML_Listados()
     int opcion ;
 
     ProductoArchivo archivo1 ;
+
     VentaArchivo archivoVenta ;
+
     EnvioArchivo archivoEnvio ;
+
     ProveedorArchivo archivoProveedor ;
-    DetalleVentaArchivo archivoDetalle;
+
+    DetalleVentaArchivo archivoDetalle ;
 
     do
     {
@@ -1992,12 +1927,10 @@ void Menu::subMenuABML_Listados()
 
                 nuevoCliente = reg.leer(i) ;
 
-                // if(nuevoCliente.getEstado() == true){
-
                 nuevoCliente.mostrar() ;
 
                 cout << "-------------------------------------------------------------------" << endl ;
-                //   }
+
 
             }
 
@@ -2006,7 +1939,7 @@ void Menu::subMenuABML_Listados()
             break ;
         }
 
-        case 2:   // Listado de Proveedores
+        case 2:
         {
 
             system("cls") ;
@@ -2054,8 +1987,6 @@ void Menu::subMenuABML_Listados()
         case 3:
         {
 
-            // LOGICA PARA OPCION 2
-
             system ("cls") ;
 
             cout << "Listado de Empleados" << endl ;
@@ -2096,7 +2027,7 @@ void Menu::subMenuABML_Listados()
 
         }
 
-        case 4 :    // listado productos
+        case 4 :
         {
 
             system("cls") ;
@@ -2142,7 +2073,7 @@ void Menu::subMenuABML_Listados()
         }
 
 
-        case 5:    // Listar Ventas
+        case 5:
         {
 
             system("cls") ;
@@ -2405,7 +2336,7 @@ void Menu::subMenuABML_Listados_Activos()
 
 
 
-        case 2:   // Listado de Proveedores
+        case 2:
         {
 
             system("cls") ;
@@ -2454,8 +2385,6 @@ void Menu::subMenuABML_Listados_Activos()
         case 3:
         {
 
-            // LOGICA PARA OPCION 2
-
             system ("cls") ;
 
             cout << "Listado de empleados activos" << endl ;
@@ -2499,7 +2428,7 @@ void Menu::subMenuABML_Listados_Activos()
 
         }
 
-        case 4:    // listado productos
+        case 4:
         {
 
             system("cls") ;
@@ -2551,7 +2480,7 @@ void Menu::subMenuABML_Listados_Activos()
         }
 
 
-        case 5:    // Listar Ventas
+        case 5:
         {
 
             system("cls") ;
@@ -2725,8 +2654,6 @@ void Menu::subMenuReportes()
 
     int anio;
 
-//    float recaudacion ;
-
     do
     {
 
@@ -2765,7 +2692,7 @@ void Menu::subMenuReportes()
         switch (opcion)
         {
 
-        case 1:   // Recaudación por cliente
+        case 1:
         {
 
             system ("cls");
@@ -2778,7 +2705,7 @@ void Menu::subMenuReportes()
 
             break ;
         }
-        case 2:   // Empleados ordenados por horas
+        case 2:
         {
 
             system ("cls");
@@ -2792,7 +2719,7 @@ void Menu::subMenuReportes()
             break;
         }
 
-        case 3: // Cantidad de unidades vendidas por marca
+        case 3:
         {
 
             system ("cls");
@@ -2806,7 +2733,7 @@ void Menu::subMenuReportes()
             break;
         }
 
-        case 4: // Cantidad de ventas por medio de pago
+        case 4:
         {
 
             system ("cls");
@@ -2821,7 +2748,7 @@ void Menu::subMenuReportes()
 
         }
 
-        case 5: // Recaudacion detallada por anio
+        case 5:
         {
 
             system ("cls");
@@ -2834,20 +2761,14 @@ void Menu::subMenuReportes()
 
             system("cls") ;
 
-            // La función AHORA IMPRIME el detalle de cada mes y el total.
-
-            // float recaudacionTotal =
-
-            archivoVenta.calcularRecaudacion(anio) ; // Variable para capturar el valor devuelto
-
-            // Nota: El 'system("pause")' se mantiene aquí para pausar la consola.
+            archivoVenta.calcularRecaudacion(anio) ;
 
             system("pause") ;
 
             break ;
         }
 
-        case 6: // Recaudacion historica por producto
+        case 6:
         {
 
             system ("cls");
@@ -2898,7 +2819,7 @@ void Menu::subMenuReportes()
     while (opcion != 0) ;
 }
 
-// SUBMENU DE COPIA DE SEGURIDAD
+
 void Menu::subMenuBackups ()
 {
 

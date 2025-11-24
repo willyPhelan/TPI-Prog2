@@ -6,7 +6,7 @@
 
 using namespace std ;
 
-// Constructor
+
 
 Empleado::Empleado() : ID_Puesto(0), horas_Trabajo(0) {}
 
@@ -17,8 +17,6 @@ Empleado::Empleado(int ID_Puesto, int horas_Trabajo)
 
     setHoras_Trabajo (horas_Trabajo) ;
 }
-
-// Getters
 
 int Empleado::getID_Puesto()
 {
@@ -32,7 +30,6 @@ int Empleado::getHoras_Trabajo()
     return horas_Trabajo ;
 }
 
-// Setters
 
 void Empleado::setID_Puesto(int ID_Puesto)
 {
@@ -46,8 +43,6 @@ void Empleado::setHoras_Trabajo(int horas_Trabajo)
     this->horas_Trabajo = horas_Trabajo ;
 }
 
-// Metodos
-
 void Empleado::cargar()
 {
 
@@ -57,17 +52,11 @@ void Empleado::cargar()
 
     int datos2 ;
 
-//  int const cantReg = reg.getCantidadRegistros() ;
-
-//  setID (reg.getCantidadRegistros () + 1);
-
     cout << "El empleado sera guardado con el siguiente ID: " << getID () << endl;
 
     cout << "Ingrese el CUIT del empleado: " ;
 
     cin >> datos ;
-
-//  bool const validado = reg.validarCUIT (datos);
 
     if (reg.validarCUIT (datos) == false)
     {
@@ -147,8 +136,6 @@ void Empleado::mostrar()
 
     cout << "Horas trabajadas por semana del empleado: " << getHoras_Trabajo() << endl ;
 
-//    cout << "ID de puesto del empleado: " << getID_Puesto() << endl ;
-
     if (getID_Puesto () == 1)
     {
 
@@ -161,8 +148,6 @@ void Empleado::mostrar()
         cout << "Tipo de empleado: Repartidor (2)" << endl;
 
     }
-
-//    cout << "Estado: " << getEstado() << endl ;
 
     if (getEstado () == true)
     {

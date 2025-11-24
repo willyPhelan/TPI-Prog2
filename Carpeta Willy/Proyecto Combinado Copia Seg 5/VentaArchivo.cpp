@@ -247,66 +247,6 @@ int VentaArchivo::buscarPosicion(int id_venta)
     return -1 ;
 }
 
-// FUNCIONES PARA REPORTES
-
-/*float VentaArchivo::calcularRecaudacionAnual(int anio)
-{
-
-    Venta reg ;
-
-    float recaudacion = 0.0 ;
-
-    int cantidad = getCantidadRegistros() ;
-
-    for (int i = 0; i < cantidad; i++)
-    {
-
-        reg = leer(i) ;
-
-        // Filtra por estado (solo ventas activas)
-
-        // Filtra por año
-
-        if (reg.getEstado() && reg.getFechaVenta().getAnio() == anio)
-        {
-
-            recaudacion += reg.getMontoTotal() ;
-        }
-    }
-
-    return recaudacion ;
-}
-
-float VentaArchivo::calcularRecaudacionMensual(int mes, int anio)
-{
-
-    Venta reg ;
-
-    float recaudacion = 0.0 ;
-
-    int cantidad = getCantidadRegistros() ;
-
-    for (int i = 0; i < cantidad; i++)
-    {
-
-        reg = leer(i) ;
-
-        // Filtra por estado activo
-
-        // Filtra por año
-
-        // Filtra por mes
-
-        if (reg.getEstado() && reg.getFechaVenta().getAnio() == anio && reg.getFechaVenta().getMes() == mes)
-        {
-
-            recaudacion += reg.getMontoTotal() ;
-        }
-    }
-    return recaudacion ;
-}
-*/
-// funciones de VentaArchivo
 
 void VentaArchivo::modificarCampos()
 {
@@ -325,7 +265,7 @@ void VentaArchivo::modificarCampos()
 
     cin >> id_a_buscar ;
 
-    int pos = buscarPosicion(id_a_buscar) ; // Usa el metodo de la clase VentaArchivo
+    int pos = buscarPosicion(id_a_buscar) ;
 
     if (pos == -1)
     {
@@ -337,9 +277,7 @@ void VentaArchivo::modificarCampos()
         return ;
     }
 
-    // Cargar el objeto Venta actual desde el archivo
-
-    Venta venta_modificar = leer(pos) ; // Usa el método de la clase VentaArchivo
+    Venta venta_modificar = leer(pos) ;
 
     do
     {
@@ -350,7 +288,7 @@ void VentaArchivo::modificarCampos()
 
         cout << "-----------------------------" << endl ;
 
-        venta_modificar.mostrarVenta() ; // Llama al método de la instancia de Venta
+        venta_modificar.mostrarVenta() ;
 
         cout << endl << "Seleccione el campo a modificar:" << endl ;
 
@@ -359,8 +297,6 @@ void VentaArchivo::modificarCampos()
         cout << "2. Medio de pago" << endl ;
 
         cout << "3. Tipo de envio" << endl ;
-
-//        cout << "4. Tipo de factura" << endl ;
 
         cout << "0. Volver al menu anterior" << endl ;
 
@@ -434,9 +370,7 @@ void VentaArchivo::modificarCampos()
 
             venta_modificar.setFechaVenta(nueva_fecha) ;
 
-            // Guardo el cambio
-
-            if (modificar(venta_modificar))   // Usa el método modificar de VentaArchivo
+            if (modificar(venta_modificar))
             {
 
                 cout << endl << "Fecha de venta modificada y guardada con exito." << endl ;
@@ -454,7 +388,7 @@ void VentaArchivo::modificarCampos()
             break ;
         }
 
-        case 2:   // Modificar Medio de Pago (int)
+        case 2:
         {
 
             cout << "Nuevo medio de pago (1-Efectivo, 2-Tarjeta, 3-Transferencia): " ;
@@ -481,7 +415,7 @@ void VentaArchivo::modificarCampos()
             break ;
         }
 
-        case 3:   // Modificar Tipo de Envío
+        case 3:
 
         {
 
@@ -491,8 +425,6 @@ void VentaArchivo::modificarCampos()
 
             cin >> nuevo_tipo_envio ;
 
-            // Validacion básica del tipo de envío
-
             while (nuevo_tipo_envio < 1 || nuevo_tipo_envio > 2)
             {
 
@@ -501,10 +433,10 @@ void VentaArchivo::modificarCampos()
                 cin >> nuevo_tipo_envio ;
             }
 
-            venta_modificar.setTipoEnvio(nuevo_tipo_envio) ; // Actualizo Venta
+            venta_modificar.setTipoEnvio(nuevo_tipo_envio) ;
 
 
-            if (nuevo_tipo_envio == 1)   // 1 = A Domicilio: Requiere un registro de Envío
+            if (nuevo_tipo_envio == 1)
             {
 
                 EnvioArchivo archivoEnvio ;
@@ -515,28 +447,22 @@ void VentaArchivo::modificarCampos()
 
                 int idVenta = venta_modificar.getID_Venta() ;
 
-                // Busco el Envío asociado
-
                 int pos_envio = archivoEnvio.buscarPosicionPorID_Venta(idVenta) ;
 
                 if (pos_envio == -1)
                 {
 
-                    // NO EXISTE EL ENVIO: CREAR NUEVO REGISTRO
-
                     cout << "Creando nuevo registro de envio para la venta ID: " << idVenta << endl ;
 
-                    envio_modificar.setID_Envio(archivoEnvio.obtenerID()) ; // Nuevo ID autoincremental
+                    envio_modificar.setID_Envio(archivoEnvio.obtenerID()) ;
 
                     envio_modificar.setID_Venta(idVenta) ;
 
-                    envio_modificar.setValor_Envio(0.0f) ; // Valor inicial, puede modificarse después
+                    envio_modificar.setValor_Envio(0.0f) ;
 
-                    envio_modificar.setEstado_Entrega(1) ; // 1 = Pendiente (estado inicial)
+                    envio_modificar.setEstado_Entrega(1) ;
 
-                    envio_modificar.setEstado(true) ; // Activo
-
-                    // Guardar el nuevo registro. Si falla, no podemos continuar con la fecha.
+                    envio_modificar.setEstado(true) ;
 
                     if (!archivoEnvio.guardar(envio_modificar))
                     {
@@ -548,8 +474,6 @@ void VentaArchivo::modificarCampos()
                         break ;
                     }
 
-                    // Si se guarda, obtenemos la posicion para modificarlo
-
                     pos_envio = archivoEnvio.buscarPosicionPorID_Venta(idVenta) ;
 
                     envio_modificar = archivoEnvio.leer(pos_envio) ;
@@ -558,19 +482,15 @@ void VentaArchivo::modificarCampos()
                 else
                 {
 
-                    // EXISTE EL ENVÍO: Leerlo para modificar la fecha
+
 
                     cout << "Envio encontrado. Modificando fecha de entrega." << endl ;
 
                     envio_modificar = archivoEnvio.leer(pos_envio) ;
                 }
 
-                // Solicitar nueva Fecha de Entrega con o (para el Envío recién creado o modificado)
-
                 if (pos_envio != -1)
                 {
-
-
 
                     Fecha nueva_fecha ;
 
@@ -579,9 +499,11 @@ void VentaArchivo::modificarCampos()
                     cout << endl << "Se requiere determinar la fecha de entrega para envios a domicilio." << endl ;
 
                     cout << "La fecha de venta es: " ;
+
                     fechaVenta.mostrar() ;
 
                     cout << endl << "La fecha del envio es: " ;
+
                     envio_modificar.getFecha_Entrega().mostrar() ;
 
                     cout << endl << "-----------------------------------" << endl ;
@@ -590,12 +512,6 @@ void VentaArchivo::modificarCampos()
                     {
 
                         nueva_fecha.cargar() ;
-
-                        //  nueva_fecha.setDia(dia) ;
-
-                        //  nueva_fecha.setMes(mes) ;
-
-                        //  nueva_fecha.setAnio(anio) ;
 
                         if (nueva_fecha.esMayorOIgualA(fechaVenta))
                         {
@@ -614,8 +530,6 @@ void VentaArchivo::modificarCampos()
                     }
                     while (!fechaValida) ;
 
-                    // --- SOLICITUD DE VALOR DEL ENVÍO ---
-
                     int estadoEntrega ;
 
                     float valorEnvio ;
@@ -626,15 +540,9 @@ void VentaArchivo::modificarCampos()
 
                     envio_modificar.setValor_Envio(valorEnvio) ;
 
-
-                    //  ACTUALIZAR MONTO TOTAL DE LA VENTA
-
-
                     float subTotal = venta_modificar.getSubTotal() ;
 
                     float nuevoMontoTotal = subTotal + valorEnvio ;
-
-                    // Impactar el cambio en el objeto Venta
 
                     venta_modificar.setMontoTotal(nuevoMontoTotal) ;
 
@@ -642,8 +550,6 @@ void VentaArchivo::modificarCampos()
 
                          << " + Envio: $" << valorEnvio << " = Total: $" << nuevoMontoTotal << ")" << endl ;
 
-
-                    // --- SOLICITUD DE ESTADO DE ENTREGA ---
 
                     cout << "Estado de entrega (1: Pendiente, 2: En curso, 3: Entregado): " ;
 
@@ -658,8 +564,6 @@ void VentaArchivo::modificarCampos()
                     }
                     envio_modificar.setEstado_Entrega(estadoEntrega) ;
 
-                    // Guardar el Envío modificado/creado
-
                     if (archivoEnvio.modificar(envio_modificar))
                     {
 
@@ -669,15 +573,13 @@ void VentaArchivo::modificarCampos()
                     else
                     {
 
-                        // Este error solo ocurriría si el archivo falla al sobrescribir
+
 
                         cout << endl << "ERROR: No se pudo guardar la modificacion de la fecha de entrega del envio." << endl ;
                     }
                 }
             }
 
-
-            // 4. Guardar la Venta modificada (TipoEnvio)
 
             if (modificar(venta_modificar))
             {
@@ -699,7 +601,7 @@ void VentaArchivo::modificarCampos()
 
 
 
-        case 0: // Volver
+        case 0:
 
             cout << "Volviendo al menu anterior." << endl ;
 
@@ -741,7 +643,7 @@ void VentaArchivo::calcularRecaudacionPorCliente ()
         return;
     }
 
-    float *acumulador = new float [cantCliente] (); // Acumulador por ID de cliente -1
+    float *acumulador = new float [cantCliente] ();
 
     for (int i=0; i<cantVenta; i++)
     {
@@ -910,8 +812,6 @@ float VentaArchivo::calcularRecaudacion(int anio)
 
     const int MESES_DEL_ANIO = 12;
 
-    // Array para acumular la recaudación de cada mes (índices 0 a 11 para meses 1 a 12)
-
     float recaudacionMensual[MESES_DEL_ANIO] = {0.0} ;
 
     float recaudacionTotalAnual = 0.0 ;
@@ -923,27 +823,18 @@ float VentaArchivo::calcularRecaudacion(int anio)
 
         reg = leer(i) ;
 
-        // Filtra por estado (solo ventas activas)
-        // Filtra por el año solicitado
-
         if (reg.getEstado() && reg.getFechaVenta().getAnio() == anio)
         {
 
             int mes = reg.getFechaVenta().getMes();
 
-            // Verificación de mes válido (1 a 12)
-
             if (mes >= 1 && mes <= 12)
             {
-
-                // Acumula en la posición correcta (mes - 1)
 
                 recaudacionMensual[mes - 1] += reg.getMontoTotal() ;
             }
         }
     }
-
-    // A. IMPRIMIR LA RECAUDACIÓN DE CADA MES Y SUMAR EL TOTAL
 
     cout << "RECAUDACION DEL ANIO: " << anio << " " << endl ;
 
@@ -952,25 +843,18 @@ float VentaArchivo::calcularRecaudacion(int anio)
     for (int mes = 0; mes < 12; ++mes)
     {
 
-        // Sumar al total
-
         recaudacionTotalAnual += recaudacionMensual[mes] ;
-
-        // Imprimir el detalle mensual
 
 
         cout << "Mes " << mes + 1 << ": $ " << recaudacionMensual[mes] << endl ;
     }
 
-    // B. IMPRIMIR LA RECAUDACIÓN TOTAL ANUAL (El total de la suma de los meses)
 
     cout << endl << "--------------------------------------------" << endl ;
 
     cout << "TOTAL RECAUDADO EN " << anio << ": $" << recaudacionTotalAnual << endl ;
 
     cout << "--------------------------------------------" << endl ;
-
-    // Retorna la recaudación total, aunque ya la imprimimos.
 
     return recaudacionTotalAnual ;
 }

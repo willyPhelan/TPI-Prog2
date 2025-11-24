@@ -6,15 +6,12 @@
 
 using namespace std ;
 
-// Constructores
 
-Cliente::Cliente() : tipo_Cliente(0)   // constructor por defecto
+
+Cliente::Cliente() : tipo_Cliente(0)
 {
 
-    // Inicializo el array de caracteres 'mail'
-    // La clase base Persona se inicializa con sus valores por defecto.
-
-    strncpy(this->mail, "", 29) ;
+  strncpy(this->mail, "", 30) ;
 }
 
 Cliente::Cliente(string mail, int tipo_Cliente)
@@ -25,7 +22,7 @@ Cliente::Cliente(string mail, int tipo_Cliente)
     setTipo_Cliente(tipo_Cliente) ;
 }
 
-// Getters
+
 
 string Cliente::getMail()
 {
@@ -41,12 +38,14 @@ int Cliente::getTipo_Cliente ()
 
 }
 
-// Setters
+
 
 void Cliente::setMail(string mail)
 {
 
     strncpy(this->mail, mail.c_str(), 29) ;
+
+    this->mail[29] = '\0' ;
 }
 
 void Cliente::setTipo_Cliente (int tipo_Cliente)
@@ -55,18 +54,16 @@ void Cliente::setTipo_Cliente (int tipo_Cliente)
     this->tipo_Cliente = tipo_Cliente ;
 }
 
-// Metodos
+
 
 void Cliente::cargar()
 {
 
-    ClienteArchivo reg;
+    ClienteArchivo reg ;
 
     string datos ;
 
     int tipo_Cliente ;
-
-//  int const cantReg = reg.getCantidadRegistros();
 
     cout << "El cliente sera guardado con el siguiente ID: " << getID() << endl ;
 
@@ -74,12 +71,9 @@ void Cliente::cargar()
 
     cin >> datos ;
 
-//  bool const validado = reg.validarCUIT (datos) ;
+    if (reg.validarCUIT(datos) == false){
 
-    if (reg.validarCUIT(datos) == false)
-    {
-
-        return;
+        return ;
 
     }
 

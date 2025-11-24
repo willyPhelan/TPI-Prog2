@@ -13,11 +13,11 @@ class Menu
 
 public:
 
-    void mostrar() ; // muestro opciones
+    void mostrar() ;
 
 private:
 
-    void subMenuPersonas() ;   // Gestiono el submenu de Personas.
+    void subMenuPersonas() ;
 
     void subMenuABML() ;
 

@@ -55,91 +55,69 @@ Detalle_Venta DetalleVentaArchivo::leer(int pos)
 
 }
 
-bool DetalleVentaArchivo::bajaLogica(int idDetalle)
+bool DetalleVentaArchivo::bajaLogica(int idVenta)
 {
+    Detalle_Venta reg;
+    int cantInactivos = 0;
 
-    int pos = buscarPosicion(idDetalle) ;
+    const int cantidad = getCantidadRegistros();
 
-    if(pos == -1)
+    for (int i = 0; i < cantidad; i++)
     {
+        reg = leer(i);
 
-        return false ;
+        if(reg.getID_Venta() == idVenta)
+        {
+
+            reg.setEstado(false);
+            modificar(reg);
+            cantInactivos++;
+        }
+
     }
 
-    Detalle_Venta reg = leer(pos) ;
-
-    if (reg.getEstado () == false)
+    if(cantInactivos != 0)
     {
-
+        return true;
+    }else
+    {
         return false;
-
     }
-
-    reg.setEstado(false) ;
-
-    FILE* pventa ;
-
-    pventa = fopen(archivo_DetalleVenta,"rb+") ;
-
-    if (pventa == nullptr)
-    {
-        return false ;
-    }
-
-    fseek(pventa,pos*sizeof(Detalle_Venta),SEEK_SET) ;
-
-    int escrito = fwrite(&reg,sizeof(Detalle_Venta),1,pventa) ;
-
-    fclose(pventa) ;
-
-    return escrito ;
-
 }
 
-bool DetalleVentaArchivo::darDealta(int idDetalle)
+bool DetalleVentaArchivo::darDealta(int idVenta)
 {
+    Detalle_Venta reg;
+    int cantActivos = 0;
 
-    int pos= buscarPosicion(idDetalle);
+    const int cantidad = getCantidadRegistros();
 
-    if(pos == -1)
+    for (int i = 0; i < cantidad; i++)
+    {
+        reg = leer(i);
+
+        if(reg.getID_Venta() == idVenta)
+        {
+            reg.setEstado(true);
+            modificar(reg);
+            cantActivos++;
+        }
+    }
+    if(cantActivos != 0)
+    {
+        return true;
+    }else
     {
         return false;
     }
-
-    Detalle_Venta reg = leer(pos);
-
-    if (reg.getEstado () == true)
-    {
-
-        return false;
-
-    }
-
-    reg.setEstado(true);
-
-    FILE* pventa;
-
-    pventa = fopen(archivo_DetalleVenta,"rb+");
-
-    if (pventa == nullptr)
-    {
-        return false;
-    }
-
-    fseek(pventa,pos*sizeof(Detalle_Venta),SEEK_SET);
-
-    int escrito = fwrite(&reg,sizeof(Detalle_Venta),1,pventa);
-
-    fclose(pventa);
-
-    return escrito;
 }
 
 bool DetalleVentaArchivo::modificar(const Detalle_Venta &reg)
 {
 
     int pos;
-    pos = buscarPosicion(reg.getID_Detalle());
+
+    pos = buscarPosicion(reg.getID_Detalle()) ;
 
     if(pos == -1)
     {
@@ -147,6 +125,7 @@ bool DetalleVentaArchivo::modificar(const Detalle_Venta &reg)
     }
 
     FILE* pventa;
+
     pventa = fopen(archivo_DetalleVenta,"rb+");
 
     if(pventa == nullptr)
@@ -201,6 +180,7 @@ int DetalleVentaArchivo::getCantidadRegistros()
 {
 
     FILE* pventa;
+
     pventa = fopen(archivo_DetalleVenta, "rb");
 
     if(pventa == nullptr)
@@ -212,6 +192,7 @@ int DetalleVentaArchivo::getCantidadRegistros()
     }
 
     fseek(pventa,0,SEEK_END);
+
     int tamanoBytes = ftell(pventa);
 
     fclose(pventa);
@@ -263,8 +244,6 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
 
     VentaArchivo archivoVenta ;
 
-    // ASIGNACION DINAMICA
-
     int max_capacidad = getCantidadRegistros() ;
 
     if (max_capacidad == 0)
@@ -275,13 +254,9 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
         return ;
     }
 
-    // Declaracion de punteros para los arreglos paralelos dinamicos
-
     int *ids_productos = new int[max_capacidad] ;
 
     float *totales_recaudados = new float[max_capacidad] ;
-
-    // Inicialización de los arreglos a 0
 
     for(int i = 0; i < max_capacidad; i++)
     {
@@ -295,16 +270,10 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
 
     float granTotal = 0.0 ;
 
-    // ITERAR Y ACUMULAR
-
     for (int i = 0; i < max_capacidad; i++)
     {
 
         detalle = leer(i) ;
-
-        //  EXCLUIR VENTAS ANULADAS
-
-        // 1. Busco el registro de Venta asociado a este detalle.
 
         int id_venta_actual = detalle.getID_Venta() ;
 
@@ -317,12 +286,10 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
 
             Venta venta_asociada = archivoVenta.leer(pos_venta) ;
 
-            // 2. Verificamos el estado de la Venta (Baja Lógica).
-
-            venta_activa = venta_asociada.getEstado() ; // true = Activa, false = Anulada
+            venta_activa = venta_asociada.getEstado() ;
         }
 
-        // Solo se acumula si la venta NO fue anulada (estado = true)
+
 
         if (venta_activa)
         {
@@ -330,8 +297,6 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
             float recaudacion_linea = detalle.getCantidad() * detalle.getPrecio_Unitario() ;
 
             int id_producto_actual = detalle.getID_Producto() ;
-
-            // Búsqueda para encontrar el ID
 
             int posicion_encontrada = -1 ;
 
@@ -347,12 +312,12 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
                 }
             }
 
-            // Acumular o Agregar
+
 
             if (posicion_encontrada != -1)
             {
 
-                // El producto ya existe, acumular
+
 
                 totales_recaudados[posicion_encontrada] += recaudacion_linea ;
 
@@ -360,7 +325,6 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
             else
             {
 
-                // Producto nuevo, agregar
 
                 if (total_productos_distintos < max_capacidad)
                 {
@@ -381,13 +345,10 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
         }
     }
 
-    // IMPRIMIR EL REPORTE Y CALCULAR EL TOTAL GENERAL
 
     cout << "RECAUDACION HISTORICA POR PRODUCTO" << endl ;
 
     cout << "------------------------------------------" << endl ;
-
-    // Iterar solo sobre los elementos que contienen datos
 
     for (int i = 0; i < total_productos_distintos; i++)
     {
@@ -395,8 +356,6 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
         int id_prod = ids_productos[i] ;
 
         float total_recaudacion = totales_recaudados[i] ;
-
-        // Busco el producto en su archivo para obtener la descripcion
 
         Producto producto ;
 
@@ -408,7 +367,6 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
             producto = archivoProducto.leer(pos) ;
         }
 
-        // Muestro ID y Descripcion
 
         cout << "ID: " << id_prod ;
 
@@ -424,8 +382,6 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
             cout << "Producto: (Descripcion no disponible)" ;
         }
 
-        // Mostrar Recaudación
-
         cout << " | Recaudacion Total: $" << total_recaudacion << endl ;
 
         cout << "------------------------------------------" << endl ;
@@ -433,13 +389,9 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
         granTotal += total_recaudacion ;
     }
 
-    // 4. MOSTRAR EL TOTAL HISTÓRICO Y LIBERAR MEMORIA
-
     cout  << "TOTAL RECAUDADO POR TODOS LOS PRODUCTOS (SIN VENTAS ANULADAS): $" << granTotal << endl ;
 
     cout << "------------------------------------------" << endl ;
-
-    // libero
 
     delete[] ids_productos ;
 
@@ -451,7 +403,6 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorProducto()
 void DetalleVentaArchivo::reportePorMarca()
 {
 
-    // --- PASO 1: Preparar Instancias de Archivo ---
     ProductoArchivo archivoProductos;
 
     int cantDetalles = this->getCantidadRegistros();
@@ -463,12 +414,14 @@ void DetalleVentaArchivo::reportePorMarca()
         return;
     }
 
-    // --- PASO 2: Preparar Arrays DINÁMICOS ---
     int capacidadActual = 10;
+
     int cantMarcasEncontradas = 0;
+
     int cantidadTotal = 0;
 
     int* contadoresReporte = new int[capacidadActual];
+
     char** marcasReporte = new char*[capacidadActual];
 
     if (contadoresReporte == NULL || marcasReporte == NULL)
@@ -484,30 +437,35 @@ void DetalleVentaArchivo::reportePorMarca()
     }
 
 
-    // --- PASO 3: Leer Detalles y Contar ---
+
     for (int i = 0; i < cantDetalles; i++)
     {
 
         Detalle_Venta regDetalle = this->leer(i);
 
         cantidadTotal += regDetalle.getCantidad();
+
         int idProd = regDetalle.getID_Producto();
+
         int cantidad = regDetalle.getCantidad();
 
         char marcaActual[30];
+
         archivoProductos.MarcaPorID(idProd, marcaActual, 30);
 
 
         int indice = this->buscarIndiceDeMarca(marcaActual, marcasReporte, cantMarcasEncontradas);
 
-        // 3c. Contar
-        if (indice == -1)   // Marca NUEVA
+
+        if (indice == -1)
         {
 
             if (cantMarcasEncontradas == capacidadActual)
             {
                 int nuevaCapacidad = capacidadActual * 2;
+
                 int* nuevosContadores = new int[nuevaCapacidad];
+
                 char** nuevasMarcas = new char*[nuevaCapacidad];
 
                 if (nuevosContadores == NULL || nuevasMarcas == NULL)
@@ -519,38 +477,49 @@ void DetalleVentaArchivo::reportePorMarca()
                 for (int j = 0; j < capacidadActual; j++)
                 {
                     nuevosContadores[j] = contadoresReporte[j];
+
                     nuevasMarcas[j] = marcasReporte[j];
                 }
 
                 delete[] contadoresReporte;
+
                 delete[] marcasReporte;
 
                 contadoresReporte = nuevosContadores;
+
                 marcasReporte = nuevasMarcas;
+
                 capacidadActual = nuevaCapacidad;
             }
 
             marcasReporte[cantMarcasEncontradas] = new char[30];
+
             if(marcasReporte[cantMarcasEncontradas] == NULL)
             {
+
                 cout << "Error: Falla al asignar memoria para string." << endl;
+
                 break;
             }
 
             strncpy(marcasReporte[cantMarcasEncontradas], marcaActual, 29);
+
             marcasReporte[cantMarcasEncontradas][29] = '\0';
+
             contadoresReporte[cantMarcasEncontradas] = cantidad;
+
             cantMarcasEncontradas++;
 
         }
-        else     // Marca EXISTENTE
+        else
         {
             contadoresReporte[indice] += cantidad;
         }
     }
 
-    // --- PASO 4: Mostrar Reporte ---
+
     cout << "REPORTE DE UNIDADES VENDIDAS POR MARCA" << endl;
+
     cout << "----------------------------------------------" << endl;
 
     if (cantMarcasEncontradas == 0)
@@ -562,7 +531,8 @@ void DetalleVentaArchivo::reportePorMarca()
         for (int i = 0; i < cantMarcasEncontradas; i++)
         {
             cout << "Marca: " << marcasReporte[i]
-                 << " - Total Unidades: " << contadoresReporte[i] << endl;
+
+            << " - Total Unidades: " << contadoresReporte[i] << endl;
         }
     }
     cout << "----------------------------------------------" << endl;
@@ -570,11 +540,12 @@ void DetalleVentaArchivo::reportePorMarca()
     cout << "----------------------------------------------" << endl;
 
 
-    // --- PASO 5: Liberar la Memoria Dinámica ---
     for (int i = 0; i < cantMarcasEncontradas; i++)
     {
-        delete[] marcasReporte[i];
+
+    delete[] marcasReporte[i];
     }
+
     delete[] marcasReporte;
     delete[] contadoresReporte;
 
@@ -596,7 +567,7 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorTipoProducto()
 
     ProductoArchivo archivoProducto ;
 
-    VentaArchivo archivoVenta ;   //  NECESARIO PARA VALIDAR VENTA
+    VentaArchivo archivoVenta ;
 
     int cantidadDetalles = getCantidadRegistros() ;
 
@@ -605,21 +576,17 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorTipoProducto()
 
         Detalle_Venta detalle = leer(i) ;
 
-        if (!detalle.getEstado()) continue ; // Solo detalles activos
-
-        // Leer la venta correspondiente
+        if (!detalle.getEstado()) continue ;
 
         int idVenta = detalle.getID_Venta() ;
 
         int posVenta = archivoVenta.buscarPosicion(idVenta) ;
 
-        if (posVenta == -1) continue ; // Venta inexistente -> no se usa
+        if (posVenta == -1) continue ;
 
         Venta venta = archivoVenta.leer(posVenta) ;
 
-        if (!venta.getEstado()) continue ; // SI LA VENTA ESTA ANULADA, SE SALTA
-
-        // Leer producto
+        if (!venta.getEstado()) continue ;
 
         int posProd = archivoProducto.buscarPosicion(detalle.getID_Producto()) ;
 
@@ -658,8 +625,6 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorTipoProducto()
         }
     }
 
-    // Mostrar reporte
-
     cout << "RECUADACION HISTORICA POR TIPO DE PORDUCTO" << endl ;
 
     cout << "--------------------------------------------------------" << endl;
@@ -673,21 +638,25 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorTipoProducto()
         {
 
         case 1:
+
             nombreTipo = "PCs" ;
 
             break ;
 
         case 2:
+
             nombreTipo = "Accesorios" ;
 
             break ;
 
         case 3:
+
             nombreTipo = "Otros" ;
 
             break ;
 
         default:
+
             nombreTipo = "Desconocido" ;
 
             break ;
@@ -711,49 +680,33 @@ void DetalleVentaArchivo::generarReporteRecaudacionPorTipoProducto()
 bool DetalleVentaArchivo::hacerBackup ()
 {
 
-    // Abro el archivo original ("DetalleVenta.dat")
-
     FILE* pArchivoOriginal = fopen(archivo_DetalleVenta,"rb") ;
 
     if(pArchivoOriginal == nullptr)
     {
 
-        // Si no existe el archivo original, devuelve error.
-
         return false ;
     }
-
-    // 2. Abro o creo el archivo de backup
 
     FILE* pBackup = fopen(archivo_DetalleVenta_Backup,"wb") ;
 
     if(pBackup == nullptr)
     {
 
-        // Si no se puede crear el backup, cerrar el original y devolver error.
-
         fclose(pArchivoOriginal) ;
 
         return false ;
     }
 
-    // Búfer temporal para copiar datos
-
     char temporal[1024] ;
 
     int bytesLeidos ;
 
-    // Copio el contenido: leer un bloque y escribirlo hasta el final del archivo
-
     while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
     {
 
-        // Escribir solo los bytes que se leyeron (pueden ser menos de 1024 en la última lectura)
-
         fwrite(temporal, 1, bytesLeidos, pBackup) ;
     }
-
-    // Cerrar ambos archivos
 
     fclose(pArchivoOriginal) ;
 

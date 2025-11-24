@@ -5,29 +5,27 @@
 class EmpleadoArchivo
 {
 
-private: /// Atributos
+private:
 
     const char *archivo_Empleado = "Empleados.dat" ;
 
     const char *archivo_Empleado_Backup = "Empleados_Backup.bkp";
 
-public: /// Metodos
+public:
 
-/// FUNCIONES ABML
 
-    bool guardar (const Empleado &reg) ; // <-- Metodo para guardar un nuevo registro
 
-    bool bajaLogica (int id_persona) ; // <-- Metodo para hacer la baja logica
+    bool guardar (const Empleado &reg) ;
+
+    bool bajaLogica (int id_persona) ;
 
     bool altaLogica(int id_persona) ;
 
-    Empleado leer (int pos) ; // <-- Metodo para leer (listado)
+    Empleado leer (int pos) ;
 
     bool modificar (const Empleado &reg) ;
 
     void modificarCampo ();
-
-/// FUNCIONES AUXILIARES
 
     int getCantidadRegistros () ;
 
@@ -35,11 +33,7 @@ public: /// Metodos
 
     bool validarCUIT (std::string cuit);
 
-/// REPORTES
-
     void calcularEmpleadosConMasHoras ();
-
-/// BACKUPS
 
     bool hacerBackup ();
 

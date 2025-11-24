@@ -8,22 +8,21 @@
 
 using namespace std ;
 
-// constructores
 
-Producto::Producto() // por defecto con lista de inicializacion
+Producto::Producto()
 
     : ID_Producto(0), ID_Proveedor(), descripcion{}, marca{}, tipoProducto(0), precioActual(0.0), garantia(0), cantidadStock(0), estado(true)
-{} // inicializo los arrays marca y descripcion vacios
+{}
 
-// consturctor con parametros
+
 
 Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcion, const string &marca,int _tipoProducto, float _precioActual, int _garantia, int _cantStock, bool _estado)
 
-// Aca ID_Proveedor() llama al constructor por defecto de Proveedor
+
 
     : ID_Producto(_id_Producto), ID_Proveedor(), tipoProducto(_tipoProducto), precioActual(_precioActual), garantia(_garantia), cantidadStock(_cantStock), estado(_estado)
 {
-// setters para asignar cadenas de texto
+
 
     setDescripcion(descripcion) ;
 
@@ -31,7 +30,7 @@ Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcio
 
 }
 
-// getters
+
 
 int Producto::getID_Producto() const
 {
@@ -39,7 +38,7 @@ int Producto::getID_Producto() const
     return ID_Producto ;
 }
 
-int Producto::getID_Proveedor() const   // la funcion devuelve un proveedor (composicion)
+int Producto::getID_Proveedor() const
 {
 
     return ID_Proveedor ;
@@ -88,7 +87,6 @@ bool Producto::getEstado() const
     return estado ;
 }
 
-// setters
 
 void Producto::setID_Producto(int _idProducto)
 {
@@ -159,17 +157,11 @@ void Producto::cargar()
 
     ProveedorArchivo archivoProv ;
 
-//    int cantReg = archivoProd.getCantidadRegistros() ;
-
-    string str ; // Para cargar Marca
+    string str ;
 
     string descripcionNueva ;
 
-//    bool descripcionValida = false ;
-
     int idProveedor ;
-
-//    int opcion ;
 
     do
     {
@@ -184,14 +176,7 @@ void Producto::cargar()
 
     this->setDescripcion(descripcionNueva) ;
 
-
-
-    // Asignacion de ID Autoincremental
-
     setID_Producto(archivoProd.obtenerID()) ;
-
-    // Marca
-    // CORRECCIÓN 2: Línea reescrita para eliminar el carácter invisible.
 
     cout << "Ingrese la marca del producto: " ;
 
@@ -205,14 +190,10 @@ void Producto::cargar()
 
     cout << "Ingrese el ID del proveedor:"  ;
 
-    // Bucle para pedir y validar el ID del Proveedor
-
     while (posProveedor == -1)
     {
 
         cin >> idProveedor ;
-
-        // Asumo que tienes un método 'buscarPosicion' en ProveedorArchivo similar a ProductoArchivo
 
         posProveedor = archivoProv.buscarPosicion(idProveedor) ;
 
@@ -220,17 +201,13 @@ void Producto::cargar()
         {
 
             cout << "ERROR: El ID del proveedor no existe." << endl;
+
             cout << "Ingrese un ID del proveedor valido: ";
         }
     }
 
-    // Si salimos del bucle, posProveedor ya no es -1 y el ID es válido.
-    // Usamos el setter para asignarlo al objeto Producto.
+
     this->setID_Proveedor(idProveedor);
-
-
-
-    // Tipo de Producto
 
     cout << "Ingrese Tipo de Producto (1-PCS, 2-Accesorios, 3-Otros): " ;
 
@@ -238,15 +215,11 @@ void Producto::cargar()
 
     setTipoProducto(tipoProducto) ;
 
-    // Precio Actual
-
     cout << "Ingrese el precio (en pesos) del producto: $" ;
 
     cin >> precioActual ;
 
     setPrecioActual(precioActual) ;
-
-    // Garantía
 
     cout << "Ingrese la garantia (en meses) que tiene el producto: " ;
 
@@ -254,15 +227,11 @@ void Producto::cargar()
 
     setGarantia(garantia) ;
 
-    // Cantidad en Stock
-
     cout << "Ingrese la cantidad que hay del producto: " ;
 
     cin >> cantidadStock ;
 
     setCantidadStock(cantidadStock) ;
-
-    // El estado es true por defecto.
 
     if (archivoProd.guardar(*this))
     {
@@ -303,526 +272,4 @@ void Producto::mostrar()
 
 }
 
-
-/* void Producto::modificarCampos() {
-
-
-
-    ProductoArchivo archivo ;
-
-
-
-    int id_a_buscar ;
-
-
-
-    int opcion ;
-
-
-
-    string nuevo_dato_str ;
-
-
-
-    cout << "Modificar un campo especifico del producto" << endl ;
-
-
-
-    cout << "-------------------------------------------" << endl ;
-
-
-
-    cout << "Ingrese el ID del producto a modificar: " ;
-
-
-
-    cin >> id_a_buscar ;
-
-
-
-    int pos = archivo.buscarPosicion(id_a_buscar) ;
-
-
-
-    if (pos == -1)
-    {
-
-
-
-        cout << "ERROR: ID de producto no encontrado." << endl ;
-
-
-
-        system("pause") ;
-
-
-
-        return ;
-
-    }
-
-
-
-    // Cargar el objeto producto actual desde el archivo
-
-
-
-    *this = archivo.leer(pos) ;
-
-
-
-
-
-    do
-    {
-
-
-
-        system("cls") ;
-
-
-
-        cout << "Producto a Modificar (ID: " << this->getID_Producto() << "):" << endl ;
-
-
-
-        cout << "-----------------------------" << endl ;
-
-
-
-        this->mostrar() ; // Muestra el estado actual del producto
-
-
-
-        cout << "Seleccione el campo a modificar:" << endl ;
-
-
-
-        cout << "1. Marca" << endl ;
-
-
-
-        cout << "2. Descripcion" << endl ;
-
-
-
-        cout << "3. Precio" << endl ;
-
-
-
-        cout << "4. Tipo de producto" << endl ;
-
-
-
-        cout << "5. Garantia" << endl ;
-
-
-
-        cout << "6. Cantidad" << endl ;
-
-
-
-        cout << "7. Finalizar" << endl ;
-
-
-
-        cout << "0. Volver al menu anterior " << endl ;
-
-
-
-        cout << endl << "Opcion: " ;
-
-
-
-        cin >> opcion ;
-
-
-
-        cout << endl ;
-
-
-
-        switch (opcion)
-        {
-
-
-
-        case 1:   // Modificar marca (string)
-        {
-
-
-
-            cout << "Modificar marca: " ;
-
-
-
-            nuevo_dato_str = cargarCadena() ;
-
-
-
-            this->setMarca(nuevo_dato_str) ;
-
-
-
-            if (archivo.modificar(*this))
-            {
-
-
-
-                cout << endl << "Marca modificada y guardada con exito en el archivo." << endl ;
-
-
-
-            }
-            else
-            {
-
-
-
-                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-            }
-
-
-
-            system("pause") ;
-
-
-
-            break ;
-        }
-
-
-
-        case 2:   // Modificar Descripcion
-        {
-
-
-
-            string nueva_desc ;
-
-
-
-            cout << "Nueva descripcion: " ;
-
-
-
-            nueva_desc = cargarCadena() ;
-
-
-
-            this->setDescripcion(nueva_desc) ;
-
-
-
-            if (archivo.modificar(*this))
-            {
-
-
-
-                cout << endl << "Descripcion modificada y guardada con exito en el archivo." << endl ;
-
-
-
-            }
-            else
-            {
-
-
-
-                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-            }
-
-
-
-            system("pause") ;
-
-
-
-            break ;
-
-        }
-
-
-
-        case 3:   // Modificar Precio
-        {
-
-
-
-            float nuevo_precio ;
-
-
-
-            cout << "Nuevo precio: $" ;
-
-
-
-            cin >> nuevo_precio ;
-
-
-
-            this->setPrecioActual(nuevo_precio) ;
-
-
-
-            if (archivo.modificar(*this))
-            {
-
-
-
-                cout << endl << "Precio modificado y guardado con exito en el archivo." << endl ;
-
-
-
-            }
-            else
-            {
-
-
-
-                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-            }
-
-
-
-            system("pause") ;
-
-
-
-            break ;
-
-        }
-
-
-
-        case 4:
-        {
-
-
-
-            int nuevo_tipo ;
-
-
-
-            cout << "Nuevo tipo de producto" ;
-
-
-
-            cin >> nuevo_tipo ;
-
-
-
-            this->setTipoProducto(nuevo_tipo) ;
-
-
-
-            if (archivo.modificar(*this))
-            {
-
-
-
-                cout << endl << "Tipo de producto modificado y guardado con exito en el archivo." << endl ;
-
-
-
-            }
-            else
-            {
-
-
-
-                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-            }
-
-
-
-            system("pause") ;
-
-
-
-            break ;
-        }
-
-
-
-        case 5:
-        {
-
-
-
-            int nueva_garantia ;
-
-
-
-            cout << "Nueva garantia" ;
-
-
-
-            cin >> nueva_garantia ;
-
-
-
-            this->setGarantia(nueva_garantia) ;
-
-
-
-            if (archivo.modificar(*this))
-            {
-
-
-
-                cout << endl << "Garantia modificada y guardada con exito en el archivo." << endl ;
-
-
-
-            }
-            else
-            {
-
-
-
-                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-            }
-
-
-
-            system("pause") ;
-
-
-
-            break ;
-        }
-
-
-
-        case 6:
-        {
-
-
-
-            int nueva_cantidad ;
-
-
-
-            cout << "Nueva cantidad" ;
-
-
-
-            cin >> nueva_cantidad ;
-
-
-
-            this->setCantidadStock(nueva_cantidad) ;
-
-
-
-            if (archivo.modificar(*this))
-            {
-
-
-
-                cout << endl << "Cantidad modificada y guardada con exito en el archivo." << endl ;
-
-
-
-            }
-            else
-            {
-
-
-
-                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
-            }
-
-
-
-            system("pause") ;
-
-
-
-            break ;
-        }
-
-
-
-        case 7:
-        {
-
-
-
-            cout << "Finalizando y volviendo al menu anterior" ;
-
-
-
-            break ;
-        }
-
-
-
-
-
-        case 0:
-
-
-
-            cout << "Volviendo al menu anterior" << endl ;
-
-
-
-            return ;
-
-
-
-        default:
-
-
-
-            cout << "Opcion invalida." << endl ;
-
-
-
-            system("pause") ;
-
-        }
-
-
-
-    }
-    while (opcion != 7) ;
-
-
-
-    // Guardar el objeto 'this' (con los cambios en memoria) en el archivo
-
-
-
-    if (archivo.modificar(*this))
-    {
-
-
-
-        cout << "El producto ha sido modificado y guardado con éxito." << endl ;
-
-
-
-    }
-    else
-    {
-
-
-
-        cout << "ERROR: No se pudo guardar la modificación en el archivo." << endl ;
-
-    }
-
-
-
-}
-*/
 

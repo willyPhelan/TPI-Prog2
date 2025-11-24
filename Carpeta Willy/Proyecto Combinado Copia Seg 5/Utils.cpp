@@ -30,8 +30,6 @@ string aMinusculas(string s)
     for (int i = 0; i < longitud ; ++i)
     {
 
-        // tolower() convierte el carácter a minúscula
-
         s[i] = tolower(s[i]) ;
     }
 

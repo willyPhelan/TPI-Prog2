@@ -11,11 +11,11 @@ using namespace std ;
 bool EmpleadoArchivo::guardar(const Empleado &reg)
 {
 
-    FILE *archivo ;  // Se crea el puntero para utilizar el archivo
+    FILE *archivo ;
 
-    archivo = fopen(archivo_Empleado, "ab") ; // Se abre el archivo en modo append binary
+    archivo = fopen(archivo_Empleado, "ab") ;
 
-    if (archivo == nullptr)  // Se verifica si se abrio correctamente el archivo
+    if (archivo == nullptr)
     {
 
         cout << "NO SE PUDO CREAR EL ARCHIVO. " << endl ;
@@ -23,12 +23,11 @@ bool EmpleadoArchivo::guardar(const Empleado &reg)
         return false ;
     }
 
-    int escribio = fwrite(&reg, sizeof (Empleado), 1, archivo) ; // Se escribe la informacion en el archivo
+    int escribio = fwrite(&reg, sizeof (Empleado), 1, archivo) ;
 
-    fclose(archivo) ; // Se cierra el archivo
+    fclose(archivo) ;
 
-    return escribio ; // Devuelvo la variable escribio
-
+    return escribio ;
 }
 
 bool EmpleadoArchivo::bajaLogica(int id_persona)
@@ -347,7 +346,7 @@ void EmpleadoArchivo::modificarCampo ()
         switch (datos2)
         {
 
-        case 1:   // Modificar nombre (string)
+        case 1:
         {
 
             cout << "Modificar nombre: " << endl;
@@ -373,7 +372,7 @@ void EmpleadoArchivo::modificarCampo ()
             break;
         }
 
-        case 2:   // Modificar apellido (string)
+        case 2:
         {
 
             cout << "Modificar apellido: " << endl;
@@ -400,7 +399,7 @@ void EmpleadoArchivo::modificarCampo ()
             break;
         }
 
-        case 3:  // Modificar telefono (string)
+        case 3:
         {
 
             cout << "Modificar telefono: " << endl;
@@ -426,7 +425,7 @@ void EmpleadoArchivo::modificarCampo ()
             break;
         }
 
-        case 4:  // Modificar direccion (string)
+        case 4:
         {
 
             cout << "Modificar direccion: " << endl;
@@ -452,7 +451,7 @@ void EmpleadoArchivo::modificarCampo ()
             break;
         }
 
-        case 5:  // Modificar CUIT (string)
+        case 5:
         {
 
             cout << "Modificar CUIT: " << endl;
@@ -488,7 +487,7 @@ void EmpleadoArchivo::modificarCampo ()
             break;
         }
 
-        case 6: // Modificar ID de puesto (int)
+        case 6:
         {
 
             cout << "Modificar ID de puesto: " << endl;
@@ -528,7 +527,7 @@ void EmpleadoArchivo::modificarCampo ()
             break;
         }
 
-        case 7: // Modificar horas trabajadas por semana
+        case 7:
         {
 
             cout << "Modificar horas trabajadas por semana: " << endl;
@@ -554,7 +553,7 @@ void EmpleadoArchivo::modificarCampo ()
             break;
         }
 
-        case 8:  // Salir al menu anterior
+        case 8:
         {
 
             cout << "Saliendo al menu anterior..." << endl;
@@ -581,9 +580,6 @@ void EmpleadoArchivo::modificarCampo ()
     }
     while (datos2 != 8);
 }
-
-
-/// REPORTES
 
 
 void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
@@ -656,8 +652,6 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
 
                 horas [j+1] = aux_horas;
 
-//-----------------------------------------------------
-
                 aux_id = id_empleado [j];
 
                 id_empleado [j] = id_empleado [j+1];
@@ -667,11 +661,7 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
         }
     }
 
-    // El empleado con mas horas esta en la posición [0]
-
     Empleado empleadoMasHoras = leer(buscarPosicion(id_empleado[0])) ;
-
-    // El empleado con MENOS horas esta en la última posición [acum_activos - 1]
 
     Empleado empleadoMenosHoras = leer(buscarPosicion(id_empleado[acum_activos - 1])) ;
 
@@ -681,8 +671,6 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
 
     cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
-    // EMPLEADO CON MÁS HORAS (Posición 0)
-
     cout << "EMPLEADO CON MAS HORAS TRABAJADAS (" << horas[0] << " hs): "
 
          << empleadoMasHoras.getNombre() << " "
@@ -690,8 +678,6 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
          << empleadoMasHoras.getApellido() << " (ID: "
 
          << id_empleado[0] << ")" << endl ;
-
-    // EMPLEADO CON MENOS HORAS (Última Posición)
 
     cout << "EMPLEADO CON MENOS HORAS (" << horas[acum_activos - 1] << " hs): "
 
@@ -712,15 +698,13 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
 
         empleadoObjeto = leer (buscarPosicion(id_empleado[i]));
 
-        //    if (empleadoObjeto.getEstado() == true){
-
         cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
         cout << "ID de Empleado: " << id_empleado [i] << " | " << "Nombre y apellido: " << empleadoObjeto.getNombre () << " " << empleadoObjeto.getApellido () << " | " << "Horas trabajadas a la semana: " << horas [i] << endl;
 
         cout << "-------------------------------------------------------------------------------------------------" << endl;
 
-        //    }
+
     }
 
     delete[] id_empleado;
@@ -734,49 +718,34 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
 bool EmpleadoArchivo::hacerBackup ()
 {
 
-    // Abro el archivo original ("Empleados.dat")
-
     FILE* pArchivoOriginal = fopen(archivo_Empleado,"rb") ;
 
     if(pArchivoOriginal == nullptr)
-    {
 
-        // Si no existe el archivo original, devuelve error.
+    {
 
         return false ;
     }
-
-    // 2. Abro o creo el archivo de backup
 
     FILE* pBackup = fopen(archivo_Empleado_Backup,"wb") ;
 
     if(pBackup == nullptr)
     {
 
-        // Si no se puede crear el backup, cerrar el original y devolver error.
-
         fclose(pArchivoOriginal) ;
 
         return false ;
     }
 
-    // Búfer temporal para copiar datos
-
     char temporal[1024] ;
 
     int bytesLeidos ;
 
-    // Copio el contenido: leer un bloque y escribirlo hasta el final del archivo
-
     while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
     {
 
-        // Escribir solo los bytes que se leyeron (pueden ser menos de 1024 en la última lectura)
-
         fwrite(temporal, 1, bytesLeidos, pBackup) ;
     }
-
-    // Cerrar ambos archivos
 
     fclose(pArchivoOriginal) ;
 

@@ -6,9 +6,6 @@
 
 using namespace std ;
 
-// consturcotres
-
-// constructor por defecto
 
 Venta::Venta()
 
@@ -16,22 +13,21 @@ Venta::Venta()
 
 {}
 
-// constructor con parametros
 
 Venta::Venta(int id_cliente, int id_venta, int id_persona, const Fecha &_fechaVenta, int _mediopago, int _tipoEnvio, float _subtotal, float _montoTotal, bool _estado)
 
-// Inicializa miembros de objeto con sus constructores por defecto.
+
 
     :ID_Venta(id_venta), ID_persona(), fechaVenta(_fechaVenta), medioDePago(_mediopago), tipoEnvio(_tipoEnvio), subTotal(_subtotal), montoTotal(_montoTotal), estado(_estado)
 {
-    // Lógica para asignar el ID a la Persona (ya que el miembro es un objeto)
+
 
     ID_persona.setID(id_persona) ;
 }
 
 
 
-// getters
+
 
 int Venta::getID_Venta() const
 {
@@ -45,7 +41,7 @@ int Venta::getID_Cliente()
     return ID_Cliente ;
 }
 
-Persona Venta::getID_Persona()  // composicion Persona
+Persona Venta::getID_Persona()
 {
 
     return ID_persona ;
@@ -57,10 +53,6 @@ Fecha Venta::getFechaVenta()
     return fechaVenta ;
 }
 
-/* Envio Venta::getEnvio() const {
-
-    return envioAsociado ;
-} */
 
 int Venta::getMedioPago()
 {
@@ -85,20 +77,14 @@ float Venta::getMontoTotal()
 
     return montoTotal ;
 }
-/*
-int Venta::getTipoFactura()
-{
 
-    return tipoFactura ;
-}
-*/
 bool Venta::getEstado()
 {
 
     return estado ;
 }
 
-// setters
+
 
 void Venta::setID_Venta(int _IDventa)
 {
@@ -124,10 +110,7 @@ void Venta::setFechaVenta(Fecha _fechaVenta)
     fechaVenta = _fechaVenta ;
 }
 
-/*void Venta::setEnvio(const Envio &_envio) {
 
-    envioAsociado = _envio ;
-} */
 
 void Venta::setMedioDePago(int _medioPago)
 {
@@ -155,12 +138,7 @@ void Venta::setMontoTotal(float _montoTotal)
 
 }
 
-/*void Venta::setTipoFactura(int _tipoFactura)
-{
 
-    tipoFactura = _tipoFactura ;
-
-}*/
 
 void Venta::setEstado(bool _estado)
 {
@@ -168,47 +146,7 @@ void Venta::setEstado(bool _estado)
     estado = _estado ;
 }
 
-/* void Venta::cargarVenta(){
 
-    int num ;
-
-    cout << "Carga de una venta" << endl ;
-
-    cout << "-------------------------------" << endl ;
-
-    cout << "ID VENTA TIENE QUE SER AUTOINCRMENTAL DESDE ARCHIVO VENTA" << endl ;
-
-    cout << "Medio de pago: " ;
-
-    cin >> num ;
-
-    setMedioDePago(num) ;
-
-    cout << "Tipo de envio: (1- Domicilio, 0- Retiro en Local): " ;
-
-    cin >> num ;
-
-    setTipoEnvio(num) ;
-
-    cout << "Subtotal: " ;
-
-    cin >> num ;
-
-    setSubTotal(num) ;
-
-    cout << "Monto total: " ;
-
-    cin >> num ;
-
-    setMontoTotal(num) ;
-
-    cout << "Tipo de factura (1- Factura A, 2- Factura B, 3- Factura C): " ;
-
-    cin >> num ;
-
-    setTipoFactura(num) ;
-
-} */
 
 
 bool Venta::cargarVenta(){
@@ -219,20 +157,14 @@ bool Venta::cargarVenta(){
 
     float montoFinal = 0;
 
-    float subtotalAcumulado = 0.0 ; // Para calcular el subtotal
-
+    float subtotalAcumulado = 0.0 ;
     int contadorProductos = 1 ;
 
     int idcliente;
 
-    ClienteArchivo archivoCliente ; // Objeto para manejar la busqueda de clientes
+    ClienteArchivo archivoCliente ;
 
     bool clienteEncontrado = false ;
-
-    // Carga de ID_Persona y Fecha
-
-    // Lógica de carga de ID_Persona aca
-    // Lógica de carga de Fecha , usando Fecha::cargar()
 
     Fecha fechaActual ;
 
@@ -245,8 +177,6 @@ bool Venta::cargarVenta(){
     fechaActual.cargar() ;
 
     setFechaVenta(fechaActual) ;
-
-    //2. Carga de la Cabecera de la Venta
 
     cout << "--------------------------------------------------------------" << endl ;
 
@@ -320,9 +250,6 @@ bool Venta::cargarVenta(){
 
     setTipoEnvio(num) ;
 
-
-    // 3. Carga del DETALLE_VENTA (Bucle)
-
     cout << endl << "Carga de productos de (DETALLE DE VENTA)" << endl ;
 
     cout << "--------------------------------------------------------------" << endl ;
@@ -330,7 +257,7 @@ bool Venta::cargarVenta(){
     do
     {
 
-        Detalle_Venta detalle ;// Instancia de Detalle_Venta
+        Detalle_Venta detalle ;
 
         DetalleVentaArchivo archivoDetalleVenta ;
 
@@ -343,12 +270,10 @@ bool Venta::cargarVenta(){
 
         cout << "Producto #" << contadorProductos << " " ;
 
-        detalle.cargar() ;// Carga de ID_Producto, Cantidad, Precio_Unitario
+        detalle.cargar() ;
 
         if (detalle.getID_Producto() > 0 && detalle.getCantidad() > 0)
         {
-
-            // LOGICA DE REDUCCION DE STOCK
 
             int id_prod = detalle.getID_Producto() ;
 
@@ -356,12 +281,10 @@ bool Venta::cargarVenta(){
 
             int pos = archivoP.buscarPosicion(id_prod) ;
 
-//            int nuevo_stock;
-
             if (pos != -1)
             {
 
-                Producto regP = archivoP.leer(pos) ; // Leer el registro completo
+                Producto regP = archivoP.leer(pos) ;
 
 
                 int nuevo_stock = regP.getCantStock() - cantidad_vendida ;
@@ -391,13 +314,9 @@ bool Venta::cargarVenta(){
 
         cout << "Precio del Producto: $" << detalle.getPrecio_Unitario() << endl ;
 
-        // CÁLCULO DE SUBTOTAL:
-
         subtotalAcumulado += (detalle.getCantidad() * detalle.getPrecio_Unitario()) ;
 
         contadorProductos++ ;
-
-        // *NOTA: Aquí se debería guardar 'linea' en su archivo correspondiente (DetalleVentas.dat)*
 
         cout << endl << "Detalle de venta cargado. " << endl ;
 
@@ -425,35 +344,13 @@ bool Venta::cargarVenta(){
 
     montoFinal += subtotalAcumulado ;
 
-    // 4. Actualización de Totales y Factura
-
     setSubTotal(subtotalAcumulado) ;
 
-    // El monto total debe incluir impuestos y costo de envío (si aplica)
-
     setMontoTotal(montoFinal) ;
-/*
-    cout << "Tipo de factura: (1- Factura A, 2- Factura B, 3- Factura C): " ;
 
-    cin >> num ;
-
-    cout << endl ;
-*/
     cout << "--------------------------------------------------------------" << endl << endl ;
 
     cout << "Total: $" << getMontoTotal() << endl ;
-
-//    cout << "IVA: $" << subtotalAcumulado * 0.21 << endl ;
-
-  /* if (getMontoTotal() > 50000) {
-
-    cout << "TOTAL: $" << getMontoTotal() - regEnvio.getValor_Envio()  << endl ;
-
-   } else { cout << "TOTAL: $" << getMontoTotal() << endl ; } */
-
-//    setTipoFactura(num) ;
-
-    // El estado de la Venta es activo por defecto al cargar
 
     setEstado(true);
 
@@ -518,8 +415,6 @@ void Venta::mostrarVenta()
     cout << "Subtotal (Monto sin envio incluido): $" << getSubTotal() << endl ;
 
     cout << "Monto total (con envio incluido, si es aplicable): $" << getMontoTotal() << endl ;
-
-//    cout << "Tipo de factura: " << getTipoFactura() << endl ;
 
     if(getEstado())
     {

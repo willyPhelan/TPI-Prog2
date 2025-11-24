@@ -5,7 +5,7 @@
 class Cliente : public Persona
 {
 
-private: // Atributos
+private:
 
     char mail [30] ;
 
@@ -13,27 +13,17 @@ private: // Atributos
 
 public:
 
-
-// Constructor
-
-    Cliente() ; // agrego constructor por defecto
+    Cliente() ;
 
     Cliente (std::string mail, int tipo_Cliente) ;
-
-// Getters
 
     std::string getMail () ;
 
     int getTipo_Cliente() ;
 
-// Setters
-
-
     void setMail (std::string mail) ;
 
     void setTipo_Cliente (int tipo_Cliente) ;
-
-// Metodos
 
     void cargar() ;
 

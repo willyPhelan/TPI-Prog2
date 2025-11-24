@@ -7,11 +7,11 @@ class Persona
 public:
 
 
-    Persona( // constructor por defecto
+    Persona(
 
         int id = 0, const std::string& nombre = "N/A", const std::string &apellido = "N/A", const std::string &telefono = "", const std::string &direccion = "", const std::string& cuit = "", bool estado = true );
 
-    // Getters
+
 
     int getID() const ;
 
@@ -27,8 +27,6 @@ public:
 
     bool getEstado() const ;
 
-    // Setters
-
     void setID(int id) ;
 
     void setNombre(const std::string &nombre) ;
@@ -42,8 +40,6 @@ public:
     void setCuit(const std::string &cuit) ;
 
     void setEstado(bool estado) ;
-
-    // metodos
 
     void mostrar() const ;
 

@@ -6,15 +6,15 @@ class Detalle_Venta
 
 public:
 
-// Constructores
+
 
     Detalle_Venta() ;
 
-// Constructor con parámetros
+
 
     Detalle_Venta(int idDetalle, int idProducto, int idVenta, int cantidad, float precio, bool activo = true) ;
 
-//GETTERS
+
 
     int getID_Detalle() const ;
 
@@ -28,8 +28,6 @@ public:
 
     bool getEstado() const ;
 
-// SETTERS
-
     void setID_Detalle(int idDetalle) ;
 
     void setID_Producto(int idProducto) ;
@@ -41,8 +39,6 @@ public:
     void setPrecio_Unitario(float precio) ;
 
     void setEstado(bool activo) ;
-
-// MÉTODOS
 
     void cargar() ;
 

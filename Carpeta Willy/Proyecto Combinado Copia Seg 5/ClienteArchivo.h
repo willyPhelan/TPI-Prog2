@@ -5,15 +5,14 @@
 class ClienteArchivo
 {
 
-private: /// Atributos
+private:
 
     const char *archivo_Cliente = "Clientes.dat" ;
 
     const char *archivo_Cliente_Backup = "Clientes_Backup.bkp";
 
-public: /// Metodos
+public:
 
-/// FUNCIONES ABML
 
     bool guardar (const Cliente &reg) ;
 
@@ -27,8 +26,6 @@ public: /// Metodos
 
     void modificarCampo ();
 
-/// FUNCIONES AUXILIARES
-
     int getCantidadRegistros () ;
 
     int buscarPosicion (int id_persona) ;
@@ -37,7 +34,6 @@ public: /// Metodos
 
     int verificarID (int idcliente);
 
-/// BACKUPS
 
     bool hacerBackup ();
 

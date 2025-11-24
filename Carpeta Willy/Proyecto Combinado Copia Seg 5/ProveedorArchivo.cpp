@@ -7,7 +7,6 @@
 
 using namespace std;
 
-/// FUNCIONES ABML
 
 bool ProveedorArchivo::guardar(const Proveedor &reg)
 {
@@ -171,7 +170,6 @@ bool ProveedorArchivo::modificar(const Proveedor &reg)
     return escribio ;
 }
 
-/// FUNCIONES AUXILIARES
 
 int ProveedorArchivo::buscarPosicion (int id_persona)
 {
@@ -338,7 +336,7 @@ void ProveedorArchivo::modificarCampo ()
         switch (datos2)
         {
 
-        case 1:   // Modificar nombre (string)
+        case 1:
         {
 
             cout << "Modificar nombre: " << endl;
@@ -364,7 +362,7 @@ void ProveedorArchivo::modificarCampo ()
             break;
         }
 
-        case 2:   // Modificar telefono (string)
+        case 2:
         {
 
             cout << "Modificar telefono: " << endl;
@@ -391,7 +389,7 @@ void ProveedorArchivo::modificarCampo ()
 
         }
 
-        case 3:  // Modificar direccion (string)
+        case 3:
         {
 
             cout << "Modificar direccion: " << endl;
@@ -418,7 +416,7 @@ void ProveedorArchivo::modificarCampo ()
 
         }
 
-        case 4:  // Modificar CUIT (string)
+        case 4:
         {
 
             cout << "Modificar CUIT: " << endl;
@@ -454,7 +452,7 @@ void ProveedorArchivo::modificarCampo ()
             break;
         }
 
-        case 5:  // Modificar mail (string)
+        case 5:
         {
 
             cout << "Modificar mail: " << endl;
@@ -479,7 +477,7 @@ void ProveedorArchivo::modificarCampo ()
             break;
         }
 
-        case 6: // Modificar tipo de proveedor (int)
+        case 6:
         {
 
             cout << "Modificar tipo de proveedor: " << endl;
@@ -516,7 +514,7 @@ void ProveedorArchivo::modificarCampo ()
             break;
         }
 
-        case 7: // Salir al menu anterior
+        case 7:
         {
 
             cout << "Saliendo al menu anterior..." << endl;
@@ -548,50 +546,38 @@ void ProveedorArchivo::modificarCampo ()
 bool ProveedorArchivo::hacerBackup ()
 {
 
-
-    // Abro el archivo original ("Proveedores.dat")
-
     FILE* pArchivoOriginal = fopen(archivo_Proveedor,"rb") ;
 
     if(pArchivoOriginal == nullptr)
     {
 
-        // Si no existe el archivo original, devuelve error.
 
         return false ;
     }
 
-    // 2. Abro o creo el archivo de backup
 
     FILE* pBackup = fopen(archivo_Proveedor_Backup,"wb") ;
 
     if(pBackup == nullptr)
     {
 
-        // Si no se puede crear el backup, cerrar el original y devolver error.
 
         fclose(pArchivoOriginal) ;
 
         return false ;
     }
 
-    // Búfer temporal para copiar datos
 
     char temporal[1024] ;
 
     int bytesLeidos ;
 
-    // Copio el contenido: leer un bloque y escribirlo hasta el final del archivo
-
     while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
     {
-
-        // Escribir solo los bytes que se leyeron (pueden ser menos de 1024 en la última lectura)
 
         fwrite(temporal, 1, bytesLeidos, pBackup) ;
     }
 
-    // Cerrar ambos archivos
 
     fclose(pArchivoOriginal) ;
 

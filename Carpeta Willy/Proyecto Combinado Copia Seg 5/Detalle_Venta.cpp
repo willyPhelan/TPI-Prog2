@@ -4,22 +4,21 @@
 
 using namespace std;
 
-// 1. CONSTRUCTORES
-
-// Constructor por defecto
 
 Detalle_Venta::Detalle_Venta()
-    : ID_Detalle(0), ID_Producto(0), ID_Venta(0), cantidad(0), precio_Unitario(0.0), estado(true) // Estado Activo por defecto
+
+    : ID_Detalle(0), ID_Producto(0), ID_Venta(0), cantidad(0), precio_Unitario(0.0), estado(true)
 {}
 
-// Constructor con parámetros
+
 
 Detalle_Venta::Detalle_Venta(int idDetalle, int idProducto, int idVenta, int cantidad, float precio, bool activo)
+
     : ID_Detalle(idDetalle), ID_Producto(idProducto), ID_Venta(idVenta), cantidad(cantidad), precio_Unitario(precio), estado(activo)
 {}
 
 
-//GETTERS
+
 
 int Detalle_Venta::getID_Detalle() const
 {
@@ -57,7 +56,7 @@ bool Detalle_Venta::getEstado() const
     return estado ;
 }
 
-// SETTERS
+
 
 
 void Detalle_Venta::setID_Detalle(int idDetalle)
@@ -97,14 +96,9 @@ void Detalle_Venta::setEstado(bool activo)
 }
 
 
-// MÉTODOS
-
 
 void Detalle_Venta::cargar()
 {
-
-    // El ID_Producto y el ID_Venta Tiene que ir por composicion de las respectivas clases y ID_detalle de esta clase (lo genera el archivo)???
-    // Solo pedimos los datos necesarios al usuario.
 
     ProductoArchivo archivoP ;
 
@@ -112,25 +106,20 @@ void Detalle_Venta::cargar()
 
     int id, pos, cantidad_a_vender ;
 
-
-    bool stock_ok = false ; // validacion de stock
-
-    // ID Detalle
+    bool stock_ok = false ;
 
     cout << endl << "ID Producto: " ;
 
     cin >> id ;
 
-    pos = archivoP.buscarPosicion(id);
-
-    // Validar si el producto existe
+    pos = archivoP.buscarPosicion(id) ;
 
     if (pos == -1)
     {
 
         cout << "ERROR: El ID de Producto no existe." << endl ;
 
-        return ; // Salir de cargar si el ID no es válido
+        return ;
     }
 
     regP = archivoP.leer(pos) ;

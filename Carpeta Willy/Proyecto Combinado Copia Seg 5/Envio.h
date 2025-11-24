@@ -8,11 +8,9 @@ class Envio
 
 public:
 
-    Envio() ; // constructor
+    Envio() ;
 
     Envio(int idVenta, Fecha fecha, int estado, float valor, bool activo) ;
-
-    // getters
 
     int getID_Envio() const ;
 
@@ -26,8 +24,6 @@ public:
 
     bool getEstado() const ;
 
-    // setters
-
     void setID_Envio(int idEnvio) ;
 
     void setID_Venta(int id_venta);
@@ -40,8 +36,6 @@ public:
 
     void setEstado(bool activo) ;
 
-    // metodos
-
     void cargar() ;
 
     void mostrar() const ;
@@ -49,7 +43,7 @@ public:
 
 private:
 
-    int ID_Envio ; //PREGUNTAR PROFE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    int ID_Envio ;
 
     int ID_Venta ;
 

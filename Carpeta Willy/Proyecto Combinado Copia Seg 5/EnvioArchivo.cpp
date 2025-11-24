@@ -3,10 +3,6 @@
 
 using namespace std ;
 
-// FUNCIONES
-
-// Obtengo la cantidad total de registros
-
 int EnvioArchivo::getCantidadRegistros()
 {
 
@@ -32,16 +28,11 @@ int EnvioArchivo::getCantidadRegistros()
     return bytes / sizeof(Envio);
 }
 
-// Genero el ID para el próximo registro
-// ID_Envio autoincremental, independiente de Venta.
-
 int EnvioArchivo::obtenerID()
 {
 
     return getCantidadRegistros() + 1 ;
 }
-
-// 3. Buscar la posición (índice) de un registro por ID_Envio
 
 int EnvioArchivo::buscarPosicion(int id_envio)
 {
@@ -55,19 +46,17 @@ int EnvioArchivo::buscarPosicion(int id_envio)
 
         reg = leer(i) ;
 
-        // busco por ID_Envio, la clave principal del archivo
-
         if (reg.getID_Envio() == id_envio)
         {
 
-            return i ; // Retorna la posicion
+            return i ;
         }
     }
 
-    return -1 ; // No encontrado
+    return -1 ;
 }
 
-// Busco la posición de un registro por ID_Venta
+
 
 int EnvioArchivo::buscarPosicionPorID_Venta(int id_venta)
 {
@@ -81,7 +70,6 @@ int EnvioArchivo::buscarPosicionPorID_Venta(int id_venta)
 
         reg = leer(i) ;
 
-        // para encontrar el envío asociado a una venta.
 
         if (reg.getID_Venta() == id_venta)
         {
@@ -93,11 +81,6 @@ int EnvioArchivo::buscarPosicionPorID_Venta(int id_venta)
     return -1 ;
 }
 
-
-
-// FUNCIONES ABML
-
-// ALTA
 
 bool EnvioArchivo::guardar(const Envio &reg)
 {
@@ -116,7 +99,6 @@ bool EnvioArchivo::guardar(const Envio &reg)
     return escrito  ;
 }
 
-// LECTURA
 
 Envio EnvioArchivo::leer(int pos)
 {
@@ -139,13 +121,9 @@ Envio EnvioArchivo::leer(int pos)
     return reg ;
 }
 
-// MODIFICACIÓN
-// Usa el ID_Envio de la venta pasada como parámetro para buscar la posición.
 
 bool EnvioArchivo::modificar(const Envio &reg)
 {
-
-    // 1. Buscar la posición del registro usando ID_Envio
 
     int pos = buscarPosicion(reg.getID_Envio()) ;
 
@@ -161,7 +139,6 @@ bool EnvioArchivo::modificar(const Envio &reg)
         return false ;
     }
 
-    // 2. Mover el puntero y sobrescribir
 
     fseek(p, pos * sizeof(Envio), SEEK_SET) ;
 
@@ -172,13 +149,9 @@ bool EnvioArchivo::modificar(const Envio &reg)
     return escrito  ;
 }
 
-// BAJA LÓGICA
-// Recibe el ID_Envio para realizar la baja.
-
 bool EnvioArchivo::bajaLogica(int id_envio)
 {
 
-    // 1. Busco la posicion por ID_Envio
 
     int pos = buscarPosicion(id_envio) ;
 
@@ -186,8 +159,6 @@ bool EnvioArchivo::bajaLogica(int id_envio)
     {
         return false ;
     }
-
-    // Leer y modificar estado
 
     Envio reg = leer(pos) ;
 
@@ -200,12 +171,10 @@ bool EnvioArchivo::bajaLogica(int id_envio)
 
     if (!reg.getEstado())
     {
-        return false ;    // Ya estaba inactivo
+        return false ;
     }
 
-    reg.setEstado(false) ; // Cambio a inactivo
-
-    // 3. Sobreescribo el registro modificado usa ID_Envio para buscar
+    reg.setEstado(false) ;
 
     return modificar(reg) ;
 }
@@ -213,16 +182,12 @@ bool EnvioArchivo::bajaLogica(int id_envio)
 bool EnvioArchivo::altaLogica(int id_envio)
 {
 
-    // 1. Busco la posicion por ID_Envio
-
     int pos = buscarPosicion(id_envio) ;
 
     if (pos == -1)
     {
         return false ;
     }
-
-    // Leer y modificar estado
 
     Envio reg = leer(pos) ;
 
@@ -235,17 +200,14 @@ bool EnvioArchivo::altaLogica(int id_envio)
 
     if (reg.getEstado())
     {
-        return true ;    // Ya estaba aactivo
+        return true ;
     }
 
-    reg.setEstado(true) ; // Cambio a activo
-
-    // 3. Sobreescribo el registro modificado usa ID_Envio para buscar
+    reg.setEstado(true) ;
 
     return modificar(reg) ;
 }
 
-//  funciones de EnvioArchivo
 
 void EnvioArchivo::modificarCampos()
 {
@@ -264,7 +226,7 @@ void EnvioArchivo::modificarCampos()
 
     cin >> id_a_buscar ;
 
-    int pos = buscarPosicion(id_a_buscar) ; // Uso el método de la clase EnvioArchivo
+    int pos = buscarPosicion(id_a_buscar) ;
 
     if (pos == -1)
     {
@@ -276,10 +238,9 @@ void EnvioArchivo::modificarCampos()
         return ;
     }
 
-    // Cargar el objeto Envio actual
-    // La modificacion se hace sobre este objeto, y luego se guarda en el archivo
 
-    Envio envio_modificar = leer(pos) ; // Uso el método de la clase EnvioArchivo
+
+    Envio envio_modificar = leer(pos) ;
 
     do
     {
@@ -290,7 +251,7 @@ void EnvioArchivo::modificarCampos()
 
         cout << "-----------------------------" << endl ;
 
-        envio_modificar.mostrar() ; // Llama al método de la instancia de Envio
+        envio_modificar.mostrar() ;
 
         cout << endl << "Seleccione el campo a modificar:" << endl ;
 
@@ -311,13 +272,11 @@ void EnvioArchivo::modificarCampos()
         switch (opcion)
         {
 
-        case 1:   // Modificar Fecha de Entrega
+        case 1:
         {
             int dia, mes, anio ;
 
             Fecha nueva_fecha ;
-
-            // OBTENER LA FECHA DE VENTA ASOCIADA
 
             VentaArchivo archivoVenta ;
 
@@ -338,7 +297,7 @@ void EnvioArchivo::modificarCampos()
 
                 cout << "La fecha de la venta original es: " ;
 
-                fechaVenta.mostrar() ; // Muestra la fecha para referencia
+                fechaVenta.mostrar() ;
 
                 cout << endl ;
 
@@ -404,7 +363,6 @@ void EnvioArchivo::modificarCampos()
                     cin >> anio ;
                 }
 
-                // Asigno al objeto Fecha temporal
 
                 nueva_fecha.setDia(dia) ;
 
@@ -412,14 +370,13 @@ void EnvioArchivo::modificarCampos()
 
                 nueva_fecha.setAnio(anio) ;
 
-                // VALIDACIÓN CLAVE
 
                 if (nueva_fecha.esMayorOIgualA(fechaVenta))
                 {
 
                     envio_modificar.setFecha_Entrega(nueva_fecha) ;
 
-                    fechaValida = true ; // Sale del bucle do-while
+                    fechaValida = true ;
 
                 }
                 else
@@ -458,7 +415,7 @@ void EnvioArchivo::modificarCampos()
             break ;
         }
 
-        case 2:   // Modifico valor del envio
+        case 2:
         {
 
             float nuevo_valor ;
@@ -469,7 +426,7 @@ void EnvioArchivo::modificarCampos()
 
             envio_modificar.setValor_Envio(nuevo_valor) ;
 
-            if (modificar(envio_modificar))   // Uso el método modificar de EnvioArchivo
+            if (modificar(envio_modificar))
             {
 
                 cout << endl << "Valor del envio modificado y guardado con exito." << endl ;
@@ -486,7 +443,8 @@ void EnvioArchivo::modificarCampos()
             break ;
         }
 
-        case 3:   // Modificar Estado del Envío
+        case 3:
+
         {
 
             cout << "Nuevo Estado (1-Pendiente, 2-En curso, 3-Entregado): " ;
@@ -506,7 +464,7 @@ void EnvioArchivo::modificarCampos()
 
             envio_modificar.setEstado_Entrega(nuevo_dato_int) ;
 
-            if (modificar(envio_modificar))   // Uso el método modificar de EnvioArchivo
+            if (modificar(envio_modificar))
             {
 
                 cout << endl << "Estado del envio modificado y guardado con exito." << endl ;
@@ -526,11 +484,11 @@ void EnvioArchivo::modificarCampos()
 
 
 
-        case 0: // Volver
+        case 0:
 
             cout << "Volviendo al menu anterior." << endl ;
 
-            return ; // Salir de la función
+            return ;
 
         default:
 
@@ -540,56 +498,43 @@ void EnvioArchivo::modificarCampos()
         }
 
     }
-    while (opcion != 0) ;   // El bucle termina si opcion es 0
+    while (opcion != 0) ;
 }
 
 
 bool EnvioArchivo::hacerBackup ()
 {
 
-    // Abro el archivo original ("Envios.dat")
 
     FILE* pArchivoOriginal = fopen(archivo_Envio,"rb") ;
 
     if(pArchivoOriginal == nullptr)
     {
 
-        // Si no existe el archivo original, devuelve error.
-
         return false ;
     }
-
-    // 2. Abro o creo el archivo de backup
 
     FILE* pBackup = fopen(archivo_Envio_Backup,"wb") ;
 
     if(pBackup == nullptr)
     {
 
-        // Si no se puede crear el backup, cerrar el original y devolver error.
-
         fclose(pArchivoOriginal) ;
 
         return false ;
     }
 
-    // Búfer temporal para copiar datos
-
     char temporal[1024] ;
 
     int bytesLeidos ;
 
-    // Copio el contenido: leer un bloque y escribirlo hasta el final del archivo
-
     while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
     {
 
-        // Escribir solo los bytes que se leyeron (pueden ser menos de 1024 en la última lectura)
 
         fwrite(temporal, 1, bytesLeidos, pBackup) ;
     }
 
-    // Cerrar ambos archivos
 
     fclose(pArchivoOriginal) ;
 

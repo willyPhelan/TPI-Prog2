@@ -8,7 +8,6 @@
 
 using namespace std ;
 
-/// FUNCIONES ABML
 
 bool ClienteArchivo::guardar(const Cliente &reg)
 {
@@ -170,7 +169,6 @@ bool ClienteArchivo::modificar (const Cliente &reg)
 
     return escribio ;
 }
-/// FUNCIONES AUXILIARES
 
 int ClienteArchivo::buscarPosicion (int id_persona)
 {
@@ -295,29 +293,29 @@ int ClienteArchivo::verificarID (int idcliente)
 void ClienteArchivo::modificarCampo ()
 {
 
-    Cliente cliente;
+    Cliente cliente ;
 
-    string datos;
+    string datos ;
 
-    int datos2;
+    int datos2 ;
 
-    cout << "Modificar un campo especifico de un cliente " << endl;
+    cout << "Modificar un campo especifico de un cliente " << endl ;
 
-    cout << "-------------------------------------------" << endl;
+    cout << "-------------------------------------------" << endl ;
 
-    cout << "Ingrese el ID del cliente a modificar: ";
+    cout << "Ingrese el ID del cliente a modificar: " ;
 
     cin >> datos2;
 
-    int pos = buscarPosicion (datos2);
+    int pos = buscarPosicion (datos2) ;
 
     if (pos == -1)
     {
-        cout << "ERROR: ID de cliente no encontrado. " << endl;
+        cout << "ERROR: ID de cliente no encontrado. " << endl ;
 
-        system ("pause");
+        system ("pause") ;
 
-        return;
+        return ;
     }
 
     cliente = leer (pos);
@@ -360,7 +358,7 @@ void ClienteArchivo::modificarCampo ()
         switch (datos2)
         {
 
-        case 1:   // Modificar nombre (string)
+        case 1:
         {
 
             cout << "Modificar nombre: " << endl;
@@ -386,7 +384,7 @@ void ClienteArchivo::modificarCampo ()
             break;
         }
 
-        case 2:   // Modificar apellido (string)
+        case 2:
         {
 
             cout << "Modificar apellido: " << endl;
@@ -412,10 +410,10 @@ void ClienteArchivo::modificarCampo ()
             break;
         }
 
-        case 3:   // Modificar telefono (string)
+        case 3:
         {
 
-            cout << "Modificar telefono: " << endl;
+            cout << "Modificar telefono: " << endl ;
 
             cin >> datos;
 
@@ -437,7 +435,7 @@ void ClienteArchivo::modificarCampo ()
             break;
         }
 
-        case 4:   // Modificar direccion (string)
+        case 4:
         {
 
             cout << "Modificar direccion: " << endl;
@@ -463,7 +461,7 @@ void ClienteArchivo::modificarCampo ()
             break;
         }
 
-        case 5:   // Modificar CUIT (string)
+        case 5:
         {
 
             cout << "Modificar CUIT: " << endl;
@@ -500,7 +498,7 @@ void ClienteArchivo::modificarCampo ()
 
         }
 
-        case 6:   // Modificar Mail (string)
+        case 6:
         {
 
             cout << "Modificar mail: " << endl;
@@ -525,7 +523,7 @@ void ClienteArchivo::modificarCampo ()
             break;
         }
 
-        case 7:   // Modificar tipo de cliente (int)
+        case 7:
         {
 
             cout << "Ingrese el tipo de cliente (1- Particular, 2- Empresarial): " ;
@@ -598,49 +596,38 @@ void ClienteArchivo::modificarCampo ()
 bool ClienteArchivo::hacerBackup ()
 {
 
-    // Abro el archivo original ("Clientes.dat")
+
 
     FILE* pArchivoOriginal = fopen(archivo_Cliente,"rb") ;
 
     if(pArchivoOriginal == nullptr)
     {
 
-        // Si no existe el archivo original, devuelve error.
+
 
         return false ;
     }
 
-    // 2. Abro o creo el archivo de backup
 
     FILE* pBackup = fopen(archivo_Cliente_Backup,"wb") ;
 
     if(pBackup == nullptr)
     {
 
-        // Si no se puede crear el backup, cerrar el original y devolver error.
-
         fclose(pArchivoOriginal) ;
 
         return false ;
     }
 
-    // Búfer temporal para copiar datos
-
     char temporal[1024] ;
 
     int bytesLeidos ;
 
-    // Copio el contenido: leer un bloque y escribirlo hasta el final del archivo
-
     while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
     {
 
-        // Escribir solo los bytes que se leyeron (pueden ser menos de 1024 en la última lectura)
-
         fwrite(temporal, 1, bytesLeidos, pBackup) ;
     }
-
-    // Cerrar ambos archivos
 
     fclose(pArchivoOriginal) ;
 

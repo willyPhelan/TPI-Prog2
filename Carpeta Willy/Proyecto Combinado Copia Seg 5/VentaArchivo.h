@@ -31,26 +31,15 @@ public:
 
     int buscarPosicion(int id_venta) ;
 
-    // METODOS
-
     void modificarCampos() ;
 
     void actualizarEnvioCondicional(Venta& venta_modificar, int nuevo_tipo_envio) ;
-
-
-    // REPORTES
-
-//    float calcularRecaudacionAnual(int anio) ;
-
-//    float calcularRecaudacionMensual(int mes, int anio) ;
 
     void calcularRecaudacionPorCliente () ;
 
     void reporteCantidadPorMedioPago();
 
     float calcularRecaudacion (int anio);
-
-    // BACKUPS
 
     bool hacerBackup ();
 

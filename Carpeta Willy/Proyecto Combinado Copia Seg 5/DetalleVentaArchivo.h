@@ -21,9 +21,13 @@ public:
     bool bajaLogica(int idDetalle) ;
 
     bool darDealta(int idDetalle);
+
     bool modificar(const Detalle_Venta &reg);
+
     int obtenerID();
+
     int getCantidadRegistros();
+
     int buscarPosicion(int idDetalle);
 
     int buscarIndiceDeMarca(const char* marcaBuscada, char** marcas, int tamActual);
