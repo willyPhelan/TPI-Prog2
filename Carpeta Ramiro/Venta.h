@@ -13,9 +13,9 @@ class Venta
 
 private:
 
-    int ID_Venta ;
-
     int ID_Cliente ;
+
+    int ID_Venta ;
 
     Persona ID_persona ;
 
@@ -29,7 +29,7 @@ private:
 
     float montoTotal ;
 
-    int tipoFactura ;
+//    int tipoFactura ;
 
     bool estado ;
 
@@ -40,7 +40,7 @@ public:
 
     Venta() ;
 
-    Venta(int id_cliente, int id_venta, int id_persona, const Fecha &fechaventa, int mediopago, int tipoenvio, float subtotal, float montototal, int tipofactura, bool estado) ;
+    Venta(int id_cliente, int id_venta, int id_persona, const Fecha &fechaventa, int mediopago, int tipoenvio, float subtotal, float montototal, bool estado) ;
 
     // getters
 
@@ -62,7 +62,7 @@ public:
 
     float getMontoTotal() ;
 
-    int getTipoFactura() ;
+//    int getTipoFactura() ;
 
     bool getEstado() ;
 
@@ -84,13 +84,13 @@ public:
 
     void setMontoTotal(float _montoTotal) ;
 
-    void setTipoFactura(int _tipoFactura) ;
+ //   void setTipoFactura(int _tipoFactura) ;
 
     void setEstado(bool _estado) ;
 
     // metodos
 
-    void cargarVenta() ;
+    bool cargarVenta() ;
 
     void mostrarVenta() ;
 

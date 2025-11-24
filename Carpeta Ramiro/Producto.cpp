@@ -99,19 +99,26 @@ void Producto::setID_Producto(int _idProducto)
 void Producto::setID_Proveedor(int id_Proveedor)
 {
 
-    ID_Proveedor = ID_Proveedor ;
+    this->ID_Proveedor = id_Proveedor ;
 }
 
 void Producto::setDescripcion(const std::string &_descripcion)
 {
+    const int MAX_LEN = sizeof(this->descripcion) - 1 ;
 
-    strncpy(this->descripcion, _descripcion.c_str(), 19) ;
+    strncpy(this->descripcion, _descripcion.c_str(), MAX_LEN) ;
+
+    this->descripcion[MAX_LEN] = '\0' ;
 }
 
 void Producto::setMarca(const std::string &_marca)
 {
 
-    strncpy(this->marca, _marca.c_str(), 19) ;
+    const int MAX_LEN = sizeof(this->marca) - 1 ;
+
+    strncpy(this->marca, _marca.c_str(), MAX_LEN) ;
+
+    this->marca[MAX_LEN] = '\0' ;
 }
 
 void Producto::setTipoProducto(int _tipoProducto)
@@ -150,44 +157,78 @@ void Producto::cargar()
 
     Producto productoExistente ;
 
-    int cantReg = archivoProd.getCantidadRegistros() ;
+    ProveedorArchivo archivoProv ;
+
+//    int cantReg = archivoProd.getCantidadRegistros() ;
 
     string str ; // Para cargar Marca
 
     string descripcionNueva ;
 
-    bool descripcionValida = false ;
+//    bool descripcionValida = false ;
 
-    int opcion ;
+    int idProveedor ;
+
+//    int opcion ;
 
     do
     {
 
         cout << "Ingrese la descripcion del producto: " ;
 
-
-        cin >> descripcionNueva ;
-
-
+        descripcionNueva = cargarCadena()  ;
     }
+
+
     while (!archivoProd.validarDescripcion(descripcionNueva)) ;
 
-    this->setDescripcion(descripcionNueva);
+    this->setDescripcion(descripcionNueva) ;
 
 
 
-    // Asignación de ID Autoincremental
+    // Asignacion de ID Autoincremental
 
     setID_Producto(archivoProd.obtenerID()) ;
 
     // Marca
     // CORRECCIÓN 2: Línea reescrita para eliminar el carácter invisible.
 
-    cout << "Ingrese la Marca del Producto: " ;
+    cout << "Ingrese la marca del producto: " ;
 
     str = cargarCadena() ;
 
     setMarca(str) ;
+
+
+
+    int posProveedor = -1 ;
+
+    cout << "Ingrese el ID del proveedor:"  ;
+
+    // Bucle para pedir y validar el ID del Proveedor
+
+    while (posProveedor == -1)
+    {
+
+        cin >> idProveedor ;
+
+        // Asumo que tienes un método 'buscarPosicion' en ProveedorArchivo similar a ProductoArchivo
+
+        posProveedor = archivoProv.buscarPosicion(idProveedor) ;
+
+        if (posProveedor == -1)
+        {
+
+            cout << "ERROR: El ID del proveedor no existe." << endl;
+            cout << "Ingrese un ID del proveedor valido: ";
+        }
+    }
+
+    // Si salimos del bucle, posProveedor ya no es -1 y el ID es válido.
+    // Usamos el setter para asignarlo al objeto Producto.
+    this->setID_Proveedor(idProveedor);
+
+
 
     // Tipo de Producto
 
@@ -234,6 +275,8 @@ void Producto::cargar()
         cout << "ERROR: No se pudo guardar el producto en el archivo." << endl ;
     }
 
+
+
 }
 
 
@@ -256,13 +299,12 @@ void Producto::mostrar()
 
     cout << "Cantidad del producto en stock: " << getCantStock() << endl ;
 
-    cout << "Estado: " << (getEstado() ? "Activo" : "Inactivo") << endl << endl ;
+    cout << "Estado: " << (getEstado() ? "Activo" : "Inactivo") << endl ;
 
 }
 
 
-void Producto::modificarCampos()
-{
+/* void Producto::modificarCampos() {
 
 
 
@@ -782,5 +824,5 @@ void Producto::modificarCampos()
 
 
 }
-
+*/
 

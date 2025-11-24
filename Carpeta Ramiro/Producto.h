@@ -1,6 +1,7 @@
 #pragma once
 #include <cstring>
 #include "Proveedor.h"
+#include "ProveedorArchivo.h"
 
 class Producto
 {
@@ -79,7 +80,7 @@ public:
 
     // modificar de a uno
 
-    void modificarCampos();
+    //  void modificarCampos();
 
 
 };

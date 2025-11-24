@@ -9,6 +9,8 @@ private: /// Atributos
 
     const char *archivo_Cliente = "Clientes.dat" ;
 
+    const char *archivo_Cliente_Backup = "Clientes_Backup.bkp";
+
 public: /// Metodos
 
 /// FUNCIONES ABML
@@ -23,6 +25,8 @@ public: /// Metodos
 
     bool modificar (const Cliente &reg) ;
 
+    void modificarCampo ();
+
 /// FUNCIONES AUXILIARES
 
     int getCantidadRegistros () ;
@@ -33,7 +37,11 @@ public: /// Metodos
 
     int verificarID (int idcliente);
 
-    void modificarCampo ();
+/// BACKUPS
+
+    bool hacerBackup ();
+
+    bool restaurarBackup ();
 
 } ;
 

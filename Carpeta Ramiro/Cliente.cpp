@@ -60,7 +60,7 @@ void Cliente::setTipo_Cliente (int tipo_Cliente)
 void Cliente::cargar()
 {
 
-    ClienteArchivo reg ;
+    ClienteArchivo reg;
 
     string datos ;
 
@@ -68,9 +68,7 @@ void Cliente::cargar()
 
 //  int const cantReg = reg.getCantidadRegistros();
 
-    setID(reg.getCantidadRegistros () + 1)  ;
-
-    cout << "ID del cliente: " << getID() << endl ;
+    cout << "El cliente sera guardado con el siguiente ID: " << getID() << endl ;
 
     cout << "Ingrese el CUIT del cliente: " ;
 
@@ -82,13 +80,25 @@ void Cliente::cargar()
     {
 
         return;
+
     }
 
     setCuit(datos) ;
 
-    cout << "Ingrese el tipo de cliente: " ;
+    cout << "Ingrese el tipo de cliente (1- Particular, 2- Empresarial): " ;
 
     cin >> tipo_Cliente ;
+
+    while (tipo_Cliente != 1 && tipo_Cliente != 2)
+    {
+
+        cout << "El tipo de cliente que ingreso es invalido. Intentelo de nuevo. " << endl;
+
+        cout << "Ingrese el tipo de cliente (1- Particular, 2- Empresarial): " ;
+
+        cin >> tipo_Cliente ;
+
+    }
 
     setTipo_Cliente(tipo_Cliente) ;
 
@@ -124,9 +134,6 @@ void Cliente::cargar()
 
     setEstado(true) ;
 
-    cout << endl ;
-
-    cout << endl << "El cliente fue agregado con exito. " << endl ;
 
 
 }
@@ -134,9 +141,13 @@ void Cliente::cargar()
 void Cliente::mostrar()
 {
 
-    cout << endl << "Informacion del cliente: " << endl ;
+    cout << "Informacion del cliente: " << endl ;
+
+    cout << endl;
 
     cout << "ID del cliente: " << getID() << endl ;
+
+    cout << "CUIT del cliente: " << getCuit() << endl ;
 
     cout << "Nombre y apellido del cliente: " << getNombre() << " " << getApellido() << endl ;
 
@@ -144,20 +155,32 @@ void Cliente::mostrar()
 
     cout << "Direccion del cliente: " << getDireccion() << endl ;
 
-    cout << "Cuit del cliente: " << getCuit() << endl ;
-
     cout << "Mail del cliente: " << getMail() << endl ;
 
-    cout << "Tipo de cliente: " << getTipo_Cliente() << endl ;
-
-    if(getEstado())
+    if (getTipo_Cliente () == 1)
     {
 
-        cout << "Estado: Activo"  << endl ;
+        cout << "Tipo de cliente: Particular (1)" << endl;
+
     }
     else
     {
-        cout << "Estado: Dado de baja" << endl ;
+
+        cout << "Tipo de cliente: Empresarial (2)" << endl;
+
+    }
+
+    if(getEstado() == true)
+    {
+
+        cout << "Estado del cliente: Activo"  << endl ;
+
+    }
+    else
+    {
+
+        cout << "Estado del cliente: Dado de baja" << endl ;
+
     }
 
     cout << endl ;

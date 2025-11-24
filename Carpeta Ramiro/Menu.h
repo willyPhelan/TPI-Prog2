@@ -39,6 +39,6 @@ private:
 
     void subMenuReportes() ;
 
-    void menuConfiguraciones();
+    void subMenuBackups () ;
 
 } ;

@@ -65,9 +65,9 @@ void Proveedor::cargar()
 
 //  int const cantReg = archivo.getCantidadRegistros() ;
 
-    setID (archivo.getCantidadRegistros () + 1);
+//  setID (archivo.getCantidadRegistros () + 1);
 
-    cout << "ID del proveedor: " << getID () << endl;
+    cout << "El proveedor sera guardado con el siguiente ID: " << getID () << endl;
 
     cout << "Ingrese el CUIT del proveedor: "  ;
 
@@ -79,13 +79,25 @@ void Proveedor::cargar()
     {
 
         return;
+
     }
 
     setCuit(datos) ;
 
-    cout << "Ingrese el tipo de proveedor (1-Empresa, 2-Particular, 3-Servicios):  " ;
+    cout << "Ingrese el tipo de proveedor (1-Particular, 2-Empresa):  " ;
 
     cin >> tipo_proveedor ;
+
+    while (tipo_proveedor != 1 && tipo_proveedor != 2)
+    {
+
+        cout << "El tipo de proveedor que ingreso es incorrecto. Intentelo de nuevo. " << endl;
+
+        cout << "Ingrese el tipo de proveedor (1-Particular, 2-Empresarial):  " ;
+
+        cin >> tipo_proveedor ;
+
+    }
 
     setTipo_proveedor(tipo_proveedor) ;
 
@@ -115,8 +127,6 @@ void Proveedor::cargar()
 
     setEstado(true) ;
 
-    cout << endl << "El proveedor fue agregado con exito. " << endl ;
-
 }
 
 void Proveedor::mostrar()
@@ -130,8 +140,6 @@ void Proveedor::mostrar()
 
     cout << "CUIT del proveedor: " << getCuit() << endl ;
 
-    cout << "Tipo de proveedor: " << getTipo_proveedor() << endl ;
-
     cout << "Nombre del proveedor: " << getNombre() << endl ;
 
     cout << "Telefono del proveedor: " << getTelefono() << endl ;
@@ -140,14 +148,30 @@ void Proveedor::mostrar()
 
     cout << "Mail del proveedor: " << getMail() << endl ;
 
-    if(getEstado())
+    if (getTipo_proveedor () == 1)
     {
 
-        cout << "Estado del proveedor: Activo " << endl ;
+        cout << "Tipo de proveedor: Particular (1)" << endl ;
+
     }
     else
     {
-        cout << "Estado del proveedor: Inactivo " << endl ;
+
+        cout << "Tipo de proveedor: Empresarial (2)" << endl;
+
+    }
+
+    if(getEstado())
+    {
+
+        cout << "Estado del proveedor: Activo" << endl ;
+
+    }
+    else
+    {
+
+        cout << "Estado del proveedor: Dado de baja" << endl ;
+
     }
 
     cout << endl;

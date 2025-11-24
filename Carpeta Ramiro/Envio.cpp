@@ -3,6 +3,7 @@
 #include "Utils.h" // funciones aux
 #include <iostream>
 #include "EnvioArchivo.h"
+#include "VentaArchivo.h"
 
 
 using namespace std ;
@@ -95,62 +96,127 @@ void Envio::setValor_Envio(float valor)
     valor_Envio = valor ;
 }
 
-void Envio::setEstado(bool activo)
-{
+void Envio::setEstado(bool activo){
 
     estado = activo ;
 }
 
 
-// MÉTODOS
+void Envio::cargar() {
 
 
-void Envio::cargar()
-{
+    VentaArchivo archivoVenta ;
+
+    Venta ventaAsociada ;
+
+    // 1. Buscar la Venta asociada a este Envio.
+
+    int posVenta = archivoVenta.buscarPosicion(getID_Venta()) ;
+
+    if (posVenta == -1)
+    {
+
+        cout << "ERROR: Venta asociada (ID " << getID_Venta() << ") no encontrada. No se puede validar la fecha." << endl ;
+
+    } else { ventaAsociada = archivoVenta.leer(posVenta) ; }
+
+    Fecha fechaVenta = ventaAsociada.getFechaVenta() ;
 
     int estadoEntrega ;
 
     float valorEnvio ;
 
-    // El ID_Venta NO se pide al usuario (asumimos que lo asigna el Archivo)
+    bool fechaValida = false ;
 
-    // Fecha de Entrega
+    // Bucle para el ingreso de una fecha valida
 
-    Fecha fecha ; // Creamos un objeto temporal para la carga
+    do {
 
-    // Asumimos que la clase Fecha tiene un método para cargarse o set/get básicos.
-    // Aquí implementamos la carga manual de la Fecha:
+        // Fecha de Entrega
 
-    int dia, mes, anio ;
+        Fecha fecha ; // objeto temporal para la carga
 
-    cout << "Dia de entrega: " ;
+        int dia, mes, anio ;
 
-    cin >> dia ;
 
-    cout << "Mes de entrega: " ;
+        cout << endl << "-----------------------------------" << endl ;
 
-    cin >> mes ;
+        cout << "Dia de entrega: " ;
 
-    cout << "Anio de entrega: " ;
+        cin >> dia ;
 
-    cin >> anio ;
+        while (dia < 1 || dia > 31){
 
-    // Asigno lo que se ingreso en el cin al obj Fecha
+        cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl;
 
-    fecha.setDia(dia) ;
-    fecha.setMes(mes) ;
-    fecha.setAnio(anio) ;
-    setFecha_Entrega(fecha) ;
+        cout << "Dia: " ;
 
-    // Estado de Entrega (1: Pendiente, 2: En curso, 3: Entregado)
+        cin >> dia ; }
+
+        cout << "Mes de entrega: " ;
+
+        cin >> mes ;
+
+        while (mes < 1 || mes > 12){
+
+                cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl;
+
+                cout << "Mes: " ;
+
+                cin >> mes ;
+
+            }
+
+        cout << "Anio de entrega: " ;
+
+        cin >> anio ;
+
+    while (anio < 2000 || anio > 2025){
+
+        cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+        cout << "Anio: " ;
+
+        cin >> anio ;
+
+    }
+
+        // Asigno lo que se ingreso en el cin al obj Fecha
+
+        fecha.setDia(dia) ;
+        fecha.setMes(mes) ;
+        fecha.setAnio(anio) ;
+
+        //VERIFICACION CLAVE
+
+        if (fecha.esMayorOIgualA(fechaVenta)) {
+
+            setFecha_Entrega(fecha) ;
+
+            fechaValida = true ;
+
+        } else {
+
+            cout << endl << "ERROR: La fecha de entrega (" ;
+
+            fecha.mostrar() ;
+
+            cout << ") debe ser IGUAL O POSTERIOR a la fecha de la venta (" ;
+
+            fechaVenta.mostrar() ;
+
+            cout << "). Intente de nuevo." << endl << endl ;
+        }
+
+    } while (!fechaValida) ;
+
+    // resto de logica de cargar()
 
     cout << "Estado de Entrega (1- Pendiente, 2- En curso, 3- Entregado): " ;
 
     cin >> estadoEntrega ;
 
     setEstado_Entrega(estadoEntrega) ;
-
-    // Valor del Envío
 
     cout << "Valor (en pesos) del Envio: $" ;
 
@@ -174,7 +240,7 @@ void Envio::mostrar() const
 
     cout << "Fecha de Entrega: " ;
 
-    getFecha_Entrega().mostrar() ; // Asume que la clase Fecha tiene un metodo mostrar()
+    getFecha_Entrega().mostrar() ;
 
     cout << endl << "Valor del Envio: $" << getValor_Envio() << endl ;
 
@@ -203,7 +269,7 @@ void Envio::mostrar() const
 
     }
 
-    cout << "Registro Activo: " << (getEstado() ? "Si" : "No") << endl ;
+    cout << "Estado del envio: " << (getEstado() ? "Activo" : "Dado de baja") << endl ;
 
     cout << "-------------------------------" << endl ;
 

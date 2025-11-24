@@ -10,6 +10,8 @@ private: /// Atributos
 
     const char *archivo_Proveedor = "Proveedores.dat";
 
+    const char *archivo_Proveedor_Backup = "Proveedores_Backup.bkp";
+
 public: /// Metodos
 
 /// FUNCIONES ABML
@@ -24,6 +26,8 @@ public: /// Metodos
 
     bool modificar (const Proveedor &reg);
 
+    void modificarCampo ();
+
 /// FUNCIONES AUXILIARES
 
     int getCantidadRegistros ();
@@ -32,7 +36,11 @@ public: /// Metodos
 
     bool validarCUIT (std::string cuit);
 
-    void modificarCampo ();
+/// BACKUPS
+
+    bool hacerBackup ();
+
+    bool restaurarBackup ();
 
 };
 

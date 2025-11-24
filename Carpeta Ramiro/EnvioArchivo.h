@@ -1,6 +1,8 @@
 #pragma once
 #include "Envio.h"
 #include <cstdio> // Para el manejo de archivos FILE*
+#include "Venta.h"
+#include "VentaArchivo.h"
 
 class EnvioArchivo
 {
@@ -39,7 +41,15 @@ public:
 
     void modificarCampos() ;
 
+    // Backups
+
+    bool hacerBackup ();
+
+    bool restaurarBackup ();
+
 private:
 
     const char* archivo_Envio = "Envios.dat" ;
+
+    const char *archivo_Envio_Backup = "Envios_Backup.bkp";
 };

@@ -9,7 +9,7 @@ using namespace std;
 // Constructor por defecto
 
 Detalle_Venta::Detalle_Venta()
-    : ID_Detalle(0), ID_Producto(0), ID_Venta(0), cantidad(0), precio_Unitario(0.0f), estado(true) // Estado Activo por defecto
+    : ID_Detalle(0), ID_Producto(0), ID_Venta(0), cantidad(0), precio_Unitario(0.0), estado(true) // Estado Activo por defecto
 {}
 
 // Constructor con parámetros
@@ -135,6 +135,16 @@ void Detalle_Venta::cargar()
 
     regP = archivoP.leer(pos) ;
 
+    if (regP.getEstado () == false)
+    {
+
+        cout << "ERROR: El producto con el id " << id << " se encuentra dado de baja y no se puede agregar. " << endl;
+
+        system ("pause");
+
+        return;
+    }
+
     setID_Producto(id);
 
     // Cantidad
@@ -146,19 +156,30 @@ void Detalle_Venta::cargar()
 
         cin >> cantidad_a_vender ;
 
-
-        // VALIDACIÓN DE STOCK CRUCIAL
-
-        if (cantidad_a_vender > regP.getCantStock())
+        if(cantidad_a_vender > 0)
         {
 
-            cout << "ERROR: Stock insuficiente. Solo hay " << regP.getCantStock() << " unidades disponibles." << endl ;
+
+            // VALIDACIÓN DE STOCK CRUCIAL
+
+            if (cantidad_a_vender > regP.getCantStock())
+            {
+
+                cout << "ERROR: Stock insuficiente. Solo hay " << regP.getCantStock() << " unidades disponibles." << endl ;
+
+            }
+            else
+            {
+                stock_ok = true ;
+            }
 
         }
         else
         {
+            cout << "Ingrese una cantidad valida:" << endl ;
 
-            stock_ok = true ;
+
+
         }
     }
 
@@ -184,5 +205,13 @@ void Detalle_Venta::mostrar() const
 
     cout << "  - Subtotal: $" << getCantidad() * getPrecio_Unitario() << endl ;
 
-    cout << "  - Registro Activo: " << (getEstado() ? "Si" : "No") << endl ;
+    if(getEstado())
+    {
+
+        cout << "  - Estado: Activo" << endl ;
+    }
+    else
+    {
+        cout << "  - Estado: Dado de baja" << endl ;
+    }
 }

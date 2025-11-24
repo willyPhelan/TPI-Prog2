@@ -49,6 +49,13 @@ bool ProveedorArchivo::bajaLogica(int id_persona)
 
     Proveedor reg = leer (pos) ;
 
+    if (reg.getEstado () == false)
+    {
+
+        return false;
+
+    }
+
     reg.setEstado(false) ;
 
     FILE *archivo ;
@@ -82,6 +89,13 @@ bool ProveedorArchivo::altaLogica(int id_persona)
     }
 
     Proveedor reg = leer (pos);
+
+    if (reg.getEstado () == true)
+    {
+
+        return false;
+
+    }
 
     reg.setEstado(true);
 
@@ -470,7 +484,18 @@ void ProveedorArchivo::modificarCampo ()
 
             cout << "Modificar tipo de proveedor: " << endl;
 
-            cin >> datos2;
+            cin >> datos2 ;
+
+            while (datos2 != 1 && datos2 != 2)
+            {
+
+                cout << "El tipo de proveedor que ingreso es incorrecto. Intentelo de nuevo. " << endl;
+
+                cout << "Ingrese el tipo de proveedor (1-Particular, 2-Empresarial):  " ;
+
+                cin >> datos2 ;
+
+            }
 
             proveedor1.setTipo_proveedor (datos2);
 
@@ -517,4 +542,101 @@ void ProveedorArchivo::modificarCampo ()
         }
     }
     while (datos2 != 7);
+}
+
+
+bool ProveedorArchivo::hacerBackup ()
+{
+
+
+    // Abro el archivo original ("Proveedores.dat")
+
+    FILE* pArchivoOriginal = fopen(archivo_Proveedor,"rb") ;
+
+    if(pArchivoOriginal == nullptr)
+    {
+
+        // Si no existe el archivo original, devuelve error.
+
+        return false ;
+    }
+
+    // 2. Abro o creo el archivo de backup
+
+    FILE* pBackup = fopen(archivo_Proveedor_Backup,"wb") ;
+
+    if(pBackup == nullptr)
+    {
+
+        // Si no se puede crear el backup, cerrar el original y devolver error.
+
+        fclose(pArchivoOriginal) ;
+
+        return false ;
+    }
+
+    // Búfer temporal para copiar datos
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    // Copio el contenido: leer un bloque y escribirlo hasta el final del archivo
+
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
+    {
+
+        // Escribir solo los bytes que se leyeron (pueden ser menos de 1024 en la última lectura)
+
+        fwrite(temporal, 1, bytesLeidos, pBackup) ;
+    }
+
+    // Cerrar ambos archivos
+
+    fclose(pArchivoOriginal) ;
+
+    fclose(pBackup) ;
+
+    return true ;
+
+}
+
+bool ProveedorArchivo::restaurarBackup ()
+{
+
+    FILE* pArchivoBkp = fopen(archivo_Proveedor_Backup, "rb") ;
+
+    if (pArchivoBkp == NULL)
+    {
+
+        return false ;
+    }
+
+    FILE* pArchivoOriginal = fopen(archivo_Proveedor, "wb") ;
+
+    if (pArchivoOriginal == NULL)
+    {
+
+        fclose(pArchivoBkp) ;
+
+        return false ;
+    }
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0)
+    {
+
+        fwrite(temporal, 1, bytesLeidos, pArchivoOriginal) ;
+    }
+
+    fclose(pArchivoBkp) ;
+
+    fclose(pArchivoOriginal) ;
+
+    return true ;
+
+
 }

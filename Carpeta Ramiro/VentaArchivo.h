@@ -1,5 +1,6 @@
 #pragma once
 #include "Venta.h"
+#include "EnvioArchivo.h"
 #include <cstdio>
 
 
@@ -9,6 +10,8 @@ class VentaArchivo
 private:
 
     const char *archivo_Venta = "Ventas.dat" ;
+
+    const char *archivo_Venta_Backup = "Ventas_Backup.bkp";
 
 public:
 
@@ -32,15 +35,25 @@ public:
 
     void modificarCampos() ;
 
+    void actualizarEnvioCondicional(Venta& venta_modificar, int nuevo_tipo_envio) ;
+
 
     // REPORTES
 
-    float calcularRecaudacionAnual(int anio) ;
+//    float calcularRecaudacionAnual(int anio) ;
 
-    float calcularRecaudacionMensual(int mes, int anio) ;
+//    float calcularRecaudacionMensual(int mes, int anio) ;
 
     void calcularRecaudacionPorCliente () ;
 
     void reporteCantidadPorMedioPago();
+
+    float calcularRecaudacion (int anio);
+
+    // BACKUPS
+
+    bool hacerBackup ();
+
+    bool restaurarBackup ();
 
 };

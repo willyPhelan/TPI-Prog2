@@ -48,6 +48,13 @@ bool EmpleadoArchivo::bajaLogica(int id_persona)
 
     Empleado reg = leer (pos) ;
 
+    if (reg.getEstado () == false)
+    {
+
+        return false;
+
+    }
+
     reg.setEstado(false) ;
 
     FILE *archivo ;
@@ -87,6 +94,13 @@ bool EmpleadoArchivo::altaLogica (int id_persona)
     }
 
     Empleado reg = leer (pos);
+
+    if (reg.getEstado () == true)
+    {
+
+        return false;
+
+    }
 
     reg.setEstado(true);
 
@@ -165,7 +179,6 @@ bool EmpleadoArchivo::modificar (const Empleado &reg)
     return escribio ;
 }
 
-/// FUNCIONES AUXILIARES
 
 int EmpleadoArchivo::buscarPosicion (int id_persona)
 {
@@ -480,7 +493,21 @@ void EmpleadoArchivo::modificarCampo ()
 
             cout << "Modificar ID de puesto: " << endl;
 
-            cin >> datos2;
+            cin >> datos2 ;
+
+
+            while (datos2 != 1 && datos2 != 2)
+            {
+
+                cout << "El tipo de empleado que ingreso es incorrecto. Intentelo de nuevo. " << endl ;
+
+                cout << "Ingrese el tipo de empleado (1- Empleado en el local, 2- Empleado repartidor): " ;
+
+                cin >> datos2 ;
+
+            }
+
+
 
             empleado.setID_Puesto (datos2);
 
@@ -553,4 +580,248 @@ void EmpleadoArchivo::modificarCampo ()
         }
     }
     while (datos2 != 8);
+}
+
+
+/// REPORTES
+
+
+void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
+{
+
+    Empleado empleadoObjeto;
+
+    int const cantReg = getCantidadRegistros ();
+
+    if (cantReg == 0)
+    {
+
+        cout << "No hay empleados cargados. " << endl;
+
+        return;
+    }
+
+    int *horas = new int [cantReg] ();
+
+    int *id_empleado = new int [cantReg] ();
+
+    int acum_activos = 0;
+
+    for (int i=0; i<cantReg; i++)
+    {
+
+        empleadoObjeto = leer (i);
+
+        if (empleadoObjeto.getEstado () == true)
+        {
+
+            horas [acum_activos] = empleadoObjeto.getHoras_Trabajo ();
+
+            id_empleado [acum_activos] = empleadoObjeto.getID ();
+
+            acum_activos ++;
+
+        }
+
+    }
+
+    if (acum_activos == 0)
+    {
+
+        cout << "No hay empleados activos. " << endl;
+
+        delete[] id_empleado;
+
+        delete[] horas;
+
+        return;
+    }
+
+    int aux_horas=0;
+
+    int aux_id=0;
+
+    for (int i=0; i<acum_activos-1; i++)
+    {
+
+        for (int j=0; j<acum_activos-i-1; j++)
+        {
+
+            if (horas [j] < horas [j+1])
+            {
+
+                aux_horas = horas [j];
+
+                horas [j] = horas [j+1];
+
+                horas [j+1] = aux_horas;
+
+//-----------------------------------------------------
+
+                aux_id = id_empleado [j];
+
+                id_empleado [j] = id_empleado [j+1];
+
+                id_empleado [j+1] = aux_id;
+            }
+        }
+    }
+
+    // El empleado con mas horas esta en la posición [0]
+
+    Empleado empleadoMasHoras = leer(buscarPosicion(id_empleado[0])) ;
+
+    // El empleado con MENOS horas esta en la última posición [acum_activos - 1]
+
+    Empleado empleadoMenosHoras = leer(buscarPosicion(id_empleado[acum_activos - 1])) ;
+
+    cout << "-------------------------------------------------------------------------------------------------" << endl ;
+
+    cout << "RESUMEN DE HORAS TRABAJADAS" << endl ;
+
+    cout << "-------------------------------------------------------------------------------------------------" << endl ;
+
+    // EMPLEADO CON MÁS HORAS (Posición 0)
+
+    cout << "EMPLEADO CON MAS HORAS TRABAJADAS (" << horas[0] << " hs): "
+
+         << empleadoMasHoras.getNombre() << " "
+
+         << empleadoMasHoras.getApellido() << " (ID: "
+
+         << id_empleado[0] << ")" << endl ;
+
+    // EMPLEADO CON MENOS HORAS (Última Posición)
+
+    cout << "EMPLEADO CON MENOS HORAS (" << horas[acum_activos - 1] << " hs): "
+
+         << empleadoMenosHoras.getNombre() << " "
+
+         << empleadoMenosHoras.getApellido() << " (ID: "
+
+         << id_empleado[acum_activos - 1] << ")" << endl ;
+
+    cout << "-------------------------------------------------------------------------------------------------" << endl ;
+
+    cout << "EMPLEADOS ORDENADOS POR HORAS SEMANALES" << endl;
+
+    cout << "-------------------------------------------------------------------------------------------------" << endl ;
+
+    for (int i=0; i<acum_activos; i++)
+    {
+
+        empleadoObjeto = leer (buscarPosicion(id_empleado[i]));
+
+        //    if (empleadoObjeto.getEstado() == true){
+
+        cout << "-------------------------------------------------------------------------------------------------" << endl ;
+
+        cout << "ID de Empleado: " << id_empleado [i] << " | " << "Nombre y apellido: " << empleadoObjeto.getNombre () << " " << empleadoObjeto.getApellido () << " | " << "Horas trabajadas a la semana: " << horas [i] << endl;
+
+        cout << "-------------------------------------------------------------------------------------------------" << endl;
+
+        //    }
+    }
+
+    delete[] id_empleado;
+
+    delete[] horas;
+
+    return;
+}
+
+
+bool EmpleadoArchivo::hacerBackup ()
+{
+
+    // Abro el archivo original ("Empleados.dat")
+
+    FILE* pArchivoOriginal = fopen(archivo_Empleado,"rb") ;
+
+    if(pArchivoOriginal == nullptr)
+    {
+
+        // Si no existe el archivo original, devuelve error.
+
+        return false ;
+    }
+
+    // 2. Abro o creo el archivo de backup
+
+    FILE* pBackup = fopen(archivo_Empleado_Backup,"wb") ;
+
+    if(pBackup == nullptr)
+    {
+
+        // Si no se puede crear el backup, cerrar el original y devolver error.
+
+        fclose(pArchivoOriginal) ;
+
+        return false ;
+    }
+
+    // Búfer temporal para copiar datos
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    // Copio el contenido: leer un bloque y escribirlo hasta el final del archivo
+
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
+    {
+
+        // Escribir solo los bytes que se leyeron (pueden ser menos de 1024 en la última lectura)
+
+        fwrite(temporal, 1, bytesLeidos, pBackup) ;
+    }
+
+    // Cerrar ambos archivos
+
+    fclose(pArchivoOriginal) ;
+
+    fclose(pBackup) ;
+
+
+    return true ;
+
+}
+
+bool EmpleadoArchivo::restaurarBackup ()
+{
+
+    FILE* pArchivoBkp = fopen(archivo_Empleado_Backup, "rb") ;
+
+    if (pArchivoBkp == NULL)
+    {
+
+        return false ;
+    }
+
+    FILE* pArchivoOriginal = fopen(archivo_Empleado, "wb") ;
+
+    if (pArchivoOriginal == NULL)
+    {
+
+        fclose(pArchivoBkp) ;
+
+        return false ;
+    }
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0)
+    {
+
+        fwrite(temporal, 1, bytesLeidos, pArchivoOriginal) ;
+    }
+
+    fclose(pArchivoBkp) ;
+
+    fclose(pArchivoOriginal) ;
+
+    return true ;
+
 }

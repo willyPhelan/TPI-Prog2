@@ -94,6 +94,7 @@ int EnvioArchivo::buscarPosicionPorID_Venta(int id_venta)
 }
 
 
+
 // FUNCIONES ABML
 
 // ALTA
@@ -190,6 +191,13 @@ bool EnvioArchivo::bajaLogica(int id_envio)
 
     Envio reg = leer(pos) ;
 
+    if (reg.getEstado () == false)
+    {
+
+        return false;
+
+    }
+
     if (!reg.getEstado())
     {
         return false ;    // Ya estaba inactivo
@@ -217,6 +225,13 @@ bool EnvioArchivo::altaLogica(int id_envio)
     // Leer y modificar estado
 
     Envio reg = leer(pos) ;
+
+    if (reg.getEstado () == true)
+    {
+
+        return false;
+
+    }
 
     if (reg.getEstado())
     {
@@ -298,34 +313,135 @@ void EnvioArchivo::modificarCampos()
 
         case 1:   // Modificar Fecha de Entrega
         {
-
             int dia, mes, anio ;
 
-            Fecha nueva_fecha ; // Asumo que existe la clase Fecha
+            Fecha nueva_fecha ;
 
-            cout << "Ingrese una nueva fecha de entrega" << endl ;
+            // OBTENER LA FECHA DE VENTA ASOCIADA
 
-            cout << "Dia: " ;
+            VentaArchivo archivoVenta ;
 
-            cin >> dia ;
+            Venta ventaAsociada ;
 
-            cout << "Mes: " ;
+            Fecha fechaVenta ;
 
-            cin >> mes ;
+            int idVenta = envio_modificar.getID_Venta() ;
 
-            cout << "Año: " ;
+            int posVenta = archivoVenta.buscarPosicion(idVenta) ;
 
-            cin >> anio ;
+            if (posVenta != -1)
+            {
 
-            nueva_fecha.setDia(dia) ;
+                ventaAsociada = archivoVenta.leer(posVenta) ;
 
-            nueva_fecha.setMes(mes) ;
+                fechaVenta = ventaAsociada.getFechaVenta() ;
 
-            nueva_fecha.setAnio(anio) ;
+                cout << "La fecha de la venta original es: " ;
 
-            envio_modificar.setFecha_Entrega(nueva_fecha) ;
+                fechaVenta.mostrar() ; // Muestra la fecha para referencia
 
-            if (modificar(envio_modificar))   // Uso el método modificar de EnvioArchivo
+                cout << endl ;
+
+            }
+            else
+            {
+
+                cout << "Advertencia: No se pudo encontrar la Venta (ID " << idVenta << ") asociada." << endl ;
+
+            }
+
+
+            bool fechaValida = false ;
+
+            do
+            {
+
+                cout << "-----------------------------------" << endl ;
+
+                cout << "Ingrese la nueva fecha de entrega" << endl ;
+
+                cout << "Dia de entrega: " ;
+
+                cin >> dia ;
+
+                while (dia < 1 || dia > 31)
+                {
+
+                    cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+                    cout << "Dia: " ;
+
+                    cin >> dia ;
+                }
+
+
+                cout << "Mes de entrega: " ;
+
+                cin >> mes ;
+
+                while (mes < 1 || mes > 12)
+                {
+
+                    cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+                    cout << "Mes: " ;
+
+                    cin >> mes ;
+                }
+
+
+                cout << "Anio de entrega: " ;
+
+                cin >> anio ;
+
+                while (anio < 2000 || anio > 2025)
+                {
+
+                    cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+                    cout << "Anio: " ;
+
+                    cin >> anio ;
+                }
+
+                // Asigno al objeto Fecha temporal
+
+                nueva_fecha.setDia(dia) ;
+
+                nueva_fecha.setMes(mes) ;
+
+                nueva_fecha.setAnio(anio) ;
+
+                // VALIDACIÓN CLAVE
+
+                if (nueva_fecha.esMayorOIgualA(fechaVenta))
+                {
+
+                    envio_modificar.setFecha_Entrega(nueva_fecha) ;
+
+                    fechaValida = true ; // Sale del bucle do-while
+
+                }
+                else
+                {
+
+                    cout << endl << "ERROR: La fecha de entrega (" ;
+
+                    nueva_fecha.mostrar() ;
+
+                    cout << ") debe ser IGUAL O POSTERIOR a la fecha de la venta (" ;
+
+                    fechaVenta.mostrar() ;
+
+                    cout << "). Intente de nuevo." << endl << endl ;
+                }
+
+
+            }
+            while (!fechaValida) ;
+
+
+            if (modificar(envio_modificar))
             {
 
                 cout << endl << "Fecha de entrega modificada y guardada con exito." << endl ;
@@ -335,7 +451,6 @@ void EnvioArchivo::modificarCampos()
             {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-
             }
 
             system("pause") ;
@@ -378,6 +493,17 @@ void EnvioArchivo::modificarCampos()
 
             cin >> nuevo_dato_int ;
 
+            while (nuevo_dato_int < 1 || nuevo_dato_int > 3)
+            {
+
+                cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
+
+                cout << "Estado de Entrega (1- Pendiente, 2- En curso, 3- Entregado): " ;
+
+                cin >> nuevo_dato_int ;
+
+            }
+
             envio_modificar.setEstado_Entrega(nuevo_dato_int) ;
 
             if (modificar(envio_modificar))   // Uso el método modificar de EnvioArchivo
@@ -415,4 +541,99 @@ void EnvioArchivo::modificarCampos()
 
     }
     while (opcion != 0) ;   // El bucle termina si opcion es 0
+}
+
+
+bool EnvioArchivo::hacerBackup ()
+{
+
+    // Abro el archivo original ("Envios.dat")
+
+    FILE* pArchivoOriginal = fopen(archivo_Envio,"rb") ;
+
+    if(pArchivoOriginal == nullptr)
+    {
+
+        // Si no existe el archivo original, devuelve error.
+
+        return false ;
+    }
+
+    // 2. Abro o creo el archivo de backup
+
+    FILE* pBackup = fopen(archivo_Envio_Backup,"wb") ;
+
+    if(pBackup == nullptr)
+    {
+
+        // Si no se puede crear el backup, cerrar el original y devolver error.
+
+        fclose(pArchivoOriginal) ;
+
+        return false ;
+    }
+
+    // Búfer temporal para copiar datos
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    // Copio el contenido: leer un bloque y escribirlo hasta el final del archivo
+
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
+    {
+
+        // Escribir solo los bytes que se leyeron (pueden ser menos de 1024 en la última lectura)
+
+        fwrite(temporal, 1, bytesLeidos, pBackup) ;
+    }
+
+    // Cerrar ambos archivos
+
+    fclose(pArchivoOriginal) ;
+
+    fclose(pBackup) ;
+
+    return true ;
+
+}
+
+bool EnvioArchivo::restaurarBackup ()
+{
+
+    FILE* pArchivoBkp = fopen(archivo_Envio_Backup, "rb") ;
+
+    if (pArchivoBkp == NULL)
+    {
+
+        return false ;
+    }
+
+    FILE* pArchivoOriginal = fopen(archivo_Envio, "wb") ;
+
+    if (pArchivoOriginal == NULL)
+    {
+
+        fclose(pArchivoBkp) ;
+
+        return false ;
+    }
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0)
+    {
+
+        fwrite(temporal, 1, bytesLeidos, pArchivoOriginal) ;
+    }
+
+    fclose(pArchivoBkp) ;
+
+    fclose(pArchivoOriginal) ;
+
+    return true ;
+
 }

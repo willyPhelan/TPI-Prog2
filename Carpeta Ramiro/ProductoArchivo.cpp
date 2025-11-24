@@ -190,6 +190,13 @@ bool ProductoArchivo::bajaLogica(int id_producto)
 
     Producto reg = leer(pos) ;
 
+    if (reg.getEstado () == false)
+    {
+
+        return false;
+
+    }
+
     // Modifico el estado a falso (baja lógica)
 
     reg.setEstado(false);
@@ -237,6 +244,13 @@ bool ProductoArchivo::altaLogica(int id_producto)
     // Leo el registro en la posición encontrada
 
     Producto reg = leer(pos) ;
+
+    if (reg.getEstado () == true)
+    {
+
+        return false;
+
+    }
 
     // Modifico el estado a falso (baja lógica)
 
@@ -425,21 +439,23 @@ void ProductoArchivo::modificarCampos()
 
         cout << "Seleccione el campo a modificar:" << endl ;
 
-        cout << "1. Marca" << endl ;
 
-        cout << "2. Descripcion" << endl ;
 
-        cout << "3. Precio" << endl ;
+        cout << "1. Descripcion" << endl ;
 
-        cout << "4. Tipo de producto" << endl ;
+        cout << "2. Marca" << endl ;
 
-        cout << "5. Garantia" << endl ;
+        cout << "3. ID Proveedor" << endl ;
 
-        cout << "6. Cantidad" << endl ;
+        cout << "4. Precio" << endl ;
 
-        cout << "7. Finalizar" << endl ;
+        cout << "5. Tipo de producto" << endl ;
 
-        cout << "0. Volver al menu anterior " << endl ;
+        cout << "6. Garantia" << endl ;
+
+        cout << "7. Cantidad" << endl ;
+
+        cout << "0. Finalizar y volver al menu anterior " << endl ;
 
         cout << endl << "Opcion: " ;
 
@@ -450,36 +466,9 @@ void ProductoArchivo::modificarCampos()
         switch (opcion)
         {
 
-        case 1:   // Modificar marca (string)
-        {
 
-            cout << "Modificar marca: " ;
 
-            nuevo_dato_str = cargarCadena() ;
-
-            string aux = producto_modificado.getMarca();
-
-            producto_modificado.setMarca(nuevo_dato_str) ;
-
-            if (producto_modificado.getMarca() != aux)
-            {
-
-                cout << endl << "Marca modificada y guardada con exito en el archivo." << endl ;
-                modificar(producto_modificado);
-
-            }
-            else
-            {
-
-                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
-            }
-
-            system("pause") ;
-
-            break ;
-        }
-
-        case 2:   // Modificar Descripcion
+        case 1:   // Modificar Descripcion
         {
 
             string nueva_desc ;
@@ -510,7 +499,66 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-        case 3:   // Modificar Precio
+
+        case 2:   // Modificar marca (string)
+        {
+
+            cout << "Modificar marca: " ;
+
+            nuevo_dato_str = cargarCadena() ;
+
+            string aux = producto_modificado.getMarca();
+
+            producto_modificado.setMarca(nuevo_dato_str) ;
+
+            if (producto_modificado.getMarca() != aux)
+            {
+
+                cout << endl << "Marca modificada y guardada con exito en el archivo." << endl ;
+                modificar(producto_modificado);
+
+            }
+            else
+            {
+
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+            }
+
+            system("pause") ;
+
+            break ;
+        }
+
+        case 3:
+        {
+            int nuevo_id_proveedor ;
+
+            cout << "Nuevo ID del proveedor: " ;
+
+            cin >> nuevo_id_proveedor ;
+
+            int aux = producto_modificado.getID_Proveedor() ;
+
+            producto_modificado.setID_Proveedor(nuevo_id_proveedor) ;
+
+            if (producto_modificado.getID_Proveedor() != aux)
+            {
+                cout << endl << "ID de proveedor modificado y guardado con exito en el archivo." << endl;
+
+                modificar(producto_modificado) ;
+            }
+            else
+            {
+                cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
+            }
+
+            system("pause") ;
+
+            break ;
+        }
+
+
+        case 4:   // Modificar Precio
         {
 
             float nuevo_precio ;
@@ -541,12 +589,12 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-        case 4:
+        case 5:
         {
 
             int nuevo_tipo ;
 
-            cout << "Nuevo tipo de producto" ;
+            cout << "Nuevo tipo de producto (1-Pcs 2-Accessorios 3-Otros): " ;
 
             cin >> nuevo_tipo ;
 
@@ -558,6 +606,7 @@ void ProductoArchivo::modificarCampos()
             {
 
                 cout << endl << "Tipo de producto modificado y guardado con exito en el archivo." << endl ;
+
                 modificar(producto_modificado);
 
             }
@@ -572,12 +621,12 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-        case 5:
+        case 6:
         {
 
             int nueva_garantia ;
 
-            cout << "Nueva garantia" ;
+            cout << "Nueva garantia: " ;
 
             cin >> nueva_garantia ;
 
@@ -603,12 +652,12 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-        case 6:
+        case 7:
         {
 
             int nueva_cantidad ;
 
-            cout << "Nueva cantidad" ;
+            cout << "Nueva cantidad: " ;
 
             cin >> nueva_cantidad ;
 
@@ -620,6 +669,7 @@ void ProductoArchivo::modificarCampos()
             {
 
                 cout << endl << "Cantidad modificada y guardada con exito en el archivo." << endl ;
+
                 modificar(producto_modificado);
 
             }
@@ -657,16 +707,19 @@ void ProductoArchivo::modificarCampos()
 bool ProductoArchivo::MarcaPorID(int idBuscado, char* marcaDestino, int tam)
 {
     FILE* p = fopen(archivo_Producto, "rb");
-    if (p == NULL) {
+    if (p == NULL)
+    {
         strncpy(marcaDestino, "ERROR_FILE", tam - 1);
         marcaDestino[tam - 1] = '\0';
         return false;
     }
 
     Producto reg;
-    while (fread(&reg, sizeof(Producto), 1, p) == 1) {
+    while (fread(&reg, sizeof(Producto), 1, p) == 1)
+    {
 
-        if (reg.getID_Producto() == idBuscado) {
+        if (reg.getID_Producto() == idBuscado)
+        {
             strncpy(marcaDestino, reg.getMarca(), tam - 1);
             marcaDestino[tam - 1] = '\0';
             fclose(p);
@@ -678,4 +731,105 @@ bool ProductoArchivo::MarcaPorID(int idBuscado, char* marcaDestino, int tam)
     strncpy(marcaDestino, "DESCONOCIDA", tam - 1);
     marcaDestino[tam - 1] = '\0';
     return false;
+}
+
+
+bool ProductoArchivo::hacerBackup ()
+{
+
+    // Abro el archivo original ("Productos.dat") en modo lectura binaria ("rb")
+
+    FILE* pArchivoOriginal = fopen(archivo_Producto,"rb") ;
+
+    // Verifico si se pudo abrir
+
+    if(pArchivoOriginal == nullptr)
+    {
+
+        // No hay archivo original, no se puede hacer backup.
+
+        return false ;
+    }
+
+    // Abro el archivo de backup ("Productos.bkp") en modo escritura binaria ("wb")
+
+    // Si existe, lo sobreescribe.
+
+    FILE* pBackup = fopen(archivo_Producto_Backup,"wb") ;
+
+    // Verificar si se pudo crear/abrir el archivo de backup
+
+    if(pBackup == nullptr)
+    {
+
+        // No se pudo crear el backup, cerrar el original y fallar
+
+        fclose(pArchivoOriginal) ;
+
+        return false ;
+    }
+
+    // Copio el contenido bloque a bloque (1024 bytes)
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    // Leo desde el original y escribir al backup hasta que fread devuelva 0 (fin de archivo)
+
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
+    {
+
+        // Escribir la cantidad exacta de bytes que se leyeron
+
+        fwrite(temporal, 1, bytesLeidos, pBackup) ;
+    }
+
+    // 4. Cierro ambos archivos
+
+    fclose(pArchivoOriginal) ;
+
+    fclose(pBackup) ;
+
+    return true ;
+
+}
+
+bool ProductoArchivo::restaurarBackup ()
+{
+
+    FILE* pArchivoBkp = fopen(archivo_Producto_Backup, "rb") ;
+
+    if (pArchivoBkp == NULL)
+    {
+
+        return false ;
+    }
+
+    FILE* pArchivoOriginal = fopen(archivo_Producto, "wb") ;
+
+    if (pArchivoOriginal == NULL)
+    {
+
+        fclose(pArchivoBkp) ;
+
+        return false ;
+    }
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0)
+    {
+
+        fwrite(temporal, 1, bytesLeidos, pArchivoOriginal) ;
+    }
+
+    fclose(pArchivoBkp) ;
+
+    fclose(pArchivoOriginal) ;
+
+    return true;
+
 }

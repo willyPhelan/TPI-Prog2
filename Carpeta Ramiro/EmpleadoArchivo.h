@@ -9,6 +9,8 @@ private: /// Atributos
 
     const char *archivo_Empleado = "Empleados.dat" ;
 
+    const char *archivo_Empleado_Backup = "Empleados_Backup.bkp";
+
 public: /// Metodos
 
 /// FUNCIONES ABML
@@ -23,6 +25,8 @@ public: /// Metodos
 
     bool modificar (const Empleado &reg) ;
 
+    void modificarCampo ();
+
 /// FUNCIONES AUXILIARES
 
     int getCantidadRegistros () ;
@@ -31,7 +35,15 @@ public: /// Metodos
 
     bool validarCUIT (std::string cuit);
 
-    void modificarCampo ();
+/// REPORTES
+
+    void calcularEmpleadosConMasHoras ();
+
+/// BACKUPS
+
+    bool hacerBackup ();
+
+    bool restaurarBackup ();
 
 } ;
 

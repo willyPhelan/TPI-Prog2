@@ -59,9 +59,9 @@ void Empleado::cargar()
 
 //  int const cantReg = reg.getCantidadRegistros() ;
 
-    setID (reg.getCantidadRegistros () + 1);
+//  setID (reg.getCantidadRegistros () + 1);
 
-    cout << "ID del empleado: " << getID () << endl;
+    cout << "El empleado sera guardado con el siguiente ID: " << getID () << endl;
 
     cout << "Ingrese el CUIT del empleado: " ;
 
@@ -75,12 +75,22 @@ void Empleado::cargar()
         return;
     }
 
-
     setCuit(datos) ;
 
-    cout << "Ingrese el tipo de empleado: " ;
+    cout << "Ingrese el tipo de empleado (1- Empleado en el local, 2- Empleado repartidor): " ;
 
     cin >> datos2 ;
+
+    while (datos2 != 1 && datos2 != 2)
+    {
+
+        cout << "El tipo de empleado que ingreso es incorrecto. Intentelo de nuevo. " << endl;
+
+        cout << "Ingrese el tipo de empleado (1- Empleado en el local, 2- Empleado repartidor): " ;
+
+        cin >> datos2 ;
+
+    }
 
     setID_Puesto(datos2) ;
 
@@ -116,8 +126,6 @@ void Empleado::cargar()
 
     setEstado(true) ;
 
-    cout << endl << "El empleado fue agregado con exito. " << endl ;
-
 }
 
 void Empleado::mostrar()
@@ -125,7 +133,11 @@ void Empleado::mostrar()
 
     cout << "Informacion del empleado: " << endl ;
 
+    cout << endl;
+
     cout << "ID del empleado: " << getID() << endl ;
+
+    cout << "CUIT del empleado: " << getCuit() << endl ;
 
     cout << "Nombre y apellido del empleado: " << getNombre() << " " << getApellido() << endl ;
 
@@ -133,13 +145,37 @@ void Empleado::mostrar()
 
     cout << "Direccion del empleado: " << getDireccion() << endl ;
 
-    cout << "CUIT del empleado: " << getCuit() << endl ;
-
-    cout << "ID de puesto del empleado: " << getID_Puesto() << endl ;
-
     cout << "Horas trabajadas por semana del empleado: " << getHoras_Trabajo() << endl ;
 
-    cout << "Estado: " << getEstado() << endl ;
+//    cout << "ID de puesto del empleado: " << getID_Puesto() << endl ;
+
+    if (getID_Puesto () == 1)
+    {
+
+        cout << "Tipo de empleado: Local (1)" << endl;
+
+    }
+    else
+    {
+
+        cout << "Tipo de empleado: Repartidor (2)" << endl;
+
+    }
+
+//    cout << "Estado: " << getEstado() << endl ;
+
+    if (getEstado () == true)
+    {
+
+        cout << "Estado del empleado: Activo" << endl;
+
+    }
+    else
+    {
+
+        cout << "Estado del empleado: Dado de baja" << endl;
+
+    }
 
     cout << endl ;
 }

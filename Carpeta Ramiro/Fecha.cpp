@@ -12,13 +12,47 @@ void Fecha::cargar()
 {
 
     cout << "Dia: " ;
+
     cin >> dia ;
 
+    while (dia < 1 || dia > 31)
+    {
+
+        cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+        cout << "Dia: " ;
+
+        cin >> dia ;
+    }
+
     cout << "Mes: " ;
+
     cin >> mes ;
 
+    while (mes < 1 || mes > 12)
+    {
+
+        cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl ;
+
+        cout << "Mes: " ;
+
+        cin >> mes ;
+
+    }
+
     cout << "Anio: " ;
+
     cin >> anio ;
+
+    while (anio < 2000 || anio > 2025)
+    {
+
+        cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl;
+
+        cout << "Anio: " ;
+
+        cin >> anio ;
+    }
 }
 
 bool Fecha::esCorrecta()
@@ -67,7 +101,30 @@ int Fecha::getMes()
 {
     return mes ;
 }
+
 int Fecha::getAnio()
 {
+
     return anio ;
+}
+
+bool Fecha::esMayorOIgualA(const Fecha& otraFecha) const
+{
+
+
+    // 1. Comparar años
+
+    if (anio > otraFecha.anio) return true ;
+
+    if (anio < otraFecha.anio) return false ;
+
+    // Si los años son iguales, comparar meses
+
+    if (mes > otraFecha.mes) return true ;
+
+    if (mes < otraFecha.mes) return false ;
+
+    // Si los años y meses son iguales, comparar días
+
+    return dia >= otraFecha.dia ;
 }

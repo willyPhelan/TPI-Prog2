@@ -45,9 +45,17 @@ public:
 
     bool MarcaPorID(int idBuscado, char* marcaDestino, int tam);
 
+    // Backups
+
+    bool hacerBackup ();
+
+    bool restaurarBackup ();
+
 
 private:
 
     const char *archivo_Producto = "Productos.dat" ;
+
+    const char *archivo_Producto_Backup = "Productos_Backup.bkp";
 
 };

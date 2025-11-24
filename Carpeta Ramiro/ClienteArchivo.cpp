@@ -45,6 +45,13 @@ bool ClienteArchivo::bajaLogica (int id_persona)
     }
     Cliente reg = leer (pos) ;
 
+    if (reg.getEstado () == false)
+    {
+
+        return false;
+
+    }
+
     reg.setEstado (false) ;
 
     FILE *archivo ;
@@ -81,6 +88,13 @@ bool ClienteArchivo::altaLogica (int id_persona)
         return false;
     }
     Cliente reg = leer (pos);
+
+    if (reg.getEstado () == true)
+    {
+
+        return false;
+
+    }
 
     reg.setEstado (true);
 
@@ -256,7 +270,8 @@ bool ClienteArchivo::validarCUIT (string cuit)
     return true;
 }
 
-int ClienteArchivo::verificarID (int idcliente){
+int ClienteArchivo::verificarID (int idcliente)
+{
 
     Cliente reg ;
 
@@ -513,9 +528,20 @@ void ClienteArchivo::modificarCampo ()
         case 7:   // Modificar tipo de cliente (int)
         {
 
-            cout << "Modificar tipo de cliente: " << endl;
+            cout << "Ingrese el tipo de cliente (1- Particular, 2- Empresarial): " ;
 
             cin >> datos2;
+
+            while (datos2 != 1 && datos2 != 2)
+            {
+
+                cout << "El tipo de cliente que ingreso es invalido. Intentelo de nuevo. " << endl;
+
+                cout << "Ingrese el tipo de cliente (1- Particular, 2- Empresarial): " ;
+
+                cin >> datos2 ;
+
+            }
 
             cliente.setTipo_Cliente(datos2);
 
@@ -566,4 +592,100 @@ void ClienteArchivo::modificarCampo ()
 
     }
     while (datos2 != 8);
+}
+
+
+bool ClienteArchivo::hacerBackup ()
+{
+
+    // Abro el archivo original ("Clientes.dat")
+
+    FILE* pArchivoOriginal = fopen(archivo_Cliente,"rb") ;
+
+    if(pArchivoOriginal == nullptr)
+    {
+
+        // Si no existe el archivo original, devuelve error.
+
+        return false ;
+    }
+
+    // 2. Abro o creo el archivo de backup
+
+    FILE* pBackup = fopen(archivo_Cliente_Backup,"wb") ;
+
+    if(pBackup == nullptr)
+    {
+
+        // Si no se puede crear el backup, cerrar el original y devolver error.
+
+        fclose(pArchivoOriginal) ;
+
+        return false ;
+    }
+
+    // Búfer temporal para copiar datos
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    // Copio el contenido: leer un bloque y escribirlo hasta el final del archivo
+
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
+    {
+
+        // Escribir solo los bytes que se leyeron (pueden ser menos de 1024 en la última lectura)
+
+        fwrite(temporal, 1, bytesLeidos, pBackup) ;
+    }
+
+    // Cerrar ambos archivos
+
+    fclose(pArchivoOriginal) ;
+
+    fclose(pBackup) ;
+
+    return true ;
+
+}
+
+
+bool ClienteArchivo::restaurarBackup ()
+{
+
+    FILE* pArchivoBkp = fopen(archivo_Cliente_Backup, "rb") ;
+
+    if (pArchivoBkp == NULL)
+    {
+
+        return false ;
+    }
+
+    FILE* pArchivoOriginal = fopen(archivo_Cliente, "wb") ;
+
+    if (pArchivoOriginal == NULL)
+    {
+
+        fclose(pArchivoBkp) ;
+
+        return false ;
+    }
+
+    char temporal[1024] ;
+
+    int bytesLeidos ;
+
+    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0)
+    {
+
+        fwrite(temporal, 1, bytesLeidos, pArchivoOriginal) ;
+    }
+
+    fclose(pArchivoBkp) ;
+
+    fclose(pArchivoOriginal) ;
+
+    return true ;
+
 }
