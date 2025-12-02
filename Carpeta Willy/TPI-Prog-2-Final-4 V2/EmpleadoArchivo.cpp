@@ -6,126 +6,94 @@
 
 using namespace std ;
 
-/// FUNCIONES ABML
-
-bool EmpleadoArchivo::guardar(const Empleado &reg)
-{
+bool EmpleadoArchivo::guardar(const Empleado &reg){
 
     FILE *archivo ;
 
     archivo = fopen(archivo_Empleado, "ab") ;
 
-    if (archivo == nullptr)
-    {
+    if (archivo == nullptr){
 
         cout << "NO SE PUDO CREAR EL ARCHIVO. " << endl ;
 
-        return false ;
-    }
+        return false ; }
 
-    int escribio = fwrite(&reg, sizeof (Empleado), 1, archivo) ;
+    int escribio = fwrite(&reg, sizeof(Empleado), 1, archivo) ;
 
     fclose(archivo) ;
 
     return escribio ;
 }
 
-bool EmpleadoArchivo::bajaLogica(int id_persona)
-{
+bool EmpleadoArchivo::bajaLogica(int id_persona){
 
     int pos = buscarPosicion(id_persona) ;
 
-    if (pos == -1)
-    {
+    if (pos == -1){
 
         cout << "El ID que ingreso es incorrecto. " << endl ;
 
         system ("pause") ;
 
-        return false ;
-    }
+        return false ; }
 
     Empleado reg = leer (pos) ;
 
-    if (reg.getEstado () == false)
-    {
-
-        return false;
-
-    }
+    if (reg.getEstado () == false){ return false ; }
 
     reg.setEstado(false) ;
 
-    FILE *archivo ;
+   if (modificar(reg) == true) {
 
-    archivo = fopen (archivo_Empleado, "rb+") ;
+        cout << "Empleado dado de baja con exito." << endl ;
 
-    if (archivo == nullptr)
-    {
+        return true ;
+
+    } else {
+
+        cout << "ERROR: No se pudo guardar el cambio en el archivo." << endl ;
 
         return false ;
     }
 
-    fseek (archivo, pos * sizeof (Empleado), SEEK_SET) ;
-
-    int escrito = fwrite (&reg, sizeof (Empleado), 1, archivo) ;
-
-    fclose (archivo) ;
-
-    return escrito ;
-
 }
 
 
-bool EmpleadoArchivo::altaLogica (int id_persona)
-{
+bool EmpleadoArchivo::altaLogica(int id_persona){
 
     int pos = buscarPosicion(id_persona) ;
 
-    if (pos == -1)
-    {
+    if (pos == -1){
 
         cout << "El ID que ingreso es incorrecto. " << endl ;
 
         system ("pause") ;
 
-        return false ;
-    }
+        return false ; }
 
-    Empleado reg = leer (pos);
+    Empleado reg = leer (pos) ;
 
-    if (reg.getEstado () == true)
-    {
+    if (reg.getEstado () == true){ return false ; }
 
-        return false;
+    reg.setEstado(true) ;
 
-    }
+    if (modificar(reg) == true) {
 
-    reg.setEstado(true);
+        cout << "Empleado dado de alta con exito." << endl ;
 
-    FILE *archivo;
+        return true ;
 
-    archivo = fopen (archivo_Empleado, "rb+") ;
+    } else {
 
-    if (archivo == nullptr)
-    {
+        cout << "ERROR: No se pudo guardar el cambio en el archivo." << endl ;
 
         return false ;
     }
-
-    fseek (archivo, pos * sizeof (Empleado), SEEK_SET);
-
-    int escrito = fwrite (&reg, sizeof (Empleado), 1, archivo);
-
-    fclose (archivo);
-
-    return escrito;
 
 }
 
 
-Empleado EmpleadoArchivo::leer (int pos)
-{
+Empleado EmpleadoArchivo::leer (int pos){
 
     Empleado reg ;
 
@@ -133,10 +101,7 @@ Empleado EmpleadoArchivo::leer (int pos)
 
     archivo = fopen(archivo_Empleado, "rb") ;
 
-    if (archivo == nullptr)
-    {
-        return reg ;
-    }
+    if (archivo == nullptr){ return reg ;}
 
     fseek (archivo, pos * sizeof (Empleado), SEEK_SET) ;
 
@@ -147,31 +112,26 @@ Empleado EmpleadoArchivo::leer (int pos)
     return reg ;
 }
 
-bool EmpleadoArchivo::modificar (const Empleado &reg)
-{
+bool EmpleadoArchivo::modificar (const Empleado &reg){
 
-    int pos = buscarPosicion (reg.getID()) ;
+    int pos = buscarPosicion(reg.getID()) ;
 
-    if (pos == -1)
-    {
+    if (pos == -1){
 
         cout << "El ID ingresado es incorrecto. " << endl ;
 
         return false ;
     }
 
-    FILE *archivo;
+    FILE *archivo ;
 
     archivo = fopen (archivo_Empleado, "rb+");
 
-    if (archivo == nullptr)
-    {
-        return false ;
-    }
+    if (archivo == nullptr){ return false ; }
 
-    fseek (archivo, pos * sizeof (Empleado), SEEK_SET) ;
+    fseek (archivo, pos * sizeof(Empleado), SEEK_SET) ;
 
-    int escribio = fwrite (&reg, sizeof (Empleado), 1, archivo) ;
+    int escribio = fwrite (&reg, sizeof(Empleado), 1, archivo) ;
 
     fclose (archivo) ;
 
@@ -179,20 +139,17 @@ bool EmpleadoArchivo::modificar (const Empleado &reg)
 }
 
 
-int EmpleadoArchivo::buscarPosicion (int id_persona)
-{
+int EmpleadoArchivo::buscarPosicion (int id_persona){
 
-    Empleado reg;
+    Empleado reg ;
 
     int cantReg = getCantidadRegistros() ;
 
-    for (int i = 0; i<cantReg; i++)
-    {
+    for (int i = 0; i<cantReg; i++){
 
         reg = leer (i) ;
 
-        if (reg.getID() == id_persona)
-        {
+        if (reg.getID() == id_persona){
 
             return i ;
         }
@@ -201,17 +158,13 @@ int EmpleadoArchivo::buscarPosicion (int id_persona)
     return -1 ;
 }
 
-int EmpleadoArchivo::getCantidadRegistros ()
-{
+int EmpleadoArchivo::getCantidadRegistros (){
 
     FILE *archivo ;
 
     archivo = fopen(archivo_Empleado, "rb") ;
 
-    if (archivo == nullptr)
-    {
-        return 0 ;
-    }
+    if (archivo == nullptr){ return 0 ; }
 
     fseek(archivo, 0, SEEK_END) ;
 
@@ -223,29 +176,25 @@ int EmpleadoArchivo::getCantidadRegistros ()
 }
 
 
-bool EmpleadoArchivo::validarCUIT (string cuit)
-{
+bool EmpleadoArchivo::validarCUIT(string cuit){
 
-    Empleado empleado1;
+    Empleado empleado1 ;
 
-    int const cantReg = getCantidadRegistros ();
+    int const cantReg = getCantidadRegistros() ;
 
-    int opcion;
+    int opcion ;
 
-    for (int i = 0; i<cantReg; i++)
-    {
+    for (int i = 0 ; i < cantReg ; i++){
 
         empleado1 = leer(i) ;
 
-        while (strcmp(cuit.c_str(), empleado1.getCuit().c_str()) == 0 && empleado1.getEstado() == true)
-        {
+        while (strcmp(cuit.c_str(), empleado1.getCuit().c_str()) == 0 && empleado1.getEstado() == true){
 
             cout << "El CUIT ya corresponde a un empleado existente. Desea salir o introducir otro CUIT?: (1- Agregar otro CUIT, 2- Salir)" ;
 
             cin >> opcion ;
 
-            switch (opcion)
-            {
+            switch (opcion){
 
             case 1:
 
@@ -259,7 +208,7 @@ bool EmpleadoArchivo::validarCUIT (string cuit)
 
                 cout << "Saliendo..." << endl ;
 
-                return false;
+                return false ;
 
                 break ;
 
@@ -267,236 +216,201 @@ bool EmpleadoArchivo::validarCUIT (string cuit)
 
                 cout << "La opcion que eligio es invalida. Intentelo de nuevo. " << endl ;
 
-                break;
+                break ;
             }
 
         }
     }
 
-    return true;
+    return true ;
 }
 
 
-void EmpleadoArchivo::modificarCampo ()
-{
+void EmpleadoArchivo::modificarCampo(){
 
-    Empleado empleado;
+    Empleado empleado ;
 
-    string datos;
+    string datos ;
 
-    int datos2;
+    int datos2 ;
 
-    cout << "Modificar un campo especifico de un empleado " << endl;
+    cout << "Modificar un campo especifico de un empleado " << endl ;
 
-    cout << "-------------------------------------------" << endl;
+    cout << "-------------------------------------------" << endl ;
 
-    cout << "Ingrese el ID del empleado a modificar: ";
+    cout << "Ingrese el ID del empleado a modificar: " ;
 
-    cin >> datos2;
+    cin >> datos2 ;
 
-    int pos = buscarPosicion (datos2);
+    int pos = buscarPosicion(datos2) ;
 
-    if (pos == -1)
-    {
+    if (pos == -1){
 
-        cout << "ERROR: ID de empleado no encontrado. " << endl;
+        cout << "ERROR: ID de empleado no encontrado. " << endl ;
 
-        system ("pause");
+        system ("pause") ;
 
-        return;
+        return ;
     }
 
-    empleado = leer (pos);
+    empleado = leer (pos) ;
 
-    do
-    {
+    do{
 
-        system ("cls");
+        system ("cls") ;
 
-        cout << "Empleado a modificar (ID: " << empleado.getID() << ")" << endl;
+        cout << "Empleado a modificar (ID: " << empleado.getID() << ")" << endl ;
 
         cout << "-----------------------------" << endl ;
 
-        empleado.mostrar();
+        empleado.mostrar() ;
 
-        cout << "Seleccione una opcion o el campo a modificar: " << endl;
+        cout << "Seleccione una opcion o el campo a modificar: " << endl ;
 
-        cout << "1. Nombre" << endl;
+        cout << "1. Nombre" << endl ;
 
-        cout << "2. Apellido" << endl;
+        cout << "2. Apellido" << endl ;
 
-        cout << "3. Telefono" << endl;
+        cout << "3. Telefono" << endl ;
 
-        cout << "4. Direccion" << endl;
+        cout << "4. Direccion" << endl ;
 
-        cout << "5. CUIT" << endl;
+        cout << "5. CUIT" << endl ;
 
-        cout << "6. ID de puesto" << endl;
+        cout << "6. ID de puesto" << endl ;
 
-        cout << "7. Horas trabajadas a la semana" << endl;
+        cout << "7. Horas trabajadas a la semana" << endl ;
 
-        cout << "8. Finalizar modificaciones y volver al menu anterior" << endl;
+        cout << "8. Finalizar modificaciones y volver al menu anterior" << endl ;
 
-        cout << "Opcion: " << endl;
+        cout << "Opcion: " << endl ;
 
-        cin >> datos2;
+        cin >> datos2 ;
 
-        cout << endl;
+        cout << endl ;
 
-        switch (datos2)
-        {
+        switch (datos2){
 
-        case 1:
-        {
+        case 1: {
 
-            cout << "Modificar nombre: " << endl;
+            cout << "Modificar nombre: " << endl ;
 
-            cin >> datos;
+            cin >> datos ;
 
-            empleado.setNombre(datos);
+            empleado.setNombre(datos) ;
 
-            if (modificar(empleado) == true)
-            {
+            if (modificar(empleado) == true){
 
-                cout << "Nombre modificado correctamente. " << endl;
+                cout << "Nombre modificado correctamente. " << endl ;
 
-            }
-            else
-            {
+            } else {
 
-                cout << "ERROR: No se pudo modificar el nombre correctamente. " << endl;
+                cout << "ERROR: No se pudo modificar el nombre correctamente. " << endl ;
             }
 
-            system ("pause");
+            system ("pause") ;
 
-            break;
+            break ;
         }
 
-        case 2:
-        {
+        case 2: {
 
-            cout << "Modificar apellido: " << endl;
+            cout << "Modificar apellido: " << endl ;
 
-            cin >> datos;
+            cin >> datos ;
 
-            empleado.setApellido(datos);
+            empleado.setApellido(datos) ;
 
-            if (modificar(empleado) == true)
-            {
+            if (modificar(empleado) == true){
 
-                cout << "Apellido modificado correctamente. " << endl;
+                cout << "Apellido modificado correctamente. " << endl ; }
 
-            }
-            else
-            {
+            else{ cout << "ERROR: No se pudo modificar el apellido correctamente. " << endl ; }
 
-                cout << "ERROR: No se pudo modificar el apellido correctamente. " << endl;
+            system ("pause") ;
 
-            }
-
-            system ("pause");
-
-            break;
+            break ;
         }
 
-        case 3:
-        {
+        case 3: {
 
-            cout << "Modificar telefono: " << endl;
+            cout << "Modificar telefono: " << endl ;
 
-            cin >> datos;
+            cin >> datos ;
 
-            empleado.setTelefono(datos);
+            empleado.setTelefono(datos) ;
 
-            if (modificar(empleado) == true)
-            {
+            if (modificar(empleado) == true){
 
-                cout << "Telefono modificado correctamente. " << endl;
+                cout << "Telefono modificado correctamente. " << endl ; }
 
-            }
-            else
-            {
+            else {
 
-                cout << "ERROR: No se pudo modificar el telefono correctamente. " << endl;
+                cout << "ERROR: No se pudo modificar el telefono correctamente. " << endl ;
             }
 
-            system ("pause");
+            system ("pause") ;
 
-            break;
+            break ;
         }
 
-        case 4:
-        {
+        case 4: {
 
-            cout << "Modificar direccion: " << endl;
+            cout << "Modificar direccion: " << endl ;
 
-            datos = cargarCadena ();
+            datos = cargarCadena () ;
 
-            empleado.setDireccion(datos);
+            empleado.setDireccion(datos) ;
 
-            if (modificar(empleado) == true)
-            {
+            if (modificar(empleado) == true){
 
-                cout << "Direccion modificada correctamente. " << endl;
+                cout << "Direccion modificada correctamente. " << endl ; }
 
-            }
-            else
-            {
+            else{
 
-                cout << "ERROR: No se pudo modificar la direccion correctamente. " << endl;
+                cout << "ERROR: No se pudo modificar la direccion correctamente. " << endl ;
             }
 
-            system ("pause");
+            system ("pause") ;
 
-            break;
+            break ;
         }
 
-        case 5:
-        {
+        case 5: {
 
-            cout << "Modificar CUIT: " << endl;
+            cout << "Modificar CUIT: " << endl ;
 
-            cin >> datos;
+            cin >> datos ;
 
-            bool const validado = validarCUIT (datos);
+            bool const validado = validarCUIT (datos) ;
 
-            if (validado == false)
-            {
+            if (validado == false){ return ; }
 
-                return;
+            empleado = leer (pos) ;
+
+            empleado.setCuit(datos) ;
+
+            if (modificar(empleado) == true){
+
+                cout << "El CUIT fue modificado correctamente. " << endl ; }
+
+            else{
+
+                cout << "ERROR: No se pudo modificar el CUIT correctamente. " << endl ;
             }
 
-            empleado = leer (pos);
+            system ("pause") ;
 
-            empleado.setCuit(datos);
-
-            if (modificar(empleado) == true)
-            {
-
-                cout << "El CUIT fue modificado correctamente. " << endl;
-
-            }
-            else
-            {
-
-                cout << "ERROR: No se pudo modificar el CUIT correctamente. " << endl;
-            }
-
-            system ("pause");
-
-            break;
+            break ;
         }
 
-        case 6:
-        {
+        case 6: {
 
-            cout << "Modificar ID de puesto: " << endl;
+            cout << "Modificar ID de puesto: " << endl ;
 
             cin >> datos2 ;
 
-
-            while (datos2 != 1 && datos2 != 2)
-            {
+            while (datos2 != 1 && datos2 != 2){
 
                 cout << "El tipo de empleado que ingreso es incorrecto. Intentelo de nuevo. " << endl ;
 
@@ -506,134 +420,111 @@ void EmpleadoArchivo::modificarCampo ()
 
             }
 
+            empleado.setID_Puesto(datos2);
 
+            if (modificar(empleado) == true){
 
-            empleado.setID_Puesto (datos2);
+                cout << "ID de puesto modificado correctamente. " << endl ; }
 
-            if (modificar(empleado) == true)
-            {
+            else { cout << "ERROR: No se pudo modificar el ID de puesto correctamente. " << endl ; }
 
-                cout << "ID de puesto modificado correctamente. " << endl;
+            system ("pause") ;
 
-            }
-            else
-            {
-
-                cout << "ERROR: No se pudo modificar el ID de puesto correctamente. " << endl;
-            }
-
-            system ("pause");
-
-            break;
+            break ;
         }
 
-        case 7:
-        {
+        case 7:{
 
-            cout << "Modificar horas trabajadas por semana: " << endl;
+            cout << "Modificar horas trabajadas por semana: " << endl ;
 
-            cin >> datos2;
+            cin >> datos2 ;
 
-            empleado.setHoras_Trabajo (datos2);
+            empleado.setHoras_Trabajo (datos2) ;
 
-            if (modificar(empleado) == true)
-            {
+            if (modificar(empleado) == true){
 
-                cout << "Horas trabajadas por semana modificadas correctamente. " << endl;
+                cout << "Horas trabajadas por semana modificadas correctamente. " << endl ; }
 
-            }
-            else
-            {
+            else{
 
-                cout << "ERROR: No se pudo modificar las horas trabajadas por semana correctamente. " << endl;
+                cout << "ERROR: No se pudo modificar las horas trabajadas por semana correctamente. " << endl ;
             }
 
-            system ("pause");
+            system ("pause") ;
 
-            break;
+            break ;
         }
 
-        case 8:
-        {
+        case 8:{
 
-            cout << "Saliendo al menu anterior..." << endl;
+            cout << "Saliendo al menu anterior..." << endl ;
 
-            system ("pause");
+            system ("pause") ;
 
-            system ("cls");
+            system ("cls") ;
 
-            return;
+            return ;
 
-            break;
+            break ;
         }
 
-        default:
-        {
+        default:{
 
-            cout << "La opcion que ingreso es incorrecta. Intentelo de nuevo. " << endl;
+            cout << "La opcion que ingreso es incorrecta. Intentelo de nuevo. " << endl ;
 
-            system ("pause");
+            system ("pause") ;
 
-            break;
-        }
-        }
+            break ;
+        }}
     }
-    while (datos2 != 8);
+
+    while (datos2 != 8) ;
 }
 
 
-void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
-{
+void EmpleadoArchivo::calcularEmpleadosConMasHoras (){
 
-    Empleado empleadoObjeto;
+    Empleado empleadoObjeto ;
 
-    int const cantReg = getCantidadRegistros ();
+    int const cantReg = getCantidadRegistros() ;
 
-    if (cantReg == 0)
-    {
+    if (cantReg == 0){
 
-        cout << "No hay empleados cargados. " << endl;
+        cout << "No hay empleados cargados. " << endl ;
 
-        return;
+        return ; }
+
+    int *horas = new int [cantReg] () ;
+
+    if (horas == nullptr){
+
+        cout << "ERROR: No se pudo asignar la memoria. " << endl ;
+
+        return ;
     }
 
-    int *horas = new int [cantReg] ();
+    int *id_empleado = new int [cantReg] () ;
 
-    if (horas == nullptr)
-    {
+    if (id_empleado == nullptr){
 
-        cout << "ERROR: No se pudo asignar la memoria. " << endl;
+        cout << "ERROR: No se pudo asignar la memoria. " << endl ;
 
-        return;
+        delete [] horas ;
 
+        return ;
     }
 
-    int *id_empleado = new int [cantReg] ();
+    int acum_activos = 0 ;
 
-    if (id_empleado == nullptr)
-    {
+    for (int i = 0 ; i < cantReg ; i++){
 
-        cout << "ERROR: No se pudo asignar la memoria. " << endl;
+        empleadoObjeto = leer(i) ;
 
-        delete [] horas;
+        if (empleadoObjeto.getEstado () == true){
 
-        return;
+            horas[acum_activos] = empleadoObjeto.getHoras_Trabajo();
 
-    }
-
-    int acum_activos = 0;
-
-    for (int i=0; i<cantReg; i++)
-    {
-
-        empleadoObjeto = leer (i);
-
-        if (empleadoObjeto.getEstado () == true)
-        {
-
-            horas [acum_activos] = empleadoObjeto.getHoras_Trabajo ();
-
-            id_empleado [acum_activos] = empleadoObjeto.getID ();
+            id_empleado[acum_activos] = empleadoObjeto.getID ();
 
             acum_activos ++;
 
@@ -641,42 +532,38 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
 
     }
 
-    if (acum_activos == 0)
-    {
+    if (acum_activos == 0){
 
-        cout << "No hay empleados activos. " << endl;
+        cout << "No hay empleados activos. " << endl ;
 
-        delete[] id_empleado;
+        delete[] id_empleado ;
 
-        delete[] horas;
+        delete[] horas ;
 
-        return;
+        return ;
     }
 
-    int aux_horas=0;
+    int aux_horas = 0 ;
 
-    int aux_id=0;
+    int aux_id = 0 ;
 
-    for (int i=0; i<acum_activos-1; i++)
-    {
+    for (int i = 0 ; i < acum_activos -1 ; i++){
 
-        for (int j=0; j<acum_activos-i-1; j++)
-        {
+        for (int j = 0 ; j < acum_activos -i -1 ; j++){
 
-            if (horas [j] < horas [j+1])
-            {
+            if (horas [j] < horas [j+1]){
 
-                aux_horas = horas [j];
+                aux_horas = horas [j] ;
 
-                horas [j] = horas [j+1];
+                horas [j] = horas [j+1] ;
 
-                horas [j+1] = aux_horas;
+                horas[j+1] = aux_horas ;
 
-                aux_id = id_empleado [j];
+                aux_id = id_empleado[j] ;
 
-                id_empleado [j] = id_empleado [j+1];
+                id_empleado[j] = id_empleado[j+1] ;
 
-                id_empleado [j+1] = aux_id;
+                id_empleado[j+1] = aux_id ;
             }
         }
     }
@@ -684,6 +571,7 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
     Empleado empleadoMasHoras = leer(buscarPosicion(id_empleado[0])) ;
 
     Empleado empleadoMenosHoras = leer(buscarPosicion(id_empleado[acum_activos - 1])) ;
+
 
     cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
@@ -713,44 +601,35 @@ void EmpleadoArchivo::calcularEmpleadosConMasHoras ()
 
     cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
-    for (int i=0; i<acum_activos; i++)
-    {
+    for (int i = 0 ; i < acum_activos ; i++){
 
-        empleadoObjeto = leer (buscarPosicion(id_empleado[i]));
+        empleadoObjeto = leer(buscarPosicion(id_empleado[i])) ;
 
         cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
-        cout << "ID de Empleado: " << id_empleado [i] << " | " << "Nombre y apellido: " << empleadoObjeto.getNombre () << " " << empleadoObjeto.getApellido () << " | " << "Horas trabajadas a la semana: " << horas [i] << endl;
+        cout << "ID de Empleado: " << id_empleado [i] << " | " << "Nombre y apellido: " << empleadoObjeto.getNombre () << " " << empleadoObjeto.getApellido () << " | " << "Horas trabajadas a la semana: " << horas [i] << endl ;
 
-        cout << "-------------------------------------------------------------------------------------------------" << endl;
-
+        cout << "-------------------------------------------------------------------------------------------------" << endl ;
 
     }
 
-    delete[] id_empleado;
+    delete[] id_empleado ;
 
-    delete[] horas;
+    delete[] horas ;
 
-    return;
+    return ;
 }
 
 
-bool EmpleadoArchivo::hacerBackup ()
-{
+bool EmpleadoArchivo::hacerBackup(){
 
     FILE* pArchivoOriginal = fopen(archivo_Empleado,"rb") ;
 
-    if(pArchivoOriginal == nullptr)
-
-    {
-
-        return false ;
-    }
+    if(pArchivoOriginal == nullptr){ return false ; }
 
     FILE* pBackup = fopen(archivo_Empleado_Backup,"wb") ;
 
-    if(pBackup == nullptr)
-    {
+    if(pBackup == nullptr){
 
         fclose(pArchivoOriginal) ;
 
@@ -761,8 +640,7 @@ bool EmpleadoArchivo::hacerBackup ()
 
     int bytesLeidos ;
 
-    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
-    {
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0){
 
         fwrite(temporal, 1, bytesLeidos, pBackup) ;
     }
@@ -771,26 +649,19 @@ bool EmpleadoArchivo::hacerBackup ()
 
     fclose(pBackup) ;
 
-
     return true ;
 
 }
 
-bool EmpleadoArchivo::restaurarBackup ()
-{
+bool EmpleadoArchivo::restaurarBackup (){
 
     FILE* pArchivoBkp = fopen(archivo_Empleado_Backup, "rb") ;
 
-    if (pArchivoBkp == NULL)
-    {
-
-        return false ;
-    }
+    if (pArchivoBkp == nullptr){ return false ; }
 
     FILE* pArchivoOriginal = fopen(archivo_Empleado, "wb") ;
 
-    if (pArchivoOriginal == NULL)
-    {
+    if (pArchivoOriginal == nullptr){
 
         fclose(pArchivoBkp) ;
 
@@ -801,8 +672,7 @@ bool EmpleadoArchivo::restaurarBackup ()
 
     int bytesLeidos ;
 
-    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0)
-    {
+    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0){
 
         fwrite(temporal, 1, bytesLeidos, pArchivoOriginal) ;
     }

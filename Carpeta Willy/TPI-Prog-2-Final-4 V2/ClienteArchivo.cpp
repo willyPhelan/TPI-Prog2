@@ -72,47 +72,39 @@ bool ClienteArchivo::bajaLogica (int id_persona)
 
 }
 
-bool ClienteArchivo::altaLogica (int id_persona)
-{
+bool ClienteArchivo::altaLogica (int id_persona){
 
     int pos = buscarPosicion (id_persona);
 
-    if (pos == -1)
-    {
+    if (pos == -1){
 
         cout << "El ID que ingreso es incorrecto. " << endl;
 
         system ("pause");
 
-        return false;
-    }
-    Cliente reg = leer (pos);
+        return false ; }
 
-    if (reg.getEstado () == true)
-    {
+    Cliente reg = leer (pos) ;
 
-        return false;
+    if (reg.getEstado () == true){
 
-    }
+        return false ; }
 
-    reg.setEstado (true);
+    reg.setEstado (true) ;
 
-    FILE *archivo;
+    FILE *archivo ;
 
-    archivo = fopen (archivo_Cliente, "rb+");
+    archivo = fopen (archivo_Cliente, "rb+") ;
 
-    if (archivo == nullptr)
-    {
-        return false;
-    }
+    if (archivo == nullptr){ return false ;}
 
-    fseek (archivo, pos * sizeof (Cliente), SEEK_SET);
+    fseek (archivo, pos * sizeof(Cliente), SEEK_SET);
 
-    int escrito = fwrite (&reg, sizeof (Cliente), 1, archivo);
+    int escrito = fwrite (&reg, sizeof(Cliente), 1, archivo);
 
-    fclose (archivo);
+    fclose (archivo) ;
 
-    return escrito;
+    return escrito ;
 
 }
 

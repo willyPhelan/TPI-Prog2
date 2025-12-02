@@ -6,45 +6,30 @@
 
 using namespace std ;
 
-
-
 Empleado::Empleado() : ID_Puesto(0), horas_Trabajo(0) {}
 
-Empleado::Empleado(int ID_Puesto, int horas_Trabajo)
-{
+Empleado::Empleado(int ID_Puesto, int horas_Trabajo){
 
     setID_Puesto (ID_Puesto) ;
 
     setHoras_Trabajo (horas_Trabajo) ;
 }
 
-int Empleado::getID_Puesto()
-{
+int Empleado::getID_Puesto(){ return ID_Puesto ; }
 
-    return ID_Puesto ;
-}
+int Empleado::getHoras_Trabajo(){ return horas_Trabajo ; }
 
-int Empleado::getHoras_Trabajo()
-{
-
-    return horas_Trabajo ;
-}
-
-
-void Empleado::setID_Puesto(int ID_Puesto)
-{
+void Empleado::setID_Puesto(int ID_Puesto){
 
     this->ID_Puesto = ID_Puesto ;
 }
 
-void Empleado::setHoras_Trabajo(int horas_Trabajo)
-{
+void Empleado::setHoras_Trabajo(int horas_Trabajo){
 
     this->horas_Trabajo = horas_Trabajo ;
 }
 
-void Empleado::cargar()
-{
+void Empleado::cargar(){
 
     EmpleadoArchivo reg ;
 
@@ -58,11 +43,7 @@ void Empleado::cargar()
 
     cin >> datos ;
 
-    if (reg.validarCUIT (datos) == false)
-    {
-
-        return;
-    }
+    if (reg.validarCUIT(datos) == false){ return ; }
 
     setCuit(datos) ;
 
@@ -70,16 +51,13 @@ void Empleado::cargar()
 
     cin >> datos2 ;
 
-    while (datos2 != 1 && datos2 != 2)
-    {
+    while (datos2 != 1 && datos2 != 2){
 
-        cout << "El tipo de empleado que ingreso es incorrecto. Intentelo de nuevo. " << endl;
+        cout << "El tipo de empleado que ingreso es incorrecto. Intentelo de nuevo. " << endl ;
 
         cout << "Ingrese el tipo de empleado (1- Empleado en el local, 2- Empleado repartidor): " ;
 
-        cin >> datos2 ;
-
-    }
+        cin >> datos2 ; }
 
     setID_Puesto(datos2) ;
 
@@ -117,12 +95,11 @@ void Empleado::cargar()
 
 }
 
-void Empleado::mostrar()
-{
+void Empleado::mostrar(){
 
     cout << "Informacion del empleado: " << endl ;
 
-    cout << endl;
+    cout << endl ;
 
     cout << "ID del empleado: " << getID() << endl ;
 
@@ -136,27 +113,15 @@ void Empleado::mostrar()
 
     cout << "Horas trabajadas por semana del empleado: " << getHoras_Trabajo() << endl ;
 
-    if (getID_Puesto () == 1)
-    {
+    if (getID_Puesto () == 1){
 
-        cout << "Tipo de empleado: Local (1)" << endl;
+        cout << "Tipo de empleado: Local (1)" << endl ; } else {
 
-    }
-    else
-    {
+        cout << "Tipo de empleado: Repartidor (2)" << endl ; }
 
-        cout << "Tipo de empleado: Repartidor (2)" << endl;
+    if (getEstado () == true){
 
-    }
-
-    if (getEstado () == true)
-    {
-
-        cout << "Estado del empleado: Activo" << endl;
-
-    }
-    else
-    {
+        cout << "Estado del empleado: Activo" << endl ; } else {
 
         cout << "Estado del empleado: Dado de baja" << endl;
 
