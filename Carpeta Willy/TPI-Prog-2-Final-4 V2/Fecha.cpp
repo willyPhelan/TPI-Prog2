@@ -1,51 +1,43 @@
 #include "Fecha.h"
 
-Fecha::Fecha(int _dia, int _mes, int _anio)
-{
+Fecha::Fecha(int _dia, int _mes, int _anio){
 
     dia = _dia ;
     mes = _mes ;
     anio = _anio ;
 }
 
-void Fecha::cargar()
-{
+void Fecha::cargar(){
 
     cout << "Dia: " ;
 
     cin >> dia ;
 
-    while (dia < 1 || dia > 31)
-    {
+    while (dia < 1 || dia > 31){
 
         cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl ;
 
         cout << "Dia: " ;
 
-        cin >> dia ;
-    }
+        cin >> dia ; }
 
     cout << "Mes: " ;
 
     cin >> mes ;
 
-    while (mes < 1 || mes > 12)
-    {
+    while (mes < 1 || mes > 12){
 
         cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl ;
 
         cout << "Mes: " ;
 
-        cin >> mes ;
-
-    }
+        cin >> mes ; }
 
     cout << "Anio: " ;
 
     cin >> anio ;
 
-    while (anio < 2000 || anio > 2025)
-    {
+    while (anio < 2000 || anio > 2025){
 
         cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl;
 
@@ -55,64 +47,44 @@ void Fecha::cargar()
     }
 }
 
-bool Fecha::esCorrecta()
-{
+bool Fecha::esCorrecta(){ return (dia != -1 && mes != -1 && anio != -1) ; }
 
-    return (dia != -1 && mes != -1 && anio != -1) ;
-}
-
-void Fecha::mostrar()
-{
+void Fecha::mostrar(){
 
     if(esCorrecta()) cout << dia << "/" << mes << "/" << anio ;
 
     else cout << "Fecha incorrecta" ;
 }
 
-void Fecha::setDia(int d)
-{
+void Fecha::setDia(int d){
 
     if(d >= 1 && d <= 31) dia = d ;
 
     else dia = -1 ;
 }
 
-void Fecha::setMes(int m)
-{
+void Fecha::setMes(int m){
 
     if(m >= 1 && m <= 12) mes = m ;
 
     else mes = -1 ;
 }
 
-void Fecha::setAnio(int a)
-{
+void Fecha::setAnio(int a){
 
     if(a > 0) anio = a ;
 
     else anio = -1 ;
 }
 
-int Fecha::getDia()
-{
-    return dia ;
-}
-int Fecha::getMes()
-{
-    return mes ;
-}
+int Fecha::getDia(){ return dia ; }
 
-int Fecha::getAnio()
-{
+int Fecha::getMes(){ return mes ; }
 
-    return anio ;
-}
-
-bool Fecha::esMayorOIgualA(const Fecha& otraFecha) const
-{
+int Fecha::getAnio(){ return anio ;}
 
 
-    // 1. Comparar años
+bool Fecha::esMayorOIgualA(const Fecha& otraFecha) const {
 
     if (anio > otraFecha.anio) return true ;
 

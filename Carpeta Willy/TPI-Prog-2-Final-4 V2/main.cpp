@@ -4,14 +4,13 @@
 #include "Detalle_Venta.h"
 #include "Menu.h"
 
-using namespace std;
+using namespace std ;
 
-int main()
-{
+int main(){
 
     Menu gestorMenu ;
 
     gestorMenu.mostrar() ;
 
-    return 0;
+    return 0 ;
 }

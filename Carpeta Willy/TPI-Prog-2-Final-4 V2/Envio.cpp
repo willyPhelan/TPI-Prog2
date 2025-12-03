@@ -10,94 +10,78 @@ using namespace std ;
 
 
 Envio::Envio()
-    : ID_Envio(0), estado_Entrega(0), valor_Envio(0.0f), estado(true)
-{}
 
+: ID_Envio(0), estado_Entrega(0), valor_Envio(0.0f), estado(true){}
 
 
 Envio::Envio(int idEnvio, Fecha fecha, int estado, float valor, bool activo)
-    : ID_Envio(idEnvio), fecha_Entrega(fecha), estado_Entrega(estado), valor_Envio(valor), estado(activo)
-{}
+
+: ID_Envio(idEnvio), fecha_Entrega(fecha), estado_Entrega(estado), valor_Envio(valor), estado(activo){}
 
 
 
-int Envio::getID_Envio() const
-{
+int Envio::getID_Envio() const {
 
     return ID_Envio ;
 }
 
-int Envio::getID_Venta() const
-{
+int Envio::getID_Venta() const {
 
     return ID_Venta ;
 }
 
-Fecha Envio::getFecha_Entrega() const
-{
+Fecha Envio::getFecha_Entrega() const {
 
     return fecha_Entrega ;
 }
 
-int Envio::getEstado_Entrega() const
-{
+int Envio::getEstado_Entrega() const {
 
     return estado_Entrega ;
 }
 
-float Envio::getValor_Envio() const
-{
+float Envio::getValor_Envio() const {
 
     return valor_Envio ;
 }
 
-bool Envio::getEstado() const
-{
+bool Envio::getEstado() const {
 
     return estado ;
 }
 
-
-void Envio::setID_Envio(int idEnvio)
-{
+void Envio::setID_Envio(int idEnvio){
 
     ID_Envio = idEnvio ;
 }
 
-void Envio::setID_Venta(int id_venta)
-{
+void Envio::setID_Venta(int id_venta){
 
     ID_Venta = id_venta ;
 }
 
-void Envio::setFecha_Entrega(const Fecha& fecha)
-{
+void Envio::setFecha_Entrega(const Fecha& fecha){
 
     fecha_Entrega = fecha ;
 }
 
-void Envio::setEstado_Entrega(int estado)
-{
+void Envio::setEstado_Entrega(int estado){
 
     estado_Entrega = estado ;
 }
 
-void Envio::setValor_Envio(float valor)
-{
+void Envio::setValor_Envio(float valor){
 
     valor_Envio = valor ;
 }
 
-void Envio::setEstado(bool activo)
-{
+void Envio::setEstado(bool activo){
 
     estado = activo ;
 }
 
 
-void Envio::cargar()
-{
-
+void Envio::cargar(){
 
     VentaArchivo archivoVenta ;
 
@@ -105,18 +89,15 @@ void Envio::cargar()
 
     int posVenta = archivoVenta.buscarPosicion(getID_Venta()) ;
 
-    if (posVenta == -1)
-    {
+    if (posVenta == -1){
 
-        cout << "ERROR: Venta asociada (ID " << getID_Venta() << ") no encontrada. No se puede validar la fecha." << endl ;
+        cout << "ERROR: Venta asociada (ID " << getID_Venta() << ") no encontrada. No se puede validar la fecha." << endl ; }
 
-    }
-    else
-    {
-        ventaAsociada = archivoVenta.leer(posVenta) ;
-    }
+    else {
 
-    Fecha fechaVenta = ventaAsociada.getFechaVenta() ;
+        ventaAsociada = archivoVenta.leer(posVenta) ; }
+
+        Fecha fechaVenta = ventaAsociada.getFechaVenta() ;
 
     int estadoEntrega ;
 
@@ -124,14 +105,11 @@ void Envio::cargar()
 
     bool fechaValida = false ;
 
-    do
-    {
-
+    do {
 
         Fecha fecha ;
 
         int dia, mes, anio ;
-
 
         cout << endl << "-----------------------------------" << endl ;
 
@@ -139,45 +117,37 @@ void Envio::cargar()
 
         cin >> dia ;
 
-        while (dia < 1 || dia > 31)
-        {
+        while (dia < 1 || dia > 31){
 
-            cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl;
+            cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl ;
 
             cout << "Dia: " ;
 
-            cin >> dia ;
-        }
+            cin >> dia ; }
 
         cout << "Mes de entrega: " ;
 
         cin >> mes ;
 
-        while (mes < 1 || mes > 12)
-        {
+        while (mes < 1 || mes > 12){
 
             cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl;
 
             cout << "Mes: " ;
 
-            cin >> mes ;
-
-        }
+            cin >> mes ; }
 
         cout << "Anio de entrega: " ;
 
         cin >> anio ;
 
-        while (anio < 2000 || anio > 2025)
-        {
+        while (anio < 2000 || anio > 2025){
 
             cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl ;
 
             cout << "Anio: " ;
 
-            cin >> anio ;
-
-        }
+            cin >> anio ; }
 
         fecha.setDia(dia) ;
 
@@ -185,17 +155,13 @@ void Envio::cargar()
 
         fecha.setAnio(anio) ;
 
-
-        if (fecha.esMayorOIgualA(fechaVenta))
-        {
+        if (fecha.esMayorOIgualA(fechaVenta)){
 
             setFecha_Entrega(fecha) ;
 
-            fechaValida = true ;
+            fechaValida = true ; }
 
-        }
-        else
-        {
+            else {
 
             cout << endl << "ERROR: La fecha de entrega (" ;
 
@@ -209,6 +175,7 @@ void Envio::cargar()
         }
 
     }
+
     while (!fechaValida) ;
 
     cout << "Estado de Entrega (1- Pendiente, 2- En curso, 3- Entregado): " ;
@@ -226,8 +193,7 @@ void Envio::cargar()
     cout << endl ;
 }
 
-void Envio::mostrar() const
-{
+void Envio::mostrar() const{
 
     cout << endl << "DATOS DEL ENVIO:" << endl ;
 
@@ -243,8 +209,7 @@ void Envio::mostrar() const
 
     cout << "Estado de Entrega: " ;
 
-    switch (getEstado_Entrega())
-    {
+    switch (getEstado_Entrega()){
 
     case 1:
 

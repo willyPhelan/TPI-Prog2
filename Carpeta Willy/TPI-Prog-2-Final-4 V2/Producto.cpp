@@ -11,18 +11,13 @@ using namespace std ;
 
 Producto::Producto()
 
-    : ID_Producto(0), ID_Proveedor(), descripcion{}, marca{}, tipoProducto(0), precioActual(0.0), garantia(0), cantidadStock(0), estado(true)
-{}
+: ID_Producto(0), ID_Proveedor(), descripcion{}, marca{}, tipoProducto(0), precioActual(0.0), garantia(0), cantidadStock(0), estado(true){}
 
 
 
 Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcion, const string &marca,int _tipoProducto, float _precioActual, int _garantia, int _cantStock, bool _estado)
 
-
-
-    : ID_Producto(_id_Producto), ID_Proveedor(), tipoProducto(_tipoProducto), precioActual(_precioActual), garantia(_garantia), cantidadStock(_cantStock), estado(_estado)
-{
-
+: ID_Producto(_id_Producto), ID_Proveedor(), tipoProducto(_tipoProducto), precioActual(_precioActual), garantia(_garantia), cantidadStock(_cantStock), estado(_estado){
 
     setDescripcion(descripcion) ;
 
@@ -31,77 +26,65 @@ Producto::Producto(int _id_Producto, int _id_Proveedor, const string &descripcio
 }
 
 
-
-int Producto::getID_Producto() const
-{
+int Producto::getID_Producto() const {
 
     return ID_Producto ;
 }
 
-int Producto::getID_Proveedor() const
-{
+int Producto::getID_Proveedor() const {
 
     return ID_Proveedor ;
 
 }
 
-const char* Producto::getDescripcion() const
-{
+const char* Producto::getDescripcion() const {
 
     return descripcion ;
 }
 
-const char* Producto::getMarca() const
-{
+const char* Producto::getMarca() const {
 
     return marca ;
 }
 
-int Producto::getTipoProducto() const
-{
+int Producto::getTipoProducto() const {
 
     return tipoProducto ;
 }
 
-float Producto::getPrecioActual() const
-{
+float Producto::getPrecioActual() const {
 
     return precioActual ;
 }
 
-int Producto::getGarantia() const
-{
+int Producto::getGarantia() const {
 
     return garantia ;
 }
 
-int Producto::getCantStock() const
-{
+int Producto::getCantStock() const {
 
     return cantidadStock ;
 }
 
-bool Producto::getEstado() const
-{
+bool Producto::getEstado() const {
 
     return estado ;
 }
 
 
-void Producto::setID_Producto(int _idProducto)
-{
+void Producto::setID_Producto(int _idProducto) {
 
     ID_Producto = _idProducto ;
 }
 
-void Producto::setID_Proveedor(int id_Proveedor)
-{
+void Producto::setID_Proveedor(int id_Proveedor) {
 
     this->ID_Proveedor = id_Proveedor ;
 }
 
-void Producto::setDescripcion(const std::string &_descripcion)
-{
+void Producto::setDescripcion(const std::string &_descripcion){
+
     const int MAX_LEN = sizeof(this->descripcion) - 1 ;
 
     strncpy(this->descripcion, _descripcion.c_str(), MAX_LEN) ;
@@ -109,8 +92,7 @@ void Producto::setDescripcion(const std::string &_descripcion)
     this->descripcion[MAX_LEN] = '\0' ;
 }
 
-void Producto::setMarca(const std::string &_marca)
-{
+void Producto::setMarca(const std::string &_marca) {
 
     const int MAX_LEN = sizeof(this->marca) - 1 ;
 
@@ -119,37 +101,32 @@ void Producto::setMarca(const std::string &_marca)
     this->marca[MAX_LEN] = '\0' ;
 }
 
-void Producto::setTipoProducto(int _tipoProducto)
-{
+void Producto::setTipoProducto(int _tipoProducto){
 
     tipoProducto = _tipoProducto ;
 }
 
-void Producto::setPrecioActual(float _precioActual)
-{
+void Producto::setPrecioActual(float _precioActual){
 
-    precioActual = _precioActual;
+    precioActual = _precioActual ;
 }
 
-void Producto::setGarantia(int _garantia)
-{
-    garantia = _garantia;
+void Producto::setGarantia(int _garantia) {
+
+    garantia = _garantia ;
 }
 
-void Producto::setCantidadStock(int _cantStock)
-{
+void Producto::setCantidadStock(int _cantStock) {
 
     cantidadStock = _cantStock ;
 }
 
-void Producto::setEstado(bool _estado)
-{
+void Producto::setEstado(bool _estado){
 
-    this-> estado = _estado ;
+    this->estado = _estado ;
 }
 
-void Producto::cargar()
-{
+void Producto::cargar() {
 
     ProductoArchivo archivoProd ;
 
@@ -187,15 +164,12 @@ void Producto::cargar()
             }
         }
 
-         }
+        }
 
 
-    while (!archivoProd.validarDescripcion(descripcionNueva) ) ;
-
+    while(!archivoProd.validarDescripcion(descripcionNueva) ) ;
 
     this->setDescripcion(descripcionNueva) ;
-
-
 
     setID_Producto(archivoProd.obtenerID()) ;
 
@@ -203,41 +177,41 @@ void Producto::cargar()
 
     str = cargarCadena() ;
 
+    bool validoMarca = false ;
+
+    validoMarca = archivoProd.validarMarca(str) ;
+
+    if(validoMarca == false) { return ; }
+
     setMarca(str) ;
-
-
 
     int posProveedor = -1 ;
 
     cout << "Ingrese el ID del proveedor:"  ;
 
-    while (posProveedor == -1)
-    {
+    while(posProveedor == -1) {
 
         cin >> idProveedor ;
 
         posProveedor = archivoProv.buscarPosicion(idProveedor) ;
 
-        if (posProveedor == -1)
-        {
+        if (posProveedor == -1) {
 
-            cout << "ERROR: El ID del proveedor no existe." << endl;
+            cout << "ERROR: El ID del proveedor no existe." << endl ;
 
-            cout << "Ingrese un ID del proveedor valido: ";
+            cout << "Ingrese un ID del proveedor valido: " ;
         }
     }
 
-
-    this->setID_Proveedor(idProveedor);
+    this->setID_Proveedor(idProveedor) ;
 
     cout << "Ingrese Tipo de Producto (1-PCS, 2-Accesorios, 3-Otros): " ;
 
     cin >> tipoProducto ;
 
-    while (tipoProducto < 1 || tipoProducto > 3)
-    {
+    while (tipoProducto < 1 || tipoProducto > 3) {
 
-        cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
+        cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl ;
 
         cout << "Ingrese Tipo de Producto (1-PCS, 2-Accesorios, 3-Otros): " ;
 
@@ -263,37 +237,29 @@ void Producto::cargar()
 
     cin >> cantidadStock ;
 
-    while (cantidadStock <= 0)
-    {
+    while (cantidadStock <= 0) {
 
-        cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
+        cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl ;
 
         cout << "Ingrese la cantidad que hay del producto: " ;
 
-        cin >> cantidadStock ;
-
-    }
+        cin >> cantidadStock ; }
 
     setCantidadStock(cantidadStock) ;
 
-    if (archivoProd.guardar(*this))
-    {
+    if (archivoProd.guardar(*this)) {
 
-        cout << endl << "Producto cargado con exito." << endl ;
-    }
-    else
-    {
+        cout << endl << "Producto cargado con exito." << endl ; }
+
+    else {
 
         cout << "ERROR: No se pudo guardar el producto en el archivo." << endl ;
     }
 
-
-
 }
 
 
-void Producto::mostrar()
-{
+void Producto::mostrar(){
 
     cout << "ID de producto: " << getID_Producto() << endl ;
 
@@ -303,43 +269,34 @@ void Producto::mostrar()
 
     cout << "Marca: " << getMarca() << endl ;
 
-    switch (getTipoProducto())
-    {
+    switch (getTipoProducto()) {
 
-    case 1:
-    {
+    case 1: {
 
-        cout << "Tipo de producto: PCs (1)" << endl;
+        cout << "Tipo de producto: PCs (1)" << endl ;
 
-        break;
-
+        break ;
     }
 
-    case 2:
-    {
+    case 2: {
 
-        cout << "Tipo de producto: Accesorio (2)" << endl;
+        cout << "Tipo de producto: Accesorio (2)" << endl ;
 
-        break;
+        break ; }
 
-    }
-    case 3:
-    {
+    case 3: {
 
-        cout << "Tipo de producto: Otros (3)" << endl;
+        cout << "Tipo de producto: Otros (3)" << endl ;
 
-        break;
+        break ; }
 
-    }
-    default:
-    {
+    default: {
 
-        cout << "Tipo de producto: Desconocido" << endl;
+        cout << "Tipo de producto: Desconocido" << endl ;
 
-        break;
+        break ;
 
-    }
-    }
+    } }
 
     cout << "Precio actual: $" << getPrecioActual() << endl ;
 

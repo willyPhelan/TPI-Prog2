@@ -9,9 +9,7 @@ using namespace std ;
 
 Persona::Persona(int id, const std::string &nombre, const std::string &apellido, const std::string &telefono, const std::string &direccion, const std::string &cuit, bool estado)
 
-    : idPersona(id), nombre{}, apellido{}, telefono{}, direccion{}, cuit{}, estado(estado)
-{
-
+: idPersona(id), nombre{}, apellido{}, telefono{}, direccion{}, cuit{}, estado(estado){
 
     setNombre(nombre) ;
 
@@ -25,97 +23,74 @@ Persona::Persona(int id, const std::string &nombre, const std::string &apellido,
 
 }
 
+int Persona::getID() const { return idPersona ; }
 
 
-int Persona::getID() const
-{
-
-    return idPersona ;
-}
-
-std::string Persona::getNombre() const
-{
+std::string Persona::getNombre() const {
 
     return std::string(nombre) ;
 }
 
-std::string Persona::getApellido() const
-{
+std::string Persona::getApellido() const {
 
     return std::string(apellido) ;
 }
 
-std::string Persona::getTelefono() const
-{
+std::string Persona::getTelefono() const {
 
     return std::string(telefono) ;
 }
 
-std::string Persona::getDireccion() const
-{
+std::string Persona::getDireccion() const {
 
-    return std::string(direccion) ;
-}
+    return std::string(direccion) ; }
 
-std::string Persona::getCuit() const
-{
+std::string Persona::getCuit() const {
 
-    return std::string(cuit) ;
-}
+    return std::string(cuit) ; }
 
-bool Persona::getEstado() const
-{
+bool Persona::getEstado() const {
 
-    return estado ;
-}
+    return estado ; }
 
 
-void Persona::setID(int id)
-{
+void Persona::setID(int id){
 
     idPersona = id ;
 }
 
 
-void Persona::setNombre(const std::string &nombre)
-{
+void Persona::setNombre(const std::string &nombre){
 
-    strncpy(this->nombre, nombre.c_str(), 29) ;
-}
+    strncpy(this->nombre, nombre.c_str(), 29) ; }
 
-void Persona::setApellido(const std::string &apellido)
-{
+
+void Persona::setApellido(const std::string &apellido){
 
     strncpy(this->apellido, apellido.c_str(), 29) ;
 }
 
-void Persona::setTelefono(const std::string &telefono)
-{
+void Persona::setTelefono(const std::string &telefono){
 
     strncpy(this->telefono, telefono.c_str(), 19) ;
 }
 
-void Persona::setDireccion(const std::string &direccion)
-{
+void Persona::setDireccion(const std::string &direccion){
 
     strncpy(this->direccion, direccion.c_str(), 49) ;
 }
 
-void Persona::setCuit(const std::string &cuit)
-{
+void Persona::setCuit(const std::string &cuit){
 
     strncpy(this->cuit, cuit.c_str(), 12) ;
 }
 
-void Persona::setEstado(bool estado)
-{
+void Persona::setEstado(bool estado){
 
     this->estado = estado ;
 }
 
-
-void Persona::mostrar() const
-{
+void Persona::mostrar() const {
 
     cout << "ID: " << getID() << endl ;
 

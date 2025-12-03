@@ -28,6 +28,8 @@ public:
 
     bool validarDescripcion(const std::string &descripcion_a_validar) ;
 
+    bool validarMarca(const std::string &marca) ;
+
     void modificarCampos();
 
     bool MarcaPorID(int idBuscado, char* marcaDestino, int tam);

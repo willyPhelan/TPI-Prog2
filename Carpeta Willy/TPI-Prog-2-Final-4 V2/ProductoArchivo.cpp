@@ -5,18 +5,13 @@
 
 using namespace std ;
 
-int ProductoArchivo::getCantidadRegistros()
-{
+int ProductoArchivo::getCantidadRegistros(){
 
     FILE* p ;
 
     p = fopen(archivo_Producto, "rb") ;
 
-    if (p == nullptr)
-    {
-
-        return 0 ;
-    }
+    if (p == nullptr){ return 0 ; }
 
     fseek(p, 0, SEEK_END) ;
 
@@ -27,20 +22,17 @@ int ProductoArchivo::getCantidadRegistros()
     return tamanioEnBytes / sizeof(Producto) ;
 }
 
-int ProductoArchivo::buscarPosicion(int id_producto)
-{
+int ProductoArchivo::buscarPosicion(int id_producto){
 
     Producto reg ;
 
     int cantidad = getCantidadRegistros() ;
 
-    for (int i = 0; i < cantidad; i++)
-    {
+    for (int i = 0; i < cantidad; i++){
 
         reg = leer(i) ;
 
-        if (reg.getID_Producto() == id_producto)
-        {
+        if (reg.getID_Producto() == id_producto) {
 
             return i ;
         }
@@ -49,15 +41,13 @@ int ProductoArchivo::buscarPosicion(int id_producto)
     return -1 ;
 }
 
-bool ProductoArchivo::guardar(const Producto &reg)
-{
+bool ProductoArchivo::guardar(const Producto &reg){
 
     FILE* p ;
 
     p = fopen(archivo_Producto, "ab") ;
 
-    if (p == nullptr)
-    {
+    if (p == nullptr){
 
         cout << "NO SE PUDO CREAR EL ARCHIVO" ;
 
@@ -71,8 +61,7 @@ bool ProductoArchivo::guardar(const Producto &reg)
     return escrito ;
 }
 
-Producto ProductoArchivo::leer(int pos)
-{
+Producto ProductoArchivo::leer(int pos){
 
     Producto reg ;
 
@@ -80,11 +69,7 @@ Producto ProductoArchivo::leer(int pos)
 
     p = fopen(archivo_Producto, "rb") ;
 
-    if (p == nullptr)
-    {
-
-        return reg ;
-    }
+    if (p == nullptr) { return reg ; }
 
     fseek(p, pos * sizeof(Producto), SEEK_SET) ;
 
@@ -96,25 +81,17 @@ Producto ProductoArchivo::leer(int pos)
 }
 
 
-bool ProductoArchivo::modificar(const Producto &reg)
-{
+bool ProductoArchivo::modificar(const Producto &reg){
 
     int pos = buscarPosicion(reg.getID_Producto()) ;
 
-    if (pos == -1)
-    {
-
-        return false ;
-    }
+    if (pos == -1){ return false ; }
 
     FILE* p ;
 
     p = fopen(archivo_Producto, "rb+") ;
 
-    if (p == nullptr)
-    {
-        return false ;
-    }
+    if (p == nullptr) { return false ; }
 
     fseek(p, pos * sizeof(Producto), SEEK_SET) ;
 
@@ -126,43 +103,25 @@ bool ProductoArchivo::modificar(const Producto &reg)
 }
 
 
-bool ProductoArchivo::bajaLogica(int id_producto)
-{
+bool ProductoArchivo::bajaLogica(int id_producto) {
 
     int pos = buscarPosicion(id_producto) ;
 
-    if (pos == -1)
-    {
-
-        return false ;
-    }
+    if (pos == -1) { return false ; }
 
     Producto reg = leer(pos) ;
 
-    if (reg.getEstado () == false)
-    {
-
-        return false;
-
-    }
-
-
+    if (reg.getEstado () == false) { return false ; }
 
     reg.setEstado(false);
 
-
     FILE* p ;
 
     p = fopen(archivo_Producto, "rb+") ;
 
-    if (p == nullptr)
-    {
-        return false ;
-    }
-
+    if (p == nullptr){ return false ; }
 
     fseek(p, pos * sizeof(Producto), SEEK_SET) ;
-
 
     int escrito = fwrite(&reg, sizeof(Producto), 1, p) ;
 
@@ -172,38 +131,23 @@ bool ProductoArchivo::bajaLogica(int id_producto)
 }
 
 
-bool ProductoArchivo::altaLogica(int id_producto)
-{
+bool ProductoArchivo::altaLogica(int id_producto) {
 
     int pos = buscarPosicion(id_producto) ;
 
-    if (pos == -1)
-    {
-
-        return false ;
-    }
+    if (pos == -1){ return false ; }
 
     Producto reg = leer(pos) ;
 
-    if (reg.getEstado () == true)
-    {
-
-        return false;
-
-    }
+    if (reg.getEstado () == true){ return false ; }
 
     reg.setEstado(true) ;
-
 
     FILE* p ;
 
     p = fopen(archivo_Producto, "rb+") ;
 
-    if (p == nullptr)
-    {
-        return false ;
-    }
-
+    if (p == nullptr) { return false ; }
 
     fseek(p, pos * sizeof(Producto), SEEK_SET) ;
 
@@ -214,16 +158,11 @@ bool ProductoArchivo::altaLogica(int id_producto)
     return escrito ;
 }
 
-int ProductoArchivo::obtenerID()
-{
+int ProductoArchivo::obtenerID(){
 
     FILE* p = fopen(archivo_Producto, "rb") ;
 
-    if (p == nullptr)
-    {
-
-        return 1 ;
-    }
+    if (p == nullptr){ return 1 ; }
 
     fseek(p, 0, SEEK_END) ;
 
@@ -231,20 +170,14 @@ int ProductoArchivo::obtenerID()
 
     fclose(p) ;
 
-    if (bytes == 0)
-    {
-
-        return 1 ;
-    }
+    if (bytes == 0){ return 1 ; }
 
     int numRegistros = bytes / sizeof(Producto) ;
-
 
     return numRegistros + 1 ;
 }
 
-float ProductoArchivo::buscarPrecio(int idBuscado)
-{
+float ProductoArchivo::buscarPrecio(int idBuscado){
 
     FILE* archivoP ;
 
@@ -252,16 +185,11 @@ float ProductoArchivo::buscarPrecio(int idBuscado)
 
     archivoP = fopen(archivo_Producto,"rb") ;
 
-    if(archivoP == nullptr)
-    {
-        return 0 ;
-    } ;
+    if(archivoP == nullptr){ return 0 ; } ;
 
-    while(fread(&reg,sizeof(Producto),1,archivoP))
-    {
+    while(fread(&reg, sizeof(Producto), 1, archivoP)) {
 
-        if(reg.getID_Producto() == idBuscado)
-        {
+        if(reg.getID_Producto() == idBuscado) {
 
             fclose(archivoP) ;
 
@@ -279,11 +207,11 @@ bool ProductoArchivo::validarDescripcion(const std::string &descripcion_a_valida
 
     Producto reg ;
 
-    int cantidad = getCantidadRegistros() ; // sirve para determinar la condicion del for
+    int cantidad = getCantidadRegistros() ;
 
     for (int i = 0; i < cantidad; i++){
 
-        reg = leer(i) ; // leo cada registro, a partir de esto puedo preguntar por el estado
+        reg = leer(i) ;
 
         if(reg.getEstado() == false) {
 
@@ -307,8 +235,6 @@ bool ProductoArchivo::validarDescripcion(const std::string &descripcion_a_valida
 
         }
 
-
-
         if (strcmp(reg.getDescripcion(), descripcion_a_validar.c_str()) == 0){
 
             cout << "ERROR: Ya existe un producto con esta descripcion: " << reg.getDescripcion() << endl ;
@@ -317,14 +243,34 @@ bool ProductoArchivo::validarDescripcion(const std::string &descripcion_a_valida
         }
  }
 
-    return true;
+    return true ;
 }
 
 
+bool ProductoArchivo::validarMarca(const std::string &marca_a_validar){
+
+    Producto reg ;
+
+    int cantidad = getCantidadRegistros() ;
+
+    for (int i = 0; i < cantidad; i++){
+
+        reg = leer(i) ;
+
+        if (strcmp(reg.getMarca(), marca_a_validar.c_str()) == 0){
+
+            cout << "ERROR: Ya existe un producto con esta marca: " << reg.getMarca() << endl ;
+
+            return false ;
+        }
+ }
+
+    return true ;
+}
 
 
-void ProductoArchivo::modificarCampos()
-{
+void ProductoArchivo::modificarCampos(){
+
     int id_a_buscar ;
 
     int opcion ;
@@ -341,34 +287,27 @@ void ProductoArchivo::modificarCampos()
 
     int pos = buscarPosicion(id_a_buscar) ;
 
-    if (pos == -1)
-    {
+    if (pos == -1) {
 
         cout << "ERROR: ID de producto no encontrado." << endl ;
 
         system("pause") ;
 
-        return ;
-    }
+        return ; }
 
     Producto producto_modificado = leer(pos) ;
 
-
-
-    do
-    {
+    do {
 
         system("cls") ;
 
-        cout << "Producto a Modificar (ID: " <<producto_modificado.getID_Producto() << "):" << endl ;
+        cout << "Producto a Modificar (ID: " << producto_modificado.getID_Producto() << "):" << endl ;
 
         cout << "-----------------------------" << endl ;
 
         producto_modificado.mostrar() ;
 
         cout << "Seleccione el campo a modificar:" << endl ;
-
-
 
         cout << "1. Descripcion" << endl ;
 
@@ -392,13 +331,9 @@ void ProductoArchivo::modificarCampos()
 
         cout << endl ;
 
-        switch (opcion)
-        {
+        switch (opcion) {
 
-
-
-        case 1:
-        {
+        case 1: {
 
             string nueva_desc ;
 
@@ -410,16 +345,13 @@ void ProductoArchivo::modificarCampos()
 
             producto_modificado.setDescripcion(nueva_desc) ;
 
-            if (producto_modificado.getDescripcion() != aux)
-            {
+            if (producto_modificado.getDescripcion() != aux) {
 
                 cout << endl << "Descripcion modificada y guardada con exito en el archivo." << endl ;
 
-                modificar(producto_modificado);
+                modificar(producto_modificado) ; }
 
-            }
-            else
-            {
+            else {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
             }
@@ -429,28 +361,23 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-
-        case 2:
-        {
+        case 2: {
 
             cout << "Modificar marca: " ;
 
             nuevo_dato_str = cargarCadena() ;
 
-            string aux = producto_modificado.getMarca();
+            string aux = producto_modificado.getMarca() ;
 
             producto_modificado.setMarca(nuevo_dato_str) ;
 
-            if (producto_modificado.getMarca() != aux)
-            {
+            if (producto_modificado.getMarca() != aux) {
 
                 cout << endl << "Marca modificada y guardada con exito en el archivo." << endl ;
 
-                modificar(producto_modificado);
+                modificar(producto_modificado) ; }
 
-            }
-            else
-            {
+            else {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
             }
@@ -460,26 +387,38 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-        case 3:
-        {
+        case 3: {
+
             int nuevo_id_proveedor ;
+
+            int pos ;
+
+            do{
 
             cout << "Nuevo ID del proveedor: " ;
 
             cin >> nuevo_id_proveedor ;
 
+            ProveedorArchivo nuevo ;
+
+            pos = nuevo.buscarPosicion(nuevo_id_proveedor) ;
+
+            if(pos == -1){ cout << "Error, ID del proveedro no encontrado" << endl ; }
+
+            } while (pos == -1) ;
+
             int aux = producto_modificado.getID_Proveedor() ;
 
             producto_modificado.setID_Proveedor(nuevo_id_proveedor) ;
 
-            if (producto_modificado.getID_Proveedor() != aux)
-            {
-                cout << endl << "ID de proveedor modificado y guardado con exito en el archivo." << endl;
+            if (producto_modificado.getID_Proveedor() != aux) {
+
+                cout << endl << "ID de proveedor modificado y guardado con exito en el archivo." << endl ;
 
                 modificar(producto_modificado) ;
-            }
-            else
-            {
+
+            } else {
+
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
             }
 
@@ -489,8 +428,7 @@ void ProductoArchivo::modificarCampos()
         }
 
 
-        case 4:
-        {
+        case 4: {
 
             float nuevo_precio ;
 
@@ -498,20 +436,17 @@ void ProductoArchivo::modificarCampos()
 
             cin >> nuevo_precio ;
 
-            float aux = producto_modificado.getPrecioActual();
+            float aux = producto_modificado.getPrecioActual() ;
 
             producto_modificado.setPrecioActual(nuevo_precio) ;
 
-            if (producto_modificado.getPrecioActual() != aux)
-            {
+            if (producto_modificado.getPrecioActual() != aux) {
 
                 cout << endl << "Precio modificado y guardado con exito en el archivo." << endl ;
 
-                modificar(producto_modificado);
+                modificar(producto_modificado) ; }
 
-            }
-            else
-            {
+            else {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
             }
@@ -521,8 +456,7 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-        case 5:
-        {
+        case 5: {
 
             int nuevo_tipo ;
 
@@ -530,20 +464,17 @@ void ProductoArchivo::modificarCampos()
 
             cin >> nuevo_tipo ;
 
-            int aux = producto_modificado.getTipoProducto();
+            int aux = producto_modificado.getTipoProducto() ;
 
             producto_modificado.setTipoProducto(nuevo_tipo) ;
 
-            if (producto_modificado.getTipoProducto() !=  aux)
-            {
+            if (producto_modificado.getTipoProducto() !=  aux) {
 
                 cout << endl << "Tipo de producto modificado y guardado con exito en el archivo." << endl ;
 
-                modificar(producto_modificado);
+                modificar(producto_modificado) ;
 
-            }
-            else
-            {
+            } else {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
             }
@@ -553,8 +484,7 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-        case 6:
-        {
+        case 6: {
 
             int nueva_garantia ;
 
@@ -562,20 +492,17 @@ void ProductoArchivo::modificarCampos()
 
             cin >> nueva_garantia ;
 
-            int aux = producto_modificado.getGarantia();
+            int aux = producto_modificado.getGarantia() ;
 
             producto_modificado.setGarantia(nueva_garantia) ;
 
-            if (producto_modificado.getGarantia() != aux)
-            {
+            if (producto_modificado.getGarantia() != aux) {
 
                 cout << endl << "Garantia modificada y guardada con exito en el archivo." << endl ;
 
-                modificar(producto_modificado);
+                modificar(producto_modificado) ;
 
-            }
-            else
-            {
+            } else {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
             }
@@ -585,8 +512,7 @@ void ProductoArchivo::modificarCampos()
             break ;
         }
 
-        case 7:
-        {
+        case 7: {
 
             int nueva_cantidad ;
 
@@ -594,20 +520,17 @@ void ProductoArchivo::modificarCampos()
 
             cin >> nueva_cantidad ;
 
-            int aux = producto_modificado.getCantStock();
+            int aux = producto_modificado.getCantStock() ;
 
             producto_modificado.setCantidadStock(nueva_cantidad) ;
 
-            if (producto_modificado.getCantStock() !=  aux)
-            {
+            if (producto_modificado.getCantStock() !=  aux) {
 
                 cout << endl << "Cantidad modificada y guardada con exito en el archivo." << endl ;
 
-                modificar(producto_modificado);
+                modificar(producto_modificado) ;
 
-            }
-            else
-            {
+            } else {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
             }
@@ -616,7 +539,6 @@ void ProductoArchivo::modificarCampos()
 
             break ;
         }
-
 
         case 0:
 
@@ -637,52 +559,57 @@ void ProductoArchivo::modificarCampos()
 
 }
 
-bool ProductoArchivo::MarcaPorID(int idBuscado, char* marcaDestino, int tam)
-{
-    FILE* p = fopen(archivo_Producto, "rb");
-    if (p == NULL)
-    {
-        strncpy(marcaDestino, "ERROR_FILE", tam - 1);
-        marcaDestino[tam - 1] = '\0';
-        return false;
+bool ProductoArchivo::MarcaPorID(int idBuscado, char* marcaDestino, int tam){
+
+    FILE* p = fopen(archivo_Producto, "rb") ;
+
+    if (p == nullptr) {
+
+        strncpy(marcaDestino, "ERROR_FILE", tam - 1) ;
+
+        marcaDestino[tam - 1] = '\0' ;
+
+        return false ;
     }
 
-    Producto reg;
-    while (fread(&reg, sizeof(Producto), 1, p) == 1)
-    {
+    Producto reg ;
 
-        if (reg.getID_Producto() == idBuscado)
-        {
-            strncpy(marcaDestino, reg.getMarca(), tam - 1);
-            marcaDestino[tam - 1] = '\0';
-            fclose(p);
-            return true;
+    while(fread(&reg, sizeof(Producto), 1, p) == 1){
+
+        if (reg.getID_Producto() == idBuscado){
+
+            strncpy(marcaDestino, reg.getMarca(), tam - 1) ;
+
+            marcaDestino[tam - 1] = '\0' ;
+
+            fclose(p) ;
+
+            return true ;
         }
     }
 
-    fclose(p);
-    strncpy(marcaDestino, "DESCONOCIDA", tam - 1);
-    marcaDestino[tam - 1] = '\0';
-    return false;
+    fclose(p) ;
+
+    strncpy(marcaDestino, "DESCONOCIDA", tam - 1) ;
+
+    marcaDestino[tam - 1] = '\0' ;
+
+    return false ;
 }
 
 
-bool ProductoArchivo::hacerBackup ()
-{
-
+bool ProductoArchivo::hacerBackup(){
 
     FILE* pArchivoOriginal = fopen(archivo_Producto,"rb") ;
 
-    if(pArchivoOriginal == nullptr)
-    {
+    if(pArchivoOriginal == nullptr){
 
         return false ;
     }
 
     FILE* pBackup = fopen(archivo_Producto_Backup,"wb") ;
 
-    if(pBackup == nullptr)
-    {
+    if(pBackup == nullptr){
 
         fclose(pArchivoOriginal) ;
 
@@ -695,8 +622,7 @@ bool ProductoArchivo::hacerBackup ()
     int bytesLeidos ;
 
 
-    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0)
-    {
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0) {
 
         fwrite(temporal, 1, bytesLeidos, pBackup) ;
     }
@@ -710,21 +636,18 @@ bool ProductoArchivo::hacerBackup ()
 
 }
 
-bool ProductoArchivo::restaurarBackup ()
-{
+bool ProductoArchivo::restaurarBackup (){
 
     FILE* pArchivoBkp = fopen(archivo_Producto_Backup, "rb") ;
 
-    if (pArchivoBkp == NULL)
-    {
+    if (pArchivoBkp == nullptr){
 
         return false ;
     }
 
     FILE* pArchivoOriginal = fopen(archivo_Producto, "wb") ;
 
-    if (pArchivoOriginal == NULL)
-    {
+    if (pArchivoOriginal == nullptr){
 
         fclose(pArchivoBkp) ;
 
@@ -735,8 +658,7 @@ bool ProductoArchivo::restaurarBackup ()
 
     int bytesLeidos ;
 
-    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0)
-    {
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0){
 
         fwrite(temporal, 1, bytesLeidos, pArchivoOriginal) ;
     }
@@ -745,6 +667,6 @@ bool ProductoArchivo::restaurarBackup ()
 
     fclose(pArchivoOriginal) ;
 
-    return true;
+    return true ;
 
 }
