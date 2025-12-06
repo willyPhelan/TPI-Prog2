@@ -4,17 +4,13 @@
 
 using namespace std ;
 
-
-string cargarCadena()
-{
+string cargarCadena(){
 
     std::string texto ;
 
-    if(std::cin.peek() == '\n')
-    {
+    if(std::cin.peek() == '\n'){
 
-        std::cin.ignore() ;
-    }
+        std::cin.ignore() ; }
 
     std::getline(std::cin, texto) ;
 
@@ -22,16 +18,13 @@ string cargarCadena()
 
 }
 
-string aMinusculas(string s)
-{
+string aMinusculas(string s){
 
     int longitud = s.length() ;
 
-    for (int i = 0; i < longitud ; ++i)
-    {
+    for (int i = 0; i < longitud ; ++i){
 
-        s[i] = tolower(s[i]) ;
-    }
+        s[i] = tolower(s[i]) ; }
 
     return s ;
 }

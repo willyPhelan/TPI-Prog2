@@ -7,15 +7,13 @@
 using namespace std ;
 
 
-bool VentaArchivo::guardar(const Venta &reg)
-{
+bool VentaArchivo::guardar(const Venta &reg){
 
-    FILE* pventa;
+    FILE* pventa ;
 
     pventa = fopen(archivo_Venta,"ab") ;
 
-    if(pventa == nullptr)
-    {
+    if(pventa == nullptr){
 
         cout << "NO SE PUDO CREAR EL ARCHIVO" << endl  ;
 
@@ -30,8 +28,7 @@ bool VentaArchivo::guardar(const Venta &reg)
 
 }
 
-Venta VentaArchivo::leer(int pos)
-{
+Venta VentaArchivo::leer(int pos){
 
     Venta reg ;
 
@@ -39,8 +36,7 @@ Venta VentaArchivo::leer(int pos)
 
     pventa = fopen(archivo_Venta, "rb") ;
 
-    if(pventa == nullptr)
-    {
+    if(pventa == nullptr){
 
         cout << "NO SE PUDO CREAR EL ARCHIVO" << endl  ;
 
@@ -57,23 +53,17 @@ Venta VentaArchivo::leer(int pos)
 
 }
 
-bool VentaArchivo::bajaLogica(int id_venta)
-{
+bool VentaArchivo::bajaLogica(int id_venta){
 
     int pos = buscarPosicion(id_venta) ;
 
-    if(pos == -1)
-    {
-
-        return false ;
-    }
+    if(pos == -1){ return false ; }
 
     Venta reg = leer(pos) ;
 
-    if (reg.getEstado () == false)
-    {
+    if(reg.getEstado() == false){
 
-        return false;
+        return false ;
 
     }
 
@@ -83,12 +73,9 @@ bool VentaArchivo::bajaLogica(int id_venta)
 
     pventa = fopen(archivo_Venta, "rb+") ;
 
-    if (pventa == nullptr)
-    {
-        return false ;
-    }
+    if (pventa == nullptr){ return false ; }
 
-    fseek(pventa,pos*sizeof(Venta),SEEK_SET) ;
+    fseek(pventa, pos * sizeof(Venta), SEEK_SET) ;
 
     int escrito = fwrite(&reg, sizeof(Venta), 1, pventa) ;
 
@@ -97,25 +84,19 @@ bool VentaArchivo::bajaLogica(int id_venta)
     return escrito ;
 }
 
-bool VentaArchivo::altaLogica(int id_venta)
-{
+bool VentaArchivo::altaLogica(int id_venta){
 
     int pos = buscarPosicion(id_venta) ;
 
-    if(pos == -1)
-    {
-
-        return false ;
-    }
+    if(pos == -1){ return false ; }
 
     Venta reg = leer(pos) ;
 
-    if (reg.getEstado () == true)
-    {
+    if (reg.getEstado () == true){
 
-        return false;
+        return false ;
 
-    }
+}
 
     reg.setEstado(true) ;
 
@@ -123,12 +104,9 @@ bool VentaArchivo::altaLogica(int id_venta)
 
     pventa = fopen(archivo_Venta, "rb+") ;
 
-    if (pventa == nullptr)
-    {
-        return false ;
-    }
+    if (pventa == nullptr){ return false ; }
 
-    fseek(pventa,pos*sizeof(Venta),SEEK_SET) ;
+    fseek(pventa, pos * sizeof(Venta), SEEK_SET) ;
 
     int escrito = fwrite(&reg, sizeof(Venta), 1, pventa) ;
 
@@ -137,27 +115,19 @@ bool VentaArchivo::altaLogica(int id_venta)
     return escrito ;
 }
 
-bool VentaArchivo::modificar(const Venta &reg)
-{
+bool VentaArchivo::modificar(const Venta &reg){
 
     int pos ;
 
     pos = buscarPosicion(reg.getID_Venta()) ;
 
-    if(pos == -1)
-    {
-
-        return false ;
-    }
+    if(pos == -1){ return false ; }
 
     FILE* pventa ;
 
     pventa = fopen(archivo_Venta, "rb+") ;
 
-    if(pventa == nullptr)
-    {
-        return false ;
-    }
+    if(pventa == nullptr){ return false ; }
 
     fseek(pventa, pos * sizeof(Venta), SEEK_SET) ;
 
@@ -169,8 +139,7 @@ bool VentaArchivo::modificar(const Venta &reg)
 
 }
 
-int VentaArchivo::obtenerID()
-{
+int VentaArchivo::obtenerID(){
 
     int bytes ;
 
@@ -180,10 +149,7 @@ int VentaArchivo::obtenerID()
 
     pventa = fopen(archivo_Venta, "rb") ;
 
-    if(pventa == nullptr)
-    {
-        return 1 ;
-    }
+    if(pventa == nullptr) { return 1 ; }
 
     fseek(pventa, 0, SEEK_END) ;
 
@@ -191,26 +157,22 @@ int VentaArchivo::obtenerID()
 
     fclose(pventa) ;
 
-    if(bytes == 0)
-    {
-        return 1 ;
-    }
+    if(bytes == 0){ return 1 ; }
 
     numRegistros = bytes / sizeof(Venta) ;
 
     return numRegistros + 1 ;
 }
-int VentaArchivo::getCantidadRegistros()
-{
+
+int VentaArchivo::getCantidadRegistros(){
 
     FILE* pventa ;
 
     pventa = fopen(archivo_Venta, "rb") ;
 
-    if(pventa == nullptr)
-    {
+    if(pventa == nullptr) {
 
-        cout << "NO SE PUDO CREAR EL ARCHIVO" << endl  ;
+        cout << "NO SE PUDO ABRIR EL ARCHIVO" << endl  ;
 
         return false ;
     }
@@ -225,20 +187,17 @@ int VentaArchivo::getCantidadRegistros()
 
 }
 
-int VentaArchivo::buscarPosicion(int id_venta)
-{
+int VentaArchivo::buscarPosicion(int id_venta){
 
-    Venta reg;
+    Venta reg ;
 
     int cantidad = getCantidadRegistros() ;
 
-    for (int i = 0; i < cantidad ; i++)
-    {
+    for (int i = 0; i < cantidad ; i++) {
 
         reg = leer(i) ;
 
-        if(reg.getID_Venta() == id_venta)
-        {
+        if(reg.getID_Venta() == id_venta){
 
             return i ;
         }
@@ -248,8 +207,7 @@ int VentaArchivo::buscarPosicion(int id_venta)
 }
 
 
-void VentaArchivo::modificarCampos()
-{
+void VentaArchivo::modificarCampos(){
 
     int id_a_buscar ;
 
@@ -267,8 +225,7 @@ void VentaArchivo::modificarCampos()
 
     int pos = buscarPosicion(id_a_buscar) ;
 
-    if (pos == -1)
-    {
+    if (pos == -1){
 
         cout << "ERROR: ID de venta no encontrado." << endl ;
 
@@ -279,8 +236,7 @@ void VentaArchivo::modificarCampos()
 
     Venta venta_modificar = leer(pos) ;
 
-    do
-    {
+    do{
 
         system("cls") ;
 
@@ -306,11 +262,9 @@ void VentaArchivo::modificarCampos()
 
         cout << endl ;
 
-        switch (opcion)
-        {
+        switch(opcion){
 
-        case 1:
-        {
+        case 1:{
 
             int dia, mes, anio ;
 
@@ -322,10 +276,9 @@ void VentaArchivo::modificarCampos()
 
             cin >> dia ;
 
-            while (dia < 1 || dia > 31)
-            {
+            while (dia < 1 || dia > 31){
 
-                cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl;
+                cout << "El dia que ingreso es invalido. Intentelo de nuevo." << endl ;
 
                 cout << "Dia: " ;
 
@@ -336,10 +289,9 @@ void VentaArchivo::modificarCampos()
 
             cin >> mes ;
 
-            while (mes < 1 || mes > 12)
-            {
+            while (mes < 1 || mes > 12) {
 
-                cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl;
+                cout << "El mes que ingreso es invalido. Intentelo de nuevo." << endl ;
 
                 cout << "Mes: " ;
 
@@ -350,17 +302,14 @@ void VentaArchivo::modificarCampos()
 
             cin >> anio ;
 
-            while (anio < 2000 || anio > 2025)
-            {
+            while(anio < 2000 || anio > 2025){
 
-                cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl;
+                cout << "El anio que ingreso es invalido. Intentelo de nuevo." << endl ;
 
                 cout << "Anio: " ;
 
                 cin >> anio ;
             }
-
-
 
             nueva_fecha.setDia(dia) ;
 
@@ -370,14 +319,11 @@ void VentaArchivo::modificarCampos()
 
             venta_modificar.setFechaVenta(nueva_fecha) ;
 
-            if (modificar(venta_modificar))
-            {
+            if (modificar(venta_modificar)){
 
                 cout << endl << "Fecha de venta modificada y guardada con exito." << endl ;
 
-            }
-            else
-            {
+            } else {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
 
@@ -388,8 +334,7 @@ void VentaArchivo::modificarCampos()
             break ;
         }
 
-        case 2:
-        {
+        case 2: {
 
             cout << "Nuevo medio de pago (1-Efectivo, 2-Tarjeta, 3-Transferencia): " ;
 
@@ -397,14 +342,11 @@ void VentaArchivo::modificarCampos()
 
             venta_modificar.setMedioDePago(nuevo_dato_int) ;
 
-            if (modificar(venta_modificar))
-            {
+            if(modificar(venta_modificar)){
 
                 cout << endl << "Medio de pago modificado y guardado con exito." << endl ;
 
-            }
-            else
-            {
+            } else {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo." << endl ;
 
@@ -415,9 +357,7 @@ void VentaArchivo::modificarCampos()
             break ;
         }
 
-        case 3:
-
-        {
+        case 3: {
 
             int nuevo_tipo_envio ;
 
@@ -425,8 +365,7 @@ void VentaArchivo::modificarCampos()
 
             cin >> nuevo_tipo_envio ;
 
-            while (nuevo_tipo_envio < 1 || nuevo_tipo_envio > 2)
-            {
+            while (nuevo_tipo_envio < 1 || nuevo_tipo_envio > 2){
 
                 cout << "Tipo de envio invalido. Intente de nuevo (1-A domicilio, 2-Retiro en sucursal): " ;
 
@@ -435,9 +374,7 @@ void VentaArchivo::modificarCampos()
 
             venta_modificar.setTipoEnvio(nuevo_tipo_envio) ;
 
-
-            if (nuevo_tipo_envio == 1)
-            {
+            if(nuevo_tipo_envio == 1){
 
                 EnvioArchivo archivoEnvio ;
 
@@ -449,8 +386,7 @@ void VentaArchivo::modificarCampos()
 
                 int pos_envio = archivoEnvio.buscarPosicionPorID_Venta(idVenta) ;
 
-                if (pos_envio == -1)
-                {
+                if(pos_envio == -1){
 
                     cout << "Creando nuevo registro de envio para la venta ID: " << idVenta << endl ;
 
@@ -458,14 +394,13 @@ void VentaArchivo::modificarCampos()
 
                     envio_modificar.setID_Venta(idVenta) ;
 
-                    envio_modificar.setValor_Envio(0.0f) ;
+                    envio_modificar.setValor_Envio(0.0) ;
 
                     envio_modificar.setEstado_Entrega(1) ;
 
                     envio_modificar.setEstado(true) ;
 
-                    if (!archivoEnvio.guardar(envio_modificar))
-                    {
+                    if (!archivoEnvio.guardar(envio_modificar)){
 
                         cout << "ERROR: No se pudo crear el registro de envio. Operacion cancelada." << endl ;
 
@@ -478,19 +413,14 @@ void VentaArchivo::modificarCampos()
 
                     envio_modificar = archivoEnvio.leer(pos_envio) ;
 
-                }
-                else
-                {
-
-
+                } else {
 
                     cout << "Envio encontrado. Modificando fecha de entrega." << endl ;
 
                     envio_modificar = archivoEnvio.leer(pos_envio) ;
                 }
 
-                if (pos_envio != -1)
-                {
+                if (pos_envio != -1){
 
                     Fecha nueva_fecha ;
 
@@ -508,27 +438,22 @@ void VentaArchivo::modificarCampos()
 
                     cout << endl << "-----------------------------------" << endl ;
 
-                    do
-                    {
+                    do {
 
                         nueva_fecha.cargar() ;
 
-                        if (nueva_fecha.esMayorOIgualA(fechaVenta))
-                        {
+                        if(nueva_fecha.esMayorOIgualA(fechaVenta)){
 
                             envio_modificar.setFecha_Entrega(nueva_fecha) ;
 
                             fechaValida = true ;
 
-                        }
-                        else
-                        {
+                        } else {
 
                             cout << endl << "ERROR: La fecha de entrega debe ser IGUAL O POSTERIOR a la fecha de la venta. Intente de nuevo." << endl << endl ;
                         }
 
-                    }
-                    while (!fechaValida) ;
+                    } while (!fechaValida) ;
 
                     int estadoEntrega ;
 
@@ -555,25 +480,19 @@ void VentaArchivo::modificarCampos()
 
                     cin >> estadoEntrega ;
 
-                    while (estadoEntrega < 1 || estadoEntrega > 3)
-                    {
+                    while (estadoEntrega < 1 || estadoEntrega > 3){
 
                         cout << "Estado invalido. Intente de nuevo (1, 2 o 3): " ;
 
-                        cin >> estadoEntrega ;
-                    }
+                        cin >> estadoEntrega ; }
+
                     envio_modificar.setEstado_Entrega(estadoEntrega) ;
 
-                    if (archivoEnvio.modificar(envio_modificar))
-                    {
+                    if (archivoEnvio.modificar(envio_modificar)){
 
                         cout << endl << "Registro de envio guardado con exito." << endl ;
 
-                    }
-                    else
-                    {
-
-
+                    } else {
 
                         cout << endl << "ERROR: No se pudo guardar la modificacion de la fecha de entrega del envio." << endl ;
                     }
@@ -581,14 +500,11 @@ void VentaArchivo::modificarCampos()
             }
 
 
-            if (modificar(venta_modificar))
-            {
+            if (modificar(venta_modificar)) {
 
                 cout << endl << "Tipo de envio modificado y guardado con exito." << endl ;
 
-            }
-            else
-            {
+            } else {
 
                 cout << endl << "ERROR: No se pudo guardar la modificacion en el archivo de venta." << endl ;
             }
@@ -597,9 +513,6 @@ void VentaArchivo::modificarCampos()
 
             break ;
         }
-
-
-
 
         case 0:
 
@@ -619,207 +532,173 @@ void VentaArchivo::modificarCampos()
 
     cout << "Todos los cambios han sido aplicados y guardados en el archivo de Ventas." << endl ;
 
-
 }
 
-void VentaArchivo::calcularRecaudacionPorCliente ()
-{
+void VentaArchivo::calcularRecaudacionPorCliente(){
 
-    Venta venta;
+    Venta venta ;
 
-    ClienteArchivo registroCliente;
+    ClienteArchivo registroCliente ;
 
-    Cliente cliente;
+    Cliente cliente ;
 
-    int const cantCliente = registroCliente.getCantidadRegistros ();
+    int const cantCliente = registroCliente.getCantidadRegistros() ;
 
-    int const cantVenta = getCantidadRegistros ();
+    int const cantVenta = getCantidadRegistros() ;
 
-    if (cantCliente == 0 || cantVenta == 0)
-    {
+    if(cantCliente == 0 || cantVenta == 0){
 
-        cout << "No hay registros de clientes o ventas. " << endl;
+        cout << "No hay registros de clientes o ventas. " << endl ;
 
-        return;
+        return ;
     }
 
-    float *acumulador = new float [cantCliente] ();
+    float *acumulador = new float[cantCliente]() ;
 
-    if (acumulador == nullptr)
-    {
+    if (acumulador == nullptr){
 
-        cout << "ERROR: No se pudo asignar la memoria. " << endl;
+        cout << "ERROR: No se pudo asignar la memoria. " << endl ;
 
-        return;
+        return ;
 
     }
 
-    for (int i=0; i<cantVenta; i++)
-    {
+    for (int i = 0 ; i < cantVenta ; i++){
 
-        venta = leer (i);
+        venta = leer (i) ;
 
-        if (venta.getEstado() == false) continue;
+        if(venta.getEstado() == false) continue ;
 
-        for (int j=0; j<cantCliente; j++)
-        {
+        for(int j = 0 ; j < cantCliente ; j++){
 
+            cliente = registroCliente.leer(j) ;
 
+            if(cliente.getEstado () == true && cliente.getID() == venta.getID_Cliente()){
 
-            cliente = registroCliente.leer (j);
+                acumulador [j] += venta.getMontoTotal() ;
 
-            if (cliente.getEstado () == true && cliente.getID() == venta.getID_Cliente())
-            {
-
-                acumulador [j] += venta.getMontoTotal ();
-
-                break;
+                break ;
             }
-
 
         }
 
-
     }
 
-    cout << "-------------------------------------------------------------------------------" << endl;
+    cout << "-------------------------------------------------------------------------------" << endl ;
 
-    cout << "RECAUDACION POR CLIENTE" << endl;
+    cout << "RECAUDACION POR CLIENTE" << endl ;
 
-    cout << "-------------------------------------------------------------------------------" << endl;
+    cout << "-------------------------------------------------------------------------------" << endl ;
 
-    for (int i=0; i < cantCliente ; i++)
-    {
+    for(int i = 0 ; i < cantCliente ; i++){
 
-        cliente = registroCliente.leer (i);
+        cliente = registroCliente.leer(i) ;
 
-        if (cliente.getEstado () == true)
-        {
+        if(cliente.getEstado() == true){
 
-            cout << "-------------------------------------------------------------------------------" << endl;
+            cout << "-------------------------------------------------------------------------------" << endl ;
 
-            cout << "ID del cliente: " << cliente.getID() << " | " << "Nombre y apellido: " << cliente.getNombre() << " " << cliente.getApellido () << " | " << "Recaudacion total: $" << acumulador [i] << endl;
+            cout << "ID del cliente: " << cliente.getID() << " | " << "Nombre y apellido: " << cliente.getNombre() << " " << cliente.getApellido () << " | " << "Recaudacion total: $" << acumulador[i] << endl ;
 
-            cout << "-------------------------------------------------------------------------------" << endl;
-
+            cout << "-------------------------------------------------------------------------------" << endl ;
 
         }
     }
 
     float totalHistorico = 0 ;
 
-    for (int i = 0 ; i < cantCliente ; i++)
-    {
+    for (int i = 0 ; i < cantCliente ; i++){
 
         totalHistorico += acumulador[i] ;
     }
 
-    cout << endl << "RECAUDACION HISTORICA TOTAL DE TODOS LOS CLIENTES: $" << totalHistorico <<  endl << endl;
+    cout << endl << "RECAUDACION HISTORICA TOTAL DE TODOS LOS CLIENTES: $" << totalHistorico <<  endl << endl ;
 
-
-    delete[] acumulador;
+    delete[] acumulador ;
 
 }
 
 
-void VentaArchivo::reporteCantidadPorMedioPago ()
-{
+void VentaArchivo::reporteCantidadPorMedioPago(){
 
-    const int MAX_METODOS_PAGO = 4;
+    const int MAX_METODOS_PAGO = 4 ;
 
-    const char *nombresMetodos[MAX_METODOS_PAGO] =
-    {
-        "1. Efectivo",
-        "2. Transferencia",
-        "3. Debito",
-        "4. Credito",
-    };
+    const char *nombresMetodos[MAX_METODOS_PAGO] = { "1. Efectivo", "2. Transferencia", "3. Debito", "4. Credito", } ;
 
-    int contadores[MAX_METODOS_PAGO] = {0};
+    int contadores[MAX_METODOS_PAGO] = {0} ;
 
-    float montosAcumulados[MAX_METODOS_PAGO] = {0.0};
+    float montosAcumulados[MAX_METODOS_PAGO] = {0.0} ;
 
-    int cantVentas = getCantidadRegistros();
+    int cantVentas = getCantidadRegistros() ;
 
-    if (cantVentas == 0)
-    {
+    if (cantVentas == 0){
 
-        cout << "No hay ventas cargadas para reportar." << endl;
+        cout << "No hay ventas cargadas para reportar." << endl ;
 
-        return;
+        return ; }
 
-    }
+    Venta reg ;
 
-    Venta reg;
+    int totalGeneralVentas = 0 ;
 
-    int totalGeneralVentas = 0;
+    float totalGeneralMonto = 0.0 ;
 
-    float totalGeneralMonto = 0.0;
+    for (int i = 0; i < cantVentas; i++){
 
-    for (int i = 0; i < cantVentas; i++)
-    {
+        reg = leer(i) ;
 
-        reg = leer(i);
+        if (reg.getEstado()){
 
+            int metodo = reg.getMedioPago() ;
 
-        if (reg.getEstado())
-        {
-            int metodo = reg.getMedioPago();
-
-
-            if (metodo >= 1 && metodo <= MAX_METODOS_PAGO)
-            {
+            if (metodo >= 1 && metodo <= MAX_METODOS_PAGO){
 
                 int indiceArray = metodo - 1;
-
 
                 contadores[indiceArray]++;
 
                 totalGeneralVentas++;
 
-
                 montosAcumulados[indiceArray] += reg.getMontoTotal();
 
-                totalGeneralMonto += reg.getMontoTotal();
+                totalGeneralMonto += reg.getMontoTotal() ;
 
             }
         }
     }
 
-    system("cls");
+    system("cls") ;
 
-    cout << "REPORTE DE VENTAS POR MEDIO DE PAGO" << endl;
+    cout << "REPORTE DE VENTAS POR MEDIO DE PAGO" << endl ;
 
-    cout << "-------------------------------------------" << endl;
+    cout << "-------------------------------------------" << endl ;
 
-    for (int i = 0; i < MAX_METODOS_PAGO; i++)
-    {
+    for (int i = 0; i < MAX_METODOS_PAGO ; i++){
 
-        cout << nombresMetodos[i] << ":" << endl;
+        cout << nombresMetodos[i] << ":" << endl ;
 
-        cout << "   - Cantidad: " << contadores[i] << " ventas" << endl;
+        cout << "   - Cantidad: " << contadores[i] << " ventas" << endl ;
 
-        cout << "   - Monto Total: $" << montosAcumulados[i] << endl;
+        cout << "   - Monto Total: $" << montosAcumulados[i] << endl ;
 
     }
 
-    cout << "-------------------------------------------" << endl;
+    cout << "-------------------------------------------" << endl ;
 
-    cout << "TOTAL VENTAS: " << totalGeneralVentas << " ventas" << endl;
+    cout << "TOTAL VENTAS: " << totalGeneralVentas << " ventas" << endl ;
 
-    cout << "MONTO TOTAL: $" << totalGeneralMonto << endl;
+    cout << "MONTO TOTAL: $" << totalGeneralMonto << endl ;
 
-    cout << "-------------------------------------------" << endl;
+    cout << "-------------------------------------------" << endl ;
 
 }
 
 
-float VentaArchivo::calcularRecaudacion(int anio)
-{
+float VentaArchivo::calcularRecaudacion(int anio){
 
     Venta reg ;
 
-    const int MESES_DEL_ANIO = 12;
+    const int MESES_DEL_ANIO = 12 ;
 
     float recaudacionMensual[MESES_DEL_ANIO] = {0.0} ;
 
@@ -827,18 +706,15 @@ float VentaArchivo::calcularRecaudacion(int anio)
 
     int cantidad = getCantidadRegistros() ;
 
-    for (int i = 0; i < cantidad; i++)
-    {
+    for (int i = 0 ; i < cantidad ; i++){
 
         reg = leer(i) ;
 
-        if (reg.getEstado() && reg.getFechaVenta().getAnio() == anio)
-        {
+        if(reg.getEstado() && reg.getFechaVenta().getAnio() == anio){
 
             int mes = reg.getFechaVenta().getMes();
 
-            if (mes >= 1 && mes <= 12)
-            {
+            if (mes >= 1 && mes <= 12){
 
                 recaudacionMensual[mes - 1] += reg.getMontoTotal() ;
             }
@@ -849,11 +725,9 @@ float VentaArchivo::calcularRecaudacion(int anio)
 
     cout << "--------------------------------------------" << endl << endl ;
 
-    for (int mes = 0; mes < 12; ++mes)
-    {
+    for (int mes = 0 ; mes < 12 ; mes++){
 
         recaudacionTotalAnual += recaudacionMensual[mes] ;
-
 
         cout << "Mes " << mes + 1 << ": $ " << recaudacionMensual[mes] << endl ;
     }
@@ -869,71 +743,56 @@ float VentaArchivo::calcularRecaudacion(int anio)
 }
 
 
-bool VentaArchivo::hacerBackup ()
-{
+bool VentaArchivo::hacerBackup(){
 
+    FILE *pArchivoOriginal = fopen(archivo_Venta,"rb") ;
 
-    FILE *pArchivoOriginal = fopen(archivo_Venta,"rb");
+    if(pArchivoOriginal == nullptr){ return false ; }
 
-    if(pArchivoOriginal == nullptr)
-    {
+    FILE *pBakup = fopen(archivo_Venta_Backup,"wb") ;
 
-        return false;
+    if(pBakup == nullptr){
 
+        pclose(pArchivoOriginal) ;
+
+        return false ;
     }
 
-    FILE *pBakup = fopen (archivo_Venta_Backup,"wb");
+    char temporal[1024] ;
 
-    if(pBakup == nullptr)
-    {
+    int bytesLeidos ;
 
-        pclose(pArchivoOriginal);
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) >0){
 
-        return false;
+        fwrite(temporal, 1, bytesLeidos, pBakup) ;
     }
 
-    char temporal[1024];
+    fclose(pArchivoOriginal) ;
 
-    int bytesLeidos;
-
-    while((bytesLeidos = fread(temporal,1,1024,pArchivoOriginal))>0)
-    {
-
-        fwrite(temporal,1,bytesLeidos,pBakup);
-    }
-
-    fclose(pArchivoOriginal);
-
-    fclose(pBakup);
+    fclose(pBakup) ;
 
     return true ;
 
 }
 
-bool VentaArchivo::restaurarBackup ()
-{
+bool VentaArchivo::restaurarBackup(){
 
     FILE *pArchivoBkp = fopen(archivo_Venta_Backup, "rb") ;
 
-    if (pArchivoBkp == NULL)
-    {
-        return false ;
-    }
+    if (pArchivoBkp == nullptr){ return false ; }
 
     FILE *pArchivoOriginal = fopen(archivo_Venta, "wb") ;
 
-    if (pArchivoOriginal == NULL)
-    {
+    if (pArchivoOriginal == nullptr){
 
-        fclose(pArchivoBkp);
+        fclose(pArchivoBkp) ;
 
-        return false;
-
+        return false ;
     }
 
-    char temporal[1024];
+    char temporal[1024] ;
 
-    int bytesLeidos;
+    int bytesLeidos ;
 
     while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0)
     {

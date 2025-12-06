@@ -9,159 +9,97 @@ using namespace std ;
 
 Venta::Venta()
 
-    :ID_Cliente(), ID_Venta(0), ID_persona(), fechaVenta(), medioDePago(0), tipoEnvio(0), subTotal(0.0), montoTotal(0.0), estado(true)
-
-{}
-
+:ID_Cliente(), ID_Venta(0), ID_persona(), fechaVenta(), medioDePago(0), tipoEnvio(0), subTotal(0.0), montoTotal(0.0), estado(true){}
 
 Venta::Venta(int id_cliente, int id_venta, int id_persona, const Fecha &_fechaVenta, int _mediopago, int _tipoEnvio, float _subtotal, float _montoTotal, bool _estado)
 
 
+:ID_Venta(id_venta), ID_persona(), fechaVenta(_fechaVenta), medioDePago(_mediopago), tipoEnvio(_tipoEnvio), subTotal(_subtotal), montoTotal(_montoTotal), estado(_estado){
 
-    :ID_Venta(id_venta), ID_persona(), fechaVenta(_fechaVenta), medioDePago(_mediopago), tipoEnvio(_tipoEnvio), subTotal(_subtotal), montoTotal(_montoTotal), estado(_estado)
-{
-
-
-    ID_persona.setID(id_persona) ;
-}
+ID_persona.setID(id_persona) ; }
 
 
-
-
-
-int Venta::getID_Venta() const
-{
+int Venta::getID_Venta() const{
 
     return ID_Venta ;
 }
 
-int Venta::getID_Cliente()
-{
+int Venta::getID_Cliente(){ return ID_Cliente ; }
 
-    return ID_Cliente ;
-}
+Persona Venta::getID_Persona(){ return ID_persona ; }
 
-Persona Venta::getID_Persona()
-{
+Fecha Venta::getFechaVenta(){ return fechaVenta ; }
 
-    return ID_persona ;
-}
+int Venta::getMedioPago(){ return medioDePago ; }
 
-Fecha Venta::getFechaVenta()
-{
+int Venta::getTipoEnvio(){ return tipoEnvio ; }
 
-    return fechaVenta ;
-}
+float Venta::getSubTotal(){ return subTotal ;}
 
+float Venta::getMontoTotal(){ return montoTotal ;}
 
-int Venta::getMedioPago()
-{
+bool Venta::getEstado(){ return estado ; }
 
-    return medioDePago ;
-}
-
-int Venta::getTipoEnvio()
-{
-
-    return tipoEnvio ;
-}
-
-float Venta::getSubTotal()
-{
-
-    return subTotal ;
-}
-
-float Venta::getMontoTotal()
-{
-
-    return montoTotal ;
-}
-
-bool Venta::getEstado()
-{
-
-    return estado ;
-}
-
-
-
-void Venta::setID_Venta(int _IDventa)
-{
+void Venta::setID_Venta(int _IDventa){
 
     ID_Venta = _IDventa ;
 }
 
-void Venta::setID_Cliente(int _IDCliente)
-{
+void Venta::setID_Cliente(int _IDCliente){
 
     ID_Cliente = _IDCliente ;
 }
 
-void Venta::setID_Persona(Persona _IDPersona)
-{
+void Venta::setID_Persona(Persona _IDPersona){
 
     ID_persona = _IDPersona ;
 }
 
-void Venta::setFechaVenta(Fecha _fechaVenta)
-{
+void Venta::setFechaVenta(Fecha _fechaVenta){
 
     fechaVenta = _fechaVenta ;
 }
 
-
-
-void Venta::setMedioDePago(int _medioPago)
-{
+void Venta::setMedioDePago(int _medioPago){
 
     medioDePago = _medioPago ;
 }
 
-void Venta::setTipoEnvio(int _tipoEnvio)
-{
+void Venta::setTipoEnvio(int _tipoEnvio){
 
     tipoEnvio = _tipoEnvio ;
 }
 
-void Venta::setSubTotal(float _subTotal)
-{
+void Venta::setSubTotal(float _subTotal){
 
     subTotal = _subTotal ;
 
 }
 
-void Venta::setMontoTotal(float _montoTotal)
-{
+void Venta::setMontoTotal(float _montoTotal){
 
     montoTotal = _montoTotal ;
 
 }
 
-
-
-void Venta::setEstado(bool _estado)
-{
+void Venta::setEstado(bool _estado){
 
     estado = _estado ;
 }
 
-
-
-
-bool Venta::cargarVenta()
-{
+bool Venta::cargarVenta(){
 
     int num ;
 
-    int continuarDetalle = 1;
+    int continuarDetalle = 1 ;
 
-    float montoFinal = 0;
+    float montoFinal = 0 ;
 
     float subtotalAcumulado = 0.0 ;
+
     int contadorProductos = 1 ;
 
-    int idcliente;
+    int idcliente ;
 
     ClienteArchivo archivoCliente ;
 
@@ -187,47 +125,55 @@ bool Venta::cargarVenta()
 
         cin >> idcliente ;
 
-        int pos = archivoCliente.buscarPosicion(idcliente) ; // busco la posicion de un registro en el archivo
+        int pos = archivoCliente.buscarPosicion(idcliente) ;
 
         Cliente reg = archivoCliente.leer(pos) ;
 
         if(reg.getEstado() == false) {
 
-            cout << "Cliente dado de baja. Intente con otro" << endl ;
+            cout << "Cliente dado de baja. Intente con otro. Desea volver a darlo de alta? 1-Si, 2-No: " << endl ;
+
+            int opc ;
+
+            cin >> opc ;
+
+            if(opc == 1){
+
+                reg.setEstado(true) ;
+
+                archivoCliente.modificar(reg) ;
+
+                cout << "Cliente dado de alta" << endl ;
+
+                return false ;
+            }
 
             return false ;
         }
 
-
-
-        if (archivoCliente.buscarPosicion(idcliente) != -1)
-        {
+        if (archivoCliente.buscarPosicion(idcliente) != -1){
 
             setID_Cliente(idcliente) ;
 
             clienteEncontrado = true ;
 
-        }
-        else
-        {
+        } else {
 
             cout << "ERROR: El ID de Cliente (" << idcliente << ") no existe." << endl ;
 
             cout << "Por favor, ingrese un ID de Cliente valido." << endl ;
         }
 
-    }
-    while (!clienteEncontrado) ;
+    } while (!clienteEncontrado) ;
 
 
     cout << endl << "Medio de pago (1- Efectivo, 2- Transferencia, 3- Debito, 4- Credito): " ;
 
     cin >> num ;
 
-    while (num < 1 || num > 4)
-    {
+    while (num < 1 || num > 4){
 
-        cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
+        cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl ;
 
         cout << endl << "Medio de pago (1- Efectivo, 2- Transferencia, 3- Debito, 4- Credito): " ;
 
@@ -241,10 +187,9 @@ bool Venta::cargarVenta()
 
     cin >> num ;
 
-    while (num != 1 && num != 2)
-    {
+    while (num != 1 && num != 2){
 
-        cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
+        cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl ;
 
         cout << "Tipo de envio: (1- Domicilio, 2- Retiro en Local): " ;
 
@@ -258,26 +203,23 @@ bool Venta::cargarVenta()
 
     cout << "--------------------------------------------------------------" << endl ;
 
-    do
-    {
+    do {
 
         Detalle_Venta detalle ;
 
         DetalleVentaArchivo archivoDetalleVenta ;
 
-        int idDetalle = archivoDetalleVenta.obtenerID();
+        int idDetalle = archivoDetalleVenta.obtenerID() ;
 
-        detalle.setID_Detalle(idDetalle);
+        detalle.setID_Detalle(idDetalle) ;
 
-        detalle.setID_Venta(getID_Venta());
-
+        detalle.setID_Venta(getID_Venta()) ;
 
         cout << "Producto #" << contadorProductos << " " ;
 
         detalle.cargar() ;
 
-        if (detalle.getID_Producto() > 0 && detalle.getCantidad() > 0)
-        {
+        if (detalle.getID_Producto() > 0 && detalle.getCantidad() > 0){
 
             int id_prod = detalle.getID_Producto() ;
 
@@ -285,32 +227,21 @@ bool Venta::cargarVenta()
 
             int pos = archivoP.buscarPosicion(id_prod) ;
 
-            if (pos != -1)
-            {
+            if (pos != -1){
 
                 Producto regP = archivoP.leer(pos) ;
-
 
                 int nuevo_stock = regP.getCantStock() - cantidad_vendida ;
 
                 regP.setCantidadStock(nuevo_stock) ;
 
+                if (archivoP.modificar(regP)){
 
-                if (archivoP.modificar(regP))
-                {
+                    cout << "Stock de Producto (ID " << id_prod << ") actualizado a " << regP.getCantStock() << " unidades." << endl ; }
 
-                    cout << "Stock de Producto (ID " << id_prod << ") actualizado a " << regP.getCantStock() << " unidades." << endl ;
+                else { cout << "ERROR: No se pudo guardar la modificacion del stock." << endl ; }
 
-                }
-                else
-                {
-
-                    cout << "ERROR: No se pudo guardar la modificacion del stock." << endl ;
-                }
-
-            }
-            else
-            {
+            } else {
 
                 cout << " Advertencia: Producto no encontrado en archivo, stock no modificado." << endl ;
             }
@@ -322,36 +253,29 @@ bool Venta::cargarVenta()
 
         contadorProductos++ ;
 
-        //      cout << endl << "Detalle de venta cargado. " << endl ;
-
         cout << "Desea agregar otro producto a la venta? (1- Si, 2- No): "  ;
 
         cin >> continuarDetalle ;
 
-        while (continuarDetalle != 1 && continuarDetalle !=2)
-        {
+        while (continuarDetalle != 1 && continuarDetalle !=2){
 
-            cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl;
+            cout << "La opcion que ingreso es invalida. Intentelo de nuevo." << endl ;
 
             cout << "Desea agregar otro producto a la venta? (1- Si, 2- No): "  ;
 
-            cin >> continuarDetalle ;
-
-        }
+            cin >> continuarDetalle ; }
 
         cout << endl ;
 
-        if (detalle.getCantidad () != 0)
-        {
+        if (detalle.getCantidad() != 0){
 
-            archivoDetalleVenta.guardar(detalle);
+            archivoDetalleVenta.guardar(detalle) ;
 
             cout << endl << "Detalle de venta cargado. " << endl ;
 
         }
 
-    }
-    while (continuarDetalle == 1) ;
+    } while (continuarDetalle == 1) ;
 
     montoFinal += subtotalAcumulado ;
 
@@ -363,78 +287,69 @@ bool Venta::cargarVenta()
 
     cout << "Total: $" << getMontoTotal() << endl ;
 
-    setEstado(true);
+    setEstado(true) ;
 
     return true ;
 
 }
 
 
-void Venta::mostrarVenta()
-{
+void Venta::mostrarVenta(){
 
     cout << "ID_Venta: " << getID_Venta() << endl ;
 
     cout << "ID_Cliente: " << getID_Cliente() << endl ;
 
-    cout << "Medio de pago: ";
+    cout << "Medio de pago: " ;
 
-    switch(getMedioPago())
-    {
+    switch(getMedioPago()){
+
     case 1:
 
-        cout<<"Efectivo"<< endl;
+        cout << "Efectivo" << endl ;
 
-        break;
+        break ;
 
     case 2:
 
-        cout<<"Transferencia"<< endl;
+        cout << "Transferencia" << endl ;
 
-        break;
+        break ;
 
     case 3:
 
-        cout<<"Debito"<< endl;
+        cout << "Debito" << endl ;
 
-        break;
+        break ;
 
     case 4:
 
-        cout<<"Credito"<< endl;
+        cout << "Credito" << endl ;
 
-        break;
+        break ;
 
     }
 
-    if(getTipoEnvio() == 1)
-    {
+    if(getTipoEnvio() == 1){
 
         cout << "Forma de entrega: Envio a domicilio"  << endl ;
 
         cout << "Para ver mas informacion sobre el envio, busque el ID de esta venta en el listado de envios." << endl ;
 
-    }
-    else
-    {
+    } else { cout <<  "Forma de entrega: Retiro en el local"  << endl ; }
 
-        cout <<  "Forma de entrega: Retiro en el local"  << endl ;
-
-    }
-
-    cout << "Fecha de la venta (dia/mes/anio): " << fechaVenta.getDia () << "/" << fechaVenta.getMes () << "/" << fechaVenta.getAnio() << endl;
+    cout << "Fecha de la venta (dia/mes/anio): " << fechaVenta.getDia () << "/" << fechaVenta.getMes () << "/" << fechaVenta.getAnio() << endl ;
 
     cout << "Subtotal (sin envio incluido): $" << getSubTotal() << endl ;
 
     cout << "Monto total (con envio incluido, si es aplicable): $" << getMontoTotal() << endl ;
 
-    if(getEstado())
-    {
+    if(getEstado()){
 
         cout << "Estado: Activo" << endl ;
-    }
-    else
-    {
+
+    } else {
+
         cout << "Estado: Dado de baja" << endl ;
     }
 }
