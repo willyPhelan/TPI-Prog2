@@ -193,7 +193,7 @@ int VentaArchivo::buscarPosicion(int id_venta){
 
     int cantidad = getCantidadRegistros() ;
 
-    for (int i = 0; i < cantidad ; i++) {
+    for (int i = 0 ; i < cantidad ; i++) {
 
         reg = leer(i) ;
 
@@ -565,7 +565,7 @@ void VentaArchivo::calcularRecaudacionPorCliente(){
 
     for (int i = 0 ; i < cantVenta ; i++){
 
-        venta = leer (i) ;
+        venta = leer(i) ;
 
         if(venta.getEstado() == false) continue ;
 
@@ -573,7 +573,7 @@ void VentaArchivo::calcularRecaudacionPorCliente(){
 
             cliente = registroCliente.leer(j) ;
 
-            if(cliente.getEstado () == true && cliente.getID() == venta.getID_Cliente()){
+            if(cliente.getEstado() == true && cliente.getID() == venta.getID_Cliente()){
 
                 acumulador [j] += venta.getMontoTotal() ;
 
@@ -643,7 +643,7 @@ void VentaArchivo::reporteCantidadPorMedioPago(){
 
     float totalGeneralMonto = 0.0 ;
 
-    for (int i = 0; i < cantVentas; i++){
+    for (int i = 0 ; i < cantVentas; i++){
 
         reg = leer(i) ;
 
@@ -712,7 +712,7 @@ float VentaArchivo::calcularRecaudacion(int anio){
 
         if(reg.getEstado() && reg.getFechaVenta().getAnio() == anio){
 
-            int mes = reg.getFechaVenta().getMes();
+            int mes = reg.getFechaVenta().getMes() ;
 
             if (mes >= 1 && mes <= 12){
 
@@ -762,7 +762,7 @@ bool VentaArchivo::hacerBackup(){
 
     int bytesLeidos ;
 
-    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) >0){
+    while((bytesLeidos = fread(temporal, 1, 1024, pArchivoOriginal)) > 0){
 
         fwrite(temporal, 1, bytesLeidos, pBakup) ;
     }
@@ -794,8 +794,7 @@ bool VentaArchivo::restaurarBackup(){
 
     int bytesLeidos ;
 
-    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0)
-    {
+    while ((bytesLeidos = fread(temporal, 1, 1024, pArchivoBkp)) > 0){
 
         fwrite(temporal, 1, bytesLeidos, pArchivoOriginal) ;
     }

@@ -8,8 +8,7 @@
 #include "DetalleVentaArchivo.h"
 
 
-class Venta
-{
+class Venta{
 
 private:
 
@@ -33,8 +32,6 @@ private:
 
 
 public:
-
-
 
     Venta() ;
 
@@ -82,7 +79,5 @@ public:
 
     void mostrarVenta() ;
 
-
-
-};
+} ;
 

@@ -2,42 +2,39 @@
 #include "Cliente.h"
 #include <cstdio>
 
-class ClienteArchivo
-{
+class ClienteArchivo{
 
 private:
 
     const char *archivo_Cliente = "Clientes.dat" ;
 
-    const char *archivo_Cliente_Backup = "Clientes_Backup.bkp";
+    const char *archivo_Cliente_Backup = "Clientes_Backup.bkp" ;
 
 public:
 
+    bool guardar(const Cliente &reg) ;
 
-    bool guardar (const Cliente &reg) ;
-
-    bool bajaLogica (int id_persona) ;
+    bool bajaLogica(int id_persona) ;
 
     bool altaLogica(int id_persona) ;
 
-    Cliente leer (int pos) ;
+    Cliente leer(int pos) ;
 
-    bool modificar (const Cliente &reg) ;
+    bool modificar(const Cliente &reg) ;
 
-    void modificarCampo ();
+    void modificarCampo() ;
 
-    int getCantidadRegistros () ;
+    int getCantidadRegistros() ;
 
-    int buscarPosicion (int id_persona) ;
+    int buscarPosicion(int id_persona) ;
 
-    bool validarCUIT (std::string cuit) ;
+    bool validarCUIT(std::string cuit) ;
 
-    int verificarID (int idcliente);
+    int verificarID(int idcliente);
 
+    bool hacerBackup() ;
 
-    bool hacerBackup ();
-
-    bool restaurarBackup ();
+    bool restaurarBackup() ;
 
 } ;
 

@@ -2,9 +2,7 @@
 #include "Fecha.h"
 
 
-class Envio
-{
-
+class Envio{
 
 public:
 
@@ -26,7 +24,7 @@ public:
 
     void setID_Envio(int idEnvio) ;
 
-    void setID_Venta(int id_venta);
+    void setID_Venta(int id_venta) ;
 
     void setFecha_Entrega(const Fecha& fecha) ;
 
@@ -55,8 +53,4 @@ private:
 
     bool estado ;
 
-
-
-
-
-};
+} ;

@@ -2,8 +2,7 @@
 #include "Persona.h"
 
 
-class Proveedor : public Persona
-{
+class Proveedor : public Persona{
 
 private:
 
@@ -13,23 +12,22 @@ private:
 
 public:
 
+    Proveedor() ;
 
-    Proveedor () ;
+    Proveedor(int tipo_proveedor) ;
 
-    Proveedor (int tipo_proveedor) ;
+    int getTipo_proveedor() ;
 
-    int getTipo_proveedor () ;
+    std::string getMail() const ;
 
-    std::string getMail () const ;
+    void setTipo_proveedor(int tipo_proveedor) ;
 
-    void setTipo_proveedor (int tipo_proveedor) ;
+    void setMail(std::string mail) ;
 
-    void setMail (std::string mail) ;
+    void cargar() ;
 
-    void cargar () ;
+    void mostrar() ;
 
-    void mostrar () ;
-
-};
+} ;
 
 

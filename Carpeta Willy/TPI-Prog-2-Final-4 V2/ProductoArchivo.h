@@ -2,11 +2,9 @@
 #include "Producto.h"
 #include <cstdio>
 
-class ProductoArchivo
-{
+class ProductoArchivo{
 
 public:
-
 
     bool guardar(const Producto &reg) ;
 
@@ -30,21 +28,19 @@ public:
 
     bool validarMarca(const std::string &marca) ;
 
-    void modificarCampos();
+    void modificarCampos() ;
 
-    bool MarcaPorID(int idBuscado, char* marcaDestino, int tam);
+    bool MarcaPorID(int idBuscado, char* marcaDestino, int tam)  ;
 
-    // Backups
+    bool hacerBackup() ;
 
-    bool hacerBackup ();
-
-    bool restaurarBackup ();
+    bool restaurarBackup() ;
 
 
 private:
 
     const char *archivo_Producto = "Productos.dat" ;
 
-    const char *archivo_Producto_Backup = "Productos_Backup.bkp";
+    const char *archivo_Producto_Backup = "Productos_Backup.bkp" ;
 
-};
+} ;

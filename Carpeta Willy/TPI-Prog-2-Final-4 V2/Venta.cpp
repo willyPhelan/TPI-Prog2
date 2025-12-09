@@ -19,10 +19,7 @@ Venta::Venta(int id_cliente, int id_venta, int id_persona, const Fecha &_fechaVe
 ID_persona.setID(id_persona) ; }
 
 
-int Venta::getID_Venta() const{
-
-    return ID_Venta ;
-}
+int Venta::getID_Venta() const { return ID_Venta ; }
 
 int Venta::getID_Cliente(){ return ID_Cliente ; }
 

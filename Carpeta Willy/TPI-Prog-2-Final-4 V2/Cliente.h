@@ -1,9 +1,7 @@
 #pragma once
 #include "Persona.h"
 
-
-class Cliente : public Persona
-{
+class Cliente : public Persona{
 
 private:
 
@@ -17,13 +15,13 @@ public:
 
     Cliente (std::string mail, int tipo_Cliente) ;
 
-    std::string getMail () ;
+    std::string getMail() ;
 
     int getTipo_Cliente() ;
 
-    void setMail (std::string mail) ;
+    void setMail(std::string mail) ;
 
-    void setTipo_Cliente (int tipo_Cliente) ;
+    void setTipo_Cliente(int tipo_Cliente) ;
 
     void cargar() ;
 

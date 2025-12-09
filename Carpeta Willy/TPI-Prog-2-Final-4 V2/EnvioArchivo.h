@@ -4,8 +4,7 @@
 #include "Venta.h"
 #include "VentaArchivo.h"
 
-class EnvioArchivo
-{
+class EnvioArchivo{
 
 public:
 
@@ -29,13 +28,13 @@ public:
 
     void modificarCampos() ;
 
-    bool hacerBackup ();
+    bool hacerBackup() ;
 
-    bool restaurarBackup ();
+    bool restaurarBackup();
 
 private:
 
     const char* archivo_Envio = "Envios.dat" ;
 
     const char *archivo_Envio_Backup = "Envios_Backup.bkp";
-};
+} ;

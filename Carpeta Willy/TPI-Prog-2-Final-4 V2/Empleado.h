@@ -1,8 +1,7 @@
 #pragma once
 #include "Persona.h"
 
-class Empleado : public Persona
-{
+class Empleado : public Persona{
 
 private:
 
@@ -11,7 +10,6 @@ private:
     int horas_Trabajo ;
 
 public:
-
 
     Empleado() ;
 
@@ -25,9 +23,9 @@ public:
 
     void setHoras_Trabajo(int horas_Trabajo) ;
 
-    void cargar () ;
+    void cargar() ;
 
-    void mostrar () ;
-};
+    void mostrar() ;
+} ;
 
 

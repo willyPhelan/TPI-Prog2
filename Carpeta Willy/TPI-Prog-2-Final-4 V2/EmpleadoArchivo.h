@@ -2,42 +2,39 @@
 #include "Empleado.h"
 #include <cstdio>
 
-class EmpleadoArchivo
-{
+class EmpleadoArchivo{
 
 private:
 
     const char *archivo_Empleado = "Empleados.dat" ;
 
-    const char *archivo_Empleado_Backup = "Empleados_Backup.bkp";
+    const char *archivo_Empleado_Backup = "Empleados_Backup.bkp" ;
 
 public:
 
+    bool guardar(const Empleado &reg) ;
 
-
-    bool guardar (const Empleado &reg) ;
-
-    bool bajaLogica (int id_persona) ;
+    bool bajaLogica(int id_persona) ;
 
     bool altaLogica(int id_persona) ;
 
-    Empleado leer (int pos) ;
+    Empleado leer(int pos) ;
 
-    bool modificar (const Empleado &reg) ;
+    bool modificar(const Empleado &reg) ;
 
-    void modificarCampo ();
+    void modificarCampo() ;
 
-    int getCantidadRegistros () ;
+    int getCantidadRegistros() ;
 
-    int buscarPosicion (int id_persona) ;
+    int buscarPosicion(int id_persona) ;
 
-    bool validarCUIT (std::string cuit);
+    bool validarCUIT(std::string cuit) ;
 
-    void calcularEmpleadosConMasHoras ();
+    void calcularEmpleadosConMasHoras() ;
 
-    bool hacerBackup ();
+    bool hacerBackup() ;
 
-    bool restaurarBackup ();
+    bool restaurarBackup() ;
 
 } ;
 

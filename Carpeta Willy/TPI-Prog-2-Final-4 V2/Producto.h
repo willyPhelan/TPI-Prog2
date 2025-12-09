@@ -3,8 +3,7 @@
 #include "Proveedor.h"
 #include "ProveedorArchivo.h"
 
-class Producto
-{
+class Producto{
 
 private:
 
@@ -27,7 +26,6 @@ private:
     bool estado ;
 
 public:
-
 
     Producto() ;
 
@@ -73,7 +71,6 @@ public:
 
     void mostrar() ;
 
-
-};
+} ;
 
 

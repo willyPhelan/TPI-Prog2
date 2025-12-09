@@ -1,20 +1,13 @@
 #pragma once
 #include "ProductoArchivo.h"
 
-class Detalle_Venta
-{
+class Detalle_Venta{
 
 public:
 
-
-
     Detalle_Venta() ;
 
-
-
     Detalle_Venta(int idDetalle, int idProducto, int idVenta, int cantidad, float precio, bool activo = true) ;
-
-
 
     int getID_Detalle() const ;
 
@@ -62,4 +55,4 @@ private:
 
 
 
-};
+} ;

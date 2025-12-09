@@ -2,41 +2,39 @@
 #include "Proveedor.h"
 #include <cstdio>
 
-class ProveedorArchivo
-{
+class ProveedorArchivo{
+
 private:
 
-    const char *archivo_Proveedor = "Proveedores.dat";
+    const char *archivo_Proveedor = "Proveedores.dat" ;
 
-    const char *archivo_Proveedor_Backup = "Proveedores_Backup.bkp";
+    const char *archivo_Proveedor_Backup = "Proveedores_Backup.bkp" ;
 
 public:
 
 
-    bool guardar (const Proveedor &reg);
+    bool guardar(const Proveedor &reg) ;
 
-    bool bajaLogica (int id_persona);
+    bool bajaLogica(int id_persona) ;
 
     bool altaLogica(int id_persona) ;
 
-    Proveedor leer (int pos);
+    Proveedor leer(int pos) ;
 
-    bool modificar (const Proveedor &reg);
+    bool modificar(const Proveedor &reg) ;
 
-    void modificarCampo ();
+    void modificarCampo() ;
 
-    int getCantidadRegistros ();
+    int getCantidadRegistros() ;
 
-    int buscarPosicion (int id_persona);
+    int buscarPosicion(int id_persona) ;
 
-    bool validarCUIT (std::string cuit);
+    bool validarCUIT(std::string cuit) ;
 
+    bool hacerBackup() ;
 
+    bool restaurarBackup() ;
 
-    bool hacerBackup ();
-
-    bool restaurarBackup ();
-
-};
+} ;
 
 

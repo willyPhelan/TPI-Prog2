@@ -1,16 +1,14 @@
 #pragma once
 #include "Detalle_Venta.h"
-
 #include <cstdio>
 
+class DetalleVentaArchivo{
 
-class DetalleVentaArchivo
-{
 private:
 
-    const char* archivo_DetalleVenta = "DetalleVenta.dat";
+    const char* archivo_DetalleVenta = "DetalleVenta.dat" ;
 
-    const char *archivo_DetalleVenta_Backup = "DetalleVenta_Backup.bkp";
+    const char *archivo_DetalleVenta_Backup = "DetalleVenta_Backup.bkp" ;
 
 public:
 
@@ -20,27 +18,27 @@ public:
 
     bool bajaLogica(int idDetalle) ;
 
-    bool darDealta(int idDetalle);
+    bool darDealta(int idDetalle) ;
 
-    bool modificar(const Detalle_Venta &reg);
+    bool modificar(const Detalle_Venta &reg) ;
 
-    int obtenerID();
+    int obtenerID() ;
 
-    int getCantidadRegistros();
+    int getCantidadRegistros() ;
 
-    int buscarPosicion(int idDetalle);
+    int buscarPosicion(int idDetalle) ;
 
-    int buscarIndiceDeMarca(const char* marcaBuscada, char** marcas, int tamActual);
+    int buscarIndiceDeMarca(const char* marcaBuscada, char** marcas, int tamActual) ;
 
     void generarReporteRecaudacionPorProducto() ;
 
-    void reportePorMarca ();
+    void reportePorMarca() ;
 
-    void generarReporteRecaudacionPorTipoProducto ();
+    void generarReporteRecaudacionPorTipoProducto() ;
 
-    bool hacerBackup ();
+    bool hacerBackup() ;
 
-    bool restaurarBackup ();
+    bool restaurarBackup() ;
 
-};
+} ;
 

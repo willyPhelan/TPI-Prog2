@@ -3,13 +3,11 @@
 
 using namespace std ;
 
-class Fecha
-{
-
+class Fecha{
 
 public:
 
-    Fecha(int _dia=0, int _mes=0, int _anio=0) ;
+    Fecha(int _dia = 0, int _mes = 0, int _anio = 0) ;
 
     void cargar() ;
     bool esCorrecta() ;
@@ -24,7 +22,6 @@ public:
     int getAnio() ;
 
     bool esMayorOIgualA(const Fecha &otraFecha) const ;
-
 
 private:
 

@@ -4,14 +4,13 @@
 #include <cstdio>
 
 
-class VentaArchivo
-{
+class VentaArchivo {
 
 private:
 
     const char *archivo_Venta = "Ventas.dat" ;
 
-    const char *archivo_Venta_Backup = "Ventas_Backup.bkp";
+    const char *archivo_Venta_Backup = "Ventas_Backup.bkp" ;
 
 public:
 
@@ -35,14 +34,14 @@ public:
 
     void actualizarEnvioCondicional(Venta& venta_modificar, int nuevo_tipo_envio) ;
 
-    void calcularRecaudacionPorCliente () ;
+    void calcularRecaudacionPorCliente() ;
 
-    void reporteCantidadPorMedioPago();
+    void reporteCantidadPorMedioPago() ;
 
-    float calcularRecaudacion (int anio);
+    float calcularRecaudacion(int anio) ;
 
-    bool hacerBackup ();
+    bool hacerBackup() ;
 
-    bool restaurarBackup ();
+    bool restaurarBackup() ;
 
-};
+} ;
